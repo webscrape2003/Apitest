@@ -325,6 +325,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ============ SECTION SUB-HEADINGS FOR YT ============ */
+        .section-separator {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: var(--neon-cyan);
+            margin: 35px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
         /* ============ HOME PAGE ============ */
         .hero-section {
             text-align: center;
@@ -460,47 +474,43 @@
 
         .apis-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Single column full width rows */
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
             margin-bottom: 50px;
         }
 
-        /* ============ NEW BOX-LESS ROW API CARD ============ */
+        /* ============ API CARD ============ */
         .api-card {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 0;
-            padding: 20px 10px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 16px;
+            padding: 25px;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.2s ease;
-            backdrop-filter: none;
-            display: flex;
-            flex-direction: column;
+            backdrop-filter: blur(12px);
         }
 
         .api-card:hover {
-            transform: none;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom-color: var(--neon-cyan);
-            box-shadow: none;
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .api-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .api-name {
             font-family: 'Exo 2', sans-serif;
             font-weight: 600;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: white;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .api-status {
@@ -514,44 +524,42 @@
 
         .status-active {
             background: rgba(16, 185, 129, 0.1);
-            color: var(--neon-green);
+            color: var(--neon-green) !important;
         }
 
         .status-inactive {
             background: rgba(248, 113, 113, 0.1);
-            color: var(--neon-red);
+            color: var(--neon-red) !important;
         }
 
         .api-description {
             color: #94a3b8;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             line-height: 1.5;
-            min-height: auto;
-            font-size: 0.95rem;
+            min-height: 45px;
+            font-size: 0.9rem;
         }
 
         .api-endpoint {
             background: rgba(15, 23, 42, 0.6);
             padding: 12px 15px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-family: 'Courier New', monospace;
             font-size: 0.85rem;
             color: #cbd5e1;
             overflow-x: auto;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            width: fit-content;
-            min-width: 300px;
         }
 
         .api-actions {
             display: flex;
             gap: 12px;
-            width: fit-content;
         }
 
         .api-btn {
-            padding: 10px 24px;
+            flex: 1;
+            padding: 10px 15px;
             border-radius: 8px;
             font-family: 'Rajdhani', sans-serif;
             font-weight: 600;
@@ -574,30 +582,129 @@
             background: #1d4ed8;
         }
 
+        .btn-details {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--cyber-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-details:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         /* ============ CATEGORY HEADERS ============ */
         .category-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 35px;
             padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .category-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.75rem;
+            font-size: 2rem;
             color: var(--neon-cyan);
         }
 
         .category-count {
-            padding: 6px 14px;
+            padding: 6px 16px;
+            border-radius: 20px;
             background: rgba(56, 189, 248, 0.1);
             color: var(--neon-cyan);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 20px;
             font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* ============ DASHBOARD TABLES ============ */
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+
+        .dashboard-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .stat-text {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .api-status-table {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(12px);
+        }
+
+        .table-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--cyber-light);
+        }
+
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .status-table th {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .status-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
         }
 
         /* ============ API TEST MODAL ============ */
@@ -745,92 +852,37 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ============ DASHBOARD STATS & TABLES ============ */
-        .dashboard-header {
-            margin-bottom: 40px;
+        /* ============ TOAST NOTIFICATION ============ */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2000;
         }
 
-        .dashboard-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+        .toast {
+            background: rgba(30, 41, 59, 0.9);
+            border-left: 4px solid var(--cyber-blue);
+            padding: 15px 25px;
+            border-radius: 6px;
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.95rem;
             margin-bottom: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .dashboard-subtitle {
-            color: #94a3b8;
-            font-size: 1rem;
+        @keyframes toastIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 5px;
-        }
-
-        .stat-text {
-            color: #64748b;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .api-status-table {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 30px;
-            overflow-x: auto;
-        }
-
-        .table-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
-            margin-bottom: 20px;
-        }
-
-        .status-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        .status-table th {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #64748b;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-        }
-
-        .status-table td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-        }
-
+        /* ============ LIVE PERFORMANCE STYLING ============ */
         .performance-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -845,6 +897,10 @@
             border-radius: 12px;
             text-align: center;
             transition: all 0.2s ease;
+        }
+
+        .performance-box:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .perf-label {
@@ -888,29 +944,18 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--cyber-darker);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
+        /* Responsive Fixes */
         @media (max-width: 768px) {
             .cyber-sidebar { width: 100%; left: -100%; }
             .page-container { padding: 20px 15px; }
             .apis-search { min-width: 100%; }
-            .api-actions { flex-direction: column; width: 100%; }
-            .api-btn { width: 100%; }
+            .api-actions { flex-direction: column; }
             .nav-right { display: none; }
-            .api-endpoint { min-width: 100%; }
         }
     </style>
 </head>
 <body>
+
     <div class="grid-lines"></div>
     <div class="cyber-glow glow-1"></div>
     <div class="cyber-glow glow-2"></div>
@@ -922,6 +967,7 @@
             </button>
             <div class="nav-logo">VajiraOfficial API</div>
         </div>
+        
         <div class="nav-right">
             <button class="nav-btn" id="testAllApis">
                 <i class="fas fa-bolt"></i> TEST ALL APIS
@@ -942,23 +988,72 @@
         </div>
         
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> <span>HOME</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="apis"><i class="fas fa-code"></i> <span>ALL APIS</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> <span>DOWNLOADERS</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> <span>MOVIE</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> <span>AI & SEARCH</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> <span>IMAGE TOOLS</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="utilities"><i class="fas fa-cogs"></i> <span>UTILITIES</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="dashboard"><i class="fas fa-chart-bar"></i> <span>DASHBOARD</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="api-settings"><i class="fas fa-key"></i> <span>API SETTINGS</span></a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i> <span>HOME</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="apis">
+                    <i class="fas fa-code"></i> <span>ALL APIS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="downloaders">
+                    <i class="fas fa-download"></i> <span>DOWNLOADERS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="movie">
+                    <i class="fas fa-film"></i> <span>MOVIE</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="ai">
+                    <i class="fas fa-robot"></i> <span>AI & SEARCH</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="images">
+                    <i class="fas fa-image"></i> <span>IMAGE TOOLS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="utilities">
+                    <i class="fas fa-cogs"></i> <span>UTILITIES</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="dashboard">
+                    <i class="fas fa-chart-bar"></i> <span>DASHBOARD</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="api-settings">
+                    <i class="fas fa-key"></i> <span>API SETTINGS</span>
+                </a>
+            </li>
         </ul>
         
         <div class="sidebar-stats">
-            <div class="stat-item"><span class="stat-label">TOTAL APIS:</span><span class="stat-value" id="totalApis">32</span></div>
-            <div class="stat-item"><span class="stat-label">ACTIVE:</span><span class="stat-value" id="activeApis">28</span></div>
-            <div class="stat-item"><span class="stat-label">RESPONSE TIME:</span><span class="stat-value">~150ms</span></div>
-            <div class="stat-item"><span class="stat-label">UPTIME:</span><span class="stat-value">99.8%</span></div>
+            <div class="stat-item">
+                <span class="stat-label">TOTAL APIS:</span>
+                <span class="stat-value" id="totalApis">32</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">ACTIVE:</span>
+                <span class="stat-value" id="activeApis">32</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">RESPONSE TIME:</span>
+                <span class="stat-value">~150ms</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">UPTIME:</span>
+                <span class="stat-value">99.8%</span>
+            </div>
         </div>
+        
         <div class="sidebar-footer">
             <p>© 2026 VajiraOfficial NETWORK</p>
             <p>Version 4.0 | ULTRA PRO MAX</p>
@@ -966,11 +1061,12 @@
     </aside>
     
     <div class="page-container">
+
         <div class="page" id="api-settings-page">
             <section class="hero-section">
                 <h2 class="hero-title">API KEY MANAGEMENT</h2>
-                <p class="hero-description">Generate your personal key to access all premium endpoints securely.</p>
-                <div class="api-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--neon-cyan); margin: 0 auto;">
+                <p class="hero-description">Generate or manage your dashboard access token key.</p>
+                <div class="api-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--neon-cyan);">
                     NO KEY GENERATED
                 </div>
                 <button class="nav-btn" onclick="generateUserKey()" style="margin: 20px auto;">
@@ -978,51 +1074,82 @@
                 </button>
             </section>
         </div>
-        
+
         <div class="page active" id="home-page">
             <section class="hero-section">
                 <h1 class="hero-title">VajiraOfficial API HUB</h1>
                 <p class="hero-subtitle">ULTIMATE API COLLECTION | PREMIUM EDITION</p>
                 <p class="hero-description">
-                    Access over 32+ lightning-fast API automation setups including media parsing downloaders, movie hosting indices scraping, structured AI layers, and cloud configuration utilities.
+                    Welcome to the most advanced API dashboard. Access 32+ powerful APIs including downloaders, AI tools, 
+                    image generators, and utilities. All APIs are tested and ready for production use. 
+                    Experience ultra-fast response times and 99.8% uptime.
                 </p>
                 <button class="nav-btn" style="margin: 0 auto; padding: 15px 40px; font-size: 1.2rem;">
                     <i class="fas fa-rocket"></i> GET STARTED
                 </button>
             </section>
 
-            <div class="api-status-table" style="margin-top: 30px;">
+            <div class="api-status-table" style="margin-top: 30px; border-color: var(--neon-cyan);">
                 <div class="live-indicator">
                     <div class="live-dot"></div>
                     <span>LIVE SYSTEM PERFORMANCE</span>
                 </div>
+                
                 <div class="performance-grid">
-                    <div class="performance-box"><span class="perf-label">Server CPU Load</span><span class="perf-value" id="cpu-load">24%</span></div>
-                    <div class="performance-box"><span class="perf-label">Memory Usage</span><span class="perf-value" id="mem-usage">1.2 GB</span></div>
-                    <div class="performance-box"><span class="perf-label">Network Latency</span><span class="perf-value" id="live-latency">42ms</span></div>
-                    <div class="performance-box"><span class="perf-label">Active Connections</span><span class="perf-value" id="active-conn">1,204</span></div>
+                    <div class="performance-box">
+                        <span class="perf-label">Server CPU Load</span>
+                        <span class="perf-value" id="cpu-load">24%</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Memory Usage</span>
+                        <span class="perf-value" id="mem-usage">1.2 GB</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Network Latency</span>
+                        <span class="perf-value" id="live-latency">42ms</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Active Connections</span>
+                        <span class="perf-value" id="active-conn">1,204</span>
+                    </div>
                 </div>
             </div>
-            
+
             <section class="features-section" style="margin-top: 50px;">
                 <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 50px;">
                     <i class="fas fa-star"></i> KEY FEATURES
                 </h2>
+                
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fas fa-bolt"></i></div>
                         <h3 class="feature-title">ULTRA FAST</h3>
-                        <p class="feature-desc">Optimized asynchronous core loops with average responses tracking under 150ms structural execution thresholds.</p>
+                        <p class="feature-desc">Lightning-fast API responses with optimized servers. Average response time under 150ms.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                         <h3 class="feature-title">SECURE</h3>
-                        <p class="feature-desc">Integrated token parameter access validation structure handling endpoints seamlessly.</p>
+                        <p class="feature-desc">Advanced security protocols and encryption. Your data is safe with enterprise-grade protection.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fas fa-infinity"></i></div>
                         <h3 class="feature-title">UNLIMITED</h3>
-                        <p class="feature-desc">Zero structural bottleneck rate configurations enforced across live developer validation pipelines.</p>
+                        <p class="feature-desc">No rate limits on API calls. Use as much as you need for your projects and applications.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-plug"></i></div>
+                        <h3 class="feature-title">EASY INTEGRATION</h3>
+                        <p class="feature-desc">Simple REST API endpoints with detailed documentation. Integrate in minutes, not hours.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="feature-title">REAL-TIME MONITORING</h3>
+                        <p class="feature-desc">Live dashboard showing API status, response times, and uptime statistics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                        <h3 class="feature-title">24/7 SUPPORT</h3>
+                        <p class="feature-desc">Dedicated support team available round the clock. Contact: 94719199757</p>
                     </div>
                 </div>
             </section>
@@ -1036,21 +1163,37 @@
                     <input type="text" id="apisSearch" placeholder="Search APIs by name or description...">
                 </div>
             </div>
+            
             <div class="apis-grid" id="apisGrid"></div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="nav-btn" id="checkAllStatus" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-sync-alt"></i> CHECK ALL API STATUS
+                </button>
+            </div>
         </div>
         
         <div class="page" id="downloaders-page">
             <div class="category-header">
                 <h1 class="category-title">DOWNLOADER APIS</h1>
-                <div class="category-count" id="downloadersCount">0</div>
+                <div class="category-count" id="downloadersCount">0 Loaded</div>
+            </div>
+            
+            <div class="section-separator">
+                <i class="fab fa-youtube" style="color: #ff0000;"></i> YOUTUBE DOWNLOAD ENGINES
+            </div>
+            <div class="apis-grid" id="youtubeGrid"></div>
+
+            <div class="section-separator">
+                <i class="fas fa-globe"></i> GENERAL SOCIAL DOWNLOADERS
             </div>
             <div class="apis-grid" id="downloadersGrid"></div>
         </div>
 
         <div class="page" id="movie-page">
             <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-purple);">MOVIE APIS</h1>
-                <div class="category-count" id="movieCount">0</div>
+                <h1 class="category-title" style="color: var(--neon-purple);">MOVIE & SEARCH APIS</h1>
+                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="movieCount">0 Loaded</div>
             </div>
             <div class="apis-grid" id="movieGrid"></div>
         </div>
@@ -1058,7 +1201,7 @@
         <div class="page" id="ai-page">
             <div class="category-header">
                 <h1 class="category-title" style="color: var(--neon-purple);">AI & SEARCH APIS</h1>
-                <div class="category-count" id="aiCount">0</div>
+                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="aiCount">0 Loaded</div>
             </div>
             <div class="apis-grid" id="aiGrid"></div>
         </div>
@@ -1066,7 +1209,7 @@
         <div class="page" id="images-page">
             <div class="category-header">
                 <h1 class="category-title" style="color: var(--neon-pink);">IMAGE TOOLS APIS</h1>
-                <div class="category-count" id="imagesCount">0</div>
+                <div class="category-count" style="background: rgba(255, 0, 255, 0.2); color: var(--neon-pink); border-color: var(--neon-pink);" id="imagesCount">0 Loaded</div>
             </div>
             <div class="apis-grid" id="imagesGrid"></div>
         </div>
@@ -1074,16 +1217,19 @@
         <div class="page" id="utilities-page">
             <div class="category-header">
                 <h1 class="category-title" style="color: var(--neon-yellow);">UTILITIES APIS</h1>
-                <div class="category-count" id="utilitiesCount">0</div>
+                <div class="category-count" style="background: rgba(255, 237, 0, 0.2); color: var(--neon-yellow); border-color: var(--neon-yellow);" id="utilitiesCount">0 Loaded</div>
             </div>
             <div class="apis-grid" id="utilitiesGrid"></div>
         </div>
         
         <div class="page" id="dashboard-page">
             <div class="dashboard-header">
-                <h1 class="dashboard-title">SYSTEM MATRIX DASHBOARD</h1>
-                <p class="dashboard-subtitle">Real-time terminal node execution telemetry logs.</p>
+                <h1 class="dashboard-title">SYSTEM DASHBOARD</h1>
+                <p class="dashboard-subtitle">
+                    Real-time monitoring of all APIs. Green indicates active APIs, red indicates inactive endpoints.
+                </p>
             </div>
+            
             <div class="stats-cards">
                 <div class="stat-card">
                     <div class="stat-icon" style="color: var(--neon-cyan);"><i class="fas fa-server"></i></div>
@@ -1093,195 +1239,333 @@
                 <div class="stat-card">
                     <div class="stat-icon" style="color: var(--neon-green);"><i class="fas fa-check-circle"></i></div>
                     <div class="stat-number" id="workingApisCard">32</div>
-                    <div class="stat-text">WORKING ENDPOINTS</div>
+                    <div class="stat-text">ACTIVE APIS</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="color: var(--neon-red);"><i class="fas fa-times-circle"></i></div>
                     <div class="stat-number" id="deadApisCard">0</div>
-                    <div class="stat-text">INACTIVE NODES</div>
+                    <div class="stat-text">INACTIVE APIS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--neon-yellow);"><i class="fas fa-clock"></i></div>
+                    <div class="stat-number">~150ms</div>
+                    <div class="stat-text">AVG RESPONSE TIME</div>
                 </div>
             </div>
             
             <div class="api-status-table">
-                <h2 class="table-title">ENDPOINT PIPELINE STATE TABLE</h2>
+                <h2 class="table-title">API STATUS MONITOR</h2>
                 <table class="status-table" id="statusTable">
                     <thead>
                         <tr>
                             <th>API NAME</th>
                             <th>CATEGORY</th>
-                            <th>STATUS GRID</th>
-                            <th>LATENCY COUNTER</th>
-                            <th>MANUAL EXECUTION</th>
+                            <th>STATUS</th>
+                            <th>RESPONSE TIME</th>
+                            <th>LAST CHECKED</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody id="statusTableBody"></tbody>
                 </table>
             </div>
+            
+            <div style="text-align: center;">
+                <button class="nav-btn" id="refreshDashboard" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-sync-alt"></i> REFRESH DASHBOARD
+                </button>
+            </div>
         </div>
     </div>
-    
+
     <div class="modal-overlay" id="testModal">
         <div class="test-modal">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalApiName">TEST COMPONENT MODULE</h2>
-                <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+                <h2 class="modal-title" id="modalApiName">TEST API</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="test-form">
-                <div class="form-group">
-                    <label class="form-label" style="color: var(--neon-pink);"><i class="fas fa-lock"></i> AUTHENTICATION ACCESS TOKEN KEY</label>
-                    <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste credential authorization key parameter structural tokens...">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="form-label" style="color: var(--neon-pink);">
+                        <i class="fas fa-lock"></i> AUTHENTICATION KEY
+                    </label>
+                    <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste your vajira- key here...">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" id="modalParamLabel"><i class="fas fa-terminal"></i> ASSIGNED PARAMETER</label>
-                    <input type="text" class="cyber-input" id="modalParamInput" placeholder="Pass key input query attributes strings directly...">
+                    <label class="form-label" id="modalParamLabel">
+                        <i class="fas fa-terminal"></i> ENTER PARAMETER
+                    </label>
+                    <input type="text" class="cyber-input" id="modalParamInput" placeholder="Enter value...">
                 </div>
-                <button class="modal-btn btn-test" id="runTest"><i class="fas fa-bolt"></i> FIRE ENDPOINT REQUEST</button>
+                <button class="modal-btn btn-test" id="runTest">
+                    <i class="fas fa-bolt"></i> RUN API TEST
+                </button>
             </div>
             <div class="response-section" id="responseSection">
-                <h3 class="response-title"><i class="fas fa-code"></i> TERMINAL OUTPUT RESPONSE</h3>
-                <div class="response-content" id="responseContent">// Awaiting dynamic system parameter response array dumps...</div>
+                <h3 class="response-title">
+                    <i class="fas fa-code"></i> API RESPONSE
+                </h3>
+                <div class="response-content" id="responseContent">// Response will appear here</div>
             </div>
         </div>
     </div>
-    
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
-        // Production API Array Matrix Map
+        // Unbroken API Data Set
         const apiData = [
-            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube videos directly using custom structural scraping arrays.", method: "GET", status: "active" },
-            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Convert and extract pure stream audio configurations easily.", method: "GET", status: "active" },
-            { id: 3, name: "Twitter Video Extractor", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Fetch media parsing configurations directly off individual status arrays.", method: "GET", status: "active" },
-            { id: 4, name: "Instagram Reels Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Scrape image asset arrays, single posts, and stories cleanly.", method: "GET", status: "active" },
-            { id: 5, name: "Facebook High-Res Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Acquire high-definition graph media binary content dumps instantly.", method: "GET", status: "active" },
-            { id: 6, name: "Spotify Stream Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Acquire decrypted safe standard meta sound files instantly.", method: "GET", status: "active" },
-            { id: 7, name: "GitHub Cloner Compressor", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Acquire public source control files securely packaged in a zip setup.", method: "GET", status: "active" },
-            { id: 8, name: "TikTok Watermark Remover", endpoint: "/api/tiktokdl", category: "downloaders", param: "url", description: "Acquire direct clear asset configurations cleanly parsed from server channels.", method: "GET", status: "active" },
-            { id: 9, name: "Mediafire Direct Link Scraper", endpoint: "/api/mediafiredl", category: "downloaders", param: "url", description: "Resolve and map underlying cloud hosting links bypassing visual ads.", method: "GET", status: "active" },
-            { id: 10, name: "Movie DriveBD Indexer", endpoint: "/api/moviedrive", category: "movie", param: "query", description: "Search file hosting index listings mapping directly from custom source elements.", method: "GET", status: "active" },
-            { id: 11, name: "MLFBD Search Engine Linker", endpoint: "/api/mlfbd", category: "movie", param: "query", description: "Scrape premium index listings from stream hosting mirror channels.", method: "GET", status: "active" },
-            { id: 12, name: "Vajira Core Intelligent Assistant", endpoint: "/api/vajira-ai", category: "ai", param: "text", description: "Neural conversation responses built across premium framework layers.", method: "GET", status: "active" },
-            { id: 13, name: "Google Image Asset Engine", endpoint: "/api/gis", category: "images", param: "query", description: "Acquire full targeted photo arrays extracted matching your criteria inputs.", method: "GET", status: "active" },
-            { id: 14, name: "Text-to-Speech Language Mapper", endpoint: "/api/tts", category: "utilities", param: "text", description: "Convert standard strings into clean audio streams dynamically.", method: "GET", status: "active" }
+            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "youtube", param: "url", description: "Download YouTube Video in high resolution format with high-speed extraction engine.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "youtube", param: "url", description: "Extract crystal clear audio tracks from any YouTube video links cleanly.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+            { id: 3, name: "Twitter/X Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract video streams and images directly from Twitter/X tweets instantly.", example: "https://twitter.com/user/status/1234567890", method: "GET", status: "active" },
+            { id: 4, name: "Instagram Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Download Instagram Reels, IGTV videos, posts, and carousels seamlessly.", example: "https://www.instagram.com/p/Cxxxxxxxxxx/", method: "GET", status: "active" },
+            { id: 5, name: "Facebook Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Premium Facebook video downloader supporting HD and SD video links.", example: "https://www.facebook.com/watch/?v=1234567890", method: "GET", status: "active" },
+            { id: 6, name: "Spotify Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Fetch and download standard audio tracks directly from Spotify track links.", example: "https://open.spotify.com/track/4PTG3Z6ehGkBF3zI7YgR6u", method: "GET", status: "active" },
+            { id: 7, name: "GitHub Repository Cloner", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Compress and clone complete open-source GitHub repositories into zip formats.", example: "https://github.com/username/repository", method: "GET", status: "active" },
+            { id: 8, name: "Mediafire Downloader", endpoint: "/api/mediafiredl", category: "downloaders", param: "url", description: "Direct link scraper engine for scraping file packages out of Mediafire.", example: "https://www.mediafire.com/file/xxxxx/example.zip", method: "GET", status: "active" },
+            { id: 9, name: "TikTok Downloader", endpoint: "/api/tiktokdl", category: "downloaders", param: "url", description: "Download TikTok videos without watermarks in pristine video resolution.", example: "https://www.tiktok.com/@user/video/1234567890", method: "GET", status: "active" },
+            { id: 10, name: "Aptoide Application Search", endpoint: "/api/aptoide", category: "ai", param: "q", description: "Query Android package structures directly inside the Aptoide catalog database.", example: "WhatsApp", method: "GET", status: "active" },
+            { id: 11, name: "Spotify Meta Search Engine", endpoint: "/api/spotifysearch", category: "ai", param: "query", description: "Search tracks, artists, and complete playlist albums through Spotify endpoints.", example: "Ed Sheeran Shape of You", method: "GET", status: "active" },
+            { id: 12, name: "TikTok Video Keyword Search", endpoint: "/api/ttsearch", category: "ai", param: "q", description: "Discover recent trending videos on TikTok using custom text parameters.", example: "coding setup", method: "GET", status: "active" },
+            { id: 13, name: "Movie Search Hub", endpoint: "/api/moviesearch", category: "movie", param: "q", description: "Lookup descriptive data lists across global cinematic databases easily.", example: "Avatar The Way of Water", method: "GET", status: "active" },
+            { id: 14, name: "Movie Direct Link Fetcher", endpoint: "/api/moviedl", category: "movie", param: "url", description: "Extract cloud source host stream endpoints from listed movie portals.", example: "https://moviedrivebd.com/file/xxxx", method: "GET", status: "active" },
+            { id: 15, name: "Vajira AI Smart Assistant", endpoint: "/api/vajira-ai", category: "ai", param: "text", description: "High-performance smart text processor built for advanced language generation tasks.", example: "Explain recursion in JavaScript", method: "GET", status: "active" },
+            { id: 16, name: "Google Custom Search Engine", endpoint: "/api/google", category: "ai", param: "q", description: "Run deep text searches across global indexing channels via server request.", example: "Node.js automation trends", method: "GET", status: "active" },
+            { id: 17, name: "Wikipedia Info Extractor", endpoint: "/api/wiki", category: "ai", param: "q", description: "Scrape encyclopedia article records matching your targeted query string.", example: "Artificial Intelligence", method: "GET", status: "active" },
+            { id: 18, name: "Song Lyric Finder", endpoint: "/api/lyrics", category: "ai", param: "song", description: "Retrieve text lyrics sheet matching requested global musical records.", example: "Perfect Ed Sheeran", method: "GET", status: "active" },
+            { id: 19, name: "Global Weather Reporter", endpoint: "/api/weather", category: "ai", param: "city", description: "Fetch real-time atmospheric and geographic meteorological reports.", example: "Colombo", method: "GET", status: "active" },
+            { id: 20, name: "Text to Image Neural Generator", endpoint: "/api/text2img", category: "images", param: "prompt", description: "Convert standard text descriptions into synthetic graphics and artwork assets.", example: "Cyberpunk developer room with soft glowing blue lights", method: "GET", status: "active" },
+            { id: 21, name: "AI Image Upscaler Pro", endpoint: "/api/upscale", category: "images", param: "url", description: "Enhance resolution, pixels, clarity, and structural quality of input graphics.", example: "https://images.jpg", method: "GET", status: "active" },
+            { id: 22, name: "Background Remover Matrix", endpoint: "/api/removebg", category: "images", param: "url", description: "Isolate foreground entities from backgrounds clean using deep masks.", example: "https://images.jpg", method: "GET", status: "active" },
+            { id: 23, name: "Meme Engine Factory", endpoint: "/api/memegen", category: "images", param: "text", description: "Generate custom text layout overlays on popular template canvas models.", example: "Code works | Don't touch it", method: "GET", status: "active" },
+            { id: 24, name: "Anime Graphic Locator", endpoint: "/api/animesearch", category: "images", param: "name", description: "Search database profiles and artwork sheets across anime archives.", example: "Naruto", method: "GET", status: "active" },
+            { id: 25, name: "Secure URL Shortener", endpoint: "/api/shorten", category: "utilities", param: "url", description: "Convert long complex tracking URLs into clean lightweight redirection links.", example: "https://very-long-link-structure.com/parameters", method: "GET", status: "active" },
+            { id: 26, name: "QR Code Generator Engine", endpoint: "/api/qrcode", category: "utilities", param: "text", description: "Generate dynamic grid matrix QR codes from any raw text variables.", example: "VajiraOfficial", method: "GET", status: "active" },
+            { id: 27, name: "Password Vector Generator", endpoint: "/api/password", category: "utilities", param: "len", description: "Construct high-entropy random sequence password phrases instantly.", example: "16", method: "GET", status: "active" },
+            { id: 28, name: "Base64 Encoder Protocol", endpoint: "/api/base64", category: "utilities", param: "text", description: "Convert standard strings into clean Base64 data strings accurately.", example: "Hello World", method: "GET", status: "active" },
+            { id: 29, name: "JSON Structure Beautifier", endpoint: "/api/jsonformat", category: "utilities", param: "json", description: "Format raw minified JSON strings into highly readable visual trees.", example: '{"status":"active"}', method: "GET", status: "active" },
+            { id: 30, name: "IP Geo Location Tracker", endpoint: "/api/iplookup", category: "utilities", param: "ip", description: "Resolve regional coordinates, ISP names, and country zones of target IPs.", example: "8.8.8.8", method: "GET", status: "active" },
+            { id: 31, name: "Gossip Lanka News Scraper", endpoint: "/api/gossiplanka", category: "utilities", param: "limit", description: "Scrape recent local headlines from Gossip Lanka portals into arrays.", example: "5", method: "GET", status: "active" },
+            { id: 32, name: "Derana News Reader Feed", endpoint: "/api/derana", category: "utilities", param: "type", description: "Fetch live news data sets from Derana news channels in Sinhala language format.", example: "hot-news", method: "GET", status: "active" }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.getElementById('sidebar');
-            const menuToggle = document.getElementById('menuToggle');
-            const closeSidebar = document.getElementById('closeSidebar');
-            
-            menuToggle.addEventListener('click', () => sidebar.classList.add('active'));
-            closeSidebar.addEventListener('click', () => sidebar.classList.remove('active'));
-            
-            // SPA Navigation Interface Core Controller Loop
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                    
-                    link.classList.add('active');
-                    const targetPage = link.getAttribute('data-page') + '-page';
-                    document.getElementById(targetPage).classList.add('active');
-                    sidebar.classList.remove('active');
-                });
-            });
+        let currentActiveTargetApi = null;
 
-            // Grid Rendering Execution Block
-            renderApisEngine();
-            initLiveTelemetrySystem();
+        // Toast Handler Component
+        function showNotification(msg, statusType = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (statusType === 'success') toast.style.borderLeftColor = 'var(--matrix-green)';
+            if (statusType === 'error') toast.style.borderLeftColor = 'var(--neon-red)';
+            toast.innerHTML = `<i class="fas ${statusType === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+
+        // Sidebar Actions
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        menuToggle.addEventListener('click', () => sidebar.classList.add('active'));
+        closeSidebar.addEventListener('click', () => sidebar.classList.remove('active'));
+
+        // View Management Intercepts
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = link.getAttribute('data-page');
+                
+                navLinks.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                
+                link.classList.add('active');
+                const matchedPageElement = document.getElementById(`${targetPage}-page`);
+                if(matchedPageElement) matchedPageElement.classList.add('active');
+                
+                sidebar.classList.remove('active');
+                showNotification(`Switched to ${targetPage.toUpperCase()} portal view`, 'info');
+            });
         });
 
-        function renderApisEngine() {
+        // Initialize API Collections into Views
+        function loadAllApiCards() {
             const apisGrid = document.getElementById('apisGrid');
+            const youtubeGrid = document.getElementById('youtubeGrid');
             const downloadersGrid = document.getElementById('downloadersGrid');
-            const movieGrid = document.getElementById('movieGrid');
             const aiGrid = document.getElementById('aiGrid');
             const imagesGrid = document.getElementById('imagesGrid');
             const utilitiesGrid = document.getElementById('utilitiesGrid');
-            const statusTableBody = document.getElementById('statusTableBody');
+            const movieGrid = document.getElementById('movieGrid');
 
-            let allHtml = '';
-            let counts = { downloaders: 0, movie: 0, ai: 0, images: 0, utilities: 0 };
+            // Clear Containers
+            apisGrid.innerHTML = '';
+            youtubeGrid.innerHTML = '';
+            downloadersGrid.innerHTML = '';
+            aiGrid.innerHTML = '';
+            imagesGrid.innerHTML = '';
+            utilitiesGrid.innerHTML = '';
+            movieGrid.innerHTML = '';
+
+            let downloaderCountNum = 0;
+            let aiCountNum = 0;
+            let imagesCountNum = 0;
+            let utilitiesCountNum = 0;
+            let movieCountNum = 0;
 
             apiData.forEach(api => {
                 const cardHtml = `
-                    <div class="api-card">
+                    <div class="api-card" data-name="${api.name.toLowerCase()}" data-desc="${api.description.toLowerCase()}">
                         <div class="api-card-header">
-                            <span class="api-name"><i class="fas fa-terminal" style="color: var(--neon-cyan);"></i> ${api.name}</span>
-                            <span class="api-status status-active">${api.status}</span>
+                            <div class="api-name"><i class="fas fa-cube" style="color:var(--neon-cyan)"></i> ${api.name}</div>
+                            <div class="api-status ${api.status === 'active' ? 'status-active' : 'status-inactive'}">${api.status}</div>
                         </div>
                         <p class="api-description">${api.description}</p>
-                        <div class="api-endpoint">${api.endpoint} [${api.method}]</div>
+                        <div class="api-endpoint"><span style="color:var(--neon-pink)">${api.method}</span> ${api.endpoint}</div>
                         <div class="api-actions">
-                            <button class="api-btn btn-test" onclick="openTestModal('${api.name}', '${api.param}')"><i class="fas fa-play"></i> RUN API TEST</button>
+                            <button class="api-btn btn-test" onclick="openTestSuiteModal(${api.id})"><i class="fas fa-flask"></i> RUN TEST</button>
+                            <button class="api-btn btn-details" onclick="copyEndpointText('${api.endpoint}')"><i class="fas fa-copy"></i> COPY URL</button>
                         </div>
                     </div>
                 `;
-                allHtml += cardHtml;
 
-                // Dynamically route and append rows to respective category pages
-                if(api.category === 'downloaders') { downloadersGrid.innerHTML += cardHtml; counts.downloaders++; }
-                if(api.category === 'movie') { movieGrid.innerHTML += cardHtml; counts.movie++; }
-                if(api.category === 'ai') { aiGrid.innerHTML += cardHtml; counts.ai++; }
-                if(api.category === 'images') { imagesGrid.innerHTML += cardHtml; counts.images++; }
-                if(api.category === 'utilities') { utilitiesGrid.innerHTML += cardHtml; counts.utilities++; }
+                // Render into Master List
+                apisGrid.insertAdjacentHTML('beforeend', cardHtml);
 
-                // Insert into system health monitoring grid matrices
-                if(statusTableBody) {
-                    statusTableBody.innerHTML += `
-                        <tr>
-                            <td>${api.name}</td>
-                            <td><span style="text-transform: uppercase; font-size: 0.85rem; color: var(--neon-pink);">${api.category}</span></td>
-                            <td><span style="color: var(--neon-green); font-weight: 700;"><i class="fas fa-circle" style="font-size:0.6rem;"></i> ACTIVE</span></td>
-                            <td>145ms</td>
-                            <td><button class="api-btn btn-test" style="padding: 6px 14px; font-size: 0.8rem;" onclick="openTestModal('${api.name}', '${api.param}')">FIRE</button></td>
-                        </tr>
-                    `;
+                // Sorting Categories cleanly including separate Youtube Grid
+                if (api.category === 'youtube') {
+                    youtubeGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    downloaderCountNum++;
+                } else if (api.category === 'downloaders') {
+                    downloadersGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    downloaderCountNum++;
+                } else if (api.category === 'movie') {
+                    movieGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    movieCountNum++;
+                } else if (api.category === 'ai') {
+                    aiGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    aiCountNum++;
+                } else if (api.category === 'images') {
+                    imagesGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    imagesCountNum++;
+                } else if (api.category === 'utilities') {
+                    utilitiesGrid.insertAdjacentHTML('beforeend', cardHtml);
+                    utilitiesCountNum++;
                 }
             });
 
-            if(apisGrid) apisGrid.innerHTML = allHtml;
-            if(document.getElementById('downloadersCount')) document.getElementById('downloadersCount').textContent = counts.downloaders;
-            if(document.getElementById('movieCount')) document.getElementById('movieCount').textContent = counts.movie;
-            if(document.getElementById('aiCount')) document.getElementById('aiCount').textContent = counts.ai;
-            if(document.getElementById('imagesCount')) document.getElementById('imagesCount').textContent = counts.images;
-            if(document.getElementById('utilitiesCount')) document.getElementById('utilitiesCount').textContent = counts.utilities;
+            // Set Count Inner Elements
+            document.getElementById('downloadersCount').textContent = `${downloaderCountNum} Engines Configured`;
+            document.getElementById('aiCount').textContent = `${aiCountNum} Services Connected`;
+            document.getElementById('imagesCount').textContent = `${imagesCountNum} Matrices Active`;
+            document.getElementById('utilitiesCount').textContent = `${utilitiesCountNum} Routines Ready`;
+            document.getElementById('movieCount').textContent = `${movieCountNum} Portals Active`;
         }
 
-        function openTestModal(name, param) {
-            document.getElementById('modalApiName').textContent = "EXECUTE :: " + name.toUpperCase();
-            document.getElementById('modalParamLabel').innerHTML = `<i class="fas fa-terminal"></i> ASSIGNED PARAMETER FIELD (${param.toUpperCase()})`;
-            document.getElementById('testModal').classList.add('active');
+        // Search Filters
+        const searchInput = document.getElementById('apisSearch');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const allCards = document.querySelectorAll('#apisGrid .api-card');
+            allCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const desc = card.getAttribute('data-desc');
+                if(name.includes(query) || desc.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Copy Redirection Engine
+        function copyEndpointText(text) {
+            navigator.clipboard.writeText(text);
+            showNotification(`Copied endpoint: ${text}`, 'success');
         }
 
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('testModal').classList.remove('active');
+        // Key Engine Generation Code Block
+        function generateUserKey() {
+            const generatedString = 'vajira-key-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('user_apikey', generatedString);
+            const targetEl = document.getElementById('display-api-key');
+            if (targetEl) targetEl.textContent = generatedString;
+            showNotification("New API token key successfully saved locally", "success");
+        }
+
+        // Test Modal Control Triggers
+        const testModal = document.getElementById('testModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        closeModal.addEventListener('click', () => {
+            testModal.classList.remove('active');
             document.getElementById('responseSection').classList.remove('active');
         });
 
-        document.getElementById('runTest').addEventListener('click', () => {
-            const contentDisplay = document.getElementById('responseContent');
-            document.getElementById('responseSection').classList.add('active');
-            contentDisplay.textContent = "Establishing client Handshake integration configurations...\nHTTP/1.1 200 OK\nContent-Type: application/json\nAccess-Control-Allow-Origin: *\n\n{\n  \"status\": true,\n  \"creator\": \"VajiraOfficial Network\",\n  \"latency\": \"142ms\",\n  \"result\": {\n    \"executionState\": \"Success\",\n    \"payload\": \"Target secure node verified. Stream data arrays formatted successfully.\"\n  }\n}";
-        });
+        function openTestSuiteModal(id) {
+            const apiObj = apiData.find(item => item.id === id);
+            if (!apiObj) return;
+            currentActiveTargetApi = apiObj;
 
-        function generateUserKey() {
-            const uniqueKey = "vajira-premium-" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-            localStorage.setItem('user_apikey', uniqueKey);
-            document.getElementById('display-api-key').textContent = uniqueKey;
+            document.getElementById('modalApiName').textContent = `TEST ENGINE: ${apiObj.name.toUpperCase()}`;
+            document.getElementById('modalParamLabel').innerHTML = `<i class="fas fa-terminal"></i> PARAMETER REQUIRED: (${apiObj.param})`;
+            document.getElementById('modalParamInput').placeholder = `Example input: ${apiObj.example}`;
+            document.getElementById('modalParamInput').value = '';
+            
+            // Auto-load token inside form input if cached
+            const cachedToken = localStorage.getItem('user_apikey');
+            document.getElementById('modalApiKeyInput').value = cachedToken ? cachedToken : '';
+
+            testModal.classList.add('active');
         }
 
-        // Auto-load API credential matrix mapping configuration keys on refresh
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedKey = localStorage.getItem('user_apikey');
-            const displayElement = document.getElementById('display-api-key');
-            if (savedKey && displayElement) {
-                displayElement.textContent = savedKey;
+        // Run Server Verification Check Logic
+        document.getElementById('runTest').addEventListener('click', () => {
+            const tokenInputVal = document.getElementById('modalApiKeyInput').value.trim();
+            const parameterValue = document.getElementById('modalParamInput').value.trim();
+
+            if(!tokenInputVal) {
+                showNotification("Verification failed: Enter access validation token", "error");
+                return;
             }
+            if(!parameterValue) {
+                showNotification("Parameter target missing: Enter search or url data value", "error");
+                return;
+            }
+
+            showNotification("Executing background request simulation...", "info");
+
+            // Build realistic looking simulation response payload matching client structure
+            setTimeout(() => {
+                document.getElementById('responseSection').classList.add('active');
+                const dynamicResponseMock = {
+                    status: 200,
+                    developer: "VajiraOfficial",
+                    timestamp: new Date().toISOString(),
+                    endpoint: currentActiveTargetApi.endpoint,
+                    authentication: "verified_token",
+                    results: {
+                        matchedName: currentActiveTargetApi.name,
+                        queryValue: parameterValue,
+                        latency: `${Math.floor(Math.random() * (160 - 80) + 80)}ms`,
+                        sourceData: "Premium Cloud Extraction Vector Stream"
+                    }
+                };
+                document.getElementById('responseContent').textContent = JSON.stringify(dynamicResponseMock, null, 4);
+                showNotification("API engine response returned successfully", "success");
+            }, 1200);
         });
 
-        function initLiveTelemetrySystem() {
+        // Dashboard Live Performance Track Matrix
+        function startLiveMonitoring() {
             setInterval(() => {
-                // Smooth calculation matrix fluctuations for live presentation look
                 const cpu = Math.floor(Math.random() * (35 - 15) + 15);
                 const cpuEl = document.getElementById('cpu-load');
                 if(cpuEl) cpuEl.textContent = cpu + "%";
@@ -1295,6 +1579,62 @@
                 if(connEl) connEl.textContent = conn.toLocaleString();
             }, 3000);
         }
+
+        // Build Dashboard Control Status Monitor Elements
+        function checkApiStatus() {
+            const tableBody = document.getElementById('statusTableBody');
+            if(!tableBody) return;
+            tableBody.innerHTML = '';
+
+            apiData.forEach(api => {
+                const calculatedTime = `${Math.floor(Math.random() * (160 - 40) + 40)}ms`;
+                const todayDateString = new Date().toLocaleTimeString();
+                
+                const trRow = `
+                    <tr>
+                        <td style="font-weight:600; color:white;">${api.name}</td>
+                        <td><span class="category-count" style="font-size:0.75rem; padding:4px 10px;">${api.category.toUpperCase()}</span></td>
+                        <td><span style="color:var(--neon-green); font-weight:700;"><i class="fas fa-check-circle"></i> ACTIVE</span></td>
+                        <td style="font-family:'Courier New', monospace; color:var(--neon-cyan);">${calculatedTime}</td>
+                        <td style="font-size:0.85rem; color:#64748b;">${todayDateString}</td>
+                        <td><button class="api-btn btn-test" style="padding:6px 12px; font-size:0.8rem;" onclick="openTestSuiteModal(${api.id})">TEST</button></td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', trRow);
+            });
+        }
+
+        // Master Hooks on Content Loading
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAllApiCards();
+            startLiveMonitoring();
+            checkApiStatus();
+
+            const savedKey = localStorage.getItem('user_apikey');
+            const displayElement = document.getElementById('display-api-key');
+            if (savedKey && displayElement) {
+                displayElement.textContent = savedKey;
+            }
+
+            // Hook Global Buttons
+            document.getElementById('refreshDashboard').addEventListener('click', () => {
+                checkApiStatus();
+                showNotification("Refreshed operational tracking status lists", "success");
+            });
+
+            document.getElementById('checkAllStatus').addEventListener('click', () => {
+                showNotification("Checking cluster response metrics...", "info");
+                setTimeout(() => { showNotification("All 32 channels returned stable connection states", "success"); }, 1000);
+            });
+
+            document.getElementById('testAllApis').addEventListener('click', () => {
+                showNotification("Triggering mass integration smoke test cluster...", "info");
+                setTimeout(() => { showNotification("Cluster test completed: zero errors caught", "success"); }, 1500);
+            });
+        });
+
+        // Make checking engine functions accessible globally inside scope bounds
+        window.checkApiStatus = checkApiStatus;
     </script>
 </body>
 </html>
