@@ -1576,13 +1576,12 @@
         }
 
         // Async Handshake Emulator Action
+// Async Handshake Emulator Action
 document.getElementById('runTest').addEventListener('click', () => {
-    // 1. Capture inputs from the modal
     const apiKeyValue = document.getElementById('modalApiKeyInput').value.trim();
     const paramValue = document.getElementById('modalParamInput').value.trim();
     
-    // Ensure 'currentActiveTargetApi' is defined or accessible in your scope
-    // This variable should hold the object from the apiData array matching the selected API
+    // Ensure we are using the correct variable: currentActiveTargetApi
     if (!currentActiveTargetApi) {
         showNotification("Error: No API target selected", "error");
         return;
@@ -1597,15 +1596,13 @@ document.getElementById('runTest').addEventListener('click', () => {
         return;
     }
 
-    // 2. Feature Implementation: Construction of the full API request URL
+    // UPDATED: Using currentActiveTargetApi to match your setup
     const apiUrl = `${window.location.origin}${currentActiveTargetApi.endpoint}?apikey=${apiKeyValue}&${currentActiveTargetApi.param}=${encodeURIComponent(paramValue)}`;
     
-    // Debug log to verify the URL structure
     console.log("Constructed Request URL:", apiUrl);
 
     showNotification("Processing routing array handshake execution parameters...", "info");
 
-    // 3. Simulated Response
     setTimeout(() => {
         document.getElementById('responseSection').classList.add('active');
         const dynamicResponseMock = {
@@ -1613,7 +1610,7 @@ document.getElementById('runTest').addEventListener('click', () => {
             owner: "VajiraOfficial",
             timestamp: new Date().toISOString(),
             route: currentActiveTargetApi.endpoint,
-            fullRequestUrl: apiUrl, // URL is now part of the response mock
+            fullRequestUrl: apiUrl, // URL is now part of the response
             signature: "active_verified_session",
             runtimeMetrics: {
                 resource: currentActiveTargetApi.name,
