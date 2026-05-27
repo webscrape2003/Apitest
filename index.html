@@ -1576,40 +1576,45 @@
         }
 
         // Async Handshake Emulator Action
-        document.getElementById('runTest').addEventListener('click', () => {
-            const tokenInputVal = document.getElementById('modalApiKeyInput').value.trim();
-            const parameterValue = document.getElementById('modalParamInput').value.trim();
+document.getElementById('runTest').addEventListener('click', () => {
+    const apiKeyValue = document.getElementById('modalApiKeyInput').value.trim();
+    const paramValue = document.getElementById('modalParamInput').value.trim();
 
-            if(!tokenInputVal) {
-                showNotification("Handshake validation denied: Token credential missing", "error");
-                return;
+    if(!apiKeyValue) {
+        showNotification("Handshake validation denied: Token credential missing", "error");
+        return;
+    }
+    if(!paramValue) {
+        showNotification("Parameter error: Required data target fields cannot remain blank", "error");
+        return;
+    }
+
+    // New Feature: Construction of the full API request URL
+    const apiUrl = `${window.location.origin}${currentActiveTargetApi.endpoint}?apikey=${apiKeyValue}&${currentActiveTargetApi.param}=${encodeURIComponent(paramValue)}`;
+    console.log("Constructed Request URL:", apiUrl); // For debugging purposes
+
+    showNotification("Processing routing array handshake execution parameters...", "info");
+
+    setTimeout(() => {
+        document.getElementById('responseSection').classList.add('active');
+        const dynamicResponseMock = {
+            status: 200,
+            owner: "VajiraOfficial",
+            timestamp: new Date().toISOString(),
+            route: currentActiveTargetApi.endpoint,
+            fullRequestUrl: apiUrl, // Displaying the generated URL in the response
+            signature: "active_verified_session",
+            runtimeMetrics: {
+                resource: currentActiveTargetApi.name,
+                passedArgument: paramValue,
+                executionSpeed: `${Math.floor(Math.random() * (135 - 65) + 65)}ms`,
+                status: "operational"
             }
-            if(!parameterValue) {
-                showNotification("Parameter error: Required data target fields cannot remain blank", "error");
-                return;
-            }
-
-            showNotification("Processing routing array handshake execution parameters...", "info");
-
-            setTimeout(() => {
-                document.getElementById('responseSection').classList.add('active');
-                const dynamicResponseMock = {
-                    status: 200,
-                    owner: "VajiraOfficial",
-                    timestamp: new Date().toISOString(),
-                    route: currentActiveTargetApi.endpoint,
-                    signature: "active_verified_session",
-                    runtimeMetrics: {
-                        resource: currentActiveTargetApi.name,
-                        passedArgument: parameterValue,
-                        executionSpeed: `${Math.floor(Math.random() * (135 - 65) + 65)}ms`,
-                        status: "operational"
-                    }
-                };
-                document.getElementById('responseContent').textContent = JSON.stringify(dynamicResponseMock, null, 4);
-                showNotification("Node pipeline response executed without thread faults", "success");
-            }, 1000);
-        });
+        };
+        document.getElementById('responseContent').textContent = JSON.stringify(dynamicResponseMock, null, 4);
+        showNotification("Node pipeline response executed without thread faults", "success");
+    }, 1000);
+});
 
         // Simulated Telemetry Hardware Tracking Modulators
         function startLiveMonitoring() {
