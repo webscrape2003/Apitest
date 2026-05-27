@@ -1480,7 +1480,7 @@
                             </span>
                             <div class="api-actions">
                                 <button class="api-btn btn-test" onclick="openTestSuiteModal(${api.id})"><i class="fas fa-flask"></i> TEST ROUTINE</button>
-                                <button class="api-btn btn-details" onclick="copyEndpointText('${window.location.origin}${currentActiveTargetApi.endpoint}?apikey=${apiKeyValue}&${currentActiveTargetApi.param}=${encodeURIComponent(paramValue)}')"><i class="fas fa-copy"></i> COPY PATH</button>
+                                <button class="api-btn btn-details" onclick="copyFullApiUrl(${api.id})"><i class="fas fa-copy"></i> COPY PATH</button>
                             </div>
                         </div>
                     </div>
@@ -1630,6 +1630,28 @@ document.getElementById('runTest').addEventListener('click', () => {
                 if(connEl) connEl.textContent = conn.toLocaleString();
             }, 3000);
         }
+
+
+        function copyFullApiUrl(id) {
+    // Find the API object
+    const api = apiData.find(item => item.id === id);
+    if (!api) return;
+
+    // Get the key from localStorage
+    const apiKeyValue = localStorage.getItem('user_apikey') || 'YOUR_API_KEY';
+    
+    // Prompt for the parameter (or set a default/empty string)
+    const paramValue = prompt(`Enter value for ${api.param}:`, "");
+    
+    if (paramValue !== null) {
+        // Construct the URL using the dynamic data
+        const apiUrl = `${window.location.origin}${api.endpoint}?apikey=${apiKeyValue}&${api.param}=${encodeURIComponent(paramValue)}`;
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(apiUrl);
+        showNotification("Full URL mapped to clipboard", "success");
+    }
+}
 
         // Tabular Operational Telemetry Monitor Output Loop
         function checkApiStatus() {
