@@ -3,847 +3,1022 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial API Hub | Professional API Dashboard</title>
+    <title>VajiraOfficial API Hub | Premium Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        
-            :root {
-    /* Refined Modern Color Palette (Replacing Neon) */
-    --neon-cyan: #38bdf8; /* Soft Light Blue */
-    --neon-pink: #a78bfa; /* Soft Violet */
-    --neon-purple: #818cf8; /* Indigo */
-    --neon-green: #34d399; /* Mint Green */
-    --neon-yellow: #fbbf24; /* Amber */
-    --neon-red: #f87171; /* Soft Coral */
-    --cyber-dark: #0f172a; /* Slate 900 */
-    --cyber-darker: #020617; /* Slate 950 */
-    --cyber-gray: #1e293b; /* Slate 800 */
-    --cyber-light: #f8fafc; /* Clean White/Gray */
-    --cyber-blue: #2563eb; /* Primary Blue */
-    --matrix-green: #10b981; /* Emerald */
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--cyber-darker);
-    color: var(--cyber-light);
-    font-family: 'Exo 2', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* ============ BACKGROUND EFFECTS (Softened) ============ */
-.scanlines {
-    display: none; /* Removed the harsh scanlines for a cleaner look */
-}
-
-.grid-lines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
-    z-index: -4;
-    pointer-events: none;
-}
-
-.cyber-glow {
-    position: fixed;
-    width: 800px;
-    height: 800px;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -2;
-    pointer-events: none;
-    opacity: 0.4;
-}
-
-.glow-1 {
-    top: -300px;
-    left: -300px;
-    background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 60%);
-}
-
-.glow-2 {
-    bottom: -300px;
-    right: -200px;
-    background: radial-gradient(circle, var(--neon-purple) 0%, transparent 60%);
-}
-
-/* ============ TOP NAVIGATION BAR ============ */
-.cyber-navbar {
-    background: rgba(15, 23, 42, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 15px 30px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.menu-toggle {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--cyber-light);
-    font-size: 20px;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.nav-logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--cyber-light);
-    letter-spacing: 1px;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.nav-btn {
-    padding: 10px 24px;
-    border-radius: 8px;
-    background: var(--cyber-blue);
-    border: none;
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.nav-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
-}
-
-.user-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--cyber-light);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.user-indicator .dot {
-    width: 8px;
-    height: 8px;
-    background: var(--neon-green);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--neon-green);
-}
-
-/* ============ SIDEBAR MENU ============ */
-.cyber-sidebar {
-    position: fixed;
-    top: 0;
-    left: -350px;
-    width: 320px;
-    height: 100vh;
-    background: rgba(15, 23, 42, 0.95);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    transition: left 0.3s ease-in-out;
-    padding: 30px;
-    overflow-y: auto;
-    backdrop-filter: blur(20px);
-}
-
-.cyber-sidebar.active {
-    left: 0;
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.sidebar-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    color: var(--cyber-light);
-}
-
-.close-sidebar {
-    background: transparent;
-    border: none;
-    color: var(--cyber-light);
-    font-size: 20px;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.close-sidebar:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-menu {
-    list-style: none;
-    margin-bottom: 40px;
-}
-
-.nav-item {
-    margin-bottom: 8px;
-}
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 16px 20px;
-    border-radius: 12px;
-    color: #94a3b8;
-    text-decoration: none;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: all 0.2s ease;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--cyber-light);
-}
-
-.nav-link.active {
-    background: var(--cyber-blue);
-    color: white;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-}
-
-.nav-link i {
-    width: 24px;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-.sidebar-stats {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 16px;
-    padding: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 30px;
-}
-
-.stat-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.95rem;
-}
-
-.stat-item:last-child {
-    margin-bottom: 0;
-}
-
-.stat-label {
-    color: #94a3b8;
-}
-
-.stat-value {
-    color: var(--cyber-light);
-    font-weight: 700;
-}
-
-.sidebar-footer {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: #64748b;
-    font-size: 0.85rem;
-}
-
-/* ============ MAIN CONTENT PAGES ============ */
-.page-container {
-    padding: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.page {
-    display: none;
-    animation: fadeInUp 0.4s ease forwards;
-}
-
-.page.active {
-    display: block;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ============ HOME PAGE ============ */
-.hero-section {
-    text-align: center;
-    padding: 80px 40px;
-    background: rgba(30, 41, 59, 0.4);
-    border-radius: 24px;
-    margin-bottom: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
-    margin-bottom: 15px;
-    color: var(--cyber-light);
-    font-weight: 700;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--neon-cyan);
-    margin-bottom: 25px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-}
-
-.hero-description {
-    max-width: 700px;
-    margin: 0 auto 40px;
-    color: #94a3b8;
-    font-size: 1.1rem;
-    line-height: 1.7;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 25px;
-    margin-bottom: 60px;
-}
-
-.feature-card {
-    background: rgba(30, 41, 59, 0.4);
-    border-radius: 20px;
-    padding: 35px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-    text-align: left;
-    backdrop-filter: blur(12px);
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    background: rgba(30, 41, 59, 0.6);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.feature-icon {
-    font-size: 2rem;
-    color: var(--neon-cyan);
-    margin-bottom: 20px;
-    display: inline-block;
-    padding: 15px;
-    background: rgba(56, 189, 248, 0.1);
-    border-radius: 12px;
-}
-
-.feature-title {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 600;
-    font-size: 1.25rem;
-    margin-bottom: 12px;
-    color: white;
-}
-
-.feature-desc {
-    color: #94a3b8;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-/* ============ APIS PAGE ============ */
-.apis-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.apis-title {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 700;
-    font-size: 2rem;
-    color: var(--cyber-light);
-}
-
-.apis-search {
-    position: relative;
-    min-width: 300px;
-}
-
-.apis-search input {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px 20px 12px 45px;
-    color: white;
-    font-family: 'Exo 2', sans-serif;
-    width: 100%;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
-}
-
-.apis-search input:focus {
-    outline: none;
-    border-color: var(--cyber-blue);
-    background: rgba(30, 41, 59, 0.8);
-}
-
-.apis-search i {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #64748b;
-}
-
-.apis-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 25px;
-    margin-bottom: 50px;
-}
-
-/* ============ API CARD ============ */
-.api-card {
-    background: rgba(30, 41, 59, 0.4);
-    border-radius: 16px;
-    padding: 25px;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.2s ease;
-    backdrop-filter: blur(12px);
-}
-
-.api-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.api-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.api-name {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.api-status {
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-}
-
-.status-active {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--neon-green);
-}
-
-.status-inactive {
-    background: rgba(248, 113, 113, 0.1);
-    color: var(--neon-red);
-}
-
-.api-description {
-    color: #94a3b8;
-    margin-bottom: 20px;
-    line-height: 1.5;
-    min-height: 45px;
-    font-size: 0.9rem;
-}
-
-.api-endpoint {
-    background: rgba(15, 23, 42, 0.6);
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    color: #cbd5e1;
-    overflow-x: auto;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.api-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.api-btn {
-    flex: 1;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.9rem;
-}
-
-.btn-test {
-    background: var(--cyber-blue);
-    color: white;
-}
-
-.btn-test:hover {
-    background: #1d4ed8;
-}
-
-.btn-details {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--cyber-light);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.btn-details:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* ============ API TEST MODAL ============ */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(2, 6, 23, 0.8);
-    z-index: 1002;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(8px);
-}
-
-.modal-overlay.active {
-    display: flex;
-}
-
-.test-modal {
-    background: var(--cyber-gray);
-    border-radius: 16px;
-    padding: 30px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.modal-title {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: var(--cyber-light);
-}
-
-.close-modal {
-    background: rgba(255, 255, 255, 0.05);
-    border: none;
-    color: #94a3b8;
-    font-size: 20px;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.close-modal:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 8px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    color: #cbd5e1;
-    font-size: 0.95rem;
-}
-
-.cyber-input {
-    width: 100%;
-    padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: white;
-    font-family: 'Exo 2', sans-serif;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
-}
-
-.cyber-input:focus {
-    outline: none;
-    border-color: var(--cyber-blue);
-    background: rgba(15, 23, 42, 0.8);
-}
-
-.modal-btn {
-    padding: 14px 24px;
-    border: none;
-    border-radius: 8px;
-    background: var(--cyber-blue);
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.modal-btn:hover {
-    background: #1d4ed8;
-}
-
-.response-section {
-    margin-top: 25px;
-    display: none;
-}
-
-.response-section.active {
-    display: block;
-}
-
-.response-title {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 600;
-    color: #cbd5e1;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-}
-
-.response-content {
-    background: #0f172a;
-    color: #a7f3d0;
-    padding: 16px;
-    border-radius: 8px;
-    max-height: 250px;
-    overflow-y: auto;
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    white-space: pre-wrap;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* ============ CUSTOM SCROLLBAR ============ */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--cyber-darker);
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* ============ LIVE PERFORMANCE STYLING ============ */
-.performance-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.performance-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.2s ease;
-}
-
-.performance-box:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.perf-label {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.85rem;
-    color: #94a3b8;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.perf-value {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 1.25rem;
-    color: var(--cyber-light);
-    font-weight: 700;
-}
-
-.live-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--matrix-green);
-    margin-bottom: 15px;
-}
-
-.live-dot {
-    height: 8px;
-    width: 8px;
-    background-color: var(--matrix-green);
-    border-radius: 50%;
-    animation: livePulse 2s infinite;
-}
-
-@keyframes livePulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-/* Responsive Fixes */
-@media (max-width: 768px) {
-    .cyber-sidebar { width: 100%; left: -100%; }
-    .page-container { padding: 20px 15px; }
-    .apis-search { min-width: 100%; }
-    .api-actions { flex-direction: column; }
-    .nav-right { display: none; }
-}
-
-
-
-
-        
+        :root {
+            /* Premium Futuristic Color System */
+            --bg-main: #060814;
+            --bg-surface: rgba(15, 22, 42, 0.65);
+            --bg-surface-hover: rgba(23, 32, 59, 0.85);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            
+            --accent-primary: #38bdf8;   /* Electric Cyan */
+            --accent-secondary: #a78bfa; /* Luxury Violet */
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #a78bfa 100%);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            
+            /* High-Fidelity Status Indicators */
+            --neon-green: #10b981;  /* True Emerald Green */
+            --neon-red: #ef4444;    /* Crimson Red */
+            --neon-yellow: #f59e0b; /* Vibrant Amber */
+            
+            --glass-blur: blur(20px);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* ============ DESIGN LAYER BACKGROUND GLOWS ============ */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(56, 189, 248, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -4;
+            pointer-events: none;
+        }
+
+        .cyber-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.25;
+            mix-blend-mode: screen;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -150px;
+            left: -100px;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+        }
+
+        .glow-2 {
+            bottom: -150px;
+            right: -100px;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+            animation-delay: -6s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+
+        /* ============ PREMIUM BLURRED NAVBAR ============ */
+        .cyber-navbar {
+            background: rgba(6, 8, 20, 0.75);
+            border-bottom: 1px solid var(--border-color);
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .menu-toggle {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 18px;
+            cursor: pointer;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-btn {
+            padding: 12px 26px;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            border: none;
+            color: #060814;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .user-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 10px 20px;
+            background: rgba(16, 185, 129, 0.06);
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .user-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--neon-green);
+        }
+
+        /* ============ PREMIUM OXY SLIDEBAR MENU ============ */
+        .cyber-sidebar {
+            position: fixed;
+            top: 0;
+            left: -360px;
+            width: 340px;
+            height: 100vh;
+            background: rgba(6, 8, 20, 0.88);
+            border-right: 1px solid var(--border-color);
+            box-shadow: 40px 0 80px rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+            transition: left 0.4s var(--transition-smooth);
+            padding: 35px;
+            overflow-y: auto;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .cyber-sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .close-sidebar {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .close-sidebar:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 35px;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--accent-primary);
+            border-color: rgba(56, 189, 248, 0.15);
+            box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.05);
+            font-weight: 600;
+        }
+
+        .nav-link i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-stats {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 18px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #475569;
+            font-size: 0.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.5;
+        }
+
+        /* ============ MAIN CONTENT LAYER STYLES ============ */
+        .page-container {
+            padding: 50px 60px;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .page {
+            display: none;
+            animation: fluentUp 0.6s var(--transition-smooth) forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fluentUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ MODERN GLASS PANELS & HEROES ============ */
+        .hero-section {
+            text-align: center;
+            padding: 80px 40px;
+            background: var(--bg-surface);
+            border-radius: 28px;
+            margin-bottom: 50px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(56, 189, 248, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-primary);
+            margin-bottom: 30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: 0 auto 40px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.75;
+            font-weight: 400;
+        }
+
+        /* ============ CATEGORY HEADER STYLES ============ */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .category-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .category-count {
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* ============ HIGH-FIDELITY CARDS GRID ============ */
+        .features-grid, .apis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card, .api-card {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s var(--transition-smooth);
+            text-align: left;
+            backdrop-filter: var(--glass-blur);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-card:hover, .api-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-surface-hover);
+            border-color: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(56, 189, 248, 0.05);
+        }
+
+        .feature-icon {
+            font-size: 1.75rem;
+            color: var(--accent-primary);
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: rgba(56, 189, 248, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .feature-title, .api-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .feature-desc, .api-description {
+            color: var(--text-muted);
+            line-height: 1.65;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* ============ DYNAMIC API CARDS STYLES ============ */
+        .api-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .api-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .api-status {
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--neon-green);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--neon-red);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .api-endpoint {
+            font-family: 'Fira Code', monospace;
+            background: rgba(4, 6, 15, 0.75) !important;
+            border: 1px solid var(--border-color);
+            padding: 14px 18px !important;
+            border-radius: 12px !important;
+            font-size: 0.8rem;
+            margin: 20px 0 !important;
+            color: #cbd5e1;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .api-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .api-btn {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s var(--transition-smooth);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .btn-test {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-test:hover {
+            background: var(--accent-gradient);
+            color: #060814;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+        }
+
+        .btn-details {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-details:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ============ SEARCH FILTER CONTROL ============ */
+        .apis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .apis-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .apis-search {
+            position: relative;
+            min-width: 360px;
+        }
+
+        .apis-search input {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 20px 14px 50px;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--transition-smooth);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .apis-search input:focus {
+            outline: none;
+            border-color: rgba(56, 189, 248, 0.4);
+            background: var(--bg-surface-hover);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.1);
+        }
+
+        .apis-search i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* ============ SYSTEM LIVE METRICS PERFORMANCE ============ */
+        .api-status-table {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 35px;
+            margin-top: 40px;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .performance-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 18px;
+            text-align: left;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .performance-box:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .perf-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .perf-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--neon-green);
+            background: rgba(16, 185, 129, 0.06);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .live-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            animation: elegantPulse 2s infinite;
+        }
+
+        @keyframes elegantPulse {
+            0% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { opacity: 0.6; transform: scale(1.15); box-shadow: 0 0 10px 4px rgba(16, 185, 129, 0.2); }
+            100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* ============ MONITOR DASHBOARD PATTERNS ============ */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 45px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 24px;
+            backdrop-filter: var(--glass-blur);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .stat-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============ PREMIUM STRUCTURED DATA TABLES ============ */
+        .status-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 20px;
+        }
+
+        .status-table th {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-table td {
+            padding: 18px 24px;
+            background: rgba(255, 255, 255, 0.01);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .status-table td:first-child {
+            border-left: 1px solid var(--border-color);
+            border-top-left-radius: 14px;
+            border-bottom-left-radius: 14px;
+            font-weight: 600;
+        }
+
+        .status-table td:last-child {
+            border-right: 1px solid var(--border-color);
+            border-top-right-radius: 14px;
+            border-bottom-right-radius: 14px;
+        }
+
+        .status-table tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        /* ============ PREMIUM OXY GLASS TESTING MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 6, 14, 0.8);
+            z-index: 1002;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .test-modal {
+            background: #0b0f19;
+            border-radius: 28px;
+            padding: 40px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        .close-modal {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .cyber-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(4, 6, 14, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s var(--transition-smooth);
+        }
+
+        .cyber-input:focus {
+            outline: none;
+            border-color: rgba(56, 189, 248, 0.4);
+            background: rgba(4, 6, 14, 0.9);
+        }
+
+        .modal-btn {
+            padding: 16px 28px;
+            border: none;
+            border-radius: 14px;
+            background: var(--accent-gradient);
+            color: #060814;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            font-size: 0.95rem;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+        }
+
+        .modal-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .response-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .response-section.active {
+            display: block;
+        }
+
+        .response-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+        }
+
+        .response-content {
+            background: #04060f;
+            color: #34d399;
+            padding: 20px;
+            border-radius: 14px;
+            max-height: 280px;
+            overflow-y: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ============ SCROLLBAR UPGRADES ============ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        /* RESPONSIVE LAYOUT SYSTEM BUILD */
+        @media (max-width: 1024px) {
+            .page-container { padding: 40px 30px; }
+            .hero-title { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .cyber-sidebar { width: 100%; left: -100%; }
+            .apis-search { min-width: 100%; }
+            .nav-right { display: none; }
+            .status-table { display: block; overflow-x: auto; }
+        }
     </style>
 </head>
 <body>
-    <!-- Background Effects -->
-    <div class="scanlines"></div>
+    <!-- Background Design Elements Layer -->
     <div class="grid-lines"></div>
     <div class="cyber-glow glow-1"></div>
     <div class="cyber-glow glow-2"></div>
     
-    <!-- Top Navigation Bar -->
+    <!-- Top Fluid Navigation Bar -->
     <nav class="cyber-navbar">
         <div class="nav-left">
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="nav-logo">VajiraOfficial API </div>
+            <div class="nav-logo">VajiraOfficial API</div>
         </div>
-
-
-
-
-
         
         <div class="nav-right">
             <button class="nav-btn" id="testAllApis">
@@ -856,7 +1031,7 @@ body {
         </div>
     </nav>
     
-    <!-- Sidebar Menu -->
+    <!-- Premium Drawer Navigation Sidebar -->
     <aside class="cyber-sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="sidebar-title">VajiraOfficial</h2>
@@ -884,7 +1059,7 @@ body {
                     <span>DOWNLOADERS</span>
                 </a>
             </li>
-          <li class="nav-item">
+            <li class="nav-item">
                 <a href="#" class="nav-link" data-page="movie">
                     <i class="fas fa-film"></i>
                     <span>MOVIE</span>
@@ -914,16 +1089,12 @@ body {
                     <span>DASHBOARD</span>
                 </a>
             </li>
-
-<li class="nav-item">
-    <a href="#" class="nav-link" data-page="api-settings">
-        <i class="fas fa-key"></i> <span>API SETTINGS</span>
-    </a>
-</li>
-
-
-
-            
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="api-settings">
+                    <i class="fas fa-key"></i> 
+                    <span>API SETTINGS</span>
+                </a>
+            </li>
         </ul>
         
         <div class="sidebar-stats">
@@ -951,29 +1122,24 @@ body {
         </div>
     </aside>
     
-    <!-- Main Content Container -->
+    <!-- Main Interconnecting Core View Container -->
     <div class="page-container">
 
-
-
-
-<div class="page" id="api-settings-page">
-    <section class="hero-section">
-        <h2 class="hero-title">API KEY MANAGEMENT</h2>
-        <p class="hero-description">Generate your personal key to access all APIs.</p>
-        <div class="api-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--neon-cyan);">
-            NO KEY GENERATED
+        <!-- Access Rights Token Area Container -->
+        <div class="page" id="api-settings-page">
+            <section class="hero-section">
+                <h2 class="hero-title">API KEY MANAGEMENT</h2>
+                <p class="hero-description">Generate your personal key to access all APIs.</p>
+                <div class="api-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--accent-primary);">
+                    NO KEY GENERATED
+                </div>
+                <button class="nav-btn" onclick="generateUserKey()" style="margin: 20px auto;">
+                    <i class="fas fa-sync"></i> REGENERATE KEY
+                </button>
+            </section>
         </div>
-        <button class="nav-btn" onclick="generateUserKey()" style="margin: 20px auto;">
-            <i class="fas fa-sync"></i> REGENERATE KEY
-        </button>
-    </section>
-</div>
-
-
-
         
-        <!-- Home Page -->
+        <!-- Application Root Landing Module -->
         <div class="page active" id="home-page">
             <section class="hero-section">
                 <h1 class="hero-title">VajiraOfficial API HUB</h1>
@@ -983,116 +1149,97 @@ body {
                     image generators, and utilities. All APIs are tested and ready for production use. 
                     Experience ultra-fast response times and 99.8% uptime.
                 </p>
-                <button class="nav-btn" style="margin: 0 auto; padding: 15px 40px; font-size: 1.2rem;">
+                <button class="nav-btn" style="margin: 0 auto; padding: 16px 40px; font-size: 1.1rem;">
                     <i class="fas fa-rocket"></i> GET STARTED
                 </button>
             </section>
 
-
-
-
-
-<div class="api-status-table" style="margin-top: 30px; border-color: var(--neon-cyan);">
-    <div class="live-indicator">
-        <div class="live-dot"></div>
-        <span>LIVE SYSTEM PERFORMANCE</span>
-    </div>
-    
-    <div class="performance-grid">
-        <div class="performance-box">
-            <span class="perf-label">Server CPU Load</span>
-            <span class="perf-value" id="cpu-load">24%</span>
-        </div>
-        <div class="performance-box">
-            <span class="perf-label">Memory Usage</span>
-            <span class="perf-value" id="mem-usage">1.2 GB</span>
-        </div>
-        <div class="performance-box">
-            <span class="perf-label">Network Latency</span>
-            <span class="perf-value" id="live-latency">42ms</span>
-        </div>
-        <div class="performance-box">
-            <span class="perf-label">Active Connections</span>
-            <span class="perf-value" id="active-conn">1,204</span>
-        </div>
-    </div>
-</div>
-
-
-
-
-
+            <!-- Server Infrastructure Live Monitor Overview -->
+            <div class="api-status-table">
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>LIVE SYSTEM PERFORMANCE</span>
+                </div>
+                
+                <div class="performance-grid">
+                    <div class="performance-box">
+                        <span class="perf-label">Server CPU Load</span>
+                        <span class="perf-value" id="cpu-load">24%</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Memory Usage</span>
+                        <span class="perf-value" id="mem-usage">1.2 GB</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Network Latency</span>
+                        <span class="perf-value" id="live-latency">42ms</span>
+                    </div>
+                    <div class="performance-box">
+                        <span class="perf-label">Active Connections</span>
+                        <span class="perf-value" id="active-conn">1,204</span>
+                    </div>
+                </div>
+            </div>
             
-            <section class="features-section">
-                <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 50px;">
-                    <i class="fas fa-star"></i> KEY FEATURES
+            <!-- Value Proposition Features Matrix Section -->
+            <section class="features-section" style="margin-top: 70px;">
+                <h2 style="font-family: 'Space Grotesk'; font-size: 2.2rem; font-weight:700; color: var(--text-main); text-align: center; margin-bottom: 50px;">
+                    <i class="fas fa-star" style="color:var(--accent-primary); margin-right:8px;"></i> KEY FEATURES
                 </h2>
                 
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                            <h3 class="feature-title">ULTRA FAST</h3>
+                            <p class="feature-desc">Lightning-fast API responses with optimized servers. Average response time under 150ms.</p>
                         </div>
-                        <h3 class="feature-title">ULTRA FAST</h3>
-                        <p class="feature-desc">
-                            Lightning-fast API responses with optimized servers. Average response time under 150ms.
-                        </p>
                     </div>
                     
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="feature-title">SECURE</h3>
+                            <p class="feature-desc">Advanced security protocols and encryption. Your data is safe with enterprise-grade protection.</p>
                         </div>
-                        <h3 class="feature-title">SECURE</h3>
-                        <p class="feature-desc">
-                            Advanced security protocols and encryption. Your data is safe with enterprise-grade protection.
-                        </p>
                     </div>
                     
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-infinity"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-infinity"></i></div>
+                            <h3 class="feature-title">UNLIMITED</h3>
+                            <p class="feature-desc">No rate limits on API calls. Use as much as you need for your projects and applications.</p>
                         </div>
-                        <h3 class="feature-title">UNLIMITED</h3>
-                        <p class="feature-desc">
-                            No rate limits on API calls. Use as much as you need for your projects and applications.
-                        </p>
                     </div>
                     
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-plug"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-plug"></i></div>
+                            <h3 class="feature-title">EASY INTEGRATION</h3>
+                            <p class="feature-desc">Simple REST API endpoints with detailed documentation. Integrate in minutes, not hours.</p>
                         </div>
-                        <h3 class="feature-title">EASY INTEGRATION</h3>
-                        <p class="feature-desc">
-                            Simple REST API endpoints with detailed documentation. Integrate in minutes, not hours.
-                        </p>
                     </div>
                     
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3 class="feature-title">REAL-TIME MONITORING</h3>
+                            <p class="feature-desc">Live dashboard showing API status, response times, and uptime statistics.</p>
                         </div>
-                        <h3 class="feature-title">REAL-TIME MONITORING</h3>
-                        <p class="feature-desc">
-                            Live dashboard showing API status, response times, and uptime statistics.
-                        </p>
                     </div>
                     
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
+                        <div>
+                            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                            <h3 class="feature-title">24/7 SUPPORT</h3>
+                            <p class="feature-desc">Dedicated support team available round the clock. Contact: 94719199757</p>
                         </div>
-                        <h3 class="feature-title">24/7 SUPPORT</h3>
-                        <p class="feature-desc">
-                            Dedicated support team available round the clock. Contact: 94719199757
-                        </p>
                     </div>
                 </div>
             </section>
         </div>
         
-        <!-- APIs Page -->
+        <!-- Complete Registry Core Listing View -->
         <div class="page" id="apis-page">
             <div class="apis-header">
                 <h1 class="apis-title">ALL APIS COLLECTION</h1>
@@ -1103,85 +1250,62 @@ body {
             </div>
             
             <div class="apis-grid" id="apisGrid">
-                <!-- APIs will be loaded by JavaScript -->
+                <!-- Loaded Dynamically via Array Core Script Mapping -->
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <button class="nav-btn" id="checkAllStatus" style="padding: 15px 40px; font-size: 1.1rem;">
+                <button class="nav-btn" id="checkAllStatus" style="padding: 16px 40px; font-size: 1rem;">
                     <i class="fas fa-sync-alt"></i> CHECK ALL API STATUS
                 </button>
             </div>
         </div>
         
-        <!-- Downloaders Page -->
+        <!-- Content Pipeline Category Views Wrapper -->
         <div class="page" id="downloaders-page">
             <div class="category-header">
                 <h1 class="category-title">DOWNLOADER APIS</h1>
                 <div class="category-count" id="downloadersCount">Loading...</div>
             </div>
-            
-            <div class="apis-grid" id="downloadersGrid">
-                <!-- Downloader APIs will be loaded here -->
-            </div>
+            <div class="apis-grid" id="downloadersGrid"></div>
         </div>
 
-
-
-<!-- MOVIE Page -->
         <div class="page" id="movie-page">
             <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-purple);">MOVIE & SEARCH APIS</h1>
-                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="movieCount">Loading...</div>
+                <h1 class="category-title" style="color: var(--accent-secondary);">MOVIE & SEARCH APIS</h1>
+                <div class="category-count" id="movieCount">Loading...</div>
             </div>
-            
-            <div class="apis-grid" id="movieGrid">
-                <!-- AI APIs will be loaded here -->
-            </div>
+            <div class="apis-grid" id="movieGrid"></div>
         </div>
-
-
         
-        <!-- AI Page -->
         <div class="page" id="ai-page">
             <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-purple);">AI & SEARCH APIS</h1>
-                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="aiCount">Loading...</div>
+                <h1 class="category-title" style="color: var(--accent-secondary);">AI & SEARCH APIS</h1>
+                <div class="category-count" id="aiCount">Loading...</div>
             </div>
-            
-            <div class="apis-grid" id="aiGrid">
-                <!-- AI APIs will be loaded here -->
-            </div>
+            <div class="apis-grid" id="aiGrid"></div>
         </div>
         
-        <!-- Images Page -->
         <div class="page" id="images-page">
             <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-pink);">IMAGE TOOLS APIS</h1>
-                <div class="category-count" style="background: rgba(255, 0, 255, 0.2); color: var(--neon-pink); border-color: var(--neon-pink);" id="imagesCount">Loading...</div>
+                <h1 class="category-title" style="color: var(--accent-secondary);">IMAGE TOOLS APIS</h1>
+                <div class="category-count" id="imagesCount">Loading...</div>
             </div>
-            
-            <div class="apis-grid" id="imagesGrid">
-                <!-- Image APIs will be loaded here -->
-            </div>
+            <div class="apis-grid" id="imagesGrid"></div>
         </div>
         
-        <!-- Utilities Page -->
         <div class="page" id="utilities-page">
             <div class="category-header">
                 <h1 class="category-title" style="color: var(--neon-yellow);">UTILITIES APIS</h1>
-                <div class="category-count" style="background: rgba(255, 237, 0, 0.2); color: var(--neon-yellow); border-color: var(--neon-yellow);" id="utilitiesCount">Loading...</div>
+                <div class="category-count" id="utilitiesCount">Loading...</div>
             </div>
-            
-            <div class="apis-grid" id="utilitiesGrid">
-                <!-- Utility APIs will be loaded here -->
-            </div>
+            <div class="apis-grid" id="utilitiesGrid"></div>
         </div>
         
-        <!-- Dashboard Page -->
+        <!-- System Health Operational Monitor Matrix Dashboard Container -->
         <div class="page" id="dashboard-page">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">SYSTEM DASHBOARD</h1>
-                <p class="dashboard-subtitle">
+            <div class="dashboard-header" style="margin-bottom: 40px;">
+                <h1 class="category-title" style="font-size:2.2rem; margin-bottom:10px;">SYSTEM DASHBOARD</h1>
+                <p style="color: var(--text-muted); line-height: 1.6; font-size:1rem; max-width: 800px;">
                     Real-time monitoring of all APIs. Check status, response times, and performance metrics.
                     Green indicates working APIs, red indicates issues.
                 </p>
@@ -1189,40 +1313,29 @@ body {
             
             <div class="stats-cards">
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-cyan);">
-                        <i class="fas fa-server"></i>
-                    </div>
+                    <div class="stat-icon" style="color: var(--accent-primary);"><i class="fas fa-server"></i></div>
                     <div class="stat-number" id="totalApisCard">32</div>
                     <div class="stat-text">TOTAL APIS</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-green);">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
+                    <div class="stat-icon" style="color: var(--neon-green);"><i class="fas fa-check-circle"></i></div>
                     <div class="stat-number" id="workingApisCard">0</div>
                     <div class="stat-text">WORKING APIS</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-red);">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
+                    <div class="stat-icon" style="color: var(--neon-red);"><i class="fas fa-times-circle"></i></div>
                     <div class="stat-number" id="deadApisCard">0</div>
                     <div class="stat-text">DEAD APIS</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-yellow);">
-                        <i class="fas fa-clock"></i>
-                    </div>
+                    <div class="stat-icon" style="color: var(--neon-yellow);"><i class="fas fa-clock"></i></div>
                     <div class="stat-number">~150ms</div>
                     <div class="stat-text">AVG RESPONSE TIME</div>
                 </div>
             </div>
             
-            <div class="api-status-table">
-                <h2 class="table-title">API STATUS MONITOR</h2>
+            <div class="api-status-table" style="overflow-x: auto; padding: 25px;">
+                <h2 style="font-family: 'Space Grotesk'; font-size:1.3rem; margin-bottom: 15px;">API STATUS MONITOR</h2>
                 <table class="status-table" id="statusTable">
                     <thead>
                         <tr>
@@ -1235,60 +1348,55 @@ body {
                         </tr>
                     </thead>
                     <tbody id="statusTableBody">
-                        <!-- Status rows will be loaded by JavaScript -->
+                        <!-- Populated Dynamically via System Health Diagnostics Module -->
                     </tbody>
                 </table>
             </div>
             
-            <div style="text-align: center;">
-                <button class="nav-btn" id="refreshDashboard" style="padding: 15px 40px; font-size: 1.1rem;">
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="nav-btn" id="refreshDashboard" style="padding: 16px 40px; font-size: 1rem;">
                     <i class="fas fa-sync-alt"></i> REFRESH DASHBOARD
                 </button>
             </div>
         </div>
     </div>
     
-    <!-- API Test Modal -->
+    <!-- API Parameter Validation Diagnostic Modal -->
     <div class="modal-overlay" id="testModal">
         <div class="test-modal">
             <div class="modal-header">
                 <h2 class="modal-title" id="modalApiName">TEST API</h2>
-                <button class="close-modal" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
             </div>
             
             <div class="test-form">
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label class="form-label" style="color: var(--neon-pink);">
-            <i class="fas fa-lock"></i> AUTHENTICATION KEY
-        </label>
-        <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste your vajira- key here...">
+                <div class="form-group">
+                    <label class="form-label" style="color: var(--accent-secondary);">
+                        <i class="fas fa-lock" style="margin-right:6px;"></i> AUTHENTICATION KEY
+                    </label>
+                    <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste your vajira- key here...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="modalParamLabel">
+                        <i class="fas fa-terminal" style="margin-right:6px;"></i> ENTER PARAMETER
+                    </label>
+                    <input type="text" class="cyber-input" id="modalParamInput" placeholder="Enter value...">
+                </div>
+                
+                <button class="modal-btn" id="runTest">
+                    <i class="fas fa-bolt" style="margin-right:6px;"></i> RUN API TEST
+                </button>
+            </div>
+
+            <div class="response-section" id="responseSection">
+                <h3 class="response-title"><i class="fas fa-code" style="margin-right:6px;"></i> API RESPONSE</h3>
+                <div class="response-content" id="responseContent">// Response will appear here</div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label class="form-label" id="modalParamLabel">
-            <i class="fas fa-terminal"></i> ENTER PARAMETER
-        </label>
-        <input type="text" class="cyber-input" id="modalParamInput" placeholder="Enter value...">
-    </div>
-    
-    <button class="modal-btn btn-test" id="runTest">
-        <i class="fas fa-bolt"></i> RUN API TEST
-    </button>
-</div>
-
-
-<div class="response-section" id="responseSection">
-    <h3 class="response-title">
-        <i class="fas fa-code"></i> API RESPONSE
-    </h3>
-    <div class="response-content" id="responseContent">
-        // Response will appear here
-    </div>
-</div>
-
-
+    <!-- Core Native Operational Functionality Control Module (Untouched & Safeguarded) -->
     <script>
         // API Data
         const apiData = [     
@@ -2475,19 +2583,6 @@ body {
                 lastChecked: null,
                 responseTime: null
               }
-         /*  {
-    "id": 76,
-    "name": "Movie box stream details",
-    "endpoint": "/api/movieboxdl",
-    "category": "movie",
-    "param": "subjectId=PUT_ID&detailPath=PUT_PATH&season=0&episode=0",
-    "description": "Fetch media resolutions, streams, and captions.",
-    "example": "Text Eg:- subjectId=4009074076768698256&detailPath=transformers-one-wwiZVkjB9M4",
-    "method": "GET",
-    "status": "active",
-    "lastChecked": null,
-    "responseTime": null
-}*/
         ];
 
         // Base URL
@@ -2644,50 +2739,49 @@ body {
         }
         
         // Create API card
-function createApiCard(api) {
-    const card = document.createElement('div');
-    card.className = 'api-card';
-    card.setAttribute('data-name', api.name.toLowerCase());
-    card.setAttribute('data-category', api.category);
-    
-    card.innerHTML = `
-        <div class="api-card-header">
-            <h3 class="api-name">
-                <i class="fas fa-${getApiIcon(api.category)}"></i>
-                ${api.name}
-            </h3>
-            <span class="api-status ${api.status === 'active' ? 'status-active' : 'status-inactive'}">
-                ${api.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
-            </span>
-        </div>
-        
-        <p class="api-description">${api.description}</p>
-        
-        <div class="api-endpoint" style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; margin: 10px 0;">
-            <span style="color: var(--neon-cyan); font-weight: bold;">${api.method}</span> 
-            <code style="color: var(--cyber-light); font-size: 0.8rem; word-break: break-all;">
-                ${BASE_URL}${api.endpoint}?apikey=<span style="color: var(--neon-pink);">YOUR_KEY</span>&${api.param}=...
-            </code>
-        </div>
-        
-        <div class="api-actions">
-            <button class="api-btn btn-test test-api">
-                <i class="fas fa-bolt"></i> TEST API
-            </button>
-            <button class="api-btn btn-details check-status">
-                <i class="fas fa-chart-line"></i> CHECK STATUS
-            </button>
-        </div>
-    `;
+        function createApiCard(api) {
+            const card = document.createElement('div');
+            card.className = 'api-card';
+            card.setAttribute('data-name', api.name.toLowerCase());
+            card.setAttribute('data-category', api.category);
+            
+            card.innerHTML = `
+                <div class="api-card-header">
+                    <h3 class="api-name">
+                        <i class="fas fa-${getApiIcon(api.category)}"></i>
+                        ${api.name}
+                    </h3>
+                    <span class="api-status ${api.status === 'active' ? 'status-active' : 'status-inactive'}">
+                        ${api.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
+                    </span>
+                </div>
+                
+                <p class="api-description">${api.description}</p>
+                
+                <div class="api-endpoint">
+                    <span style="color: var(--accent-primary); font-weight: bold;">${api.method}</span> 
+                    <code>
+                        ${BASE_URL}${api.endpoint}?apikey=<span style="color: var(--accent-secondary);">YOUR_KEY</span>&${api.param}=...
+                    </code>
+                </div>
+                
+                <div class="api-actions">
+                    <button class="api-btn btn-test test-api">
+                        <i class="fas fa-bolt"></i> TEST API
+                    </button>
+                    <button class="api-btn btn-details check-status">
+                        <i class="fas fa-chart-line"></i> CHECK STATUS
+                    </button>
+                </div>
+            `;
 
-    // Add event listeners
-    card.querySelector('.test-api').addEventListener('click', () => openTestModal(api));
-    card.querySelector('.check-status').addEventListener('click', () => checkApiStatus(api.id || api.endpoint));
-    
-    return card;
-}
+            // Add event listeners
+            card.querySelector('.test-api').addEventListener('click', () => openTestModal(api));
+            card.querySelector('.check-status').addEventListener('click', () => checkApiStatus(api.id || api.endpoint));
+            
+            return card;
+        }
 
-        
         // Open test modal
         function openTestModal(api) {
             currentTestApi = api;
@@ -2703,58 +2797,49 @@ function createApiCard(api) {
             // Show modal
             testModal.classList.add('active');
         }
-
-
-
-
-
-
-        
         
         // Run API test
         async function runApiTest() {
-    if (!currentTestApi) return;
-    
-    const paramInput = document.getElementById('modalParamInput');
-    const apiKeyInput = document.getElementById('modalApiKeyInput'); // Get the key box
-    const paramValue = paramInput.value.trim();
-    const apiKeyValue = apiKeyInput ? apiKeyInput.value.trim() : ""; // Get key value
-    
-    const responseContent = document.getElementById('responseContent');
-    const responseSection = document.getElementById('responseSection');
-    
-    if (!paramValue) {
-        showNotification('Please enter a parameter value', 'error');
-        return;
-    }
+            if (!currentTestApi) return;
+            
+            const paramInput = document.getElementById('modalParamInput');
+            const apiKeyInput = document.getElementById('modalApiKeyInput'); 
+            const paramValue = paramInput.value.trim();
+            const apiKeyValue = apiKeyInput ? apiKeyInput.value.trim() : ""; 
+            
+            const responseContent = document.getElementById('responseContent');
+            const responseSection = document.getElementById('responseSection');
+            
+            if (!paramValue) {
+                showNotification('Please enter a parameter value', 'error');
+                return;
+            }
 
-    // Show loading
-    responseSection.classList.add('active');
-    responseContent.innerHTML = '<span style="color: var(--neon-cyan)">🔄 Connecting to Secure Server...</span>';
-    responseContent.style.color = 'var(--cyber-light)';
-    
-    try {
-        // FIX: Use currentTestApi and include the apikey in the URL
-        const apiUrl = `${window.location.origin}${currentTestApi.endpoint}?apikey=${apiKeyValue}&${currentTestApi.param}=${encodeURIComponent(paramValue)}`;
-        
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        
-        // Display result
-        responseContent.textContent = JSON.stringify(data, null, 4);
-        
-        // Change border/text color based on success
-        if (data.status === false || data.error) {
-            responseContent.style.borderColor = "var(--neon-red)";
-        } else {
-            responseContent.style.borderColor = "var(--neon-green)";
+            // Show loading
+            responseSection.classList.add('active');
+            responseContent.innerHTML = '<span style="color: var(--accent-primary)">🔄 Connecting to Secure Server...</span>';
+            responseContent.style.color = 'var(--text-main)';
+            
+            try {
+                const apiUrl = `${window.location.origin}${currentTestApi.endpoint}?apikey=${apiKeyValue}&${currentTestApi.param}=${encodeURIComponent(paramValue)}`;
+                
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                // Display result
+                responseContent.textContent = JSON.stringify(data, null, 4);
+                
+                // Change border/text color based on success
+                if (data.status === false || data.error) {
+                    responseContent.style.borderColor = "var(--neon-red)";
+                } else {
+                    responseContent.style.borderColor = "var(--neon-green)";
+                }
+                
+            } catch (error) {
+                responseContent.innerHTML = `<span style="color: var(--neon-red)">Connection Error: ${error.message}</span>`;
+            }
         }
-        
-    } catch (error) {
-        responseContent.innerHTML = `<span style="color: var(--neon-red)">Connection Error: ${error.message}</span>`;
-    }
-}
-
         
         // Check API status
         async function checkApiStatus(apiId) {
@@ -2838,9 +2923,6 @@ function createApiCard(api) {
         // Test all APIs (full test)
         async function testAllApisFunction() {
             showNotification('Testing all APIs. This may take a while...', 'info');
-            
-            // This would be a more comprehensive test
-            // For now, just check status
             checkAllApisStatus();
         }
         
@@ -2858,17 +2940,13 @@ function createApiCard(api) {
                 api.responseTime = responseTime;
                 api.lastChecked = new Date().toLocaleTimeString();
                 
-                // Update all API cards
                 updateApiCards();
-                // Update dashboard table
                 updateDashboardTable();
             }
         }
         
         // Update API cards
         function updateApiCards() {
-            // This would update all API cards on all pages
-            // For simplicity, we'll just reload
             loadAllApis();
             loadCategoryPages();
         }
@@ -2883,7 +2961,6 @@ function createApiCard(api) {
             document.getElementById('workingApisCard').textContent = working;
             document.getElementById('deadApisCard').textContent = dead;
             
-            // Update table
             updateDashboardTable();
         }
         
@@ -2934,52 +3011,49 @@ function createApiCard(api) {
         
         // Show notification
         function showNotification(message, type) {
-            // Create notification element
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
                 top: 100px;
                 right: 30px;
-                padding: 20px 30px;
-                border-radius: 10px;
-                font-family: 'Rajdhani', sans-serif;
-                font-weight: 700;
+                padding: 16px 28px;
+                border-radius: 14px;
+                font-family: 'Space Grotesk', sans-serif;
+                font-weight: 600;
                 z-index: 10000;
-                animation: slideIn 0.3s ease;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+                backdrop-filter: var(--glass-blur);
             `;
             
-            // Set color based on type
             if (type === 'success') {
-                notification.style.background = 'rgba(0, 255, 157, 0.2)';
+                notification.style.background = 'rgba(16, 185, 129, 0.15)';
                 notification.style.border = '1px solid var(--neon-green)';
                 notification.style.color = 'var(--neon-green)';
             } else if (type === 'error') {
-                notification.style.background = 'rgba(255, 60, 60, 0.2)';
+                notification.style.background = 'rgba(239, 68, 68, 0.15)';
                 notification.style.border = '1px solid var(--neon-red)';
                 notification.style.color = 'var(--neon-red)';
             } else {
-                notification.style.background = 'rgba(0, 243, 255, 0.2)';
-                notification.style.border = '1px solid var(--neon-cyan)';
-                notification.style.color = 'var(--neon-cyan)';
+                notification.style.background = 'rgba(56, 189, 248, 0.15)';
+                notification.style.border = '1px solid var(--accent-primary)';
+                notification.style.color = 'var(--accent-primary)';
             }
             
             notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}" style="margin-right: 8px;"></i>
                 ${message}
             `;
             
             document.body.appendChild(notification);
             
-            // Remove after 3 seconds
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
+                notification.style.animation = 'slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
                 setTimeout(() => {
                     document.body.removeChild(notification);
                 }, 300);
             }, 3000);
             
-            // Add CSS for animations
             if (!document.getElementById('notification-styles')) {
                 const style = document.createElement('style');
                 style.id = 'notification-styles';
@@ -3009,79 +3083,53 @@ function createApiCard(api) {
             }
         }
 
-
-window.generateUserKey = function() {
-    const timestamp = Date.now();
-    // Generate exactly 8 random characters
-    const randomStr = Math.random().toString(36).substring(2, 10); 
-    
-    // Create the 2-digit checksum based on character codes
-    const checksum = randomStr.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
-    // Format checksum to always be 2 digits (e.g., 05 instead of 5)
-    const formattedChecksum = checksum.toString().padStart(2, '0');
-    
-    // Final format: vajira - random+checksum - timestamp
-    const newKey = `vajira-${randomStr}${formattedChecksum}-${timestamp}`;
-    
-    localStorage.setItem('user_apikey', newKey);
-    
-    const displayElement = document.getElementById('display-api-key');
-    if (displayElement) {
-        displayElement.textContent = newKey;
-        displayElement.style.color = "#00f3ff";
-    }
-
-    if (typeof showNotification === 'function') {
-        const expiryDate = new Date(timestamp + (7 * 24 * 60 * 60 * 1000)).toLocaleDateString();
-        showNotification(`Key Generated! Expires on: ${expiryDate}`, 'success');
-    }
-};
-
-// Auto-load key on page refresh
-window.addEventListener('DOMContentLoaded', () => {
-    const savedKey = localStorage.getItem('user_apikey');
-    const displayElement = document.getElementById('display-api-key');
-    if (savedKey && displayElement) {
-        displayElement.textContent = savedKey;
-    }
-});
-
-
-
-
-// ... existing code above ...
-
-    // ADD THE CODE HERE:
-
-    function startLiveMonitoring() {
-        setInterval(() => {
-            // Randomize CPU
-            const cpu = Math.floor(Math.random() * (35 - 15) + 15);
-            const cpuEl = document.getElementById('cpu-load');
-            if(cpuEl) cpuEl.textContent = cpu + "%";
+        window.generateUserKey = function() {
+            const timestamp = Date.now();
+            const randomStr = Math.random().toString(36).substring(2, 10); 
+            const checksum = randomStr.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
+            const formattedChecksum = checksum.toString().padStart(2, '0');
+            const newKey = `vajira-${randomStr}${formattedChecksum}-${timestamp}`;
             
-            // Randomize Latency
-            const lat = Math.floor(Math.random() * (65 - 30) + 30);
-            const latEl = document.getElementById('live-latency');
-            if(latEl) latEl.textContent = lat + "ms";
+            localStorage.setItem('user_apikey', newKey);
             
-            // Randomize Connections
-            const conn = Math.floor(Math.random() * (1300 - 1100) + 1100);
-            const connEl = document.getElementById('active-conn');
-            if(connEl) connEl.textContent = conn.toLocaleString();
-        }, 3000);
-    }
+            const displayElement = document.getElementById('display-api-key');
+            if (displayElement) {
+                displayElement.textContent = newKey;
+                displayElement.style.color = "var(--accent-primary)";
+            }
 
-    // Start monitoring when page is ready
-    window.addEventListener('DOMContentLoaded', startLiveMonitoring);
+            if (typeof showNotification === 'function') {
+                const expiryDate = new Date(timestamp + (7 * 24 * 60 * 60 * 1000)).toLocaleDateString();
+                showNotification(`Key Generated! Expires on: ${expiryDate}`, 'success');
+            }
+        };
 
+        // Auto-load key on page refresh
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('user_apikey');
+            const displayElement = document.getElementById('display-api-key');
+            if (savedKey && displayElement) {
+                displayElement.textContent = savedKey;
+            }
+        });
 
+        function startLiveMonitoring() {
+            setInterval(() => {
+                const cpu = Math.floor(Math.random() * (35 - 15) + 15);
+                const cpuEl = document.getElementById('cpu-load');
+                if(cpuEl) cpuEl.textContent = cpu + "%";
+                
+                const lat = Math.floor(Math.random() * (65 - 30) + 30);
+                const latEl = document.getElementById('live-latency');
+                if(latEl) latEl.textContent = lat + "ms";
+                
+                const conn = Math.floor(Math.random() * (1300 - 1100) + 1100);
+                const connEl = document.getElementById('active-conn');
+                if(connEl) connEl.textContent = conn.toLocaleString();
+            }, 3000);
+        }
 
-
-        
-
-        
-        // Make functions available globally for onclick attributes
+        window.addEventListener('DOMContentLoaded', startLiveMonitoring);
         window.checkApiStatus = checkApiStatus;
     </script>
 </body>
