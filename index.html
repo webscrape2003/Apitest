@@ -1480,7 +1480,7 @@
                             </span>
                             <div class="api-actions">
                                 <button class="api-btn btn-test" onclick="openTestSuiteModal(${api.id})"><i class="fas fa-flask"></i> TEST ROUTINE</button>
-                                <button class="api-btn btn-details" onclick="copyEndpointText('${api.endpoint}')"><i class="fas fa-copy"></i> COPY PATH</button>
+                                <button class="api-btn btn-details" onclick="copyEndpointText('${window.location.origin}${currentActiveTargetApi.endpoint}?apikey=${apiKeyValue}&${currentActiveTargetApi.param}=${encodeURIComponent(paramValue)}')"><i class="fas fa-copy"></i> COPY PATH</button>
                             </div>
                         </div>
                     </div>
