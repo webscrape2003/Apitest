@@ -1359,40 +1359,41 @@
 
     <script>
         // Full Complete Uncut Array mapping all 32 routing streams natively
-        const apiData = [
-            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "youtube", param: "url", description: "Download YouTube Video tracks in high resolution format with high-speed extraction engine.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
-            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "youtube", param: "url", description: "Extract clean high fidelity audio tracks from any YouTube video links cleanly.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
-            { id: 3, name: "Twitter/X Video Extraction", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract original video source payloads and attachment graphics directly from Twitter/X links.", example: "https://twitter.com/user/status/1234567890", method: "GET", status: "active" },
-            { id: 4, name: "Instagram Media Grabber", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Download Instagram Stories, Reels, standard carousels and pictures via profile payload matching.", example: "https://www.instagram.com/p/Cxxxxxxxxxx/", method: "GET", status: "active" },
-            { id: 5, name: "Facebook Video Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Premium Facebook video tracking script supporting clean high definition video files.", example: "https://www.facebook.com/watch/?v=1234567890", method: "GET", status: "active" },
-            { id: 6, name: "Spotify Track Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Fetch and bundle standard catalog audio tracks matching verified Spotify link strings.", example: "http://spotify.com/track/4PTG3Z6ehGkBFmHIQwUZ6M", method: "GET", status: "active" },
-            { id: 7, name: "GitHub Archive Downloader", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Pack and clone standard distributed repository trees directly into flash zip bundles.", example: "https://github.com/username/repository", method: "GET", status: "active" },
-            { id: 8, name: "Mediafire Source Grabber", endpoint: "/api/mediafiredl", category: "downloaders", param: "url", description: "Direct link scraper mechanics parsing server file wrappers out of raw Mediafire URLs.", example: "https://www.mediafire.com/file/xxxxx/example.zip", method: "GET", status: "active" },
-            { id: 9, name: "TikTok Unwatermarked Video", endpoint: "/api/tiktokdl", category: "downloaders", param: "url", description: "Download shortform TikTok videos omitting any overlay watermark indicators instantly.", example: "https://www.tiktok.com/@user/video/1234567890", method: "GET", status: "active" },
-            { id: 10, name: "Aptoide Engine Search", endpoint: "/api/aptoide", category: "ai", param: "q", description: "Query package files and dependency trees deep within the native Aptoide ecosystem logs.", example: "WhatsApp", method: "GET", status: "active" },
-            { id: 11, name: "Spotify Metadata Query", endpoint: "/api/spotifysearch", category: "ai", param: "query", description: "Scrape tracks, albums, distribution artists, and playlist data profiles from Spotify indices.", example: "Blinding Lights", method: "GET", status: "active" },
-            { id: 12, name: "TikTok Keyword Indexer", endpoint: "/api/ttsearch", category: "ai", param: "q", description: "Discover recent trending clips and active video links inside TikTok using text query strings.", example: "automation tips", method: "GET", status: "active" },
-            { id: 13, name: "Cinematic Hub Search", endpoint: "/api/moviesearch", category: "movie", param: "q", description: "Lookup textual synopsis summaries, rating records, and meta arrays inside global movie index databases.", example: "Inception", method: "GET", status: "active" },
-            { id: 14, name: "Movie Direct Link Collector", endpoint: "/api/moviedl", category: "movie", param: "url", description: "Extract production cloud source streaming pathways from movie network file targets.", example: "https://moviedrivebd.com/file/xxxx", method: "GET", status: "active" },
-            { id: 15, name: "Vajira AI Smart Core", endpoint: "/api/vajira-ai", category: "ai", param: "text", description: "High capacity intelligent NLP script designed to compute logical query inputs.", example: "Write a clean Node.js scraper script using Axios", method: "GET", status: "active" },
-            { id: 16, name: "Google Query Direct Index", endpoint: "/api/google", category: "ai", param: "q", description: "Execute precise keyword searches mapping Google query loops via automated server requests.", example: "Cheerio web scraping documentation", method: "GET", status: "active" },
-            { id: 17, name: "Wikipedia Summary Parser", endpoint: "/api/wiki", category: "ai", param: "q", description: "Collect systematic historical data statements and clean information grids from Wikipedia records.", example: "OpenAI development history", method: "GET", status: "active" },
-            { id: 18, name: "Lyrics Resource Finder", endpoint: "/api/lyrics", category: "ai", param: "song", description: "Retrieve text arrays mapping vocal tracks matching global registry music listings.", example: "Bohemian Rhapsody", method: "GET", status: "active" },
-            { id: 19, name: "Meteorological Conditions Report", endpoint: "/api/weather", category: "ai", param: "city", description: "Fetch atmospheric changes, air telemetry metrics, and regional forecast matrices.", example: "Matara", method: "GET", status: "active" },
-            { id: 20, name: "Text to Graphics Neural Matrix", endpoint: "/api/text2img", category: "images", param: "prompt", description: "Synthesize graphical asset formats generated through raw textual instruction statements.", example: "Cyberpunk layout terminal interface subtle neon green glow", method: "GET", status: "active" },
-            { id: 21, name: "AI Image Upscaler Core", endpoint: "/api/upscale", category: "images", param: "url", description: "Reconstruct input image bounds, interpolating pixel counts to clear high resolution formats.", example: "https://images.jpg", method: "GET", status: "active" },
-            { id: 22, name: "Background Removal Filter", endpoint: "/api/removebg", category: "images", param: "url", description: "Isolate structural foreground subject vectors from backing planes clean using automated masking loops.", example: "https://images.jpg", method: "GET", status: "active" },
-            { id: 23, name: "Meme Overlay Generator", endpoint: "/api/memegen", category: "images", param: "text", description: "Inject textual line items onto structural image reference templates cleanly.", example: "Code works fine | Production crash", method: "GET", status: "active" },
-            { id: 24, name: "Anime Graphic Identifier", endpoint: "/api/animesearch", category: "images", param: "name", description: "Locate digital asset records, title listings, and series context sheets matching anime inputs.", example: "Attack on Titan", method: "GET", status: "active" },
-            { id: 25, name: "Lightweight Link Minimizer", endpoint: "/api/shorten", category: "utilities", param: "url", description: "Convert complex multi-string tracking paths into condensed redirection strings securely.", example: "https://complex-tracking-link-structure.com/queries", method: "GET", status: "active" },
-            { id: 26, name: "QR Grid Matrix Generator", endpoint: "/api/qrcode", category: "utilities", param: "text", description: "Convert raw string arrays or redirection target paths into machine readable QR models.", example: "VajiraOfficial Network Hub", method: "GET", status: "active" },
-            { id: 27, name: "Entropy Password Generator", endpoint: "/api/password", category: "utilities", param: "len", description: "Build complex password hashes matching desired string length metrics randomly.", example: "24", method: "GET", status: "active" },
-            { id: 28, name: "Base64 Protocol Translator", endpoint: "/api/base64", category: "utilities", param: "text", description: "Encode textual strings to Base64 standards or safely parse data packets back to plaintext inputs.", example: "Vajira Automation Systems", method: "GET", status: "active" },
-            { id: 29, name: "JSON Formatting Validator", endpoint: "/api/jsonformat", category: "utilities", param: "json", description: "Parse dense minified structural strings into cleanly spaced tabular object notation graphs.", example: '{"status":"active","nodes":32}', method: "GET", status: "active" },
-            { id: 30, name: "Geographic IP Locator", endpoint: "/api/iplookup", category: "utilities", param: "ip", description: "Audit remote network endpoints, determining regional coordinates, country names, and active ISP logs.", example: "8.8.8.8", method: "GET", status: "active" },
-            { id: 31, name: "Gossip Lanka Scraper Feed", endpoint: "/api/gossiplanka", category: "utilities", param: "limit", description: "Extract active regional article feeds and headings directly from Gossip Lanka indexes into JSON arrays.", example: "10", method: "GET", status: "active" },
-            { id: 32, name: "Derana News Sinhala Stream", endpoint: "/api/derana", category: "utilities", param: "type", description: "Scrape real-time headlines from Derana news networks translated into proper language format lists.", example: "breaking", method: "GET", status: "active" }
-        ];
+  const apiData = [
+    { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "youtube", param: "url", description: "Download YouTube Video tracks in high resolution format with high-speed extraction engine.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+    { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "youtube", param: "url", description: "Extract clean high fidelity audio tracks from any YouTube video links cleanly.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+    { id: 3, name: "Twitter/X Video Extraction", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract original video source payloads and attachment graphics directly from Twitter/X links.", example: "https://twitter.com/user/status/1234567890", method: "GET", status: "active" },
+    { id: 4, name: "Instagram Media Grabber", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Download Instagram Stories, Reels, standard carousels and pictures via profile payload matching.", example: "https://www.instagram.com/p/Cxxxxxxxxxx/", method: "GET", status: "active" },
+    { id: 5, name: "Facebook Video Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Premium Facebook video tracking script supporting clean high definition video files.", example: "https://www.facebook.com/watch/?v=1234567890", method: "GET", status: "active" },
+    { id: 6, name: "Spotify Track Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Fetch and bundle standard catalog audio tracks matching verified Spotify link strings.", example: "http://spotify.com/track/4PTG3Z6ehGkBFmHIQwUZ6M", method: "GET", status: "active" },
+    { id: 7, name: "GitHub Archive Downloader", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Pack and clone standard distributed repository trees directly into flash zip bundles.", example: "https://github.com/username/repository", method: "GET", status: "active" },
+    { id: 8, name: "Mediafire Source Grabber", endpoint: "/api/mediafiredl", category: "downloaders", param: "url", description: "Direct link scraper mechanics parsing server file wrappers out of raw Mediafire URLs.", example: "https://www.mediafire.com/file/xxxxx/example.zip", method: "GET", status: "active" },
+    { id: 9, name: "TikTok Unwatermarked Video", endpoint: "/api/tiktokdl", category: "downloaders", param: "url", description: "Download shortform TikTok videos omitting any overlay watermark indicators instantly.", example: "https://www.tiktok.com/@user/video/1234567890", method: "GET", status: "active" },
+    { id: 10, name: "Aptoide Engine Search", endpoint: "/api/aptoide", category: "ai", param: "q", description: "Query package files and dependency trees deep within the native Aptoide ecosystem logs.", example: "WhatsApp", method: "GET", status: "active" },
+    { id: 11, name: "Spotify Metadata Query", endpoint: "/api/spotifysearch", category: "ai", param: "query", description: "Scrape tracks, albums, distribution artists, and playlist data profiles from Spotify indices.", example: "Blinding Lights", method: "GET", status: "active" },
+    { id: 12, name: "TikTok Keyword Indexer", endpoint: "/api/ttsearch", category: "ai", param: "q", description: "Discover recent trending clips and active video links inside TikTok using text query strings.", example: "automation tips", method: "GET", status: "active" },
+    { id: 13, name: "Cinematic Hub Search", endpoint: "/api/moviesearch", category: "movie", param: "q", description: "Lookup textual synopsis summaries, rating records, and meta arrays inside global movie index databases.", example: "Inception", method: "GET", status: "active" },
+    { id: 14, name: "Movie Direct Link Collector", endpoint: "/api/moviedl", category: "movie", param: "url", description: "Extract production cloud source streaming pathways from movie network file targets.", example: "https://moviedrivebd.com/file/xxxx", method: "GET", status: "active" },
+    { id: 15, name: "Vajira AI Smart Core", endpoint: "/api/vajira-ai", category: "ai", param: "text", description: "High capacity intelligent NLP script designed to compute logical query inputs.", example: "Write a clean Node.js scraper script using Axios", method: "GET", status: "active" },
+    { id: 16, name: "Google Query Direct Index", endpoint: "/api/google", category: "ai", param: "q", description: "Execute precise keyword searches mapping Google query loops via automated server requests.", example: "Cheerio web scraping documentation", method: "GET", status: "active" },
+    { id: 17, name: "Wikipedia Summary Parser", endpoint: "/api/wiki", category: "ai", param: "q", description: "Collect systematic historical data statements and clean information grids from Wikipedia records.", example: "OpenAI development history", method: "GET", status: "active" },
+    { id: 18, name: "Lyrics Resource Finder", endpoint: "/api/lyrics", category: "ai", param: "song", description: "Retrieve text arrays mapping vocal tracks matching global registry music listings.", example: "Bohemian Rhapsody", method: "GET", status: "active" },
+    { id: 19, name: "Meteorological Conditions Report", endpoint: "/api/weather", category: "ai", param: "city", description: "Fetch atmospheric changes, air telemetry metrics, and regional forecast matrices.", example: "Matara", method: "GET", status: "active" },
+    { id: 20, name: "Text to Graphics Neural Matrix", endpoint: "/api/text2img", category: "images", param: "prompt", description: "Synthesize graphical asset formats generated through raw textual instruction statements.", example: "Cyberpunk layout terminal interface subtle neon green glow", method: "GET", status: "active" },
+    { id: 21, name: "AI Image Upscaler Core", endpoint: "/api/upscale", category: "images", param: "url", description: "Reconstruct input image bounds, interpolating pixel counts to clear high resolution formats.", example: "https://images.jpg", method: "GET", status: "active" },
+    { id: 22, name: "Background Removal Filter", endpoint: "/api/removebg", category: "images", param: "url", description: "Isolate structural foreground subject vectors from backing planes clean using automated masking loops.", example: "https://images.jpg", method: "GET", status: "active" },
+    { id: 23, name: "Meme Overlay Generator", endpoint: "/api/memegen", category: "images", param: "text", description: "Inject textual line items onto structural image reference templates cleanly.", example: "Code works fine | Production crash", method: "GET", status: "active" },
+    { id: 24, name: "Anime Graphic Identifier", endpoint: "/api/animesearch", category: "images", param: "name", description: "Locate digital asset records, title listings, and series context sheets matching anime inputs.", example: "Attack on Titan", method: "GET", status: "active" },
+    { id: 25, name: "Lightweight Link Minimizer", endpoint: "/api/shorten", category: "utilities", param: "url", description: "Convert complex multi-string tracking paths into condensed redirection strings securely.", example: "https://complex-tracking-link-structure.com/queries", method: "GET", status: "active" },
+    { id: 26, name: "QR Grid Matrix Generator", endpoint: "/api/qrcode", category: "utilities", param: "text", description: "Convert raw string arrays or redirection target paths into machine readable QR models.", example: "VajiraOfficial Network Hub", method: "GET", status: "active" },
+    { id: 27, name: "Entropy Password Generator", endpoint: "/api/password", category: "utilities", param: "len", description: "Build complex password hashes matching desired string length metrics randomly.", example: "24", method: "GET", status: "active" },
+    { id: 28, name: "Base64 Protocol Translator", endpoint: "/api/base64", category: "utilities", param: "text", description: "Encode textual strings to Base64 standards or safely parse data packets back to plaintext inputs.", example: "Vajira Automation Systems", method: "GET", status: "active" },
+    { id: 29, name: "JSON Formatting Validator", endpoint: "/api/jsonformat", category: "utilities", param: "json", description: "Parse dense minified structural strings into cleanly spaced tabular object notation graphs.", example: '{"status":"active","nodes":32}', method: "GET", status: "active" },
+    { id: 30, name: "Geographic IP Locator", endpoint: "/api/iplookup", category: "utilities", param: "ip", description: "Audit remote network endpoints, determining regional coordinates, country names, and active ISP logs.", example: "8.8.8.8", method: "GET", status: "active" },
+    { id: 31, name: "Gossip Lanka Scraper Feed", endpoint: "/api/gossiplanka", category: "utilities", param: "limit", description: "Extract active regional article feeds and headings directly from Gossip Lanka indexes into JSON arrays.", example: "10", method: "GET", status: "active" },
+    { id: 32, name: "Derana News Sinhala Stream", endpoint: "/api/derana", category: "utilities", param: "type", description: "Scrape real-time headlines from Derana news networks translated into proper language format lists.", example: "breaking", method: "GET", status: "active" }
+];
+
 
         let currentActiveTargetApi = null;
 
@@ -1463,6 +1464,70 @@
             let utilitiesCountNum = 0;
             let movieCountNum = 0;
 
+
+
+
+
+
+
+        // --- UPDATED COPY PATH FUNCTION ---
+        function copyFullApiUrl(id) {
+            const api = apiData.find(item => item.id === id);
+            if (!api) return;
+
+            const apiKeyValue = localStorage.getItem('user_apikey') || 'YOUR_API_KEY';
+            const paramValue = prompt(`Enter value for ${api.param}:`, "");
+
+            if (paramValue !== null) {
+                const apiUrl = `${window.location.origin}${api.endpoint}?apikey=${apiKeyValue}&${api.param}=${encodeURIComponent(paramValue)}`;
+                navigator.clipboard.writeText(apiUrl);
+                alert("URL copied to clipboard: " + apiUrl);
+            }
+        }
+
+        // --- UPDATED ROW RENDERING ---
+        function loadAllApiCards() {
+            const container = document.getElementById('apisList'); // Ensure this ID exists in your HTML
+            container.innerHTML = '';
+            
+            apiData.forEach(api => {
+                const rowHtml = `
+                    <div class="api-row">
+                        <div class="api-info-chunk">
+                            <div class="api-meta-title-line">
+                                <span class="api-name">${api.name}</span>
+                                <span class="api-endpoint-badge"><span class="api-method-tag">${api.method}</span>${api.endpoint}</span>
+                            </div>
+                            <p class="api-description">${api.description}</p>
+                        </div>
+                        <div class="api-control-chunk">
+                            <span class="api-status ${api.status === 'active' ? 'status-active' : 'status-inactive'}">
+                                <i class="fas ${api.status === 'active' ? 'fa-check' : 'fa-times'}"></i> ${api.status}
+                            </span>
+                            <div class="api-actions">
+                                <button class="api-btn btn-test" onclick="openTestSuiteModal(${api.id})">
+                                    <i class="fas fa-flask"></i> TEST ROUTINE
+                                </button>
+                                <button class="api-btn btn-details" onclick="copyFullApiUrl(${api.id})">
+                                    <i class="fas fa-copy"></i> COPY PATH
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+
+
+
+
+
+
+
+
+
+
+
+            
             apiData.forEach(api => {
                 // Strict compliance design: Flat horizontal lines featuring glowing underline borders on hover (No box cards allowed)
                 const rowHtml = `
