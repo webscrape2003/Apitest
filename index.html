@@ -1347,12 +1347,11 @@
                     <i class="fas fa-bolt"></i> EMIT ASYNC EXECUTION SIGNAL
                 </button>
             </div>
-            <div class="response-section" id="responseSection">
-                <h3 class="response-title">
-                    <i class="fas fa-code"></i> TERMINAL RESPOND CHANNEL OUTPUT
-                </h3>
-                <div class="response-content" id="responseContent">// Awaiting request compilation...</div>
-            </div>
+          <div id="responseSection" class="page">
+    <h3>API EXECUTION RESULT</h3>
+    <p><strong>Request URL:</strong> <code id="displayUrl" style="word-break: break-all; color: var(--neon-cyan);"></code></p>
+    <pre id="responseContent"></pre>
+</div>
         </div>
     </div>
 
@@ -1575,52 +1574,43 @@
             testModal.classList.add('active');
         }
 
-        // Async Handshake Emulator Action
-// Async Handshake Emulator Action
+
+
+
+
+        
 document.getElementById('runTest').addEventListener('click', () => {
     const apiKeyValue = document.getElementById('modalApiKeyInput').value.trim();
     const paramValue = document.getElementById('modalParamInput').value.trim();
     
-    // Ensure we are using the correct variable: currentActiveTargetApi
+    // 1. Safety check
     if (!currentActiveTargetApi) {
-        showNotification("Error: No API target selected", "error");
+        showNotification("Error: No API selected", "error");
         return;
     }
 
-    if(!apiKeyValue) {
-        showNotification("Handshake validation denied: Token credential missing", "error");
-        return;
-    }
-    if(!paramValue) {
-        showNotification("Parameter error: Required data target fields cannot remain blank", "error");
-        return;
-    }
-
-    // UPDATED: Using currentActiveTargetApi to match your setup
+    // 2. Build the URL (The feature you requested)
     const apiUrl = `${window.location.origin}${currentActiveTargetApi.endpoint}?apikey=${apiKeyValue}&${currentActiveTargetApi.param}=${encodeURIComponent(paramValue)}`;
-    
-    console.log("Constructed Request URL:", apiUrl);
 
-    showNotification("Processing routing array handshake execution parameters...", "info");
+    // 3. Perform the display
+    showNotification("Processing...", "info");
 
     setTimeout(() => {
-        document.getElementById('responseSection').classList.add('active');
+        const responseSection = document.getElementById('responseSection');
+        responseSection.classList.add('active');
+        
+        // Show the constructed URL in the UI
+        document.getElementById('displayUrl').textContent = apiUrl; 
+        
+        // Show the JSON response
         const dynamicResponseMock = {
             status: 200,
-            owner: "VajiraOfficial",
-            timestamp: new Date().toISOString(),
             route: currentActiveTargetApi.endpoint,
-            fullRequestUrl: apiUrl, // URL is now part of the response
-            signature: "active_verified_session",
-            runtimeMetrics: {
-                resource: currentActiveTargetApi.name,
-                passedArgument: paramValue,
-                executionSpeed: `${Math.floor(Math.random() * (135 - 65) + 65)}ms`,
-                status: "operational"
-            }
+            signature: "active_verified_session"
         };
         document.getElementById('responseContent').textContent = JSON.stringify(dynamicResponseMock, null, 4);
-        showNotification("Node pipeline response executed without thread faults", "success");
+        
+        showNotification("Response generated", "success");
     }, 1000);
 });
 
