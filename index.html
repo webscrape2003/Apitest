@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Intelligence API Registry</title>
+    <title>VajiraOfficial | High-Performance Registry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,10 +11,9 @@
             --primary: #0062ff;
             --accent: #00f3ff;
             --premium: #facc15;
-            --bg: #030712;
+            --bg: #010409;
             --surface: rgba(15, 23, 42, 0.7);
-            --border: rgba(0, 243, 255, 0.15);
-            --neon-glow: rgba(0, 243, 255, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
             --text: #f8fafc;
             --text-dim: #94a3b8;
             --success: #10b981;
@@ -28,268 +27,259 @@
             color: var(--text);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            height: 100vh;
+        }
+
+        /* --- TECHNOLOGY VIDEO BACKGROUND --- */
+        #bg-video {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -3; filter: brightness(0.4) saturate(1.2);
+        }
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent, #010409 90%);
+            z-index: -2;
         }
 
         /* --- STARTUP LOADER --- */
-        #loader {
+        #startup {
             position: fixed; inset: 0; background: #000; z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .spinner {
-            width: 60px; height: 70px; border: 3px solid var(--border);
-            border-top: 3px solid var(--accent); border-radius: 50%;
-            animation: spin 1s linear infinite; margin-bottom: 20px;
+            width: 80px; height: 80px; border: 4px solid var(--border);
+            border-top: 4px solid var(--accent); border-radius: 50%;
+            animation: spin 0.8s linear infinite; box-shadow: 0 0 20px var(--accent);
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- DYNAMIC TECH BACKGROUND ANIMATION --- */
-        .bg-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%);
-        }
-        .bg-grid {
-            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background-image: 
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -1;
-            transform: perspective(500px) rotateX(45deg);
-            animation: grid-move 10s linear infinite;
-            opacity: 0.3;
-        }
-        @keyframes grid-move {
-            0% { transform: perspective(500px) rotateX(45deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(45deg) translateY(50px); }
-        }
-
         /* --- NAVIGATION --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 80px;
-            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(20px);
+            position: fixed; top: 0; width: 100%; height: 85px;
+            background: rgba(1, 4, 9, 0.8); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border); display: flex; align-items: center;
-            justify-content: space-between; padding: 0 50px; z-index: 1000;
+            justify-content: space-between; padding: 0 60px; z-index: 1000;
         }
-        .logo { font-family: 'Orbitron'; font-size: 1.5rem; font-weight: 900; letter-spacing: 4px; color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+        .logo { font-family: 'Orbitron'; font-size: 1.8rem; font-weight: 900; letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 15px var(--accent); }
 
         /* --- SIDEBAR --- */
         .sidebar {
-            position: fixed; left: 0; top: 80px; bottom: 0; width: 260px;
-            background: var(--surface); border-right: 1px solid var(--border); padding: 30px 0; z-index: 999;
+            position: fixed; left: 0; top: 85px; bottom: 0; width: 280px;
+            background: var(--surface); border-right: 1px solid var(--border);
+            padding: 30px 0; z-index: 999; backdrop-filter: blur(15px);
         }
         .nav-link {
-            padding: 15px 35px; display: flex; align-items: center; gap: 15px;
-            color: var(--text-dim); text-decoration: none; transition: 0.3s;
-            font-size: 0.9rem; border-left: 4px solid transparent;
+            padding: 16px 40px; display: flex; align-items: center; gap: 15px;
+            color: var(--text-dim); text-decoration: none; transition: 0.4s;
+            font-size: 0.95rem; border-left: 4px solid transparent;
         }
-        .nav-link:hover, .nav-link.active { color: var(--accent); background: rgba(0, 243, 255, 0.05); border-left-color: var(--accent); }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent); background: rgba(0, 243, 255, 0.1); border-left-color: var(--accent);
+        }
 
-        /* --- MAIN CONTENT --- */
-        .main-container { margin-left: 260px; margin-top: 80px; padding: 40px; min-height: 100vh; }
-        .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 50px; margin-bottom: 30px; }
-        .hero h1 { font-family: 'Orbitron'; font-size: 2.8rem; margin-bottom: 10px; }
+        /* --- MAIN WRAPPER --- */
+        .main-container { margin-left: 280px; margin-top: 85px; padding: 50px; min-height: 100vh; }
+        .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 25px; padding: 60px; margin-bottom: 40px; }
+        .hero h1 { font-family: 'Orbitron'; font-size: 3rem; margin-bottom: 15px; }
 
-        /* --- PERFORMANCE --- */
-        .perf-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px; }
-        .perf-card { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-        .perf-val { font-family: 'JetBrains Mono'; font-size: 1.3rem; color: var(--accent); display: block; }
-        .perf-lab { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-
-        /* --- API LIST --- */
-        .registry { display: flex; flex-direction: column; gap: 10px; }
+        /* --- API ROW --- */
+        .api-list { display: flex; flex-direction: column; gap: 12px; }
         .api-row {
-            background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border);
-            border-radius: 12px; padding: 15px 25px; display: flex;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px 30px; display: flex;
             align-items: center; justify-content: space-between;
-            transition: 0.3s; animation: slideUp 0.5s ease-out backwards;
+            transition: 0.4s; animation: slideUp 0.5s ease-out backwards;
         }
-        .api-row:hover { border-color: var(--accent); transform: translateX(10px); background: rgba(0, 243, 255, 0.05); }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 10px; }
-        .status-on { background: var(--success); box-shadow: 0 0 8px var(--success); }
-        .status-off { background: var(--error); box-shadow: 0 0 8px var(--error); }
-        .count-badge { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; margin-left: 10px; }
+        .api-row:hover { border-color: var(--accent); transform: scale(1.01) translateX(10px); background: rgba(0, 243, 255, 0.05); }
+        
+        .api-meta { display: flex; align-items: center; gap: 20px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+        .status-on { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-off { background: var(--error); box-shadow: 0 0 10px var(--error); }
+        
+        .count-badge { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 12px; font-weight: 900; font-size: 0.8rem; margin-left: 15px; }
 
         .btn {
-            background: var(--primary); border: none; color: white; padding: 10px 20px;
-            border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;
+            background: var(--primary); border: none; color: white; padding: 12px 25px;
+            border-radius: 10px; font-family: inherit; font-weight: 700; cursor: pointer;
+            transition: 0.3s; display: flex; align-items: center; gap: 10px;
         }
         .btn-ghost { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-        .btn-ghost:hover { background: var(--accent); color: #000; }
+        .btn-ghost:hover { background: var(--accent); color: black; }
 
-        /* --- PREMIUM BLUR BOX --- */
-        .premium-box {
+        /* --- PREMIUM STEALTH --- */
+        .premium-stealth {
             background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), transparent);
-            border: 2px solid var(--premium); border-radius: 15px; padding: 25px; margin-bottom: 30px;
+            border: 2px solid var(--premium); border-radius: 20px; padding: 30px; margin-bottom: 40px;
         }
-        .blur-text { background: #000; padding: 12px; border-radius: 8px; filter: blur(10px); user-select: none; border: 1px dashed var(--premium); }
+        .blur-key { background: #000; padding: 15px; border-radius: 10px; filter: blur(10px); border: 1px dashed var(--premium); user-select: none; }
 
         /* --- MODALS --- */
-        .modal { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(15px); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .modal-card { background: #0b1224; width: 90%; max-width: 600px; border-radius: 25px; border: 1px solid var(--accent); padding: 40px; text-align: center; }
-        .tech-input { width: 100%; background: #000; border: 1px solid var(--border); padding: 15px; border-radius: 10px; color: #fff; font-family: 'JetBrains Mono'; margin-bottom: 15px; outline: none; }
+        .modal { position: fixed; inset: 0; background: rgba(1, 4, 9, 0.95); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px); }
+        .modal-card { background: #0d1117; width: 90%; max-width: 650px; border-radius: 30px; border: 1px solid var(--accent); padding: 45px; text-align: center; }
+        .tech-input { width: 100%; background: #000; border: 1px solid var(--border); padding: 18px; border-radius: 12px; color: #fff; font-family: 'JetBrains Mono'; margin-bottom: 20px; outline: none; }
 
-        /* --- FIXED SMALL SCROLLABLE RESULT BOX --- */
+        /* --- FIXED BEAUTIFUL RESULT BOX --- */
         #term-res {
             background: #000;
-            color: var(--success);
-            padding: 15px;
-            border-radius: 10px;
+            color: var(--accent);
+            padding: 20px;
+            border-radius: 15px;
             border: 1px solid var(--border);
-            margin-top: 15px;
-            font-size: 0.8rem;
+            margin-top: 20px;
+            font-size: 0.85rem;
             text-align: left;
-            max-height: 200px; /* FIXED SMALL SIZE */
-            overflow-y: auto;  /* ENABLE SCROLL */
+            max-height: 250px; /* STRICT SMALL SIZE */
+            overflow-y: auto;  /* SCROLLABLE */
             display: none;
             white-space: pre-wrap;
             word-break: break-all;
             font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.1);
         }
         #term-res::-webkit-scrollbar { width: 5px; }
-        #term-res::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
+        #term-res::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } }
     </style>
 </head>
 <body>
 
-    <!-- Startup Loader -->
-    <div id="loader">
+    <!-- Loading Page -->
+    <div id="startup">
         <div class="spinner"></div>
-        <div class="logo" style="font-size: 0.8rem;">BOOTING_CORE_SYSTEMS...</div>
+        <div class="logo" style="font-size: 0.7rem; margin-top: 15px;">BOOTING VAJIRA_OS...</div>
     </div>
 
-    <div class="bg-container"></div>
-    <div class="bg-grid"></div>
+    <!-- Technology Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-through-a-neon-cyberpunk-city-at-night-41551-large.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
 
     <nav>
         <div class="logo">VAJIRA<span style="color:#fff">PRO</span></div>
         <div style="display:flex; gap:20px;">
-            <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
+            <button class="btn" style="background:var(--premium); color:#000;" onclick="openPremiumModal()">
                 <i class="fas fa-crown"></i> PREMIUM
             </button>
             <button class="btn btn-ghost" onclick="generateKey()">
-                <i class="fas fa-key"></i> GENERATE
+                <i class="fas fa-sync"></i> GENERATE KEY
             </button>
         </div>
     </nav>
 
     <aside class="sidebar">
-        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-th"></i> System Home</a>
-        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-code"></i> All Endpoints</a>
+        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-microchip"></i> System Home</a>
+        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-code"></i> All APIs</a>
         <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Downloaders</a>
         <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Movies</a>
-        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> Neural AI</a>
+        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> AI Systems</a>
         <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphics</a>
     </aside>
 
     <main class="main-container">
         
-        <!-- Home Section -->
         <section id="home-page" class="page">
             <div class="hero">
-                <h1>CORE REGISTRY</h1>
-                <p style="color:var(--text-dim); line-height:1.6;">Developer: W.M Vajira Rathnayaka (23). Universal infrastructure for 91 endpoints.</p>
-                <div class="perf-row">
-                    <div class="perf-card"><span class="perf-lab">Ping</span><span class="perf-val" id="lat-val">--ms</span></div>
-                    <div class="perf-card"><span class="perf-lab">RAM</span><span class="perf-val" id="mem-val">--MB</span></div>
-                    <div class="perf-card"><span class="perf-lab">Registry</span><span class="perf-val" style="color:var(--success)">STABLE</span></div>
-                    <div class="perf-card"><span class="perf-lab">Total</span><span class="perf-val">91</span></div>
+                <h1>CORE SYSTEM</h1>
+                <p style="color:var(--text-dim); line-height:1.7;">Developer: W.M Vajira Rathnayaka (23). High-latency encrypted gateway for 91 secure modules.</p>
+                <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:15px; margin-top:30px;">
+                    <div style="text-align:center;"><span style="color:var(--accent);font-size:1.5rem;display:block;">99.9%</span><small>UPTIME</small></div>
+                    <div style="text-align:center;"><span style="color:var(--accent);font-size:1.5rem;display:block;" id="real-lat">--ms</span><small>PING</small></div>
+                    <div style="text-align:center;"><span style="color:var(--success);font-size:1.5rem;display:block;">STABLE</span><small>NODE</small></div>
+                    <div style="text-align:center;"><span style="color:var(--accent);font-size:1.5rem;display:block;">91</span><small>APIS</small></div>
                 </div>
             </div>
 
-            <div class="premium-box">
-                <h3 class="orbitron" style="font-size:0.8rem; color:var(--premium); margin-bottom:10px;">LIFETIME ACCESS CREDENTIALS</h3>
-                <div class="blur-text">vajira-VajiraOfficial2003</div>
-                <button class="btn btn-ghost" style="margin-top:15px; border-color:var(--premium); color:var(--premium);" onclick="openPremiumModal()">UPGRADE TO PREMIUM</button>
+            <div class="premium-stealth">
+                <h3 class="orbitron" style="font-size:0.8rem; color:var(--premium); margin-bottom:15px;">PERMANENT ACCESS CREDENTIALS</h3>
+                <div class="blur-key">vajira-VajiraOfficial2003</div>
+                <button class="btn btn-ghost" style="margin-top:20px; border-color:var(--premium); color:var(--premium);" onclick="openPremiumModal()">UPGRADE NOW</button>
             </div>
 
-            <h2 class="orbitron" style="font-size:1rem; color:var(--accent); margin-bottom:20px;">PRIORITY MODULES</h2>
-            <div class="registry" id="featured-list"></div>
+            <h3 class="orbitron" style="margin-bottom:30px; color:var(--accent);">FEATURED MODULES</h3>
+            <div class="api-list" id="featured-list"></div>
         </section>
 
         <!-- Pages -->
-        <section id="apis-page" class="page" style="display:none;"><h2 class="orbitron" style="margin-bottom:20px;">ALL ENDPOINTS <span class="count-badge" id="c-apis">--</span></h2><div class="registry" id="all-registry"></div></section>
-        <section id="downloaders-page" class="page" style="display:none;"><h2 class="orbitron" style="margin-bottom:20px;">DOWNLOADERS <span class="count-badge" id="c-downloaders">--</span></h2><div class="registry" id="list-downloaders"></div></section>
-        <section id="movie-page" class="page" style="display:none;"><h2 class="orbitron" style="margin-bottom:20px;">MOVIES <span class="count-badge" id="c-movie">--</span></h2><div class="registry" id="list-movie"></div></section>
-        <section id="ai-page" class="page" style="display:none;"><h2 class="orbitron" style="margin-bottom:20px;">AI SYSTEMS <span class="count-badge" id="c-ai">--</span></h2><div class="registry" id="list-ai"></div></section>
-        <section id="images-page" class="page" style="display:none;"><h2 class="orbitron" style="margin-bottom:20px;">GRAPHICS <span class="count-badge" id="c-images">--</span></h2><div class="registry" id="list-images"></div></section>
+        <section id="apis-page" class="page" style="display:none;"><h2 class="orbitron">REGISTRY <span class="count-badge" id="c-apis">91</span></h2><div class="api-list" id="all-registry"></div></section>
+        <section id="downloaders-page" class="page" style="display:none;"><h2 class="orbitron">DOWNLOADERS <span class="count-badge" id="c-downloaders">--</span></h2><div class="api-list" id="list-downloaders"></div></section>
+        <section id="movie-page" class="page" style="display:none;"><h2 class="orbitron">MOVIES <span class="count-badge" id="c-movie">--</span></h2><div class="api-list" id="list-movie"></div></section>
+        <section id="ai-page" class="page" style="display:none;"><h2 class="orbitron">AI INTELLIGENCE <span class="count-badge" id="c-ai">--</span></h2><div class="api-list" id="list-ai"></div></section>
+        <section id="images-page" class="page" style="display:none;"><h2 class="orbitron">GRAPHIC ENGINE <span class="count-badge" id="c-images">--</span></h2><div class="api-list" id="list-images"></div></section>
 
     </main>
 
-    <!-- Modals -->
+    <!-- Modal: Key Certificate -->
     <div class="modal" id="modal-key">
         <div class="modal-card">
-            <h2 class="orbitron" style="color:var(--accent); margin-bottom:15px;">SECURE CERTIFICATE</h2>
-            <div style="background:#000; padding:15px; border-radius:10px; font-family:'JetBrains Mono'; color:var(--accent); border:1px dashed var(--accent); margin-bottom:20px;" id="disp-key">--</div>
-            <div style="text-align:left; color:var(--text-dim); font-size:0.85rem; line-height:1.8;">
-                <p>Status: <span style="color:var(--success)">ACTIVE</span></p>
-                <p>Issued: <span id="disp-date">--</span></p>
+            <h2 class="orbitron" style="color:var(--accent);">SECURITY CERTIFICATE</h2>
+            <div style="background:#000; padding:15px; border-radius:10px; font-family:'JetBrains Mono'; margin:20px 0; border:1px dashed var(--accent);" id="disp-key">--</div>
+            <div style="text-align:left; color:var(--text-dim); line-height:2; font-size:0.9rem;">
+                <p>Generated: <span id="disp-date">--</span></p>
                 <p>Expiry: <span style="color:var(--accent)">30 DAYS</span></p>
+                <p>Status: <span style="color:var(--success)">VERIFIED</span></p>
             </div>
-            <button class="btn" style="width:100%; margin-top:20px; justify-content:center;" onclick="copyKey()"><i class="fas fa-copy"></i> COPY KEY</button>
-            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+            <button class="btn" style="width:100%; margin-top:25px;" onclick="copyKey()">COPY KEY</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
+    <!-- Modal: Premium Purchase -->
     <div class="modal" id="modal-premium">
-        <div class="modal-card" style="border-color:var(--premium);">
-            <i class="fas fa-crown" style="color:var(--premium); font-size:2.5rem; margin-bottom:15px;"></i>
+        <div class="modal-box modal-card" style="border-color:var(--premium);">
+            <i class="fas fa-crown" style="color:var(--premium); font-size:3rem; margin-bottom:20px;"></i>
             <h2 class="orbitron" style="color:var(--premium);">PREMIUM UPGRADE</h2>
-            <div style="background:rgba(0,0,0,0.4); padding:20px; border-radius:15px; text-align:left; font-size:0.9rem; line-height:1.8; margin-top:15px;">
+            <div style="background:rgba(0,0,0,0.4); padding:20px; border-radius:20px; text-align:left; font-size:0.9rem; line-height:1.8; margin-top:15px;">
                 <p>Price: <span style="color:var(--premium)">250 LKR</span></p>
-                <p>Bank: <span style="color:white">BOC (Bank of Ceylon)</span></p>
+                <p>Bank: <span style="color:white">Bank of Ceylon (BOC)</span></p>
                 <p>Account: <span style="color:white">0089860809</span></p>
                 <p>Name: <span style="color:white">W.M VAJIRA RATHNAYAKA BALAGODA</span></p>
-                <p>Validity: <span style="color:var(--premium)">LIFETIME</span></p>
+                <p>Validity: <span style="color:var(--premium)">LIFETIME (PERMANENT)</span></p>
             </div>
             <button class="btn" style="width:100%; margin-top:20px; background:#25D366;" onclick="window.open('https://wa.me/94719199757')">
-                <i class="fab fa-whatsapp"></i> WHATSAPP DEVELOPER
+                <i class="fab fa-whatsapp"></i> CONTACT WHATSAPP
             </button>
-            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
+    <!-- Modal: Terminal -->
     <div class="modal" id="terminal-modal">
         <div class="modal-card">
-            <h2 class="orbitron" id="term-title" style="margin-bottom:20px;">TERMINAL_EXECUTE</h2>
+            <h2 class="orbitron" id="term-title">TERMINAL_SESSION</h2>
             <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
-            <input type="text" id="term-val" class="tech-input" placeholder="INPUT_PARAMETER">
+            <input type="text" id="term-val" class="tech-input" placeholder="PARAMETER">
             <button class="btn" style="width:100%;" id="term-run">EXECUTE</button>
             <pre id="term-res"></pre>
-            <button class="btn btn-ghost" style="width:100%; margin-top:15px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:15px;" onclick="closeModal()">EXIT</button>
         </div>
     </div>
 
     <script>
         const BASE_URL = "https://vajira-official-apis.vercel.app";
-        const PREMIUM_KEY = "vajira-VajiraOfficial2003";
-
-        // FULL 91 APIS LIST
         const apiData = [
-            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "HQ YouTube video extraction.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
-            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "320kbps audio extraction.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
-            { id: 3, name: "Twitter/X Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract media from Twitter/X.", example: "Twitter URL", method: "GET", status: "active" },
-            { id: 4, name: "Instagram Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Universal IG media downloader.", example: "IG URL", method: "GET", status: "active" },
-            { id: 11, name: "Blackbox AI Logic", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Advanced code and logic neural system.", example: "Code a snake game", method: "GET", status: "active" },
-            { id: 13, name: "Text-to-Image AI", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generative image AI engine.", example: "Cyberpunk dragon", method: "GET", status: "active" },
-            { id: 31, name: "Global Movie Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Search deep movie metadata.", example: "Batman", method: "GET", status: "active" },
-            { id: 37, name: "TikTok HD Downloader", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "No watermark TikTok extraction.", example: "TikTok URL", method: "GET", status: "active" },
-            { id: 42, name: "Xnxx Search", endpoint: "/api/xnxx-search", category: "downloaders", param: "q", description: "Adult content indexer.", example: "name", method: "GET", status: "active" },
-            { id: 91, name: "Xhamster Search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult site search engine.", example: "search", method: "GET", status: "active" }
-            // Add all other 80+ IDs here... they are included in the categories logic below
+            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "HQ video extraction.", example: "YouTube URL", method: "GET", status: "active" },
+            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "320kbps audio engine.", example: "YouTube URL", method: "GET", status: "active" },
+            { id: 3, name: "Twitter/X Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract videos from X.", example: "Twitter URL", method: "GET", status: "active" },
+            { id: 11, name: "Blackbox AI Neural", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Complex code reasoning.", example: "Write a function", method: "GET", status: "active" },
+            { id: 13, name: "Text-to-Image AI", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generative AI art engine.", example: "Neon Wolf", method: "GET", status: "active" },
+            { id: 31, name: "Global Movie Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Deep movie metadata index.", example: "Inception", method: "GET", status: "active" },
+            { id: 37, name: "TikTok Downloader", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "No-watermark extraction.", example: "TikTok URL", method: "GET", status: "active" },
+            { id: 42, name: "Xnxx Search", endpoint: "/api/xnxx-search", category: "downloaders", param: "q", description: "Adult site search engine.", example: "name", method: "GET", status: "active" },
+            { id: 91, name: "Xhamster Search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "name", method: "GET", status: "active" }
         ];
 
         window.onload = () => {
-            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 2000);
-            renderAll();
+            setTimeout(() => { document.getElementById('startup').style.display = 'none'; }, 2000);
+            renderLists();
             setupNav();
-            setInterval(perfUpdate, 3000);
-            perfUpdate();
+            setInterval(updatePing, 4000);
+            updatePing();
         };
 
-        function renderAll() {
-            const containers = {
+        function renderLists() {
+            const sections = {
                 'featured-list': apiData.slice(0, 5),
                 'all-registry': apiData,
                 'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
@@ -298,7 +288,7 @@
                 'list-images': apiData.filter(a => a.category === 'images')
             };
 
-            for (const [id, data] of Object.entries(containers)) {
+            for (const [id, data] of Object.entries(sections)) {
                 const el = document.getElementById(id);
                 if (el) {
                     el.innerHTML = '';
@@ -306,16 +296,16 @@
                         const row = document.createElement('div');
                         row.className = 'api-row';
                         row.innerHTML = `
-                            <div style="display:flex; align-items:center; gap:20px;">
-                                <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
+                            <div class="api-meta">
+                                <div style="width:45px;height:45px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-${getIcon(api.category)}"></i></div>
                                 <div><span style="font-weight:700;"><span class="status-dot status-on"></span>${api.name}</span><p style="color:var(--text-dim);font-size:0.8rem;margin-top:3px;">${api.description}</p></div>
                             </div>
-                            <div style="display:flex; gap:10px;">
+                            <div style="display:flex;gap:12px;">
                                 <button class="btn btn-ghost" onclick="copyApi('${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...')">COPY</button>
-                                <button class="btn" onclick='openTerm(${JSON.stringify(api)})'>EXECUTE</button>
+                                <button class="btn" onclick='openTerm(${JSON.stringify(api)})'>TEST</button>
                             </div>
                         `;
-                        row.style.animationDelay = `${idx * 0.04}s`;
+                        row.style.animationDelay = `${idx * 0.05}s`;
                         el.appendChild(row);
                     });
                 }
@@ -335,17 +325,14 @@
         }
 
         function copyKey() { navigator.clipboard.writeText(localStorage.getItem('v-key')); alert("Key Copied!"); }
-        function copyApi(url) { 
-            const k = localStorage.getItem('v-key') || 'YOUR_KEY';
-            navigator.clipboard.writeText(url.replace('YOUR_KEY', k)); alert("Endpoint Copied!"); 
-        }
+        function copyApi(url) { const k = localStorage.getItem('v-key') || 'YOUR_KEY'; navigator.clipboard.writeText(url.replace('YOUR_KEY', k)); alert("Endpoint Copied!"); }
 
         function openPremiumModal() { document.getElementById('modal-premium').style.display = 'flex'; }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
 
-        let activeApi = null;
+        let currentApi = null;
         window.openTerm = (api) => {
-            activeApi = api;
+            currentApi = api;
             document.getElementById('term-title').textContent = api.name;
             document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
             document.getElementById('term-res').style.display = 'none';
@@ -356,10 +343,10 @@
             const k = document.getElementById('term-key').value;
             const v = document.getElementById('term-val').value;
             const res = document.getElementById('term-res');
-            if(!k || !v) return alert("Fields Required");
+            if(!k || !v) return alert("Credentials Required");
             res.style.display = 'block'; res.textContent = ">>> Requesting Node_01...";
             try {
-                const response = await fetch(`${BASE_URL}${activeApi.endpoint}?apikey=${k}&${activeApi.param}=${v}`);
+                const response = await fetch(`${BASE_URL}${currentApi.endpoint}?apikey=${k}&${currentApi.param}=${v}`);
                 const data = await response.json();
                 res.textContent = JSON.stringify(data, null, 4);
             } catch(e) { res.textContent = "Error: " + e.message; }
@@ -377,10 +364,12 @@
             });
         }
 
-        function perfUpdate() {
+        function updatePing() {
             const s = Date.now();
-            fetch(window.location.href, { mode:'no-cors' }).then(() => { document.getElementById('lat-val').textContent = (Date.now()-s) + "ms"; });
-            if(window.performance.memory) document.getElementById('mem-val').textContent = Math.round(window.performance.memory.usedJSHeapSize/1048576) + "MB";
+            fetch(window.location.href, { mode:'no-cors' }).then(() => { 
+                const p = (Date.now()-s) + "ms";
+                document.getElementById('real-lat').textContent = p;
+            });
         }
     </script>
 </body>
