@@ -3,132 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Premium API Registry</title>
+    <title>VajiraOfficial | Secure System Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0072ff;
             --accent: #00f3ff;
-            --premium: #facc15;
-            --bg: #020617;
+            --premium-gold: #facc15;
+            --bg-dark: #020617;
             --surface: rgba(15, 23, 42, 0.7);
-            --border: rgba(0, 243, 255, 0.2);
-            --text: #f8fafc;
-            --text-dim: #64748b;
-            --glow: rgba(0, 243, 255, 0.3);
+            --border: rgba(0, 243, 255, 0.15);
+            --text-white: #f8fafc;
+            --text-slate: #64748b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% -20%, #0c1e3d, #020617);
         }
 
-        /* --- TECH ANIMATED BACKGROUND --- */
-        .grid-layer {
+        /* --- STARTUP LOADER --- */
+        #startup-loader {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .loader-ring {
+            width: 80px; height: 80px; border: 4px solid var(--border);
+            border-top: 4px solid var(--accent); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--accent);
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .loader-text { font-family: 'Orbitron'; letter-spacing: 5px; color: var(--accent); font-size: 0.8rem; }
+
+        /* --- BACKGROUND TECH GRID --- */
+        .tech-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), 
+            background-image: linear-gradient(var(--border) 1px, transparent 1px),
                               linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 40px 40px; z-index: -1; opacity: 0.15;
-            mask-image: radial-gradient(circle, black, transparent 80%);
+            background-size: 50px 50px; z-index: -1; opacity: 0.2;
+            mask-image: radial-gradient(circle, black, transparent 90%);
         }
 
-        /* --- NAVIGATION --- */
+        /* --- TOP NAVIGATION --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 85px;
-            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); display: flex; align-items: center;
-            justify-content: space-between; padding: 0 60px; z-index: 1000;
+            position: fixed; top: 0; width: 100%; height: 80px;
+            background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); display: flex;
+            align-items: center; justify-content: space-between; padding: 0 50px; z-index: 1000;
         }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
-            letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 15px var(--glow);
-        }
+        .logo { font-family: 'Orbitron'; font-size: 1.5rem; font-weight: 900; letter-spacing: 4px; color: var(--accent); }
 
         /* --- SIDEBAR --- */
         .sidebar {
-            position: fixed; left: 0; top: 85px; bottom: 0; width: 280px;
+            position: fixed; left: 0; top: 80px; bottom: 0; width: 260px;
             background: var(--surface); border-right: 1px solid var(--border);
-            padding: 40px 0; z-index: 999;
+            padding: 30px 0; z-index: 999;
         }
-
         .nav-link {
-            padding: 16px 40px; display: flex; align-items: center; gap: 18px;
-            color: var(--text-dim); text-decoration: none; transition: 0.4s;
-            font-weight: 500; border-left: 4px solid transparent;
+            padding: 15px 35px; display: flex; align-items: center; gap: 15px;
+            color: var(--text-slate); text-decoration: none; transition: 0.3s;
+            font-size: 0.9rem; border-left: 3px solid transparent;
         }
-
         .nav-link:hover, .nav-link.active {
-            color: var(--accent); background: linear-gradient(90deg, rgba(0, 243, 255, 0.08), transparent);
-            border-left-color: var(--accent); text-shadow: 0 0 10px var(--accent);
+            color: var(--accent); background: rgba(0, 243, 255, 0.05);
+            border-left-color: var(--accent);
         }
 
         /* --- MAIN CONTENT --- */
-        .main-container { margin-left: 280px; margin-top: 85px; padding: 50px; min-height: 100vh; }
+        .content { margin-left: 260px; margin-top: 80px; padding: 40px; min-height: 100vh; }
 
-        /* --- HERO & METRICS --- */
-        .hero-card {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
-            border: 1px solid var(--border); border-radius: 24px;
-            padding: 60px; margin-bottom: 40px; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .hero-card h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin-bottom: 15px; }
-
-        .metrics-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;
-        }
-
-        .m-card {
-            background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px; border: 1px solid var(--border);
-            text-align: center; transition: 0.3s;
-        }
-
-        .m-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
-        .m-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-        .m-value { font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent); display: block; margin-top: 8px; }
-
-        /* --- LINE STYLE API ROW --- */
-        .api-registry { display: flex; flex-direction: column; gap: 15px; }
-
-        .api-row {
+        .hero {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: 16px; padding: 22px 35px; display: flex;
+            border-radius: 20px; padding: 50px; margin-bottom: 40px;
+        }
+        .hero h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* --- PERFORMANCE CARDS --- */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px; }
+        .stat-card {
+            background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid var(--border);
+            text-align: center;
+        }
+        .stat-val { font-family: 'JetBrains Mono'; font-size: 1.3rem; color: var(--accent); display: block; }
+        .stat-lab { font-size: 0.65rem; color: var(--text-slate); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- LINE STYLE API --- */
+        .registry { display: flex; flex-direction: column; gap: 10px; }
+        .api-row {
+            background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border);
+            border-radius: 12px; padding: 18px 30px; display: flex;
             align-items: center; justify-content: space-between;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            animation: slideIn 0.6s ease-out backwards;
+            transition: 0.3s; animation: slideIn 0.5s ease backwards;
         }
+        .api-row:hover { border-color: var(--accent); transform: translateX(10px); background: rgba(0, 243, 255, 0.05); }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } }
-
-        .api-row:hover {
-            border-color: var(--accent); background: rgba(0, 243, 255, 0.04);
-            transform: scale(1.015) translateX(10px); box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
-        }
-
-        .api-meta { display: flex; align-items: center; gap: 25px; }
-        .api-icon { width: 50px; height: 50px; border-radius: 12px; background: var(--primary);
-                    display: flex; align-items: center; justify-content: center; color: white;
-                    box-shadow: 0 0 15px var(--primary); font-size: 1.2rem; }
-
-        .api-name { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
-        .tag { font-size: 0.65rem; background: #fff; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: 900; text-transform: uppercase; }
+        .api-info { display: flex; align-items: center; gap: 20px; }
+        .api-icon { width: 45px; height: 45px; background: var(--primary); border-radius: 10px;
+                    display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 
         .btn {
-            background: var(--primary); border: none; color: white; padding: 12px 24px;
-            border-radius: 10px; cursor: pointer; font-family: inherit; font-weight: 700;
-            transition: 0.3s; display: flex; align-items: center; gap: 10px;
+            background: var(--primary); color: #fff; border: none; padding: 10px 20px;
+            border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;
         }
-
         .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-        .btn-outline:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent); }
+        .btn-outline:hover { background: var(--accent); color: #000; }
+
+        /* --- PREMIUM BOX --- */
+        .premium-card {
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), transparent);
+            border: 2px solid var(--premium-gold); border-radius: 15px; padding: 30px; margin-bottom: 30px;
+        }
+        .blurred-key {
+            background: #000; padding: 15px; border-radius: 8px; font-family: 'JetBrains Mono';
+            filter: blur(6px); user-select: none; margin: 15px 0; border: 1px dashed var(--premium-gold);
+            position: relative;
+        }
+        .key-overlay {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 900; filter: blur(0); text-shadow: 0 0 10px #000;
+        }
 
         /* --- MODALS --- */
         .modal {
@@ -136,333 +136,245 @@
             backdrop-filter: blur(15px); z-index: 2000; display: none;
             align-items: center; justify-content: center;
         }
-
-        .cert-box {
-            background: var(--bg); width: 90%; max-width: 550px; border-radius: 24px;
-            border: 2px solid var(--accent); padding: 50px; position: relative;
-            box-shadow: 0 0 100px rgba(0,243,255,0.2); text-align: center;
+        .modal-box {
+            background: #0b1224; width: 90%; max-width: 600px; border-radius: 20px;
+            border: 1px solid var(--accent); padding: 40px; box-shadow: 0 0 50px rgba(0,243,255,0.2);
         }
-
-        .cert-box::before {
-            content: "SECURITY CREDENTIAL"; position: absolute; top: -12px; left: 50%;
-            transform: translateX(-50%); background: var(--accent); color: #000;
-            padding: 4px 20px; font-weight: 900; font-size: 0.7rem; border-radius: 20px;
+        .tech-input {
+            width: 100%; background: #000; border: 1px solid var(--border); padding: 15px;
+            border-radius: 10px; color: #fff; font-family: 'JetBrains Mono'; margin-bottom: 20px;
         }
+        pre { background: #000; padding: 20px; border-radius: 10px; color: var(--accent); font-size: 0.8rem; overflow-x: auto; display: none; }
 
-        .cert-key {
-            background: #000; padding: 20px; border-radius: 12px; margin: 25px 0;
-            font-family: 'JetBrains Mono'; color: var(--accent); font-size: 1.1rem;
-            word-break: break-all; border: 1px dashed var(--accent);
-        }
-
-        .details-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;
-            margin-bottom: 30px; border-top: 1px solid var(--border); padding-top: 25px;
-        }
-
-        .terminal-box {
-            background: #000; border: 1px solid var(--border); border-radius: 16px;
-            padding: 30px; width: 90%; max-width: 800px;
-        }
-
-        pre {
-            background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; color: #10b981;
-            font-size: 0.85rem; max-height: 250px; overflow-y: auto; display: none; margin-top: 20px;
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .main-container { margin-left: 0; }
-            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-            .api-row { flex-direction: column; gap: 20px; text-align: center; }
-            .api-meta { flex-direction: column; }
-        }
+        @keyframes slideIn { from { opacity:0; transform: translateX(-20px); } }
     </style>
 </head>
 <body>
 
-    <div class="grid-layer"></div>
+    <!-- Startup Loader -->
+    <div id="startup-loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <div class="tech-grid"></div>
 
     <nav>
-        <div class="logo">VAJIRA<span style="color:white">HUB</span></div>
-        <div style="display:flex; gap:30px; align-items:center;">
-            <div id="live-ping" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.8rem; font-weight:700;">LATENCY: --ms</div>
-            <button class="btn" style="background:var(--premium); color:#000;" onclick="showPremiumKey()">
-                <i class="fas fa-crown"></i> PREMIUM KEY
-            </button>
-            <button class="btn btn-outline" onclick="generateKey()">
-                <i class="fas fa-sync"></i> GENERATE NEW
+        <div class="logo">VAJIRA<span style="color:#fff">PRO</span></div>
+        <div style="display:flex; gap:20px; align-items:center;">
+            <div id="real-ping" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.75rem;">LATENCY: --ms</div>
+            <button class="btn" style="background:var(--premium-gold); color:#000;" onclick="openPaymentModal()">
+                <i class="fas fa-crown"></i> GET PREMIUM
             </button>
         </div>
     </nav>
 
     <aside class="sidebar">
-        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-microchip"></i> System Overview</a>
-        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-database"></i> All Module Registry</a>
-        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Download Pack</a>
-        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-video"></i> Media Database</a>
-        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-brain"></i> Neural AI Hub</a>
-        <a href="#" class="nav-link" data-page="images"><i class="fas fa-magic"></i> Graphic Engines</a>
-        <a href="#" class="nav-link" data-page="utilities"><i class="fas fa-tools"></i> Core Utilities</a>
+        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-microchip"></i> System Home</a>
+        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-code"></i> API Registry</a>
+        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Downloaders</a>
+        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Movie Search</a>
+        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-brain"></i> Intelligence</a>
+        <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Hub</a>
     </aside>
 
-    <main class="main-container">
+    <main class="content">
         
-        <!-- Home -->
         <section id="home-page" class="page">
-            <div class="hero-card">
-                <h1>CORE INFRASTRUCTURE</h1>
-                <p style="color:var(--text-dim); font-size:1.2rem; max-width:850px; line-height:1.7;">
-                    Authenticated access to 91+ secure API modules. Monitor real-time hardware metrics and perform encrypted requests through our high-performance global network nodes.
+            <div class="hero">
+                <h1>CORE INTERFACE</h1>
+                <p style="color:var(--text-slate); font-size:1.1rem; line-height:1.6; max-width:800px;">
+                    Enterprise gateway providing access to 91 modules. Developer: W.M Vajira Rathnayaka (Age 23).
                 </p>
-                
-                <div class="metrics-grid">
-                    <div class="m-card">
-                        <span class="m-label">Network Latency</span>
-                        <span class="m-value" id="val-lat">--ms</span>
-                    </div>
-                    <div class="m-card">
-                        <span class="m-label">Memory Usage</span>
-                        <span class="m-value" id="val-mem">-- MB</span>
-                    </div>
-                    <div class="m-card">
-                        <span class="m-label">Node Status</span>
-                        <span class="m-value" style="color:var(--accent)">SECURE</span>
-                    </div>
-                    <div class="m-card">
-                        <span class="m-label">Access Level</span>
-                        <span class="m-value" id="val-level" style="color:var(--premium)">STANDARD</span>
-                    </div>
+                <div class="stats-row">
+                    <div class="stat-card"><span class="stat-lab">Network Latency</span><span class="stat-val" id="val-lat">--ms</span></div>
+                    <div class="stat-card"><span class="stat-lab">Used Heap</span><span class="stat-val" id="val-mem">--MB</span></div>
+                    <div class="stat-card"><span class="stat-lab">Status</span><span class="stat-val" style="color:var(--accent)">STABLE</span></div>
+                    <div class="stat-card"><span class="stat-lab">Module Count</span><span class="stat-val">91</span></div>
                 </div>
             </div>
 
-            <h3 class="orbitron" style="margin-bottom:30px; color:var(--accent); letter-spacing:3px; font-size:1.1rem;">PRIORITY ENDPOINTS</h3>
-            <div class="api-registry" id="featured-list"></div>
+            <div class="premium-card">
+                <h2 class="orbitron" style="color:var(--premium-gold); font-size:1rem; margin-bottom:10px;">PREMIUM ACCESS KEY</h2>
+                <p style="font-size:0.85rem; color:var(--text-slate);">Lifetime master key for developers. Permanent validation.</p>
+                <div class="blurred-key">
+                    vajira-VajiraOfficial2003
+                    <div class="key-overlay">ENCRYPTED - PURCHASE REQUIRED</div>
+                </div>
+                <button class="btn btn-outline" style="border-color:var(--premium-gold); color:var(--premium-gold);" onclick="openPaymentModal()">
+                    <i class="fas fa-info-circle"></i> VIEW PAYMENT DETAILS
+                </button>
+            </div>
+
+            <h3 class="orbitron" style="margin-bottom:20px; color:var(--accent); font-size:1rem;">QUICK REGISTRY</h3>
+            <div class="registry" id="featured-list"></div>
         </section>
 
-        <!-- Dynamic Registry Pages -->
-        <section id="apis-page" class="page" style="display:none;"><div class="api-registry" id="all-registry"></div></section>
-        <section id="downloaders-page" class="page" style="display:none;"><div class="api-registry" id="list-downloaders"></div></section>
-        <section id="movie-page" class="page" style="display:none;"><div class="api-registry" id="list-movie"></div></section>
-        <section id="ai-page" class="page" style="display:none;"><div class="api-registry" id="list-ai"></div></section>
-        <section id="images-page" class="page" style="display:none;"><div class="api-registry" id="list-images"></div></section>
-        <section id="utilities-page" class="page" style="display:none;"><div class="api-registry" id="list-utilities"></div></section>
+        <!-- Pages -->
+        <section id="apis-page" class="page" style="display:none;"><div class="registry" id="main-registry"></div></section>
+        <section id="downloaders-page" class="page" style="display:none;"><div class="registry" id="list-downloaders"></div></section>
+        <section id="movie-page" class="page" style="display:none;"><div class="registry" id="list-movie"></div></section>
+        <section id="ai-page" class="page" style="display:none;"><div class="registry" id="list-ai"></div></section>
+        <section id="images-page" class="page" style="display:none;"><div class="registry" id="list-images"></div></section>
 
     </main>
 
-    <!-- Modal: Key Details Certificate -->
-    <div class="modal" id="modal-key">
-        <div class="cert-box">
-            <h2 class="orbitron" style="font-size:1.3rem;">ACCESS GRANTED</h2>
-            <div class="cert-key" id="display-key">vajira-xxxx-xxxx</div>
-            
-            <div class="details-grid">
-                <div>
-                    <span class="m-label">Status</span>
-                    <p style="color:var(--accent); font-weight:700;">ACTIVE / VERIFIED</p>
-                </div>
-                <div>
-                    <span class="m-label">Access Type</span>
-                    <p id="cert-type" style="color:var(--premium); font-weight:700;">PREMIUM</p>
-                </div>
-                <div>
-                    <span class="m-label">Issued On</span>
-                    <p id="cert-date" style="font-size:0.9rem;">2026/05/28</p>
-                </div>
-                <div>
-                    <span class="m-label">Expiry Date</span>
-                    <p id="cert-expiry" style="font-size:0.9rem; color:var(--accent);">LIFETIME</p>
-                </div>
+    <!-- Payment Modal -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-box" style="border-color:var(--premium-gold);">
+            <h2 class="orbitron" style="color:var(--premium-gold); margin-bottom:20px;">UPGRADE TO PREMIUM</h2>
+            <div style="background:rgba(0,0,0,0.4); padding:20px; border-radius:10px; line-height:1.8;">
+                <p><span style="color:var(--premium-gold)">PRICE:</span> 250 LKR</p>
+                <p><span style="color:var(--premium-gold)">BANK:</span> Bank of Ceylon (BOC)</p>
+                <p><span style="color:var(--premium-gold)">ACCOUNT:</span> 0089860809</p>
+                <p><span style="color:var(--premium-gold)">NAME:</span> W.M VAJIRA RATHNAYAKA BALAGODA</p>
+                <p><span style="color:var(--premium-gold)">AGE:</span> 23</p>
+                <hr style="border:0; border-top:1px solid var(--border); margin:15px 0;">
+                <p style="font-size:0.8rem; color:var(--text-slate);">After payment, send the receipt to get your permanent Premium Key.</p>
             </div>
-            
-            <div style="display:flex; gap:15px;">
-                <button class="btn" style="flex:1; justify-content:center;" id="btn-copy-cert">
-                    <i class="fas fa-copy"></i> COPY CREDENTIALS
-                </button>
-                <button class="btn btn-outline" style="flex:1; justify-content:center;" onclick="closeModals()">
-                    CLOSE
-                </button>
-            </div>
+            <button class="btn" style="width:100%; margin-top:20px; justify-content:center;" onclick="closeModals()">CLOSE</button>
         </div>
     </div>
 
-    <!-- Modal: Terminal Execute -->
-    <div class="modal" id="modal-terminal">
-        <div class="terminal-box">
-            <h2 class="orbitron" id="term-title" style="margin-bottom:25px; border-bottom:1px solid var(--border); padding-bottom:15px; font-size:1.1rem;">TERMINAL_EXECUTE</h2>
-            
-            <label class="m-label" style="display:block; margin-bottom:10px;">Security Access Key</label>
-            <input type="text" id="term-key" class="tech-input" placeholder="vajira-xxxxxxxxxx">
-            
-            <label class="m-label" id="term-label" style="display:block; margin-bottom:10px;">Data Parameter</label>
-            <input type="text" id="term-val" class="tech-input" placeholder="Enter input...">
-
-            <button class="btn" style="width:100%; height:60px; justify-content:center; font-size:1.1rem;" id="term-run">EXECUTE REQUEST</button>
-            <pre id="term-res" class="mono"></pre>
-            <button class="btn btn-outline" style="margin-top:20px; width:100%; justify-content:center;" onclick="closeModals()">TERMINATE SESSION</button>
+    <!-- Test Modal -->
+    <div class="modal" id="test-modal">
+        <div class="modal-box">
+            <h2 class="orbitron" id="m-title" style="margin-bottom:25px; font-size:1.1rem;">EXECUTE MODULE</h2>
+            <label class="stat-lab" style="display:block; margin-bottom:8px;">Access Key</label>
+            <input type="text" id="m-key" class="tech-input" placeholder="Enter vajira-key...">
+            <label class="stat-lab" id="m-label" style="display:block; margin-bottom:8px;">Input</label>
+            <input type="text" id="m-val" class="tech-input" placeholder="Data...">
+            <button class="btn" style="width:100%; height:55px; justify-content:center;" id="m-run">RUN REQUEST</button>
+            <pre id="m-res" class="mono" style="margin-top:20px;"></pre>
+            <button class="btn btn-outline" style="margin-top:20px; width:100%; justify-content:center;" onclick="closeModals()">CLOSE</button>
         </div>
     </div>
 
     <script>
         const BASE_URL = "https://vajira-official-apis.vercel.app";
-        const PREMIUM_KEY = "vajira-VajiraOfficial2003";
 
-        // COMPLETE API LIST (91 ITEMS)
+        // ALL 91 APIS
         const apiData = [
-            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "High-speed video extraction engine.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET" },
-            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Extract HQ audio at 320kbps.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET" },
-            { id: 3, name: "Twitter/X Media Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Download videos/images from X.", example: "https://twitter.com/status/123", method: "GET" },
-            { id: 4, name: "Instagram Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Universal media extractor for IG.", example: "https://www.instagram.com/p/Cxxx/", method: "GET" },
-            { id: 11, name: "Blackbox AI Logic", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Neural reasoning for code and logic.", example: "Write a React hook", method: "GET" },
-            { id: 13, name: "Text-to-Image AI", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generative image modeling.", example: "Cyberpunk landscape 8k", method: "GET" },
-            { id: 31, name: "Global Movie Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Metadata engine for global cinema.", example: "Inception 2010", method: "GET" },
-            { id: 37, name: "TikTok HD Downloader", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "No-watermark video extraction.", example: "TikTok URL here", method: "GET" },
-            { id: 91, name: "Xhamster Advanced Index", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content metadata search.", example: "search name", method: "GET" }
-            // All 91 items from original file are supported here
+            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube Video in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET" },
+            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Download YouTube Audio in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET" },
+            { id: 3, name: "Twitter/X Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract videos from Twitter/X.", example: "https://twitter.com/user/status/123", method: "GET" },
+            { id: 4, name: "Instagram Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Download Instagram content.", example: "https://www.instagram.com/p/Cxxx/", method: "GET" },
+            { id: 5, name: "Facebook Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Premium Facebook video download.", example: "https://www.facebook.com/watch/?v=123", method: "GET" },
+            { id: 6, name: "Spotify Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Extract Spotify tracks with HQ quality.", example: "https://open.spotify.com/track/...", method: "GET" },
+            { id: 7, name: "GitHub Cloner", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Clone GitHub repositories as ZIP.", example: "https://github.com/user/repo", method: "GET" },
+            { id: 8, name: "Aptoide Search", endpoint: "/api/aptoide", category: "ai", param: "q", description: "Search Android apps on Aptoide.", example: "WhatsApp", method: "GET" },
+            { id: 9, name: "Spotify Search", endpoint: "/api/spotifysearch", category: "ai", param: "query", description: "Advanced Spotify metadata search.", example: "Ed Sheeran", method: "GET" },
+            { id: 10, name: "TikTok Search", endpoint: "/api/ttsearch", category: "ai", param: "q", description: "TikTok content discovery engine.", example: "funny videos", method: "GET" },
+            { id: 11, name: "Blackbox AI", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Advanced AI reasoning responses.", example: "How to code in C++?", method: "GET" },
+            { id: 12, name: "Gemini AI", endpoint: "/api/gemini", category: "ai", param: "text", description: "Interface with Google Gemini AI.", example: "Explain quantum physics", method: "GET" },
+            { id: 13, name: "Text to Image AI", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generate images from text prompts.", example: "Cyberpunk city 8k", method: "GET" },
+            { id: 14, name: "Genshin Build Helper", endpoint: "/api/genshinbuild", category: "utilities", param: "q", description: "Get optimal Genshin builds.", example: "Zhongli", method: "GET" },
+            { id: 15, name: "Pastebin Reader", endpoint: "/api/getpastebin", category: "utilities", param: "url", description: "Read Pastebin content easily.", example: "https://pastebin.com/...", method: "GET" },
+            { id: 16, name: "Website to ZIP", endpoint: "/api/web2zip", category: "downloaders", param: "url", description: "Convert websites to ZIP files.", example: "https://example.com", method: "GET" },
+            { id: 17, name: "Website Screenshot", endpoint: "/api/ssweb", category: "images", param: "url", description: "Take website screenshots.", example: "https://google.com", method: "GET" },
+            { id: 18, name: "Text Translator", endpoint: "/api/translate", category: "utilities", param: "text", description: "Multi-language neural translation.", example: "Hello", method: "GET" },
+            { id: 19, name: "Weather API", endpoint: "/api/cuaca", category: "utilities", param: "kota", description: "Real-time global weather data.", example: "London", method: "GET" },
+            { id: 20, name: "Virtual Credit Card", endpoint: "/api/vcc", category: "utilities", param: "query", description: "Generate test VCC details.", example: "4111...", method: "GET" },
+            { id: 21, name: "Welcome/Goodbye Image", endpoint: "/api/welcome-goodbye-image", category: "images", param: "name", description: "Generate welcome banners.", example: "John", method: "GET" },
+            { id: 22, name: "Emoji Mixer", endpoint: "/api/emojimix", category: "images", param: "emojis", description: "Mix two emojis into one.", example: "😀+🔥", method: "GET" },
+            { id: 23, name: "Quote Creator", endpoint: "/api/qc", category: "images", param: "text", description: "Create stylish quote images.", example: "Stay hungry", method: "GET" },
+            { id: 24, name: "Brat Image Generator", endpoint: "/api/brat", category: "images", param: "text", description: "Generate trending brat-style text.", example: "Brat", method: "GET" },
+            { id: 25, name: "Handwriting Generator", endpoint: "/api/nulis", category: "images", param: "text", description: "Convert text to handwriting.", example: "Homework notes", method: "GET" },
+            { id: 26, name: "QR Code Generator", endpoint: "/api/qrcodegenerator", category: "images", param: "text", description: "Generate clean QR codes.", example: "https://google.com", method: "GET" },
+            { id: 27, name: "Ghibli Images", endpoint: "/api/ghibliimage", category: "images", param: "query", description: "Studio Ghibli art search.", example: "Totoro", method: "GET" },
+            { id: 28, name: "Tweet Generator", endpoint: "/api/tweet", category: "images", param: "text", description: "Create fake tweet images.", example: "Hello Twitter", method: "GET" },
+            { id: 29, name: "Khodam Checker", endpoint: "/api/cekkhodam", category: "utilities", param: "name", description: "Spiritual guardian analysis.", example: "Ahmad", method: "GET" },
+            { id: 30, name: "Spotify DL Search", endpoint: "/api/spotidl", category: "downloaders", param: "q", description: "Search and download Spotify.", example: "Pasoori", method: "GET" },
+            { id: 31, name: "Movies Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Find movie metadata.", example: "Doctor Strange", method: "GET" },
+            { id: 32, name: "Movies Downloader", endpoint: "/api/moviesdl", category: "movie", param: "q", description: "Download movie content.", example: "Movie name", method: "GET" },
+            { id: 33, name: "Animexine Search", endpoint: "/api/animexinsearch", category: "movie", param: "q", description: "Search anime on Animexine.", example: "Tales", method: "GET" },
+            { id: 34, name: "Animexine Downloader", endpoint: "/api/animexindetails", category: "movie", param: "url", description: "Get anime download links.", example: "Animexine URL", method: "GET" },
+            { id: 35, name: "MovieBd Search", endpoint: "/api/moviebdsearch", category: "movie", param: "q", description: "Movie database search.", example: "2025", method: "GET" },
+            { id: 36, name: "MovieBd Dl", endpoint: "/api/moviebddl", category: "movie", param: "url", description: "Download from MovieBd.", example: "MovieBd URL", method: "GET" },
+            { id: 37, name: "TikTok Downloader", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "TikTok No-Watermark download.", example: "TikTok URL", method: "GET" },
+            { id: 38, name: "Wallpaper", endpoint: "/api/wallpaper", category: "ai", param: "q", description: "HQ Wallpaper search.", example: "Nature", method: "GET" },
+            { id: 39, name: "Sticker", endpoint: "/api/sticker", category: "ai", param: "q", description: "WhatsApp sticker search.", example: "Anime", method: "GET" },
+            { id: 40, name: "Voice Gpt", endpoint: "/api/voicegpt", category: "ai", param: "q", description: "AI Voice interaction.", example: "How are you?", method: "GET" },
+            { id: 41, name: "Npm Search", endpoint: "/api/npmsearch", category: "ai", param: "q", description: "Search npm packages.", example: "axios", method: "GET" },
+            { id: 42, name: "Xnxx Search", endpoint: "/api/xnxx-search", category: "ai", param: "q", description: "Adult search engine.", example: "mia", method: "GET" },
+            { id: 43, name: "Xnxx Dl", endpoint: "/api/xnxx-dl", category: "downloaders", param: "url", description: "Adult content downloader.", example: "Xnxx URL", method: "GET" },
+            { id: 44, name: "Vajira Ai", endpoint: "/api/vajiraai", category: "ai", param: "q", description: "Native AI chat engine.", example: "Explain life", method: "GET" },
+            { id: 45, name: "Vajira Ai Image", endpoint: "/api/vajiraai-image", category: "ai", param: "q", description: "AI Image generator.", example: "Quantum cat", method: "GET" },
+            { id: 46, name: "Gdrive Video Download", endpoint: "/api/gdrivedl", category: "downloaders", param: "url", description: "Download Gdrive videos.", example: "Gdrive Link", method: "GET" },
+            { id: 47, name: "123mkv Search", endpoint: "/api/123mkv", category: "movie", param: "q", description: "Search on 123mkv.", example: "Action", method: "GET" },
+            { id: 48, name: "123mkv Download", endpoint: "/api/123mkvdetails", category: "movie", param: "url", description: "Download from 123mkv.", example: "123mkv URL", method: "GET" },
+            { id: 49, name: "Dailymotion Download", endpoint: "/api/dailymotion", category: "downloaders", param: "url", description: "Extract Dailymotion videos.", example: "Dailymotion URL", method: "GET" },
+            { id: 50, name: "Capcut Download", endpoint: "/api/capcut", category: "downloaders", param: "url", description: "Download Capcut templates/videos.", example: "Capcut URL", method: "GET" },
+            { id: 51, name: "Pinterest Video Download", endpoint: "/api/pinterest", category: "downloaders", param: "url", description: "Download Pinterest videos.", example: "Pinterest URL", method: "GET" },
+            { id: 52, name: "Lyrics Search", endpoint: "/api/lyrics", category: "ai", param: "q", description: "Find song lyrics globally.", example: "Shape of You", method: "GET" },
+            { id: 53, name: "Youtube Channel Details", endpoint: "/api/ytchannel", category: "downloaders", param: "url", description: "Get YT channel info.", example: "Channel URL", method: "GET" },
+            { id: 54, name: "Text to Video", endpoint: "/api/text2video", category: "ai", param: "q", description: "Generate video from text.", example: "Cat dancing", method: "GET" },
+            { id: 55, name: "Pc Game downloader", endpoint: "/api/pcgame", category: "downloaders", param: "q", description: "Download PC games.", example: "NFS", method: "GET" },
+            { id: 56, name: "Wildshare downloader", endpoint: "/api/wildshare", category: "downloaders", param: "url", description: "Extract Wildshare files.", example: "Wildshare URL", method: "GET" },
+            { id: 57, name: "Naijaprey Movie search", endpoint: "/api/Naijaprey", category: "movie", param: "q", description: "Search Naijaprey movies.", example: "2025", method: "GET" },
+            { id: 58, name: "Naijaprey Downloader", endpoint: "/api/naijapreydetails", category: "movie", param: "url", description: "Download from Naijaprey.", example: "Naijaprey URL", method: "GET" },
+            { id: 59, name: "Gofile downloader", endpoint: "/api/gofile", category: "downloaders", param: "url", description: "Download from Gofile.", example: "Gofile URL", method: "GET" },
+            { id: 60, name: "mlfbd Movie search", endpoint: "/api/mlfbds", category: "movie", param: "text", description: "Search mlfbd movies.", example: "Movie URL", method: "GET" },
+            { id: 61, name: "mlfbd downloader", endpoint: "/api/mlfbddl", category: "movie", param: "url", description: "Download from mlfbd.", example: "Movie URL", method: "GET" },
+            { id: 62, name: "Movielover Movie search", endpoint: "/api/movielovers", category: "movie", param: "text", description: "Search Movielover films.", example: "Movie URL", method: "GET" },
+            { id: 63, name: "Movielover downloader", endpoint: "/api/movieloverdl", category: "movie", param: "url", description: "Download from Movielover.", example: "Movie URL", method: "GET" },
+            { id: 64, name: "MyFlix Movie search", endpoint: "/api/myflixs", category: "movie", param: "text", description: "Search MyFlix content.", example: "Movie URL", method: "GET" },
+            { id: 65, name: "MyFlix downloader", endpoint: "/api/myflixdl", category: "movie", param: "link", description: "Download from MyFlix.", example: "Movie URL", method: "GET" },
+            { id: 66, name: "Youtube search", endpoint: "/api/ytsearch", category: "downloaders", param: "q", description: "YouTube content search.", example: "Music", method: "GET" },
+            { id: 67, name: "Notun Movie search", endpoint: "/api/notuns", category: "movie", param: "text", description: "Search Notun movies.", example: "Movie URL", method: "GET" },
+            { id: 68, name: "Notun downloader", endpoint: "/api/notundl", category: "movie", param: "url", description: "Download from Notun.", example: "Movie URL", method: "GET" },
+            { id: 69, name: "Vega Movie search", endpoint: "/api/vegamovies", category: "movie", param: "text", description: "Search Vega movies.", example: "Movie URL", method: "GET" },
+            { id: 70, name: "Vega downloader", endpoint: "/api/vegamoviedl", category: "movie", param: "link", description: "Download from Vega.", example: "Movie URL", method: "GET" },
+            { id: 71, name: "Xhamster search", endpoint: "/api/xhamsters", category: "movie", param: "text", description: "Adult search hub.", example: "Name", method: "GET" },
+            { id: 72, name: "mediafire search", endpoint: "/api/mediafiredl", category: "movie", param: "url", description: "Download Mediafire files.", example: "Mediafire URL", method: "GET" },
+            { id: 73, name: "Animostlk search", endpoint: "/api/animostlk", category: "movie", param: "q", description: "Search Animostlk movies.", example: "Anime name", method: "GET" },
+            { id: 74, name: "Animostlk downloader", endpoint: "/api/animostlkdl", category: "movie", param: "url", description: "Download from Animostlk.", example: "Movie URL", method: "GET" },
+            { id: 75, name: "Cinesubz search", endpoint: "/api/cinesubz", category: "movie", param: "q", description: "Search Cinesubz movies.", example: "Movie name", method: "GET" },
+            { id: 76, name: "Cinesubz details", endpoint: "/api/cinesubzdetails", category: "movie", param: "url", description: "Cinesubz info.", example: "Movie URL", method: "GET" },
+            { id: 77, name: "Cinesubz Tvshow details", endpoint: "/api/cinesubztvshowdetails", category: "movie", param: "url", description: "Tvshow info.", example: "Tv URL", method: "GET" },
+            { id: 78, name: "Telegram Downloader", endpoint: "/api/telegramdl", category: "downloaders", param: "url", description: "Download Telegram files.", example: "Telegram Link", method: "GET" },
+            { id: 79, name: "Ytsbz Search", endpoint: "/api/ytsbz", category: "movie", param: "q", description: "Ytsbz movie search.", example: "2025", method: "GET" },
+            { id: 80, name: "All Torrent Downloader", endpoint: "/api/alltorrentdl", category: "movie", param: "url", description: "Magnet link downloader.", example: "Magnet link", method: "GET" },
+            { id: 81, name: "Moviebox search", endpoint: "/api/movieboxs", category: "movie", param: "query", description: "Moviebox content search.", example: "Movie name", method: "GET" },
+            { id: 82, name: "Movibd search", endpoint: "/api/movibd", category: "movie", param: "search", description: "Search Movibd.", example: "Movie name", method: "GET" },
+            { id: 83, name: "Movibd downloader", endpoint: "/api/movibddl", category: "movie", param: "url", description: "Download from Movibd.", example: "Movie URL", method: "GET" },
+            { id: 84, name: "Moviect Search", endpoint: "/api/moviect", category: "movie", param: "search", description: "Search Moviect.", example: "Movie name", method: "GET" },
+            { id: 85, name: "Moviect downloader", endpoint: "/api/moviectdl", category: "movie", param: "url", description: "Download from Moviect.", example: "Movie URL", method: "GET" },
+            { id: 86, name: "PornHub Search", endpoint: "/api/pornhub", category: "ai", param: "query", description: "Adult site search.", example: "Mia", method: "GET" },
+            { id: 87, name: "Fitgirl search", endpoint: "/api/fitgirls", category: "movie", param: "q", description: "Search Fitgirl games.", example: "Game name", method: "GET" },
+            { id: 88, name: "Fitgirl details", endpoint: "/api/fitgirldetails", category: "movie", param: "url", description: "Fitgirl info.", example: "Game URL", method: "GET" },
+            { id: 89, name: "Fitgirl dl", endpoint: "/api/fitgirldl", category: "movie", param: "url", description: "Direct Fitgirl download.", example: "Rar URL", method: "GET" },
+            { id: 90, name: "Youtube Metadata", endpoint: "/api/ytmetadata", category: "downloaders", param: "url", description: "Get YT video metadata.", example: "Video URL", method: "GET" },
+            { id: 91, name: "Xhamster search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "Xhamster name", method: "GET" }
         ];
 
-        // --- REAL PERFORMANCE LOGIC ---
-        function updateMetrics() {
+        // STARTUP LOADER LOGIC
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('startup-loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('startup-loader').style.display = 'none', 500);
+            }, 2500);
+            renderLists();
+            setupNav();
+            setInterval(runRealPerformance, 3000);
+            runRealPerformance();
+        };
+
+        // REAL PERFORMANCE MONITORING
+        function runRealPerformance() {
             const start = Date.now();
             fetch(window.location.href, { mode: 'no-cors' }).then(() => {
-                const latency = Date.now() - start;
-                document.getElementById('val-lat').textContent = latency + "ms";
-                document.getElementById('live-ping').textContent = "LATENCY: " + latency + "ms";
+                const lat = Date.now() - start;
+                document.getElementById('val-lat').textContent = lat + "ms";
+                document.getElementById('real-ping').textContent = "LATENCY: " + lat + "ms";
             });
-
             if (window.performance && window.performance.memory) {
                 const mem = Math.round(window.performance.memory.usedJSHeapSize / 1048576);
-                document.getElementById('val-mem').textContent = mem + " MB";
+                document.getElementById('val-mem').textContent = mem + "MB";
             }
         }
 
-        // --- KEY SYSTEM ---
-        function showPremiumKey() {
-            displayKeyInfo(PREMIUM_KEY, "PREMIUM", "LIFE-TIME");
-            localStorage.setItem('v-key', PREMIUM_KEY);
-            document.getElementById('val-level').textContent = "PREMIUM";
-            document.getElementById('val-level').style.color = "var(--premium)";
-        }
-
-        function generateKey() {
-            const ts = Date.now();
-            const rnd = Math.random().toString(36).substring(2, 10);
-            const sum = rnd.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
-            const key = `vajira-${rnd}${sum.toString().padStart(2, '0')}-${ts}`;
-            
-            displayKeyInfo(key, "STANDARD", "30 DAYS");
-            localStorage.setItem('v-key', key);
-            document.getElementById('val-level').textContent = "STANDARD";
-            document.getElementById('val-level').style.color = "var(--accent)";
-        }
-
-        function displayKeyInfo(key, type, expiry) {
-            document.getElementById('display-key').textContent = key;
-            document.getElementById('cert-type').textContent = type;
-            document.getElementById('cert-type').style.color = type === "PREMIUM" ? "var(--premium)" : "var(--accent)";
-            document.getElementById('cert-date').textContent = new Date().toLocaleDateString();
-            document.getElementById('cert-expiry').textContent = expiry;
-            document.getElementById('modal-key').style.display = 'flex';
-            
-            document.getElementById('btn-copy-cert').onclick = () => {
-                navigator.clipboard.writeText(key);
-                alert("Credential Copied!");
-            };
-        }
-
-        // --- UI RENDERING ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderRegistry();
-            setupNav();
-            setInterval(updateMetrics, 4000);
-            updateMetrics();
-            const savedKey = localStorage.getItem('v-key');
-            if(savedKey) {
-                document.getElementById('val-level').textContent = savedKey === PREMIUM_KEY ? "PREMIUM" : "STANDARD";
-                document.getElementById('val-level').style.color = savedKey === PREMIUM_KEY ? "var(--premium)" : "var(--accent)";
-            }
-        });
-
-        function renderRegistry() {
-            const containers = {
-                'featured-list': apiData.slice(0, 5),
-                'all-registry': apiData,
-                'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
-                'list-movie': apiData.filter(a => a.category === 'movie'),
-                'list-ai': apiData.filter(a => a.category === 'ai'),
-                'list-images': apiData.filter(a => a.category === 'images'),
-                'list-utilities': apiData.filter(a => a.category === 'utilities')
-            };
-
-            for (const [id, data] of Object.entries(containers)) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.innerHTML = '';
-                    data.forEach((api, idx) => {
-                        const row = document.createElement('div');
-                        row.className = 'api-row';
-                        const url = `${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...`;
-                        row.innerHTML = `
-                            <div class="api-meta">
-                                <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
-                                <div>
-                                    <span class="api-name">${api.name} <span class="tag">${api.method}</span></span>
-                                    <p style="color:var(--text-dim); font-size:0.85rem; margin-top:5px;">${api.description}</p>
-                                </div>
-                            </div>
-                            <div style="display:flex; gap:15px;">
-                                <button class="btn btn-outline" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> COPY</button>
-                                <button class="btn" onclick='openTerminal(${JSON.stringify(api)})'><i class="fas fa-play"></i> TEST</button>
-                            </div>
-                        `;
-                        row.style.animationDelay = `${idx * 0.04}s`;
-                        el.appendChild(row);
-                    });
-                }
-            }
-        }
-
-        function getIcon(cat) {
-            return { downloaders: 'cloud-download-alt', movie: 'play-circle', ai: 'brain', images: 'image', utilities: 'tools' }[cat] || 'link';
-        }
-
-        function copyLink(url) {
-            const key = localStorage.getItem('v-key') || 'YOUR_KEY';
-            navigator.clipboard.writeText(url.replace('YOUR_KEY', key));
-            const btn = event.currentTarget;
-            btn.innerHTML = '<i class="fas fa-check"></i> COPIED';
-            setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> COPY', 2000);
-        }
-
-        let activeApi = null;
-        window.openTerminal = (api) => {
-            activeApi = api;
-            document.getElementById('term-title').textContent = `TERMINAL_SESSION: ${api.name}`;
-            document.getElementById('term-label').textContent = `DATA_PARAM (${api.param.toUpperCase()})`;
-            document.getElementById('term-val').placeholder = `Example: ${api.example}`;
-            document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
-            document.getElementById('term-res').style.display = 'none';
-            document.getElementById('modal-terminal').style.display = 'flex';
-        };
-
-        window.closeModals = () => { 
-            document.getElementById('modal-key').style.display = 'none';
-            document.getElementById('modal-terminal').style.display = 'none';
-        };
-
-        document.getElementById('term-run').addEventListener('click', async () => {
-            const key = document.getElementById('term-key').value;
-            const val = document.getElementById('term-val').value;
-            const res = document.getElementById('term-res');
-            if(!val || !key) return alert("System Error: Access Key Required.");
-            res.style.display = 'block'; res.textContent = ">>> Processing request on secure node_08...";
-            try {
-                const response = await fetch(`${BASE_URL}${activeApi.endpoint}?apikey=${key}&${activeApi.param}=${encodeURIComponent(val)}`);
-                const data = await response.json();
-                res.textContent = JSON.stringify(data, null, 4);
-            } catch(e) { res.textContent = ">>> Exception: " + e.message; }
-        });
-
+        // NAVIGATION
         function setupNav() {
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.onclick = (e) => {
@@ -475,6 +387,77 @@
                 }
             });
         }
+
+        // RENDERING
+        function renderLists() {
+            const containerIds = {
+                'featured-list': apiData.slice(0, 5),
+                'main-registry': apiData,
+                'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
+                'list-movie': apiData.filter(a => a.category === 'movie'),
+                'list-ai': apiData.filter(a => a.category === 'ai'),
+                'list-images': apiData.filter(a => a.category === 'images')
+            };
+
+            for (const [id, data] of Object.entries(containerIds)) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = '';
+                    data.forEach((api, idx) => {
+                        const line = document.createElement('div');
+                        line.className = 'api-row';
+                        line.innerHTML = `
+                            <div class="api-info">
+                                <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
+                                <div><span style="font-weight:700;">${api.name}</span><p style="color:var(--text-slate);font-size:0.8rem;">${api.description}</p></div>
+                            </div>
+                            <div style="display:flex; gap:15px;">
+                                <button class="btn btn-outline" onclick="copyLink('${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...')">COPY</button>
+                                <button class="btn" onclick='openModal(${JSON.stringify(api)})'>TEST</button>
+                            </div>
+                        `;
+                        line.style.animationDelay = `${idx * 0.05}s`;
+                        el.appendChild(line);
+                    });
+                }
+            }
+        }
+
+        function getIcon(cat) { return { downloaders: 'cloud-download-alt', movie: 'film', ai: 'brain', images: 'image' }[cat] || 'link'; }
+
+        function copyLink(url) {
+            const key = localStorage.getItem('v-key') || 'YOUR_KEY';
+            navigator.clipboard.writeText(url.replace('YOUR_KEY', key));
+            alert("URL Copied!");
+        }
+
+        // MODALS
+        function openPaymentModal() { document.getElementById('payment-modal').style.display = 'flex'; }
+        function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+
+        let currentApi = null;
+        window.openModal = (api) => {
+            currentApi = api;
+            document.getElementById('m-title').textContent = api.name;
+            document.getElementById('m-label').textContent = `Input (${api.param})`;
+            document.getElementById('m-key').value = localStorage.getItem('v-key') || '';
+            document.getElementById('m-res').style.display = 'none';
+            document.getElementById('test-modal').style.display = 'flex';
+        }
+
+        document.getElementById('m-run').addEventListener('click', async () => {
+            const key = document.getElementById('m-key').value;
+            const val = document.getElementById('m-val').value;
+            const res = document.getElementById('m-res');
+            if(!key || !val) return alert("Fill all fields");
+            localStorage.setItem('v-key', key);
+            res.style.display = 'block'; res.textContent = "Connecting...";
+            try {
+                const response = await fetch(`${BASE_URL}${currentApi.endpoint}?apikey=${key}&${currentApi.param}=${val}`);
+                const data = await response.json();
+                res.textContent = JSON.stringify(data, null, 4);
+            } catch(e) { res.textContent = "Error: " + e.message; }
+        });
     </script>
 </body>
 </html>
