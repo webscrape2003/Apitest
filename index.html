@@ -763,467 +763,157 @@ body {
     </style>
 </head>
 <body>
-    <!-- Background Effects -->
-    <div class="scanlines"></div>
-    <div class="grid-lines"></div>
-    <div class="cyber-glow glow-1"></div>
-    <div class="cyber-glow glow-2"></div>
-    
-    <!-- Top Navigation Bar -->
-    <nav class="cyber-navbar">
-        <div class="nav-left">
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-logo">VajiraOfficial API </div>
+<!-- ========================================= -->
+<!-- APIS PAGE -->
+<!-- ========================================= -->
+
+<div class="page active" id="apis-page">
+
+    <!-- HEADER -->
+    <div class="hero-section">
+
+        <h1 class="hero-title">
+            API Dashboard
+        </h1>
+
+        <div class="hero-subtitle">
+            Real-Time API Monitoring System
         </div>
 
+        <p class="hero-description">
+            Monitor, test, and manage all API endpoints with
+            futuristic cyberpunk interface and live response tracking.
+        </p>
 
+    </div>
 
-
-
-        
-        <div class="nav-right">
-            <button class="nav-btn" id="testAllApis">
-                <i class="fas fa-bolt"></i> TEST ALL APIS
-            </button>
-            <div class="user-indicator">
-                <div class="dot"></div>
-                <span>CONNECTED</span>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Sidebar Menu -->
-    <aside class="cyber-sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2 class="sidebar-title">VajiraOfficial</h2>
-            <button class="close-sidebar" id="closeSidebar">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link active" data-page="home">
-                    <i class="fas fa-home"></i>
-                    <span>HOME</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="apis">
-                    <i class="fas fa-code"></i>
-                    <span>ALL APIS</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="downloaders">
-                    <i class="fas fa-download"></i>
-                    <span>DOWNLOADERS</span>
-                </a>
-            </li>
-          <li class="nav-item">
-                <a href="#" class="nav-link" data-page="movie">
-                    <i class="fas fa-film"></i>
-                    <span>MOVIE</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="ai">
-                    <i class="fas fa-robot"></i>
-                    <span>AI & SEARCH</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="images">
-                    <i class="fas fa-image"></i>
-                    <span>IMAGE TOOLS</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="utilities">
-                    <i class="fas fa-cogs"></i>
-                    <span>UTILITIES</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="dashboard">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>DASHBOARD</span>
-                </a>
-            </li>
-
-<li class="nav-item">
-    <a href="#" class="nav-link" data-page="api-settings">
-        <i class="fas fa-key"></i> <span>API SETTINGS</span>
-    </a>
-</li>
-
-
-
-            
-        </ul>
-        
-        <div class="sidebar-stats">
-            <div class="stat-item">
-                <span class="stat-label">TOTAL APIS:</span>
-                <span class="stat-value" id="totalApis">32</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">ACTIVE:</span>
-                <span class="stat-value" id="activeApis">28</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">RESPONSE TIME:</span>
-                <span class="stat-value">~150ms</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">UPTIME:</span>
-                <span class="stat-value">99.8%</span>
-            </div>
-        </div>
-        
-        <div class="sidebar-footer">
-            <p>© 2026 VajiraOfficial NETWORK</p>
-            <p>Version 4.0 | ULTRA PRO MAX</p>
-        </div>
-    </aside>
-    
-    <!-- Main Content Container -->
-    <div class="page-container">
-
-
-
-
-<div class="page" id="api-settings-page">
-    <section class="hero-section">
-        <h2 class="hero-title">API KEY MANAGEMENT</h2>
-        <p class="hero-description">Generate your personal key to access all APIs.</p>
-        <div class="api-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--neon-cyan);">
-            NO KEY GENERATED
-        </div>
-        <button class="nav-btn" onclick="generateUserKey()" style="margin: 20px auto;">
-            <i class="fas fa-sync"></i> REGENERATE KEY
-        </button>
-    </section>
-</div>
-
-
-
-        
-        <!-- Home Page -->
-        <div class="page active" id="home-page">
-            <section class="hero-section">
-                <h1 class="hero-title">VajiraOfficial API HUB</h1>
-                <p class="hero-subtitle">ULTIMATE API COLLECTION | PREMIUM EDITION</p>
-                <p class="hero-description">
-                    Welcome to the most advanced API dashboard. Access 32+ powerful APIs including downloaders, AI tools, 
-                    image generators, and utilities. All APIs are tested and ready for production use. 
-                    Experience ultra-fast response times and 99.8% uptime.
-                </p>
-                <button class="nav-btn" style="margin: 0 auto; padding: 15px 40px; font-size: 1.2rem;">
-                    <i class="fas fa-rocket"></i> GET STARTED
-                </button>
-            </section>
-
-
-
-
-
-<div class="api-status-table" style="margin-top: 30px; border-color: var(--neon-cyan);">
+    <!-- LIVE -->
     <div class="live-indicator">
         <div class="live-dot"></div>
-        <span>LIVE SYSTEM PERFORMANCE</span>
+        LIVE API STATUS
     </div>
-    
+
+    <!-- API LIST -->
+    <div class="apis-grid">
+
+        <!-- API CARD -->
+        ${apis.map(api => `
+
+        <div class="api-card">
+
+            <!-- HEADER -->
+            <div class="api-card-header">
+
+                <!-- NAME -->
+                <div class="api-name">
+                    <i class="fas fa-plug"></i>
+                    ${api.name}
+                </div>
+
+                <!-- STATUS -->
+                <div class="api-status ${
+                    api.status === 'active'
+                        ? 'status-active'
+                        : 'status-inactive'
+                }">
+                    ${api.status}
+                </div>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="api-description">
+                ${api.description}
+            </div>
+
+            <!-- ENDPOINT -->
+            <div class="api-endpoint">
+                ${api.method} ${api.endpoint}?${api.param}=value
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="api-actions">
+
+                <!-- TEST BUTTON -->
+                <button
+                    class="api-btn btn-test"
+                    onclick="openTestModal(${api.id})"
+                >
+                    <i class="fas fa-bolt"></i>
+                    TEST API
+                </button>
+
+                <!-- DETAILS BUTTON -->
+                <button class="api-btn btn-details">
+                    <i class="fas fa-info-circle"></i>
+                    DETAILS
+                </button>
+
+            </div>
+
+        </div>
+
+        `).join('')}
+
+    </div>
+
+    <!-- PERFORMANCE -->
     <div class="performance-grid">
+
+        <!-- PERFORMANCE ITEM -->
         <div class="performance-box">
-            <span class="perf-label">Server CPU Load</span>
-            <span class="perf-value" id="cpu-load">24%</span>
+
+            <span class="perf-label">
+                TOTAL APIs
+            </span>
+
+            <div class="perf-value">
+                ${apis.length}
+            </div>
+
         </div>
+
+        <!-- PERFORMANCE ITEM -->
         <div class="performance-box">
-            <span class="perf-label">Memory Usage</span>
-            <span class="perf-value" id="mem-usage">1.2 GB</span>
+
+            <span class="perf-label">
+                ACTIVE APIs
+            </span>
+
+            <div class="perf-value">
+                ${apis.filter(api => api.status === 'active').length}
+            </div>
+
         </div>
+
+        <!-- PERFORMANCE ITEM -->
         <div class="performance-box">
-            <span class="perf-label">Network Latency</span>
-            <span class="perf-value" id="live-latency">42ms</span>
+
+            <span class="perf-label">
+                SERVER STATUS
+            </span>
+
+            <div class="perf-value">
+                ONLINE
+            </div>
+
         </div>
+
+        <!-- PERFORMANCE ITEM -->
         <div class="performance-box">
-            <span class="perf-label">Active Connections</span>
-            <span class="perf-value" id="active-conn">1,204</span>
-        </div>
-    </div>
-</div>
 
+            <span class="perf-label">
+                RESPONSE SPEED
+            </span>
 
+            <div class="perf-value">
+                32ms
+            </div>
 
-
-
-            
-            <section class="features-section">
-                <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 50px;">
-                    <i class="fas fa-star"></i> KEY FEATURES
-                </h2>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3 class="feature-title">ULTRA FAST</h3>
-                        <p class="feature-desc">
-                            Lightning-fast API responses with optimized servers. Average response time under 150ms.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="feature-title">SECURE</h3>
-                        <p class="feature-desc">
-                            Advanced security protocols and encryption. Your data is safe with enterprise-grade protection.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-infinity"></i>
-                        </div>
-                        <h3 class="feature-title">UNLIMITED</h3>
-                        <p class="feature-desc">
-                            No rate limits on API calls. Use as much as you need for your projects and applications.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-plug"></i>
-                        </div>
-                        <h3 class="feature-title">EASY INTEGRATION</h3>
-                        <p class="feature-desc">
-                            Simple REST API endpoints with detailed documentation. Integrate in minutes, not hours.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="feature-title">REAL-TIME MONITORING</h3>
-                        <p class="feature-desc">
-                            Live dashboard showing API status, response times, and uptime statistics.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3 class="feature-title">24/7 SUPPORT</h3>
-                        <p class="feature-desc">
-                            Dedicated support team available round the clock. Contact: 94719199757
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <!-- APIs Page -->
-        <div class="page" id="apis-page">
-            <div class="apis-header">
-                <h1 class="apis-title">ALL APIS COLLECTION</h1>
-                <div class="apis-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="apisSearch" placeholder="Search APIs by name or description...">
-                </div>
-            </div>
-            
-            <div class="apis-grid" id="apisGrid">
-                <!-- APIs will be loaded by JavaScript -->
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="nav-btn" id="checkAllStatus" style="padding: 15px 40px; font-size: 1.1rem;">
-                    <i class="fas fa-sync-alt"></i> CHECK ALL API STATUS
-                </button>
-            </div>
-        </div>
-        
-        <!-- Downloaders Page -->
-        <div class="page" id="downloaders-page">
-            <div class="category-header">
-                <h1 class="category-title">DOWNLOADER APIS</h1>
-                <div class="category-count" id="downloadersCount">Loading...</div>
-            </div>
-            
-            <div class="apis-grid" id="downloadersGrid">
-                <!-- Downloader APIs will be loaded here -->
-            </div>
         </div>
 
-
-
-<!-- MOVIE Page -->
-        <div class="page" id="movie-page">
-            <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-purple);">MOVIE & SEARCH APIS</h1>
-                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="movieCount">Loading...</div>
-            </div>
-            
-            <div class="apis-grid" id="movieGrid">
-                <!-- AI APIs will be loaded here -->
-            </div>
-        </div>
-
-
-        
-        <!-- AI Page -->
-        <div class="page" id="ai-page">
-            <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-purple);">AI & SEARCH APIS</h1>
-                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="aiCount">Loading...</div>
-            </div>
-            
-            <div class="apis-grid" id="aiGrid">
-                <!-- AI APIs will be loaded here -->
-            </div>
-        </div>
-        
-        <!-- Images Page -->
-        <div class="page" id="images-page">
-            <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-pink);">IMAGE TOOLS APIS</h1>
-                <div class="category-count" style="background: rgba(255, 0, 255, 0.2); color: var(--neon-pink); border-color: var(--neon-pink);" id="imagesCount">Loading...</div>
-            </div>
-            
-            <div class="apis-grid" id="imagesGrid">
-                <!-- Image APIs will be loaded here -->
-            </div>
-        </div>
-        
-        <!-- Utilities Page -->
-        <div class="page" id="utilities-page">
-            <div class="category-header">
-                <h1 class="category-title" style="color: var(--neon-yellow);">UTILITIES APIS</h1>
-                <div class="category-count" style="background: rgba(255, 237, 0, 0.2); color: var(--neon-yellow); border-color: var(--neon-yellow);" id="utilitiesCount">Loading...</div>
-            </div>
-            
-            <div class="apis-grid" id="utilitiesGrid">
-                <!-- Utility APIs will be loaded here -->
-            </div>
-        </div>
-        
-        <!-- Dashboard Page -->
-        <div class="page" id="dashboard-page">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">SYSTEM DASHBOARD</h1>
-                <p class="dashboard-subtitle">
-                    Real-time monitoring of all APIs. Check status, response times, and performance metrics.
-                    Green indicates working APIs, red indicates issues.
-                </p>
-            </div>
-            
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-cyan);">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="stat-number" id="totalApisCard">32</div>
-                    <div class="stat-text">TOTAL APIS</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-green);">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-number" id="workingApisCard">0</div>
-                    <div class="stat-text">WORKING APIS</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-red);">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
-                    <div class="stat-number" id="deadApisCard">0</div>
-                    <div class="stat-text">DEAD APIS</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="color: var(--neon-yellow);">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-number">~150ms</div>
-                    <div class="stat-text">AVG RESPONSE TIME</div>
-                </div>
-            </div>
-            
-            <div class="api-status-table">
-                <h2 class="table-title">API STATUS MONITOR</h2>
-                <table class="status-table" id="statusTable">
-                    <thead>
-                        <tr>
-                            <th>API NAME</th>
-                            <th>CATEGORY</th>
-                            <th>STATUS</th>
-                            <th>RESPONSE TIME</th>
-                            <th>LAST CHECKED</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody id="statusTableBody">
-                        <!-- Status rows will be loaded by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center;">
-                <button class="nav-btn" id="refreshDashboard" style="padding: 15px 40px; font-size: 1.1rem;">
-                    <i class="fas fa-sync-alt"></i> REFRESH DASHBOARD
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- API Test Modal -->
-    <div class="modal-overlay" id="testModal">
-        <div class="test-modal">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalApiName">TEST API</h2>
-                <button class="close-modal" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="test-form">
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label class="form-label" style="color: var(--neon-pink);">
-            <i class="fas fa-lock"></i> AUTHENTICATION KEY
-        </label>
-        <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste your vajira- key here...">
     </div>
 
-    <div class="form-group">
-        <label class="form-label" id="modalParamLabel">
-            <i class="fas fa-terminal"></i> ENTER PARAMETER
-        </label>
-        <input type="text" class="cyber-input" id="modalParamInput" placeholder="Enter value...">
-    </div>
-    
-    <button class="modal-btn btn-test" id="runTest">
-        <i class="fas fa-bolt"></i> RUN API TEST
-    </button>
-</div>
-
-
-<div class="response-section" id="responseSection">
-    <h3 class="response-title">
-        <i class="fas fa-code"></i> API RESPONSE
-    </h3>
-    <div class="response-content" id="responseContent">
-        // Response will appear here
-    </div>
 </div>
 
 
