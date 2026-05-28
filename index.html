@@ -35,6 +35,7 @@
         #loader {
             position: fixed; inset: 0; background: #000; z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: 0.5s;
         }
         .loader-box { text-align: center; }
         .spinner {
@@ -149,16 +150,38 @@
             align-items: center; justify-content: center;
         }
         .modal-box {
-            background: var(--bg); width: 90%; max-width: 600px; border-radius: 30px;
-            border: 2px solid var(--accent); padding: 50px; text-align: center;
+            background: var(--bg); width: 90%; max-width: 650px; border-radius: 30px;
+            border: 2px solid var(--accent); padding: 40px; text-align: center;
             box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+            max-height: 90vh; overflow-y: auto;
         }
         .tech-input {
             width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
             padding: 18px; border-radius: 12px; color: white; font-family: 'JetBrains Mono';
             margin-bottom: 20px; outline: none;
         }
-        pre { background: #000; padding: 20px; border-radius: 12px; color: var(--accent); font-size: 0.8rem; overflow-x: auto; display: none; }
+
+        /* FIXED BEAUTIFUL RESULT BOX */
+        pre { 
+            background: #000; 
+            padding: 20px; 
+            border-radius: 12px; 
+            color: var(--accent); 
+            font-size: 0.85rem; 
+            max-height: 350px; 
+            overflow-y: auto; 
+            display: none; 
+            margin-top: 20px; 
+            border: 1px solid var(--border);
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-all;
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom Scrollbar for Pre */
+        pre::-webkit-scrollbar { width: 6px; }
+        pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } }
     </style>
@@ -169,7 +192,7 @@
     <div id="loader">
         <div class="loader-box">
             <div class="spinner"></div>
-            <div class="logo">INITIALIZING VAJIRA_SYSTEMS...</div>
+            <div class="logo" style="margin-top:10px;">INITIALIZING VAJIRA_SYSTEMS...</div>
         </div>
     </div>
 
@@ -231,7 +254,7 @@
             <div class="api-list" id="featured-list"></div>
         </section>
 
-        <!-- Pages -->
+        <!-- Dynamic Pages -->
         <section id="apis-page" class="page" style="display:none;">
             <h2 class="orbitron" style="margin-bottom:20px;">ALL ENDPOINTS <span class="count-badge" id="count-apis">91</span></h2>
             <div class="api-list" id="full-registry"></div>
@@ -296,8 +319,9 @@
             <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
             <input type="text" id="term-val" class="tech-input" placeholder="DATA_PARAM">
             <button class="btn" style="width:100%;" id="term-run">EXECUTE REQUEST</button>
-            <pre id="term-res" class="mono" style="margin-top:20px;"></pre>
-            <button class="btn btn-ghost" style="width:100%; margin-top:15px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+            <!-- Result Box -->
+            <pre id="term-res" class="mono"></pre>
+            <button class="btn btn-ghost" style="margin-top:15px; width:100%; justify-content:center;" onclick="closeModal()">CLOSE TERMINAL</button>
         </div>
     </div>
 
@@ -415,7 +439,7 @@
         function renderLists() {
             const sections = {
                 'featured-list': apiData.slice(0, 5),
-                'full-registry': apiData, // THIS FIXED THE BLANK ENDPOINT ISSUE
+                'full-registry': apiData,
                 'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
                 'list-movie': apiData.filter(a => a.category === 'movie'),
                 'list-ai': apiData.filter(a => a.category === 'ai'),
@@ -433,7 +457,6 @@
                     });
                 }
                 
-                // Update Counts
                 const countId = id.replace('list-', 'count-').replace('full-registry', 'count-apis');
                 if(document.getElementById(countId)) document.getElementById(countId).textContent = data.length;
             }
@@ -468,9 +491,11 @@
         }
 
         function openPremiumModal() { document.getElementById('modal-premium').style.display = 'flex'; }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+        function closeModal() { 
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
+            document.getElementById('term-res').style.display = 'none'; // Clear res on close
+        }
 
-        // --- KEY LOGIC ---
         function generateSecureKey() {
             const ts = Date.now();
             const rnd = Math.random().toString(36).substring(2, 10);
@@ -492,6 +517,7 @@
             currentApi = api;
             document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
             document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
+            document.getElementById('term-val').value = '';
             document.getElementById('term-res').style.display = 'none';
             document.getElementById('terminal-modal').style.display = 'flex';
         };
@@ -499,14 +525,20 @@
         document.getElementById('term-run').addEventListener('click', async () => {
             const key = document.getElementById('term-key').value;
             const val = document.getElementById('term-val').value;
-            const res = document.getElementById('term-res');
-            if(!val || !key) return alert("Missing data");
-            res.style.display = 'block'; res.textContent = ">>> Requesting Node_01...";
+            const resBox = document.getElementById('term-res');
+            if(!val || !key) return alert("Credentials Required");
+            
+            resBox.style.display = 'block'; 
+            resBox.textContent = ">>> Requesting Node_01... \n>>> Processing encrypted stream...";
+            
             try {
                 const response = await fetch(`${BASE_URL}${currentApi.endpoint}?apikey=${key}&${currentApi.param}=${val}`);
                 const data = await response.json();
-                res.textContent = JSON.stringify(data, null, 4);
-            } catch(e) { res.textContent = ">>> Error: " + e.message; }
+                // Formatting JSON beautifully
+                resBox.textContent = JSON.stringify(data, null, 4);
+            } catch(e) { 
+                resBox.textContent = ">>> Exception: " + e.message; 
+            }
         });
 
         function setupNav() {
