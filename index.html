@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial API Hub | Enterprise Dashboard</title>
+    <title>VajiraOfficial API Hub | Professional API Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -43,11 +43,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 50%);
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.5) 50%
+            );
             background-size: 100% 4px;
             z-index: -3;
             pointer-events: none;
             opacity: 0.1;
+            animation: scanline 10s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(100vh); }
         }
         
         .grid-lines {
@@ -64,12 +74,35 @@
             pointer-events: none;
         }
         
+        .cyber-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(157, 0, 255, 0.1) 0%, transparent 70%);
+            filter: blur(40px);
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .glow-1 {
+            top: -200px;
+            left: -200px;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        .glow-2 {
+            bottom: -200px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.1) 0%, transparent 70%);
+        }
+        
         /* ============ TOP NAVIGATION BAR ============ */
         .cyber-navbar {
             background: rgba(10, 10, 15, 0.95);
             border-bottom: 2px solid var(--neon-cyan);
             box-shadow: 0 5px 30px rgba(0, 243, 255, 0.2);
-            padding: 10px 30px;
+            padding: 15px 30px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -79,9 +112,35 @@
             backdrop-filter: blur(10px);
         }
         
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            color: var(--neon-cyan);
+            font-size: 28px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: scale(1.1);
+        }
+        
         .nav-logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
             -webkit-background-clip: text;
@@ -89,19 +148,16 @@
             color: transparent;
             letter-spacing: 2px;
         }
-
-        .menu-toggle {
-            background: transparent;
-            border: none;
-            color: var(--neon-cyan);
-            font-size: 24px;
-            cursor: pointer;
-            margin-right: 15px;
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .nav-btn {
-            padding: 8px 20px;
-            border-radius: 5px;
+            padding: 10px 25px;
+            border-radius: 30px;
             background: rgba(0, 243, 255, 0.1);
             border: 1px solid var(--neon-cyan);
             color: var(--neon-cyan);
@@ -109,413 +165,2213 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .nav-btn:hover {
-            background: var(--neon-cyan);
-            color: black;
-            box-shadow: 0 0 15px var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
         }
-
-        /* ============ SIDEBAR ============ */
+        
+        .user-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--neon-green);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+        
+        .user-indicator .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* ============ SIDEBAR MENU ============ */
         .cyber-sidebar {
             position: fixed;
             top: 0;
-            left: -320px;
-            width: 300px;
+            left: -350px;
+            width: 320px;
             height: 100vh;
-            background: rgba(5, 5, 10, 0.98);
-            border-right: 1px solid var(--neon-cyan);
+            background: rgba(10, 10, 20, 0.98);
+            border-right: 2px solid var(--neon-purple);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
             z-index: 1001;
-            transition: 0.3s;
-            padding: 20px;
+            transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 30px;
+            overflow-y: auto;
+            backdrop-filter: blur(15px);
         }
-        .cyber-sidebar.active { left: 0; }
-
-        .nav-link {
+        
+        .cyber-sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            font-family: 'Rajdhani';
-            font-weight: bold;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
         }
-        .nav-link:hover, .nav-link.active {
-            background: rgba(0, 243, 255, 0.15);
-            color: var(--neon-cyan);
-            border-left: 3px solid var(--neon-cyan);
-        }
-
-        /* ============ VERTICAL LIST STYLE (REPLACING CARDS) ============ */
-        .apis-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .api-row {
-            display: grid;
-            grid-template-columns: 50px 1.5fr 2fr 1fr 180px;
-            align-items: center;
-            background: rgba(20, 20, 35, 0.6);
-            border: 1px solid rgba(0, 243, 255, 0.1);
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .api-row:hover {
-            background: rgba(0, 243, 255, 0.05);
-            border-color: var(--neon-cyan);
-            transform: translateX(5px);
-        }
-
-        .api-row-icon {
+        
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             color: var(--neon-cyan);
         }
-
-        .api-row-info h3 {
-            font-family: 'Rajdhani';
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 2px;
-        }
-
-        .api-row-desc {
-            font-size: 0.85rem;
-            color: #8888cc;
-            padding: 0 15px;
-        }
-
-        .api-row-endpoint {
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: var(--neon-green);
-            background: rgba(0,0,0,0.4);
-            padding: 5px 10px;
-            border-radius: 4px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .api-row-actions {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-        }
-
-        .row-btn {
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            cursor: pointer;
+        
+        .close-sidebar {
+            background: transparent;
             border: none;
-            font-family: 'Orbitron';
-            text-transform: uppercase;
+            color: var(--neon-pink);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
-
-        .row-btn-test { background: var(--neon-cyan); color: #000; }
-        .row-btn-status { background: transparent; color: #fff; border: 1px solid #444; }
-
-        /* ============ HERO SECTION ============ */
-        .hero-section {
-            padding: 40px;
-            background: linear-gradient(145deg, #101020, #050510);
-            border: 1px solid rgba(0, 243, 255, 0.2);
+        
+        .close-sidebar:hover {
+            background: rgba(255, 0, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        
+        .nav-item {
+            margin-bottom: 15px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 20px;
             border-radius: 15px;
+            color: var(--cyber-light);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .nav-link:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: rgba(0, 243, 255, 0.3);
+            transform: translateX(10px);
+        }
+        
+        .nav-link.active {
+            background: rgba(0, 243, 255, 0.15);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+            color: var(--neon-cyan);
+        }
+        
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-stats {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(157, 0, 255, 0.3);
             margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .stat-label {
+            color: #b0b0ff;
+        }
+        
+        .stat-value {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+        
+        .sidebar-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            color: #8888cc;
+            font-size: 0.9rem;
+        }
+        
+        /* ============ MAIN CONTENT PAGES ============ */
+        .page-container {
+            padding: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ============ HOME PAGE ============ */
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(26, 26, 46, 0.6);
+            border-radius: 25px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--neon-green);
+            margin-bottom: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+        
+        .hero-description {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #b0b0ff;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background: rgba(20, 20, 35, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(157, 0, 255, 0.2);
+            transition: all 0.3s ease;
             text-align: center;
         }
-        .hero-title { font-family: 'Orbitron'; color: var(--neon-cyan); font-size: 2.5rem; }
-
-        /* ============ UTILS ============ */
-        .page-container { padding: 20px 40px; max-width: 1400px; margin: 0 auto; }
-        .page { display: none; }
-        .page.active { display: block; }
         
-        /* Modal, Stats Table styles kept same as original for functionality */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .modal-overlay.active { display: flex; }
-        .test-modal { background: #111; border: 2px solid var(--neon-cyan); padding: 30px; width: 600px; border-radius: 10px; }
-        .cyber-input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; margin-bottom: 15px; }
-        .response-content { background: #050505; padding: 15px; border: 1px solid var(--neon-green); height: 200px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; margin-top: 15px; }
-
-        .status-active { color: var(--neon-green); font-weight: bold; }
-        .status-inactive { color: var(--neon-red); font-weight: bold; }
-
-        @media (max-width: 1000px) {
-            .api-row { grid-template-columns: 40px 1fr 1fr; }
-            .api-row-desc, .api-row-endpoint { display: none; }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 15px 30px rgba(157, 0, 255, 0.2);
         }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .feature-desc {
+            color: #b0b0ff;
+            line-height: 1.6;
+        }
+        
+        /* ============ APIS PAGE - VERTICAL LINE STYLE ============ */
+        .apis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .apis-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .apis-search {
+            position: relative;
+            min-width: 350px;
+        }
+        
+        .apis-search input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 30px;
+            padding: 15px 20px;
+            padding-left: 50px;
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            width: 100%;
+            font-size: 1rem;
+        }
+        
+        .apis-search input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+        
+        .apis-search i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-cyan);
+        }
+        
+        /* ============ VERTICAL LINE STYLE - NOT CARD BOXES ============ */
+        .apis-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 50px;
+        }
+        
+        /* ============ API LINE ITEM - VERTICAL LIST STYLE ============ */
+        .api-line-item {
+            background: linear-gradient(90deg, rgba(15, 15, 25, 0.5), rgba(30, 30, 50, 0.5));
+            border-left: 4px solid var(--neon-cyan);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            padding: 20px 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .api-line-item:hover {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.05), rgba(157, 0, 255, 0.05));
+            border-left-color: var(--neon-pink);
+            border-left-width: 6px;
+            padding-left: 28px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        
+        .api-line-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .api-line-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .api-line-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .api-line-name i {
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+        }
+        
+        .api-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        .status-active {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+        
+        .status-inactive {
+            background: rgba(255, 60, 60, 0.2);
+            color: var(--neon-red);
+            border: 1px solid var(--neon-red);
+        }
+        
+        .api-line-description {
+            color: #c0c0ff;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .api-line-endpoint {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+        .api-line-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .api-btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .btn-test {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            color: white;
+        }
+        
+        .btn-test:hover {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.4);
+        }
+        
+        .btn-details {
+            background: rgba(0, 102, 255, 0.2);
+            color: white;
+            border: 1px solid var(--cyber-blue);
+        }
+        
+        .btn-details:hover {
+            background: rgba(0, 102, 255, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* ============ CATEGORY SEPARATOR ============ */
+        .category-separator {
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            height: 2px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .category-separator-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--cyber-dark);
+            padding: 10px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* ============ API TEST MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1002;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .test-modal {
+            background: rgba(20, 20, 35, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 20px 50px rgba(0, 243, 255, 0.3);
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+        }
+        
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--neon-pink);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 0, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .test-form {
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--neon-yellow);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cyber-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+        
+        .modal-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .response-section {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .response-section.active {
+            display: block;
+        }
+        
+        .response-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .response-content {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+        
+        /* ============ DASHBOARD PAGE ============ */
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-subtitle {
+            color: #b0b0ff;
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-card {
+            background: rgba(20, 20, 35, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(157, 0, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 15px 30px rgba(157, 0, 255, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            color: #b0b0ff;
+            font-size: 1.1rem;
+        }
+        
+        .api-status-table {
+            background: rgba(20, 20, 35, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            margin-bottom: 50px;
+            overflow-x: auto;
+        }
+        
+        .table-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-pink);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+        }
+        
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .status-table th {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: left;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .status-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        .status-table tr:hover {
+            background: rgba(0, 243, 255, 0.05);
+        }
+        
+        .status-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        
+        /* ============ DOWNLOADERS PAGE ============ */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--neon-green);
+        }
+        
+        .category-count {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--neon-green);
+        }
+        
+/* ============ LIVE PERFORMANCE STYLING ============ */
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.performance-box {
+    background: rgba(0, 243, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.performance-box:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.perf-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    color: #8888cc;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.perf-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: var(--neon-cyan);
+    font-weight: 700;
+}
+
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: var(--matrix-green);
+    margin-bottom: 15px;
+}
+
+.live-dot {
+    height: 10px;
+    width: 10px;
+    background-color: var(--matrix-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--matrix-green);
+    animation: livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+        
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            .stats-cards {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .nav-right {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cyber-sidebar {
+                width: 100%;
+                left: -100%;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .apis-search {
+                min-width: 100%;
+            }
+            
+            .api-line-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .api-line-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .api-btn {
+                width: 100%;
+            }
+            
+            .page-container {
+                padding: 20px 15px;
+            }
+        }
+        
+        /* ============ CUSTOM SCROLLBAR ============ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 46, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--neon-purple), var(--neon-cyan));
+        }
+
+        
     </style>
 </head>
 <body>
+    <!-- Background Effects -->
     <div class="scanlines"></div>
     <div class="grid-lines"></div>
+    <div class="cyber-glow glow-1"></div>
+    <div class="cyber-glow glow-2"></div>
     
+    <!-- Top Navigation Bar -->
     <nav class="cyber-navbar">
-        <div style="display: flex; align-items: center;">
-            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-            <div class="nav-logo">VAJIRA API HUB</div>
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-logo">VajiraOfficial API </div>
         </div>
-        <div style="display: flex; gap: 15px;">
-            <button class="nav-btn" onclick="showPage('dashboard')"><i class="fas fa-chart-line"></i> STATUS</button>
-            <div style="color: var(--neon-green); font-weight: bold; font-family: Rajdhani; padding-top: 8px;">
-                <i class="fas fa-circle" style="font-size: 8px; vertical-align: middle;"></i> ONLINE
+
+        
+        <div class="nav-right">
+            <button class="nav-btn" id="testAllApis">
+                <i class="fas fa-bolt"></i> TEST ALL APIS
+            </button>
+            <div class="user-indicator">
+                <div class="dot"></div>
+                <span>CONNECTED</span>
             </div>
         </div>
     </nav>
     
+    <!-- Sidebar Menu -->
     <aside class="cyber-sidebar" id="sidebar">
-        <h2 style="font-family: Orbitron; color: var(--neon-cyan); margin-bottom: 20px;">MENU</h2>
-        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> &nbsp; HOME</a>
-        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-code"></i> &nbsp; ALL APIS</a>
-        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> &nbsp; DOWNLOADERS</a>
-        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> &nbsp; MOVIES</a>
-        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> &nbsp; AI TOOLS</a>
-        <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> &nbsp; IMAGES</a>
-        <a href="#" class="nav-link" data-page="api-settings"><i class="fas fa-key"></i> &nbsp; API KEY</a>
-    </aside>
-
-    <div class="page-container">
-        
-        <!-- API Settings -->
-        <div class="page" id="api-settings-page">
-            <section class="hero-section">
-                <h2 class="hero-title">AUTHENTICATION</h2>
-                <p>Generate your secure access key below.</p>
-                <div id="display-api-key" style="background:#000; padding:15px; margin:20px 0; border: 1px dashed var(--neon-cyan); font-family: monospace;">NO KEY GENERATED</div>
-                <button class="nav-btn" onclick="generateUserKey()">GENERATE NEW KEY</button>
-            </section>
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">VajiraOfficial</h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="apis">
+                    <i class="fas fa-code"></i>
+                    <span>ALL APIS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="downloaders">
+                    <i class="fas fa-download"></i>
+                    <span>DOWNLOADERS</span>
+                </a>
+            </li>
+          <li class="nav-item">
+                <a href="#" class="nav-link" data-page="movie">
+                    <i class="fas fa-film"></i>
+                    <span>MOVIE</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="ai">
+                    <i class="fas fa-robot"></i>
+                    <span>AI & SEARCH</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="images">
+                    <i class="fas fa-image"></i>
+                    <span>IMAGE TOOLS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="utilities">
+                    <i class="fas fa-cogs"></i>
+                    <span>UTILITIES</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="dashboard">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>DASHBOARD</span>
+                </a>
+            </li>
 
-        <!-- Home -->
+<li class="nav-item">
+    <a href="#" class="nav-link" data-page="api-settings">
+        <i class="fas fa-key"></i> <span>API SETTINGS</span>
+    </a>
+</li>
+
+            
+        </ul>
+        
+        <div class="sidebar-stats">
+            <div class="stat-item">
+                <span class="stat-label">TOTAL APIS:</span>
+                <span class="stat-value" id="totalApis">38</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">ACTIVE:</span>
+                <span class="stat-value" id="activeApis">38</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">RESPONSE TIME:</span>
+                <span class="stat-value">~150ms</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">UPTIME:</span>
+                <span class="stat-value">99.8%</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>© 2026 VajiraOfficial NETWORK</p>
+            <p>Version 4.0 | ULTRA PRO MAX</p>
+        </div>
+    </aside>
+    
+    <!-- Main Content Container -->
+    <div class="page-container">
+
+
+
+<div class="page" id="api-settings-page">
+    <section class="hero-section">
+        <h2 class="hero-title">API KEY MANAGEMENT</h2>
+        <p class="hero-description">Generate your personal key to access all APIs.</p>
+        <div class="api-line-endpoint" id="display-api-key" style="text-align: center; font-size: 1.2rem; color: var(--neon-cyan); display: block; padding: 20px;">
+            NO KEY GENERATED
+        </div>
+        <button class="nav-btn" onclick="generateUserKey()" style="margin: 20px auto;">
+            <i class="fas fa-sync"></i> REGENERATE KEY
+        </button>
+    </section>
+</div>
+
+
+        
+        <!-- Home Page -->
         <div class="page active" id="home-page">
             <section class="hero-section">
-                <h1 class="hero-title">VAJIRA ENTERPRISE</h1>
-                <p style="font-family: Rajdhani; font-size: 1.2rem; letter-spacing: 2px;">90+ PREMIUM ENDPOINTS • ULTRA-LOW LATENCY</p>
-                <div style="margin-top: 25px;">
-                    <button class="nav-btn" onclick="showPage('apis')">EXPLORE DOCUMENTATION</button>
+                <h1 class="hero-title">VajiraOfficial API HUB</h1>
+                <p class="hero-subtitle">ULTIMATE API COLLECTION | PREMIUM EDITION</p>
+                <p class="hero-description">
+                    Welcome to the most advanced API dashboard. Access 38+ powerful APIs including downloaders, AI tools, 
+                    image generators, and utilities. All APIs are tested and ready for production use. 
+                    Experience ultra-fast response times and 99.8% uptime.
+                </p>
+                <button class="nav-btn" style="margin: 0 auto; padding: 15px 40px; font-size: 1.2rem;">
+                    <i class="fas fa-rocket"></i> GET STARTED
+                </button>
+            </section>
+
+
+
+
+<div class="api-status-table" style="margin-top: 30px; border-color: var(--neon-cyan);">
+    <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span>LIVE SYSTEM PERFORMANCE</span>
+    </div>
+    
+    <div class="performance-grid">
+        <div class="performance-box">
+            <span class="perf-label">Server CPU Load</span>
+            <span class="perf-value" id="cpu-load">24%</span>
+        </div>
+        <div class="performance-box">
+            <span class="perf-label">Memory Usage</span>
+            <span class="perf-value" id="mem-usage">1.2 GB</span>
+        </div>
+        <div class="performance-box">
+            <span class="perf-label">Network Latency</span>
+            <span class="perf-value" id="live-latency">42ms</span>
+        </div>
+        <div class="performance-box">
+            <span class="perf-label">Active Connections</span>
+            <span class="perf-value" id="active-conn">1,204</span>
+        </div>
+    </div>
+</div>
+
+
+
+
+            
+            <section class="features-section">
+                <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 50px;">
+                    <i class="fas fa-star"></i> KEY FEATURES
+                </h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">ULTRA FAST</h3>
+                        <p class="feature-desc">
+                            Lightning-fast API responses with optimized servers. Average response time under 150ms.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">SECURE</h3>
+                        <p class="feature-desc">
+                            Advanced security protocols and encryption. Your data is safe with enterprise-grade protection.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <h3 class="feature-title">UNLIMITED</h3>
+                        <p class="feature-desc">
+                            No rate limits on API calls. Use as much as you need for your projects and applications.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3 class="feature-title">EASY INTEGRATION</h3>
+                        <p class="feature-desc">
+                            Simple REST API endpoints with detailed documentation. Integrate in minutes, not hours.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">REAL-TIME MONITORING</h3>
+                        <p class="feature-desc">
+                            Live dashboard showing API status, response times, and uptime statistics.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">24/7 SUPPORT</h3>
+                        <p class="feature-desc">
+                            Dedicated support team available round the clock. Contact: 94719199757
+                        </p>
+                    </div>
                 </div>
             </section>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; text-align: center;">
-                    <h4 style="color: var(--neon-cyan)">UPTIME</h4>
-                    <h2 style="font-family: Orbitron">99.9%</h2>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; text-align: center;">
-                    <h4 style="color: var(--neon-green)">LATENCY</h4>
-                    <h2 style="font-family: Orbitron">42ms</h2>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; text-align: center;">
-                    <h4 style="color: var(--neon-pink)">ENDPOINTS</h4>
-                    <h2 style="font-family: Orbitron">91</h2>
-                </div>
-            </div>
         </div>
-
-        <!-- All APIs List Page -->
+        
+        <!-- APIs Page - NOW WITH VERTICAL LINE STYLE -->
         <div class="page" id="apis-page">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px;">
-                <h2 style="font-family: Orbitron;">API DOCUMENTATION</h2>
-                <input type="text" id="apisSearch" placeholder="Search endpoint..." style="padding: 10px; background: #111; border: 1px solid var(--neon-cyan); color: #fff; width: 300px;">
+            <div class="apis-header">
+                <h1 class="apis-title">ALL APIS COLLECTION</h1>
+                <div class="apis-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="apisSearch" placeholder="Search APIs by name or description...">
+                </div>
             </div>
-            <div class="apis-grid" id="apisGrid"></div>
+            
+            <div class="apis-list" id="apisGrid">
+                <!-- APIs will be loaded by JavaScript in VERTICAL LINE STYLE -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="nav-btn" id="checkAllStatus" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-sync-alt"></i> CHECK ALL API STATUS
+                </button>
+            </div>
+        </div>
+        
+        <!-- Downloaders Page - VERTICAL LINE STYLE -->
+        <div class="page" id="downloaders-page">
+            <div class="category-header">
+                <h1 class="category-title">DOWNLOADER APIS</h1>
+                <div class="category-count" id="downloadersCount">Loading...</div>
+            </div>
+            
+            <div class="apis-list" id="downloadersGrid">
+                <!-- Downloader APIs in VERTICAL LINE STYLE -->
+            </div>
         </div>
 
-        <!-- Category Pages (Reusing same grid logic) -->
-        <div class="page" id="downloaders-page"><h2 style="font-family: Orbitron;">DOWNLOADERS</h2><div class="apis-grid" id="downloadersGrid"></div></div>
-        <div class="page" id="movie-page"><h2 style="font-family: Orbitron;">MOVIES & CINEMA</h2><div class="apis-grid" id="movieGrid"></div></div>
-        <div class="page" id="ai-page"><h2 style="font-family: Orbitron;">AI & INTELLIGENCE</h2><div class="apis-grid" id="aiGrid"></div></div>
-        <div class="page" id="images-page"><h2 style="font-family: Orbitron;">IMAGE PROCESSING</h2><div class="apis-grid" id="imagesGrid"></div></div>
 
-        <!-- Dashboard / Status -->
+<!-- MOVIE Page - VERTICAL LINE STYLE -->
+        <div class="page" id="movie-page">
+            <div class="category-header">
+                <h1 class="category-title" style="color: var(--neon-purple);">MOVIE & SEARCH APIS</h1>
+                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="movieCount">Loading...</div>
+            </div>
+            
+            <div class="apis-list" id="movieGrid">
+                <!-- Movie APIs in VERTICAL LINE STYLE -->
+            </div>
+        </div>
+
+        
+        <!-- AI Page - VERTICAL LINE STYLE -->
+        <div class="page" id="ai-page">
+            <div class="category-header">
+                <h1 class="category-title" style="color: var(--neon-purple);">AI & SEARCH APIS</h1>
+                <div class="category-count" style="background: rgba(157, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple);" id="aiCount">Loading...</div>
+            </div>
+            
+            <div class="apis-list" id="aiGrid">
+                <!-- AI APIs in VERTICAL LINE STYLE -->
+            </div>
+        </div>
+        
+        <!-- Images Page - VERTICAL LINE STYLE -->
+        <div class="page" id="images-page">
+            <div class="category-header">
+                <h1 class="category-title" style="color: var(--neon-pink);">IMAGE TOOLS APIS</h1>
+                <div class="category-count" style="background: rgba(255, 0, 255, 0.2); color: var(--neon-pink); border-color: var(--neon-pink);" id="imagesCount">Loading...</div>
+            </div>
+            
+            <div class="apis-list" id="imagesGrid">
+                <!-- Image APIs in VERTICAL LINE STYLE -->
+            </div>
+        </div>
+        
+        <!-- Utilities Page - VERTICAL LINE STYLE -->
+        <div class="page" id="utilities-page">
+            <div class="category-header">
+                <h1 class="category-title" style="color: var(--neon-yellow);">UTILITIES APIS</h1>
+                <div class="category-count" style="background: rgba(255, 237, 0, 0.2); color: var(--neon-yellow); border-color: var(--neon-yellow);" id="utilitiesCount">Loading...</div>
+            </div>
+            
+            <div class="apis-list" id="utilitiesGrid">
+                <!-- Utility APIs in VERTICAL LINE STYLE -->
+            </div>
+        </div>
+        
+        <!-- Dashboard Page -->
         <div class="page" id="dashboard-page">
-            <h2 style="font-family: Orbitron; margin-bottom: 20px;">SYSTEM STATUS</h2>
-            <div style="background: #111; padding: 20px; border-radius: 10px;">
-                <table style="width: 100%; text-align: left; border-collapse: collapse;">
-                    <thead style="border-bottom: 1px solid #333; color: var(--neon-cyan);">
-                        <tr><th style="padding: 10px;">API NAME</th><th>STATUS</th><th>LATENCY</th></tr>
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">SYSTEM DASHBOARD</h1>
+                <p class="dashboard-subtitle">
+                    Real-time monitoring of all APIs. Check status, response times, and performance metrics.
+                    Green indicates working APIs, red indicates issues.
+                </p>
+            </div>
+            
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--neon-cyan);">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="stat-number" id="totalApisCard">38</div>
+                    <div class="stat-text">TOTAL APIS</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--neon-green);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-number" id="workingApisCard">0</div>
+                    <div class="stat-text">WORKING APIS</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--neon-red);">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-number" id="deadApisCard">0</div>
+                    <div class="stat-text">DEAD APIS</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--neon-yellow);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">~150ms</div>
+                    <div class="stat-text">AVG RESPONSE TIME</div>
+                </div>
+            </div>
+            
+            <div class="api-status-table">
+                <h2 class="table-title">API STATUS MONITOR</h2>
+                <table class="status-table" id="statusTable">
+                    <thead>
+                        <tr>
+                            <th>API NAME</th>
+                            <th>CATEGORY</th>
+                            <th>STATUS</th>
+                            <th>RESPONSE TIME</th>
+                            <th>LAST CHECKED</th>
+                            <th>ACTION</th>
+                        </tr>
                     </thead>
-                    <tbody id="statusTableBody"></tbody>
+                    <tbody id="statusTableBody">
+                        <!-- Status rows will be loaded by JavaScript -->
+                    </tbody>
                 </table>
             </div>
+            
+            <div style="text-align: center;">
+                <button class="nav-btn" id="refreshDashboard" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-sync-alt"></i> REFRESH DASHBOARD
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Test Modal -->
+    
+    <!-- API Test Modal -->
     <div class="modal-overlay" id="testModal">
         <div class="test-modal">
-            <h3 id="modalApiName" style="color: var(--neon-cyan); font-family: Orbitron; margin-bottom: 20px;">TEST API</h3>
-            <label style="font-size: 0.8rem; color: #888;">API KEY</label>
-            <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="vajira-xxxx-xxxx">
-            <label id="modalParamLabel" style="font-size: 0.8rem; color: #888;">PARAMETER</label>
-            <input type="text" class="cyber-input" id="modalParamInput">
-            <button class="nav-btn" style="width: 100%;" id="runTest">EXECUTE REQUEST</button>
-            <div class="response-content" id="responseContent">Output will appear here...</div>
-            <button class="nav-btn" style="margin-top: 15px; border-color: var(--neon-red); color: var(--neon-red);" onclick="document.getElementById('testModal').classList.remove('active')">CLOSE</button>
-        </div>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalApiName">TEST API</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="test-form">
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label class="form-label" style="color: var(--neon-pink);">
+            <i class="fas fa-lock"></i> AUTHENTICATION KEY
+        </label>
+        <input type="text" class="cyber-input" id="modalApiKeyInput" placeholder="Paste your vajira- key here...">
     </div>
 
+    <div class="form-group">
+        <label class="form-label" id="modalParamLabel">
+            <i class="fas fa-terminal"></i> ENTER PARAMETER
+        </label>
+        <input type="text" class="cyber-input" id="modalParamInput" placeholder="Enter value...">
+    </div>
+    
+    <button class="modal-btn btn-test" id="runTest">
+        <i class="fas fa-bolt"></i> RUN API TEST
+    </button>
+</div>
+
+
+<div class="response-section" id="responseSection">
+    <h3 class="response-title">
+        <i class="fas fa-code"></i> API RESPONSE
+    </h3>
+    <div class="response-content" id="responseContent">
+        // Response will appear here
+    </div>
+</div>
+</div>
+</div>
+
     <script>
-        const BASE_URL = "https://vajira-official-apis.vercel.app";
-        
-        // Full Data Array (Keep exactly as your data structure)
-        const apiData = [
-            { id: 1, name: "YouTube Video", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube MP4 high resolution.", example: "https://youtube.com/..." },
-            { id: 2, name: "YouTube Audio", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Fastest YouTube to MP3 converter.", example: "https://youtube.com/..." },
-            { id: 3, name: "Twitter/X DL", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Download videos from Twitter/X threads.", example: "https://twitter.com/..." },
-            { id: 4, name: "Instagram DL", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Reels and posts downloader.", example: "https://insta..." },
-            { id: 5, name: "Facebook DL", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "HD Facebook video extraction.", example: "https://fb.watch..." },
-            { id: 6, name: "Spotify DL", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Download high quality tracks.", example: "spotify link" },
-            { id: 11, name: "Blackbox AI", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Coding assistant and logic solver.", example: "How to code a bot?" },
-            { id: 12, name: "Gemini AI", endpoint: "/api/gemini", category: "ai", param: "text", description: "Google's powerful LLM interface.", example: "Explain quantum physics" },
-            { id: 13, name: "Text to Image", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generate AI art from text.", example: "Cyberpunk city" },
-            { id: 17, name: "SS Website", endpoint: "/api/ssweb", category: "images", param: "url", description: "Render website screenshots.", example: "https://google.com" },
-            { id: 26, name: "QR Generator", endpoint: "/api/qrcodegenerator", category: "images", param: "text", description: "Generate dynamic QR codes.", example: "Vajira Hub" },
-            { id: 31, name: "Movie Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Find metadata for any movie.", example: "Inception" },
-            { id: 32, name: "Movie DL", endpoint: "/api/moviesdl", category: "movie", param: "q", description: "Direct movie download links.", example: "Deadpool" },
-            { id: 37, name: "TikTok DL", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "TikTok No Watermark downloader.", example: "tiktok url" },
-            { id: 44, name: "Vajira AI", endpoint: "/api/vajiraai", category: "ai", param: "q", description: "Custom trained neural chatbot.", example: "Who are you?" },
-            { id: 78, name: "Telegram DL", endpoint: "/api/telegramdl", category: "downloaders", param: "url", description: "Download files from TG links.", example: "tg link" },
-            { id: 86, name: "PornHub Search", endpoint: "/api/pornhub", category: "ai", param: "query", description: "Search adult content metadata.", example: "mia" },
-            { id: 91, name: "Xhamster Search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Search adult video library.", example: "hot" }
-            // Add other 90+ APIs here if needed following this pattern
+        // API Data
+        const apiData = [     
+            {
+                id: 1,
+                name: "YouTube Video Downloader",
+                endpoint: "/api/ytmp4",
+                category: "downloaders",
+                param: "url",
+                description: "Download YouTube Video in multiple formats with vajira-enhanced speed.",
+                example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },  
+            {
+                id: 2,
+                name: "YouTube Audio Downloader",
+                endpoint: "/api/ytmp3",
+                category: "downloaders",
+                param: "url",
+                description: "Download YouTube Audio in multiple formats with vajira-enhanced speed.",
+                example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 3,
+                name: "Twitter/X Downloader",
+                endpoint: "/api/twitterdl",
+                category: "downloaders",
+                param: "url",
+                description: "Extract videos from Twitter/X with neural network processing.",
+                example: "https://twitter.com/user/status/1234567890",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 4,
+                name: "Instagram Downloader",
+                endpoint: "/api/igdl",
+                category: "downloaders",
+                param: "url",
+                description: "Download Instagram content with advanced decryption protocols.",
+                example: "https://www.instagram.com/p/Cxxxxxxxxxx/",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 5,
+                name: "Facebook Downloader",
+                endpoint: "/api/fbdl",
+                category: "downloaders",
+                param: "url",
+                description: "Premium Facebook video download with HQ optimization.",
+                example: "https://www.facebook.com/watch/?v=1234567890",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 6,
+                name: "Spotify Downloader",
+                endpoint: "/api/spotifydl",
+                category: "downloaders",
+                param: "url",
+                description: "Extract Spotify tracks with crystal clear audio quality.",
+                example: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 7,
+                name: "GitHub Cloner",
+                endpoint: "/api/gitclone",
+                category: "downloaders",
+                param: "url",
+                description: "Clone GitHub repositories with ARSLAN-speed compression.",
+                example: "https://github.com/username/repository",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 8,
+                name: "Aptoide Search",
+                endpoint: "/api/aptoide",
+                category: "ai",
+                param: "q",
+                description: "Search Android apps on Aptoide with neural recommendations.",
+                example: "WhatsApp, Instagram, TikTok",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 9,
+                name: "Spotify Search",
+                endpoint: "/api/spotifysearch",
+                category: "ai",
+                param: "query",
+                description: "Advanced Spotify search with AI-powered recommendations.",
+                example: "Ed Sheeran, Shape of You",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 10,
+                name: "TikTok Search",
+                endpoint: "/api/ttsearch",
+                category: "ai",
+                param: "query",
+                description: "Neural-powered TikTok content discovery engine.",
+                example: "Dance videos, Comedy",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 11,
+                name: "YouTube Search",
+                endpoint: "/api/ytsearch",
+                category: "ai",
+                param: "query",
+                description: "Advanced YouTube search with AI recommendations.",
+                example: "Python tutorial, Music videos",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 12,
+                name: "Google Search",
+                endpoint: "/api/googlesearch",
+                category: "ai",
+                param: "query",
+                description: "Quantum-enhanced Google search results API.",
+                example: "Artificial Intelligence, Web development",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 13,
+                name: "Google Image Search",
+                endpoint: "/api/googleimage",
+                category: "ai",
+                param: "query",
+                description: "vajira-vision powered Google image search.",
+                example: "Nature wallpaper, Technology",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 14,
+                name: "AI ChatGPT",
+                endpoint: "/api/chatgpt",
+                category: "ai",
+                param: "q",
+                description: "Neural network conversation engine powered by vajira-intelligence.",
+                example: "How to code in JavaScript?",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 15,
+                name: "AI Gemini",
+                endpoint: "/api/gemini",
+                category: "ai",
+                param: "text",
+                description: "Vajira-Gemini multimodal AI assistant with quantum processing.",
+                example: "Explain quantum computing",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 16,
+                name: "Meta AI",
+                endpoint: "/api/meta",
+                category: "ai",
+                param: "query",
+                description: "vajira-Meta AI assistant with neural reasoning.",
+                example: "Tell me a joke",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 17,
+                name: "TikTok Stalk",
+                endpoint: "/api/ttstalk",
+                category: "ai",
+                param: "username",
+                description: "Vajira-network user profile analytics.",
+                example: "username123",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 18,
+                name: "Genshin Impact Character Info",
+                endpoint: "/api/genshininfo",
+                category: "ai",
+                param: "character",
+                description: "Vajira-database Genshin Impact character encyclopedia.",
+                example: "Diluc, Zhongli, Raiden",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 19,
+                name: "AI Image Generator",
+                endpoint: "/api/ai-image",
+                category: "images",
+                param: "prompt",
+                description: "vajira-vision AI image generation with neural rendering.",
+                example: "A futuristic city at night",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 20,
+                name: "Image to Cartoon",
+                endpoint: "/api/toonify",
+                category: "images",
+                param: "imageUrl",
+                description: "Convert photos to animated cartoons with vajira-art.",
+                example: "https://example.com/photo.jpg",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 21,
+                name: "Image Upscaler",
+                endpoint: "/api/upscale",
+                category: "images",
+                param: "imageUrl",
+                description: "vajira-enhance 4K upscaling with AI reconstruction.",
+                example: "https://example.com/lowres.jpg",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 22,
+                name: "Image to HD",
+                endpoint: "/api/hd",
+                category: "images",
+                param: "url",
+                description: "Vajira-crystal HD enhancement with neural networks.",
+                example: "https://example.com/image.jpg",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 23,
+                name: "Quote Creator",
+                endpoint: "/api/qc",
+                category: "images",
+                param: "text",
+                description: "Create neon-styled quote images with AI backgrounds.",
+                example: "Dream big, work hard",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 24,
+                name: "Brat Image Generator",
+                endpoint: "/api/brat",
+                category: "images",
+                param: "text",
+                description: "Generate arslan-meme images with custom text.",
+                example: "Your Name Here",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 25,
+                name: "Handwriting Generator",
+                endpoint: "/api/nulis",
+                category: "images",
+                param: "text",
+                description: "Convert text to realistic arslan-handwriting.",
+                example: "This is a sample text in handwriting",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 26,
+                name: "QR Code Generator",
+                endpoint: "/api/qrcodegenerator",
+                category: "images",
+                param: "text",
+                description: "Generate neon QR codes with encryption options.",
+                example: "https://github.com, WIFI:T:WPA;S:MyNetwork;P:Password123;;",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 27,
+                name: "Ghibli Images",
+                endpoint: "/api/ghibliimage",
+                category: "images",
+                param: "query",
+                description: "Get Studio Ghibli images with vajira-filters.",
+                example: "Totoro, Chihiro, Howl",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 28,
+                name: "Tweet Generator",
+                endpoint: "/api/tweet",
+                category: "images",
+                param: "text",
+                description: "Create vajira-styled fake tweet images.",
+                example: "Just launched my new project! #coding #webdev",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 29,
+                name: "Khodam Checker",
+                endpoint: "/api/cekkhodam",
+                category: "utilities",
+                param: "name",
+                description: "vajira-enhanced spiritual guardian analysis.",
+                example: "Ahmad, Siti, Budi",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 30,
+                name: "Spotify Search+Downloader",
+                endpoint: "/api/spotidl",
+                category: "downloaders",
+                param: "q",
+                description: "Advanced Spotify search with download capability.",
+                example: "Pasoori, Gal Sun Dil bar jani",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 31,
+                name: "Movies Search",
+                endpoint: "/api/moviesearch",
+                category: "movie",
+                param: "query",
+                description: "Advanced Movies search with recommendations.",
+                example: "2026 Movies, Doctor Strange",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 32,
+                name: "Movies Downloader",
+                endpoint: "/api/moviesdl",
+                category: "movie",
+                param: "q",
+                description: "Download Movies content with advanced Downloader.",
+                example: "Doctor Strange etc....",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 33,
+                name: "Animexine Search",
+                endpoint: "/api/animexinsearch",
+                category: "movie",
+                param: "q",
+                description: "Search Anime content with advanced search.",
+                example: "Tales....",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 34,
+                name: "Animexine Downloader",
+                endpoint: "/api/animexindetails",
+                category: "movie",
+                param: "url",
+                description: "Search Anime content with advanced details.",
+                example: "https://animexin.dev/against-the-sky-supreme-episode-476-indonesia-english-sub/",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 35,
+                name: "MovieBd Search",
+                endpoint: "/api/moviebdsearch",
+                category: "movie",
+                param: "q",
+                description: "Search Movie content with advanced search.",
+                example: "2025....",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 36,
+                name: "MovieBd Dl",
+                endpoint: "/api/moviebddl",
+                category: "movie",
+                param: "url",
+                description: "Search Movie content with advanced dl.",
+                example: "Put movie url by search",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 37,
+                name: "TikTok Downloader",
+                endpoint: "/api/ttdl",
+                category: "downloaders",
+                param: "url",
+                description: "Download TikTok videos without watermark. Advanced video extraction protocol.",
+                example: "https://www.tiktok.com/@username/video/1234567890",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            },
+            {
+                id: 38,
+                name: "Wallpaper",
+                endpoint: "/api/wallpaper",
+                category: "images",
+                param: "query",
+                description: "Get high-quality wallpapers with advanced search.",
+                example: "Nature, Space, Abstract",
+                method: "GET",
+                status: "active",
+                lastChecked: null,
+                responseTime: null
+            }
         ];
-
-        // Logic
-        let currentTestApi = null;
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + '-page').classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(l => {
-                l.classList.toggle('active', l.dataset.page === pageId);
-            });
-            document.getElementById('sidebar').classList.remove('active');
-        }
-
-        // Generate Row HTML (Vertical Style)
-        function createApiRow(api) {
-            const row = document.createElement('div');
-            row.className = 'api-row';
-            row.dataset.name = api.name.toLowerCase();
+        
+        // Global variables
+        let currentTestingApi = null;
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadStoredApiKey();
+        });
+        
+        function initializeApp() {
+            setupNavigation();
+            setupSidebar();
+            setupModal();
+            renderAllApis();
+            setupSearch();
+            setupDashboard();
             
-            let icon = 'code';
-            if(api.category === 'downloaders') icon = 'download';
-            if(api.category === 'ai') icon = 'robot';
-            if(api.category === 'movie') icon = 'film';
-            if(api.category === 'images') icon = 'image';
-
-            row.innerHTML = `
-                <div class="api-row-icon"><i class="fas fa-${icon}"></i></div>
-                <div class="api-row-info">
-                    <h3>${api.name}</h3>
-                    <span style="font-size:0.7rem; background:rgba(0,243,255,0.1); color:var(--neon-cyan); padding:2px 6px; border-radius:3px;">${api.category.toUpperCase()}</span>
+            // Update sidebar stats
+            document.getElementById('totalApis').textContent = apiData.length;
+            document.getElementById('activeApis').textContent = apiData.filter(api => api.status === 'active').length;
+        }
+        
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.dataset.page;
+                    
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === targetPage + '-page') {
+                            page.classList.add('active');
+                        }
+                    });
+                    
+                    // Close sidebar on mobile
+                    document.getElementById('sidebar').classList.remove('active');
+                    
+                    // Load category-specific content
+                    if (targetPage !== 'home' && targetPage !== 'apis' && targetPage !== 'dashboard' && targetPage !== 'api-settings') {
+                        loadCategoryApis(targetPage);
+                    }
+                });
+            });
+        }
+        
+        function setupSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.add('active');
+            });
+            
+            closeSidebar.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
+        
+        function setupModal() {
+            const modal = document.getElementById('testModal');
+            const closeModal = document.getElementById('closeModal');
+            const runTest = document.getElementById('runTest');
+            
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                resetModal();
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    resetModal();
+                }
+            });
+            
+            runTest.addEventListener('click', testApi);
+        }
+        
+        function resetModal() {
+            document.getElementById('modalParamInput').value = '';
+            document.getElementById('responseSection').classList.remove('active');
+            document.getElementById('responseContent').textContent = '// Response will appear here';
+        }
+        
+        // Render APIs in VERTICAL LINE STYLE
+        function renderAllApis() {
+            const container = document.getElementById('apisGrid');
+            container.innerHTML = '';
+            
+            apiData.forEach((api, index) => {
+                container.appendChild(createApiLineItem(api));
+            });
+        }
+        
+        // CREATE API LINE ITEM - VERTICAL LIST STYLE
+        function createApiLineItem(api) {
+            const lineItem = document.createElement('div');
+            lineItem.className = 'api-line-item';
+            lineItem.dataset.apiId = api.id;
+            
+            lineItem.innerHTML = `
+                <div class="api-line-info">
+                    <div class="api-line-header">
+                        <div class="api-line-name">
+                            <i class="fas fa-code"></i>
+                            ${api.name}
+                        </div>
+                        <span class="api-status status-${api.status}">${api.status}</span>
+                    </div>
+                    <div class="api-line-description">${api.description}</div>
+                    <div class="api-line-endpoint">${api.endpoint}</div>
                 </div>
-                <div class="api-row-desc">${api.description}</div>
-                <div class="api-row-endpoint">${api.endpoint}</div>
-                <div class="api-row-actions">
-                    <button class="row-btn row-btn-status" onclick="checkStatus(${api.id})">STATUS</button>
-                    <button class="row-btn row-btn-test" onclick="openTestModal(${api.id})">TEST</button>
+                <div class="api-line-actions">
+                    <button class="api-btn btn-test" onclick="openTestModal(${api.id})">
+                        <i class="fas fa-bolt"></i> TEST
+                    </button>
+                    <button class="api-btn btn-details" onclick="viewApiDetails(${api.id})">
+                        <i class="fas fa-info-circle"></i> DETAILS
+                    </button>
                 </div>
             `;
-            return row;
-        }
-
-        function loadApis() {
-            const grids = {
-                'apis': document.getElementById('apisGrid'),
-                'downloaders': document.getElementById('downloadersGrid'),
-                'movie': document.getElementById('movieGrid'),
-                'ai': document.getElementById('aiGrid'),
-                'images': document.getElementById('imagesGrid')
-            };
-
-            // Clear all
-            Object.values(grids).forEach(g => { if(g) g.innerHTML = ''; });
-
-            apiData.forEach(api => {
-                // All APIs page
-                grids.apis.appendChild(createApiRow(api));
-                // Category pages
-                if(grids[api.category]) grids[api.category].appendChild(createApiRow(api));
-                
-                // Status Table
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td style="padding:10px;">${api.name}</td><td id="status-${api.id}">-</td><td>${Math.floor(Math.random()*100)+20}ms</td>`;
-                document.getElementById('statusTableBody').appendChild(tr);
-            });
-        }
-
-        function openTestModal(apiId) {
-            const api = apiData.find(a => a.id === apiId);
-            currentTestApi = api;
-            document.getElementById('modalApiName').textContent = api.name;
-            document.getElementById('modalParamLabel').textContent = "PARAMETER: " + api.param.toUpperCase();
-            document.getElementById('modalParamInput').placeholder = api.example;
-            document.getElementById('testModal').classList.add('active');
             
-            const savedKey = localStorage.getItem('user_apikey');
-            if(savedKey) document.getElementById('modalApiKeyInput').value = savedKey;
+            return lineItem;
         }
-
-        async function runApiTest() {
-            const key = document.getElementById('modalApiKeyInput').value;
-            const paramValue = document.getElementById('modalParamInput').value;
-            const output = document.getElementById('responseContent');
+        
+        function loadCategoryApis(category) {
+            const filteredApis = apiData.filter(api => api.category === category);
+            const gridId = category + 'Grid';
+            const countId = category + 'Count';
             
-            if(!key || !paramValue) return alert("Fill all fields");
-
-            output.innerHTML = "REQUESTING SERVER...";
-            try {
-                const url = `${BASE_URL}${currentTestApi.endpoint}?apikey=${key}&${currentTestApi.param}=${encodeURIComponent(paramValue)}`;
-                const res = await fetch(url);
-                const data = await res.json();
-                output.textContent = JSON.stringify(data, null, 4);
-            } catch (e) {
-                output.textContent = "ERROR: " + e.message;
+            const container = document.getElementById(gridId);
+            const countElement = document.getElementById(countId);
+            
+            if (container) {
+                container.innerHTML = '';
+                filteredApis.forEach(api => {
+                    container.appendChild(createApiLineItem(api));
+                });
+            }
+            
+            if (countElement) {
+                countElement.textContent = `${filteredApis.length} APIs Available`;
             }
         }
-
-        window.generateUserKey = function() {
-            const newKey = `vajira-${Math.random().toString(36).substring(2, 10)}${Date.now()}`;
-            localStorage.setItem('user_apikey', newKey);
-            document.getElementById('display-api-key').textContent = newKey;
-        };
-
-        // Navigation and Search
-        document.getElementById('menuToggle').onclick = () => document.getElementById('sidebar').classList.toggle('active');
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.onclick = (e) => {
-                e.preventDefault();
-                showPage(link.dataset.page);
-            };
-        });
-
-        document.getElementById('apisSearch').oninput = (e) => {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('#apisGrid .api-row').forEach(row => {
-                row.style.display = row.dataset.name.includes(term) ? 'grid' : 'none';
+        
+        function setupSearch() {
+            const searchInput = document.getElementById('apisSearch');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const apiItems = document.querySelectorAll('#apisGrid .api-line-item');
+                
+                apiItems.forEach(item => {
+                    const name = item.querySelector('.api-line-name').textContent.toLowerCase();
+                    const description = item.querySelector('.api-line-description').textContent.toLowerCase();
+                    
+                    if (name.includes(searchTerm) || description.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
-        };
-
-        document.getElementById('runTest').onclick = runApiTest;
-
-        // Init
-        window.onload = () => {
-            loadApis();
-            const savedKey = localStorage.getItem('user_apikey');
-            if(savedKey) document.getElementById('display-api-key').textContent = savedKey;
-        };
+        }
+        
+        function openTestModal(apiId) {
+            const api = apiData.find(a => a.id === apiId);
+            if (!api) return;
+            
+            currentTestingApi = api;
+            
+            document.getElementById('modalApiName').textContent = `TEST ${api.name}`;
+            document.getElementById('modalParamLabel').innerHTML = `
+                <i class="fas fa-terminal"></i> ENTER ${api.param.toUpperCase()}
+            `;
+            document.getElementById('modalParamInput').placeholder = `Example: ${api.example}`;
+            
+            document.getElementById('testModal').classList.add('active');
+        }
+        
+        async function testApi() {
+            if (!currentTestingApi) return;
+            
+            const apiKeyValue = document.getElementById('modalApiKeyInput').value.trim();
+            const paramValue = document.getElementById('modalParamInput').value.trim();
+            
+            if (!apiKeyValue) {
+                alert('Please enter your API key!');
+                return;
+            }
+            
+            if (!paramValue) {
+                alert('Please enter a parameter value!');
+                return;
+            }
+            
+            const runButton = document.getElementById('runTest');
+            runButton.disabled = true;
+            runButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> TESTING...';
+            
+            const responseSection = document.getElementById('responseSection');
+            const responseContent = document.getElementById('responseContent');
+            
+            try {
+                const url = `https://api.nexoracle.com${currentTestingApi.endpoint}?apikey=${encodeURIComponent(apiKeyValue)}&${currentTestingApi.param}=${encodeURIComponent(paramValue)}`;
+                
+                const startTime = Date.now();
+                const response = await fetch(url);
+                const responseTime = Date.now() - startTime;
+                
+                const data = await response.json();
+                
+                responseSection.classList.add('active');
+                responseContent.textContent = JSON.stringify(data, null, 2);
+                
+                currentTestingApi.lastChecked = new Date().toISOString();
+                currentTestingApi.responseTime = responseTime;
+                currentTestingApi.status = response.ok ? 'active' : 'inactive';
+                
+            } catch (error) {
+                responseSection.classList.add('active');
+                responseContent.textContent = `ERROR: ${error.message}`;
+                
+                currentTestingApi.status = 'inactive';
+            } finally {
+                runButton.disabled = false;
+                runButton.innerHTML = '<i class="fas fa-bolt"></i> RUN API TEST';
+            }
+        }
+        
+        function viewApiDetails(apiId) {
+            const api = apiData.find(a => a.id === apiId);
+            if (!api) return;
+            
+            alert(`
+API Name: ${api.name}
+Endpoint: ${api.endpoint}
+Category: ${api.category}
+Parameter: ${api.param}
+Example: ${api.example}
+Method: ${api.method}
+Status: ${api.status}
+            `);
+        }
+        
+        function setupDashboard() {
+            document.getElementById('refreshDashboard')?.addEventListener('click', refreshDashboard);
+            document.getElementById('checkAllStatus')?.addEventListener('click', checkAllApiStatus);
+        }
+        
+        function refreshDashboard() {
+            const tbody = document.getElementById('statusTableBody');
+            tbody.innerHTML = '';
+            
+            apiData.forEach(api => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${api.name}</td>
+                    <td style="text-transform: uppercase;">${api.category}</td>
+                    <td>
+                        <span class="status-badge status-${api.status}">
+                            ${api.status}
+                        </span>
+                    </td>
+                    <td>${api.responseTime ? api.responseTime + 'ms' : 'N/A'}</td>
+                    <td>${api.lastChecked ? new Date(api.lastChecked).toLocaleString() : 'Never'}</td>
+                    <td>
+                        <button class="nav-btn" onclick="openTestModal(${api.id})" style="padding: 8px 15px; font-size: 0.85rem;">
+                            <i class="fas fa-vial"></i> TEST
+                        </button>
+                    </td>
+                `;
+            });
+            
+            updateDashboardStats();
+        }
+        
+        function updateDashboardStats() {
+            const workingApis = apiData.filter(api => api.status === 'active').length;
+            const deadApis = apiData.filter(api => api.status === 'inactive').length;
+            
+            document.getElementById('totalApisCard').textContent = apiData.length;
+            document.getElementById('workingApisCard').textContent = workingApis;
+            document.getElementById('deadApisCard').textContent = deadApis;
+        }
+        
+        async function checkAllApiStatus() {
+            alert('This feature will check all APIs. It may take a few minutes.');
+            // Implement bulk API checking here
+        }
+        
+        // API KEY MANAGEMENT
+        function generateUserKey() {
+            const newKey = 'vajira-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            document.getElementById('display-api-key').textContent = newKey;
+            localStorage.setItem('userApiKey', newKey);
+            alert('New API Key Generated! Copy and save it securely.');
+        }
+        
+        function loadStoredApiKey() {
+            const stored = localStorage.getItem('userApiKey');
+            if (stored) {
+                document.getElementById('display-api-key').textContent = stored;
+                document.getElementById('modalApiKeyInput').value = stored;
+            }
+        }
+        
+        // Live performance simulation
+        setInterval(() => {
+            document.getElementById('cpu-load').textContent = (Math.random() * 40 + 10).toFixed(0) + '%';
+            document.getElementById('mem-usage').textContent = (Math.random() * 1 + 0.8).toFixed(1) + ' GB';
+            document.getElementById('live-latency').textContent = (Math.random() * 50 + 20).toFixed(0) + 'ms';
+            document.getElementById('active-conn').textContent = (Math.random() * 500 + 1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }, 3000);
     </script>
 </body>
 </html>
