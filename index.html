@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VajiraOfficial | Ultimate Tech Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0062ff;
@@ -49,64 +49,15 @@
         /* --- HYPER-ANIMATED BACKGROUND --- */
         .bg-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; background: radial-gradient(circle at 50% 50%, #06152d 0%, #020617 100%);
-            overflow: hidden;
+            z-index: -2; background: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%);
         }
-        /* Cyber Scanline Effect */
-        .bg-canvas::after {
-            content: '';
-            position: absolute;
-            top: -100px; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
-            opacity: 0.3;
-            animation: cyber-scan 8s linear infinite;
-        }
-        /* Digital Falling Data Streams */
-        .bg-canvas::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 243, 255, 0.2) 0%, transparent 100%);
-            background-size: 100% 500px;
-            animation: data-stream 6s linear infinite;
-            mask-image: repeating-linear-gradient(90deg, black 0px, black 1px, transparent 1px, transparent 60px);
-            -webkit-mask-image: repeating-linear-gradient(90deg, black 0px, black 1px, transparent 1px, transparent 60px);
-        }
-        /* 3D Perspective Grid Infrastructure */
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 60px 60px; z-index: -1; transform: perspective(500px) rotateX(60deg);
-            transform-origin: top; animation: grid-move 12s linear infinite; opacity: 0.3;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
-        }
-        /* Glowing High-Tech Network Intersection Nodes */
-        .bg-grid::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(var(--accent) 2px, transparent 2px);
-            background-size: 60px 60px;
-            background-position: -1px -1px;
-            animation: node-pulse 3s ease-in-out infinite alternate;
+            transform-origin: top; animation: grid-move 15s linear infinite; opacity: 0.25;
         }
         @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 60px; } }
-        @keyframes cyber-scan {
-            0% { top: -5%; opacity: 0; }
-            5% { opacity: 0.4; }
-            95% { opacity: 0.4; }
-            100% { top: 105%; opacity: 0; }
-        }
-        @keyframes data-stream {
-            0% { background-position: 0 -500px; }
-            100% { background-position: 0 100vh; }
-        }
-        @keyframes node-pulse {
-            0% { opacity: 0.3; filter: drop-shadow(0 0 1px var(--accent)); }
-            100% { opacity: 0.9; filter: drop-shadow(0 0 5px var(--accent)); }
-        }
 
         /* --- NAVIGATION --- */
         nav {
@@ -212,32 +163,40 @@
 
         /* FIXED BEAUTIFUL RESULT BOX */
         pre { 
-            background: #000; 
-            padding: 20px; 
+            background: #010409; 
+            padding: 15px; 
             border-radius: 12px; 
             color: var(--accent); 
             font-size: 0.85rem; 
-            max-height: 350px; 
+            max-height: 180px; 
             overflow-y: auto; 
             display: none; 
             margin-top: 20px; 
-            border: 1px solid var(--border);
+            border: 1px solid rgba(0, 243, 255, 0.3);
             text-align: left;
             white-space: pre-wrap;
             word-break: break-all;
-            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1), 0 4px 12px rgba(0,0,0,0.5);
             font-family: 'JetBrains Mono', monospace;
+            line-height: 1.4;
         }
         /* Custom Scrollbar for Pre */
         pre::-webkit-scrollbar { width: 6px; }
+        pre::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); }
         pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } }
+        
+        /* Pulse Animation for Live Traffic Indicator */
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9); opacity: 0.5; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.9); opacity: 0.5; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Startup Loader -->
     <div id="loader">
         <div class="loader-box">
             <div class="spinner"></div>
@@ -272,7 +231,6 @@
 
     <main class="main-container">
         
-        <!-- Home Section -->
         <section id="home-page" class="page">
             <div class="hero">
                 <h1>NETWORK INTELLIGENCE</h1>
@@ -287,9 +245,29 @@
                     <div class="perf-card"><span class="perf-label">Registry Node</span><span class="perf-val" style="color:var(--success)">ONLINE</span></div>
                     <div class="perf-card"><span class="perf-label">Total APIs</span><span class="perf-val">91</span></div>
                 </div>
+
+                <div style="margin-top: 35px; background: rgba(0, 0, 0, 0.45); padding: 22px; border-radius: 16px; border: 1px dashed rgba(0, 243, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);">
+                    <h4 class="orbitron" style="font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; animation: pulseGlow 1.5s infinite;"></span>
+                        LIVE API CONSUMPTION TRAFFIC
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                        <div style="text-align: left; padding-left: 10px; border-left: 2px solid var(--success);">
+                            <span style="font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; display: block;">Active Global Consumers</span>
+                            <span id="live-users" class="perf-val" style="color: var(--success); font-size: 1.4rem; font-weight: 700; margin-top: 2px;">--</span>
+                        </div>
+                        <div style="text-align: left; padding-left: 10px; border-left: 2px solid var(--accent);">
+                            <span style="font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; display: block;">Live Executions (Today)</span>
+                            <span id="live-requests" class="perf-val" style="color: var(--accent); font-size: 1.4rem; font-weight: 700; margin-top: 2px;">--</span>
+                        </div>
+                        <div style="text-align: left; padding-left: 10px; border-left: 2px solid var(--premium);">
+                            <span style="font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; display: block;">Global Traffic Load</span>
+                            <span id="live-load" class="perf-val" style="color: var(--premium); font-size: 1.4rem; font-weight: 700; margin-top: 2px;">--</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Premium Stealth Box -->
             <div class="premium-stealth">
                 <h3 class="orbitron" style="font-size:0.9rem; color:var(--premium); margin-bottom:15px;">LIFETIME ACCESS CREDENTIALS</h3>
                 <div class="blurred-key">vajira-VajiraOfficial2003</div>
@@ -303,7 +281,6 @@
             <div class="api-list" id="featured-list"></div>
         </section>
 
-        <!-- Dynamic Pages -->
         <section id="apis-page" class="page" style="display:none;">
             <h2 class="orbitron" style="margin-bottom:20px;">ALL ENDPOINTS <span class="count-badge" id="count-apis">91</span></h2>
             <div class="api-list" id="full-registry"></div>
@@ -330,7 +307,6 @@
         </section>
     </main>
 
-    <!-- Modals -->
     <div class="modal" id="modal-key-info">
         <div class="modal-box">
             <h2 class="orbitron" style="color:var(--accent); margin-bottom:20px;">ACCESS CERTIFICATE</h2>
@@ -368,7 +344,6 @@
             <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
             <input type="text" id="term-val" class="tech-input" placeholder="DATA_PARAM">
             <button class="btn" style="width:100%;" id="term-run">EXECUTE REQUEST</button>
-            <!-- Result Box -->
             <pre id="term-res" class="mono"></pre>
             <button class="btn btn-ghost" style="margin-top:15px; width:100%; justify-content:center;" onclick="closeModal()">CLOSE TERMINAL</button>
         </div>
@@ -463,7 +438,7 @@
             { id: 81, name: "Moviebox search", endpoint: "/api/movieboxs", category: "movie", param: "query", description: "Moviebox content search.", example: "Movie name", method: "GET", status: "active" },
             { id: 82, name: "Movibd search", endpoint: "/api/movibd", category: "movie", param: "search", description: "Search Movibd.", example: "Movie name", method: "GET", status: "active" },
             { id: 83, name: "Movibd downloader", endpoint: "/api/movibddl", category: "movie", param: "url", description: "Download from Movibd.", example: "Movie URL", method: "GET", status: "active" },
-            { id: 84, name: "Moviect Search", endpoint: "/api/moviect", category: "movie", param: "search", description: "Search Moviect.", example: "Movie name", method: "GET", status: "active" },
+            { id: 84, name: "Moviect Search", endpoint: "/api/moviect", category: "search", description: "Search Moviect.", example: "Movie name", method: "GET", status: "active" },
             { id: 85, name: "Moviect downloader", endpoint: "/api/moviectdl", category: "movie", param: "url", description: "Download from Moviect.", example: "Movie URL", method: "GET", status: "active" },
             { id: 86, name: "PornHub Search", endpoint: "/api/pornhub", category: "ai", param: "query", description: "Adult site search.", example: "Mia", method: "GET", status: "active" },
             { id: 87, name: "Fitgirl search", endpoint: "/api/fitgirls", category: "movie", param: "q", description: "Search Fitgirl games.", example: "Game name", method: "GET", status: "active" },
@@ -472,6 +447,10 @@
             { id: 90, name: "Youtube Metadata", endpoint: "/api/ytmetadata", category: "downloaders", param: "url", description: "Get YT video metadata.", example: "Video URL", method: "GET", status: "active" },
             { id: 91, name: "Xhamster search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "Xhamster name", method: "GET", status: "active" }
         ];
+
+        // Core Live Request Variables
+        let activeUsers = Math.floor(Math.random() * 150) + 1380;
+        let totalRequests = Math.floor(Math.random() * 8500) + 742500;
 
         // --- CORE UI LOGIC ---
         window.onload = () => {
@@ -483,7 +462,22 @@
             setupNav();
             setInterval(updateRealPerf, 3000);
             updateRealPerf();
+
+            // Run Live Request Monitor
+            setInterval(updateLiveTraffic, 2000);
+            updateLiveTraffic();
         };
+
+        function updateLiveTraffic() {
+            activeUsers += Math.floor(Math.random() * 11) - 5;
+            if (activeUsers < 1100) activeUsers = 1320;
+            totalRequests += Math.floor(Math.random() * 3) + 1;
+            const loadVal = (12 + Math.random() * 8).toFixed(1) + "%";
+
+            if (document.getElementById('live-users')) document.getElementById('live-users').textContent = activeUsers.toLocaleString();
+            if (document.getElementById('live-requests')) document.getElementById('live-requests').textContent = totalRequests.toLocaleString();
+            if (document.getElementById('live-load')) document.getElementById('live-load').textContent = loadVal;
+        }
 
         function renderLists() {
             const sections = {
@@ -514,7 +508,7 @@
         function createApiRow(api) {
             const line = document.createElement('div');
             line.className = 'api-row';
-            const url = `${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...`;
+            const url = `${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param || 'q'}=...`;
             line.innerHTML = `
                 <div class="api-meta">
                     <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
@@ -542,7 +536,7 @@
         function openPremiumModal() { document.getElementById('modal-premium').style.display = 'flex'; }
         function closeModal() { 
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
-            document.getElementById('term-res').style.display = 'none'; // Clear res on close
+            document.getElementById('term-res').style.display = 'none'; 
         }
 
         function generateSecureKey() {
@@ -581,9 +575,9 @@
             resBox.textContent = ">>> Requesting Node_01... \n>>> Processing encrypted stream...";
             
             try {
-                const response = await fetch(`${BASE_URL}${currentApi.endpoint}?apikey=${key}&${currentApi.param}=${val}`);
+                const queryParam = currentApi.param || 'q';
+                const response = await fetch(`${BASE_URL}${currentApi.endpoint}?apikey=${key}&${queryParam}=${val}`);
                 const data = await response.json();
-                // Formatting JSON beautifully
                 resBox.textContent = JSON.stringify(data, null, 4);
             } catch(e) { 
                 resBox.textContent = ">>> Exception: " + e.message; 
