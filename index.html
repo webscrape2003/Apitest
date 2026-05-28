@@ -261,6 +261,49 @@
         pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } }
+
+        /* --- CRITICAL: ANDROID & MOBILE VIEWS AUTO-FIT LAYER --- */
+        @media (max-width: 768px) {
+            nav { padding: 0 15px; height: 75px; }
+            .sidebar { top: 75px; width: 260px; }
+            .main-container { margin-top: 75px; padding: 20px; }
+            
+            .logo { font-size: 1.3rem; letter-spacing: 2px; }
+            nav style / div { gap: 10px !important; }
+            nav .btn { padding: 8px 12px; font-size: 0.75rem; gap: 5px; }
+            #sidebar-toggle { padding: 8px 12px; font-size: 0.9rem; }
+            #real-ping { display: none !important; } /* Safe space management for mobile navbar */
+            
+            .home-mainframe-section { padding: 20px; border-radius: 20px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.9rem !important; }
+            
+            .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 25px; }
+            .perf-card { padding: 15px 10px; border-radius: 12px; }
+            .perf-val { font-size: 1.1rem; }
+            
+            .system-specs-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+            .spec-item { padding: 15px; border-radius: 12px; }
+            
+            .dashboard-feature-row { grid-template-columns: 1fr !important; gap: 15px; padding: 20px; border-radius: 16px; }
+            .console-stream { height: 110px; padding: 12px; font-size: 0.75rem; }
+            
+            .api-row { flex-direction: column; align-items: stretch; padding: 20px 15px; gap: 15px; border-radius: 14px; }
+            .api-meta { gap: 15px; }
+            .api-icon { width: 42px; height: 42px; font-size: 1.1rem; border-radius: 10px; }
+            .api-name { font-size: 0.95rem; }
+            .api-row > div:last-child { display: flex; width: 100%; gap: 10px; }
+            .api-row .btn { flex: 1; justify-content: center; padding: 10px; font-size: 0.8rem; }
+            
+            .registry-sector-header { font-size: 0.85rem; flex-wrap: wrap; gap: 6px; line-height: 1.4; }
+            .count-badge { margin-left: 5px; font-size: 0.65rem; padding: 1px 6px; }
+            
+            .premium-stealth { padding: 20px; border-radius: 16px; }
+            .blurred-key { font-size: 0.8rem; padding: 12px; }
+            
+            .modal-box { padding: 25px 20px; border-radius: 20px; width: 92%; }
+            .tech-input { padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+        }
     </style>
 </head>
 <body>
@@ -708,7 +751,7 @@
 
         function getIcon(cat) { return { downloaders: 'cloud-download-alt', movie: 'film', ai: 'brain', images: 'palette' }[cat] || 'link'; }
 
-        UX_RESETS: function copyLink(url) {
+        function copyLink(url) {
             const key = localStorage.getItem('v-key') || 'YOUR_KEY';
             navigator.clipboard.writeText(url.replace('YOUR_KEY', key));
             alert("Endpoint URL Copied!");
