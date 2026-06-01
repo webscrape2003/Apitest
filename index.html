@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VajiraOfficial | Ultimate Tech Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -46,6 +48,82 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+
+
+/* --- AUTONOMOUS ACCESS CONTROLS GATEKEEPER --- */
+#auth-gatekeeper {
+    position: fixed;
+    inset: 0;
+    background: #020617;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.5s ease-out;
+}
+
+.auth-chassis {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 24px;
+    padding: 50px 40px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 243, 255, 0.05);
+    position: relative;
+}
+
+.auth-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--neon-glow);
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.auth-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
+    margin: 30px 0;
+}
+
+.auth-footer {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 30px;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Spinner Glow Synchronization */
+.spinner-ring {
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 24px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    z-index: -1;
+    opacity: 0.3;
+    animation: borderGlow 4s linear infinite;
+}
+@keyframes borderGlow {
+    0% { filter: rotate(0deg); }
+    100% { filter: rotate(360deg); }
+}
+
+
+
+        
         /* --- BACKGROUND --- */
         .bg-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -333,6 +411,22 @@
 </head>
 <body>
 
+
+<div id="auth-gatekeeper">
+    <div class="auth-chassis">
+        <div class="spinner-ring"></div>
+        <div class="auth-logo">VAJIRA<span style="color:#fff;">SYSTEMS</span></div>
+        <p class="auth-subtitle">CENTRAL GATEWAY ACCESS REQUIRED</p>
+        <div class="auth-divider"></div>
+        
+        <div id="google-btn-container"></div>
+        
+        <p class="auth-footer">Authorization managed via secure OAuth data nodes</p>
+    </div>
+</div>
+
+    
+    
     <!-- Startup Loader -->
     <div id="loader">
         <div class="loader-box">
@@ -860,6 +954,91 @@
             });
         }
 
+
+
+
+// --- CONFIGURATION PARAMETERS ---
+const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmF5eXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg"; // Use your actual Anon Key
+const GOOGLE_CLIENT_ID = "240161724421-mfrj5gt6vhd2dv12om6peub6qgc3i4k0.apps.googleusercontent.com";
+
+// Instantiate Database Client Cluster
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Intercept window load routines to evaluate session credentials
+window.addEventListener('DOMContentLoaded', async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (session) {
+        // Active Session Found: Bypass login barrier immediately
+        grantAccess(session.user);
+    } else {
+        // Empty Profile Session Matrix: Render Sign-In Button Container
+        initializeGoogleSignIn();
+    }
+});
+
+function initializeGoogleSignIn() {
+    if (typeof google === 'undefined') {
+        setTimeout(initializeGoogleSignIn, 100);
+        return;
+    }
+
+    google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+        ux_mode: 'popup'
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("google-btn-container"),
+        { 
+            theme: "dark", 
+            size: "large", 
+            width: "320",
+            text: "signin_with",
+            shape: "rectangular"
+        }
+    );
+}
+
+// Handler catching the ID token signature back from the Google Cluster
+async function handleCredentialResponse(response) {
+    const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: 'google',
+        token: response.credential
+    });
+
+    if (error) {
+        console.error("Auth Exception:", error.message);
+        alert("Authorization Denied: " + error.message);
+        return;
+    }
+
+    if (data?.user) {
+        grantAccess(data.user);
+    }
+}
+
+// Close security screen safely and drop loader flags
+function grantAccess(user) {
+    const gatekeeper = document.getElementById('auth-gatekeeper');
+    if (gatekeeper) {
+        gatekeeper.style.opacity = '0';
+        setTimeout(() => {
+            gatekeeper.style.display = 'none';
+        }, 500);
+    }
+    
+    // Inject dynamic identifier telemetry into systems frame logs
+    const consoleLog = document.getElementById('console-log');
+    if (consoleLog) {
+        consoleLog.innerHTML += `<br><span style="color:var(--accent)">[SECURITY]: User authenticated as ${user.email}</span>`;
+    }
+}
+
+
+        
         function updateRealPerf() {
             const start = Date.now();
             fetch(window.location.href, { mode: 'no-cors' }).then(() => {
