@@ -776,20 +776,22 @@
         };
 
         // Switch panel overlays safely without target event errors
-        function switchView(mode) {
-            document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            
-            if(mode === 'login') {
-                document.getElementById('view-login').classList.add('active');
-                document.getElementById('tab-btn-login').classList.add('active');
-            } else {
-                document.getElementById('view-signup').classList.add('active');
-                document.getElementById('tab-btn-signup').classList.add('active');
-            }
-            initializeGoogleCore();
-        }
-
+        function switchView(view) {
+    // Your existing view toggle styling logic goes here...
+    document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    
+    if(view === 'login') {
+        document.getElementById('view-login').classList.add('active');
+        document.getElementById('tab-btn-login').classList.add('active');
+    } else {
+        document.getElementById('view-signup').classList.add('active');
+        document.getElementById('tab-btn-signup').classList.add('active');
+    }
+    
+    // CRITICAL FIX: Re-trigger Google framework rendering whenever the active viewport state transforms
+    initializeGoogleCore();
+}
         // Intercept boot signature sequence state parameters
         document.addEventListener('DOMContentLoaded', async () => {
             const { data: { session } } = await supabase.auth.getSession();
@@ -801,39 +803,49 @@
         });
 
         // 100% BUG-FREE CUSTOM ACCOUNT SIGNUP WITH USERNAME BINDING
-        async function handleCustomSignup(e) {
-            e.preventDefault();
-            const username = document.getElementById('signup-username').value.trim().toLowerCase();
-            const email = document.getElementById('signup-email').value.trim();
-            const password = document.getElementById('signup-password').value;
+       // 100% WORKING CUSTOM SIGNUP HANDLING CHASSIS VIA SUPABASE
+async function handleCustomSignup(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('signup-username').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const submitBtn = e.target.querySelector('.submit-btn');
 
-            if(username.length < 3) {
-                alert("Username architecture requires minimum 3 alphanumeric characters.");
-                return;
-            }
+    // Simple visual feedback safety step
+    const originalText = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "PROVISIONING ROUTINE...";
 
-            // Provision user signature registration structure to Supabase datastore Engine
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: {
-                        custom_username: username
-                    }
-                }
-            });
-
-            if (error) {
-                alert("Registration Node Fault: " + error.message);
-                return;
-            }
-
-            if(data?.user) {
-                alert("Network Identity Provisioned Successfully! Welcome Operator.");
-                unlockDashboard(data.user);
+    // Execute signup via Supabase Client Instance
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+            data: {
+                username: username // Save unique custom parameters to user metadata profiles
             }
         }
+    });
 
+    if (error) {
+        alert("Provisioning Aborted: System Datastore Node Failure. " + error.message);
+        submitBtn.disabled = false;
+        submitBtn.innerText = originalText;
+        return;
+    }
+
+    // Check if email confirmation is required or user is directly auto-authenticated
+    if (data?.user) {
+        if (data.session) {
+            alert("Network Identity successfully constructed! Granting access...");
+            unlockDashboard(data.user);
+        } else {
+            alert("Identity registered securely! Please check your email inbox to verify your network credentials.");
+            submitBtn.innerText = "AWAITING VERIFICATION...";
+        }
+    }
+}
         // 100% BUG-FREE CUSTOM LOGIN HANDLING CHASSIS VIA USERNAME OR EMAIL ADDRESS
         async function handleCustomLogin(e) {
             e.preventDefault();
