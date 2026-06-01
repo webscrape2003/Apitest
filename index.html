@@ -353,6 +353,8 @@
         </div>
     </div>
 
+
+    
     <nav>
         <div style="display:flex; align-items:center; gap:20px;">
             <button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
@@ -378,7 +380,9 @@
         <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Systems</a>
         
         <div class="sidebar-divider"></div>
-        <a href="#" class="nav-link" onclick="terminateSession()" style="color:var(--error);"><i class="fas fa-sign-out-alt"></i> Terminate Connection</a>
+        <button onclick="terminateSession()" class="btn-logout" style="background: var(--error); color: white; padding: 10px 20px; border: none; cursor: pointer;">
+    <i class="fas fa-sign-out-alt"></i> LOGOUT
+</button>
     </aside>
 
     <main class="main-container">
@@ -1046,6 +1050,24 @@ async function handleLogon(e) {
             });
         }
 
+
+
+function terminateSession() {
+    // 1. Remove the authentication token/user from local storage
+    localStorage.removeItem('v_auth_user');
+    
+    // 2. Hide the main dashboard
+    document.querySelector('.main-container').style.display = 'none';
+    
+    // 3. Show the login/signup container again
+    document.getElementById('auth-container').style.display = 'block';
+    
+    // 4. Optionally reload to clear any remaining in-memory state
+    window.location.reload(); 
+}
+
+
+        
         function updateRealPerf() {
             const start = Date.now();
             fetch(window.location.href, { mode: 'no-cors' }).then(() => {
