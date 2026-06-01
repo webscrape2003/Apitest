@@ -664,7 +664,6 @@
             toggleAuthView('login');
         }
 
-        // --- FIXED AUTH FUNCTIONS FOR SUPABASE REST ROUTING ---
         async function handleRegistration(e) {
             e.preventDefault();
             const username = document.getElementById('signup-name').value.trim();
@@ -676,52 +675,39 @@
             errorAlert.style.display = 'none';
 
             if (password !== confirm) {
-                errorAlert.textContent = "[ERROR]: Passwords mismatch. Verify inputs.";
+                errorAlert.textContent = "[ERROR]: Passwords do not match.";
                 errorAlert.style.display = 'block';
                 return;
             }
 
             try {
-                const checkUrl = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=id`;
-                const checkResponse = await fetch(checkUrl, {
-                    method: 'GET',
-                    headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!checkResponse.ok) throw new Error(`Could not contact verification node clusters (${checkResponse.status})`);
-                const dynamicRecords = await checkResponse.json();
-
-                if (dynamicRecords && dynamicRecords.length > 0) {
-                    errorAlert.textContent = "[CONFLICT]: This email is already in use. Please use a different email.";
-                    errorAlert.style.display = 'block';
-                    return;
-                }
+                // Prepare the payload strictly
+                const payload = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
 
                 const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
-                const registerResponse = await fetch(registerUrl, {
+                const response = await fetch(registerUrl, {
                     method: 'POST',
                     headers: {
                         'apikey': SUPABASE_ANON_KEY,
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                         'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
+                        'Prefer': 'return=representation' // Changed from minimal to see if it returns the object
                     },
-                    body: JSON.stringify({ username, email, password })
+                    body: JSON.stringify(payload)
                 });
 
-                if (!registerResponse.ok) throw new Error("DB Engine transaction failure during save operations.");
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Supabase Error Details:", errorData);
+                    throw new Error(errorData.message || "Database rejected the transaction.");
+                }
 
-                document.getElementById('signup-form').reset();
+                alert("Registration successful!");
                 toggleAuthView('login');
-                
-                const loginSuccess = document.getElementById('login-success');
-                loginSuccess.textContent = "[SUCCESS]: Account created successfully! Access your terminal below.";
-                loginSuccess.style.display = 'block';
-                document.getElementById('login-user').value = email;
 
             } catch (err) {
                 errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
