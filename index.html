@@ -715,47 +715,52 @@
             }
         }
 
-        async function handleLogon(e) {
-            e.preventDefault();
-            const identifier = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            const errorAlert = document.getElementById('login-error');
-            const successAlert = document.getElementById('login-success');
+async function handleLogon(e) {
+    e.preventDefault();
+    const identifier = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim(); // .trim() ensures no hidden spaces
+    const errorAlert = document.getElementById('login-error');
 
-            errorAlert.style.display = 'none';
-            successAlert.style.display = 'none';
+    errorAlert.style.display = 'none';
 
-            try {
-                let queryParam = identifier.includes('@') ? `email=eq.${encodeURIComponent(identifier)}` : `username=eq.${encodeURIComponent(identifier)}`;
-                const logonUrl = `${SUPABASE_URL}/rest/v1/users?${queryParam}&password=eq.${encodeURIComponent(pass)}&select=username`;
+    try {
+        // Build the query to check if email OR username matches
+        // We do NOT filter by password in the URL initially to see if the user exists at all
+        let query = identifier.includes('@') 
+            ? `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(identifier)}&select=username,password`
+            : `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(identifier)}&select=username,password`;
 
-                const response = await fetch(logonUrl, {
-                    method: 'GET',
-                    headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!response.ok) throw new Error("Authentication node handshake runtime timeout.");
-                const matches = await response.json();
-
-                if (!matches || matches.length === 0) {
-                    errorAlert.textContent = "[DENIED]: Invalid credentials or cryptographic token password.";
-                    errorAlert.style.display = 'block';
-                    return;
-                }
-
-                const userSessionName = matches[0].username;
-                localStorage.setItem('v_auth_user', userSessionName);
-                grantSystemAccess(userSessionName);
-
-            } catch (err) {
-                errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
-                errorAlert.style.display = 'block';
+        const response = await fetch(query, {
+            method: 'GET',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
             }
+        });
+
+        const data = await response.json();
+
+        // Check if we found the user
+        if (data && data.length > 0) {
+            const userRecord = data[0];
+            
+            // Now compare the password manually in JavaScript
+            if (userRecord.password === pass) {
+                localStorage.setItem('v_auth_user', userRecord.username);
+                grantSystemAccess(userRecord.username);
+            } else {
+                throw new Error("Incorrect password provided.");
+            }
+        } else {
+            throw new Error("No user found with that identifier.");
         }
+
+    } catch (err) {
+        errorAlert.textContent = `[DENIED]: ${err.message}`;
+        errorAlert.style.display = 'block';
+    }
+}
 
         function setupSidebarToggle() {
             const sidebar = document.querySelector('.sidebar');
