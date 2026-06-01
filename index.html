@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VajiraOfficial | Ultimate Tech Hub</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -48,60 +46,6 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- PREMIUM AUTH PORTAL OVERLAYS --- */
-        #auth-portal {
-            position: fixed; inset: 0; width: 100%; height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px; z-index: 99999; background: var(--bg);
-            overflow-y: auto;
-        }
-
-        .auth-card {
-            background: rgba(8, 12, 24, 0.65);
-            border: 1px solid var(--border);
-            border-radius: 24px; padding: 45px 35px; max-width: 450px; width: 100%;
-            backdrop-filter: blur(25px); text-align: center; position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--neon-glow);
-        }
-
-        .auth-card::before {
-            content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1.5px;
-            background: linear-gradient(135deg, var(--primary), var(--accent), transparent, var(--accent), var(--primary));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
-        }
-
-        .auth-logo { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 25px var(--neon-glow); margin-bottom: 5px; }
-        .auth-tagline { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 35px; }
-
-        .tab-controller { display: flex; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px; border-radius: 12px; margin-bottom: 25px; }
-        .tab-btn { flex: 1; background: transparent; border: none; color: var(--text-dim); padding: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; border-radius: 8px; transition: all 0.3s ease; }
-        .tab-btn.active { color: #030712; background: linear-gradient(90deg, var(--accent), var(--primary)); font-weight: 700; box-shadow: 0 0 15px var(--neon-glow); }
-
-        .view-pane { display: none; animation: authFade 0.4s ease-out forwards; text-align: left; }
-        .view-pane.active { display: block; }
-        @keyframes authFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .pane-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #fff; margin-bottom: 10px; text-align: center; }
-        .pane-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 20px; text-align: center; }
-
-        .auth-form-group { margin-bottom: 15px; position: relative; }
-        .auth-form-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1rem; }
-        .auth-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 14px 14px 14px 45px; border-radius: 12px; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; outline: none; transition: 0.3s; }
-        .auth-input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
-
-        .submit-btn { width: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); color: white; border: none; padding: 14px; border-radius: 12px; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; letter-spacing: 1px; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 15px rgba(0, 98, 255, 0.3); }
-        .submit-btn:hover { box-shadow: 0 0 20px var(--neon-glow); transform: translateY(-2px); }
-
-        .auth-divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-dim); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
-        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .auth-divider:not(:empty)::before { margin-right: .5em; }
-        .auth-divider:not(:empty)::after { margin-left: .5em; }
-
-        .google-trigger-wrapper { display: flex; justify-content: center; align-items: center; min-height: 50px; background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(0, 243, 255, 0.2); border-radius: 14px; padding: 10px; transition: 0.3s; }
-        .google-trigger-wrapper:hover { border-color: var(--accent); background: rgba(0, 243, 255, 0.02); box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.05); }
-        .legal-notice { font-size: 0.7rem; color: rgba(255, 255, 255, 0.25); margin-top: 25px; line-height: 1.4; text-align: center; }
-        
         /* --- BACKGROUND --- */
         .bg-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -114,6 +58,34 @@
             transform-origin: top; animation: grid-move 15s linear infinite; opacity: 0.25;
         }
         @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 60px; } }
+
+        /* --- AUTH SYSTEM WALL CONTAINER --- */
+        #auth-container {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(20px);
+            padding: 20px;
+        }
+        .auth-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(0, 243, 255, 0.2);
+            border-radius: 24px; width: 100%; max-width: 450px;
+            padding: 40px; box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+            text-align: center; position: relative;
+        }
+        .auth-card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; margin-bottom: 8px; letter-spacing: 2px; }
+        .auth-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px; }
+        .auth-switch-text { font-size: 0.9rem; color: var(--text-dim); margin-top: 20px; }
+        .auth-switch-link { color: var(--accent); font-weight: 700; text-decoration: none; cursor: pointer; }
+        .auth-switch-link:hover { text-shadow: 0 0 10px var(--accent); }
+        
+        /* Auth Form Alert Messaging */
+        .auth-alert {
+            padding: 12px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 20px;
+            display: none; font-family: 'JetBrains Mono', monospace; text-align: left;
+        }
+        .auth-alert.error { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--error); color: #fca5a5; }
+        .auth-alert.success { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); color: #a7f3d0; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -209,7 +181,7 @@
         .nav-link.active i { color: #030712; transform: scale(1.1); }
 
         /* --- MAIN WRAPPER COMPENSATED FOR HIDE/SHOW LAYOUT --- */
-        .main-container { margin-left: 0; margin-top: 85px; padding: 50px; min-height: 100vh; transition: padding 0.3s ease; }
+        .main-container { margin-left: 0; margin-top: 85px; padding: 50px; min-height: 100vh; transition: padding 0.3s ease; display: none; }
 
         /* --- DISTINCT DASHBOARD CHASSIS --- */
         .home-mainframe-section {
@@ -317,7 +289,10 @@
         .tech-input {
             width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
             padding: 18px; border-radius: 12px; color: white; font-family: 'JetBrains Mono';
-            margin-bottom: 20px; outline: none;
+            margin-bottom: 20px; outline: none; transition: 0.3s;
+        }
+        .tech-input:focus {
+            border-color: var(--accent); box-shadow: 0 0 12px rgba(0, 243, 255, 0.25);
         }
 
         pre { 
@@ -389,73 +364,6 @@
 </head>
 <body>
 
-<main id="auth-portal">
-    <div class="auth-card">
-        <div class="auth-logo">VAJIRA<span style="color:#fff">OFFICIAL</span></div>
-        <div class="auth-tagline">Cloud Node Access Protocol</div>
-
-        <div class="tab-controller">
-            <button id="tab-btn-login" class="tab-btn active" onclick="switchView('login')">Sign In</button>
-            <button id="tab-btn-signup" class="tab-btn" onclick="switchView('signup')">Sign Up</button>
-        </div>
-
-        <div id="view-login" class="view-pane active">
-            <h3 class="pane-title">WELCOME BACK OPERATOR</h3>
-            <p class="pane-desc">Initialize session via network handle credentials or identity providers.</p>
-            
-            <form id="login-custom-form" onsubmit="handleCustomLogin(event)">
-                <div class="auth-form-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="login-identifier" class="auth-input" placeholder="Username or Email Address" required>
-                </div>
-                <div class="auth-form-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="login-password" class="auth-input" placeholder="Account Password" required>
-                </div>
-                <button type="submit" class="submit-btn">EXECUTE SIGN IN</button>
-            </form>
-
-            <div class="auth-divider">OR CONNECT VIA IDENTITY GATEWAY</div>
-            <div class="google-trigger-wrapper">
-                <div class="google-btn-target" id="google-login-btn"></div>
-            </div>
-        </div>
-
-        <div id="view-signup" class="view-pane">
-            <h3 class="pane-title">CREATE NETWORK IDENTITY</h3>
-            <p class="pane-desc">Register your parameters directly to our secure cloud datastore node cluster.</p>
-            
-            <form id="signup-custom-form" onsubmit="handleCustomSignup(event)">
-                <div class="auth-form-group">
-                    <i class="fas fa-id-badge"></i>
-                    <input type="text" id="signup-username" class="auth-input" placeholder="Choose Unique Username" required>
-                </div>
-                <div class="auth-form-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="signup-email" class="auth-input" placeholder="Valid Email Address" required>
-                </div>
-                <div class="auth-form-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="signup-password" class="auth-input" placeholder="Account Password (Min 6 chars)" minlength="6" required>
-                </div>
-                <button type="submit" class="submit-btn">PROVISION ACCOUNT</button>
-            </form>
-
-            <div class="auth-divider">OR LINK GRAPH VIA FEDERATED OAUTH</div>
-            <div class="google-trigger-wrapper">
-                <div class="google-btn-target" id="google-signup-btn"></div>
-            </div>
-        </div>
-
-        <div class="legal-notice">
-            Secured via End-to-End Supabase Infrastructure Engine.<br>
-            Unauthorized entry payloads are automatically blacklisted.
-        </div>
-    </div>
-</main>
-
-<div id="protected-dashboard-frame" style="display: none;">
-
     <div id="loader">
         <div class="loader-box">
             <div class="spinner"></div>
@@ -466,12 +374,54 @@
     <div class="bg-canvas"></div>
     <div class="bg-grid"></div>
 
+    <div id="auth-container">
+        <div class="auth-card" id="login-block">
+            <h2>GATE ACCESS</h2>
+            <p class="auth-subtitle">Verify cryptographic credentials to connect</p>
+            
+            <div class="auth-alert error" id="login-error"></div>
+            <div class="auth-alert success" id="login-success"></div>
+
+            <form id="login-form" onsubmit="handleLogon(event)">
+                <input type="text" id="login-user" class="tech-input" placeholder="EMAIL OR USERNAME" required autocomplete="username">
+                <input type="password" id="login-pass" class="tech-input" placeholder="ACCESS PASSWORD" required autocomplete="current-password">
+                <button type="submit" class="btn" style="width:100%; justify-content:center;">
+                    <i class="fas fa-shield-alt"></i> AUTHORIZE SESSION
+                </button>
+            </form>
+            <p class="auth-switch-text">
+                New Terminal Node? <a class="auth-switch-link" onclick="toggleAuthView('signup')">Create Account</a>
+            </p>
+        </div>
+
+        <div class="auth-card" id="signup-block" style="display:none;">
+            <h2>NODE REGISTRY</h2>
+            <p class="auth-subtitle">Provision systemic framework permissions</p>
+            
+            <div class="auth-alert error" id="signup-error"></div>
+
+            <form id="signup-form" onsubmit="handleRegistration(event)">
+                <input type="text" id="signup-name" class="tech-input" placeholder="UNIQUE USERNAME" required autocomplete="username">
+                <input type="email" id="signup-email" class="tech-input" placeholder="EMAIL ADDRESS" required autocomplete="email">
+                <input type="password" id="signup-pass" class="tech-input" placeholder="SECURE PASSWORD" required autocomplete="new-password">
+                <input type="password" id="signup-confirm" class="tech-input" placeholder="CONFIRM ACCESS PASSWORD" required autocomplete="new-password">
+                <button type="submit" class="btn" style="width:100%; justify-content:center; background:linear-gradient(90deg, var(--accent), var(--primary));">
+                    <i class="fas fa-user-plus"></i> REGISTER TERMINAL
+                </button>
+            </form>
+            <p class="auth-switch-text">
+                Existing Node structure? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+            </p>
+        </div>
+    </div>
+
     <nav>
         <div style="display:flex; align-items:center; gap:20px;">
             <button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
             <div class="logo">VAJIRA<span style="color:white">OFFICIAL</span></div>
         </div>
         <div style="display:flex; gap:25px; align-items:center;">
+            <div id="auth-user-badge" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.85rem; display:none;"><i class="fas fa-user-circle"></i> USER: --</div>
             <div id="real-ping" style="font-family:'JetBrains Mono'; color:var(--success); font-size:0.8rem;">LATENCY: --ms</div>
         </div>
     </nav>
@@ -488,6 +438,9 @@
         <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Cinematic Hub</a>
         <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> Neural Systems</a>
         <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Systems</a>
+        
+        <div class="sidebar-divider"></div>
+        <a href="#" class="nav-link" onclick="terminateSession()" style="color:var(--error);"><i class="fas fa-sign-out-alt"></i> Terminate Connection</a>
     </aside>
 
     <main class="main-container">
@@ -652,10 +605,15 @@
     </div>
 
     <script>
+        // --- CONFIGURATIONS PARAMETERS ---
+        const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmayeXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg";
+        const GOOGLE_CLIENT_ID = "240161724421-mfrj5gt6vhd2dv12om6peub6qgc3i4k0.apps.googleusercontent.com";
+
         const BASE_URL = "https://vajira-official-apis.vercel.app";
         const PREMIUM_KEY = "vajira-VajiraOfficial2003";
 
-        // COMPLETE 91 PRODUCTION MODULES DATABASE MATRIX MAP Array
+        // COMPLETE SYSTEM ARRAY DEFINITIONS - PRESERVING ALL 91 ENTRIES EXACTLY
         const apiData = [
             { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube Video in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
             { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Download YouTube Audio in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
@@ -750,23 +708,14 @@
             { id: 91, name: "Xhamster search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "Xhamster name", method: "GET", status: "active" }
         ];
 
-        // --- CONFIGURATIONS PARAMETERS ---
-        const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co"; 
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmF5eXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg";
-        const GOOGLE_CLIENT_ID = "240161724421-mfrj5gt6vhd2dv12om6peub6qgc3i4k0.apps.googleusercontent.com";
-
-        // Initialize Supabase Client Connection Instantiation Global Wrapper Namespace
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // CORE ENGINE HOOK ARCHITECTURES
+        // --- CORE RUNTIME PROCESSOR ---
         window.onload = () => {
             setTimeout(() => {
-                const loader = document.getElementById('loader');
-                if(loader){
-                    loader.style.opacity = '0';
-                    setTimeout(() => loader.style.display = 'none', 500);
-                }
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
             }, 2000);
+            
+            checkActiveSession();
             renderLists();
             setupNav();
             setupSidebarToggle();
@@ -775,152 +724,163 @@
             updateRealPerf();
         };
 
-        // Switch panel overlays safely without target event errors
-        function switchView(mode) {
-            document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        // --- AUTHENTICATION INTERACTIVE LOGIC ---
+        function toggleAuthView(view) {
+            // Reset notifications
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('login-success').style.display = 'none';
+            document.getElementById('signup-error').style.display = 'none';
+
+            if (view === 'signup') {
+                document.getElementById('login-block').style.display = 'none';
+                document.getElementById('signup-block').style.display = 'flex';
+            } else {
+                document.getElementById('signup-block').style.display = 'none';
+                document.getElementById('login-block').style.display = 'flex';
+            }
+        }
+
+        function checkActiveSession() {
+            const activeUser = localStorage.getItem('v_auth_user');
+            if (activeUser) {
+                grantSystemAccess(activeUser);
+            }
+        }
+
+        function grantSystemAccess(username) {
+            document.getElementById('auth-container').style.display = 'none';
+            const container = document.querySelector('.main-container');
+            container.style.display = 'block';
             
-            if(mode === 'login') {
-                document.getElementById('view-login').classList.add('active');
-                document.getElementById('tab-btn-login').classList.add('active');
-            } else {
-                document.getElementById('view-signup').classList.add('active');
-                document.getElementById('tab-btn-signup').classList.add('active');
-            }
-            initializeGoogleCore();
+            const userBadge = document.getElementById('auth-user-badge');
+            userBadge.innerHTML = `<i class="fas fa-user-circle"></i> NODE: ${username.toUpperCase()}`;
+            userBadge.style.display = 'block';
         }
 
-        // Intercept boot signature sequence state parameters
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                unlockDashboard(session.user);
-            } else {
-                initializeGoogleCore();
-            }
-        });
+        function terminateSession() {
+            localStorage.removeItem('v_auth_user');
+            document.getElementById('auth-user-badge').style.display = 'none';
+            document.querySelector('.main-container').style.display = 'none';
+            document.getElementById('login-form').reset();
+            document.getElementById('auth-container').style.display = 'flex';
+            toggleAuthView('login');
+        }
 
-        // FIXED: 100% BUG-FREE CUSTOM ACCOUNT SIGNUP WITH CORRECT PARAMETER WRAPPING
-        async function handleCustomSignup(event) {
-            event.preventDefault();
-            const username = document.getElementById('signup-username').value.trim().toLowerCase();
+        // --- SUPABASE ENGINE AUTH QUERIES ---
+        async function handleRegistration(e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim();
-            const password = document.getElementById('signup-password').value;
+            const password = document.getElementById('signup-pass').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            const errorAlert = document.getElementById('signup-error');
 
-            if(username.length < 3) {
-                alert("Username architecture requires minimum 3 alphanumeric characters.");
+            errorAlert.style.display = 'none';
+
+            if (password !== confirm) {
+                errorAlert.textContent = "[ERROR]: Passwords mismatch. Verify inputs.";
+                errorAlert.style.display = 'block';
                 return;
             }
 
-            // Provision user signature registration structure to Supabase datastore Engine
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: {
-                        custom_username: username
+            try {
+                // Step 1: Check if an account already exists with the matching email address
+                const checkUrl = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=id`;
+                const checkResponse = await fetch(checkUrl, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     }
-                }
-            });
-
-            if (error) {
-                alert("Registration Node Fault: " + error.message);
-                return;
-            }
-
-            if(data?.user) {
-                alert("Network Identity Provisioned Successfully! Welcome Operator.");
-                // Sync lifetime token metrics automatically onto storage chassis for live terminal validation features
-                localStorage.setItem('v-key', PREMIUM_KEY);
-                unlockDashboard(data.user);
-            }
-        }
-
-        // 100% BUG-FREE CUSTOM LOGIN HANDLING CHASSIS VIA USERNAME OR EMAIL ADDRESS
-        async function handleCustomLogin(event) {
-            event.preventDefault();
-            const identifier = document.getElementById('login-identifier').value.trim();
-            const password = document.getElementById('login-password').value;
-
-            let finalEmail = identifier;
-
-            // Simple validation metric check: if value lacks '@' symbol, treat as raw username key
-            if (!identifier.includes('@')) {
-                // Perform dynamic lookup across custom metadata profiles architecture layer via backend mapping
-                alert("Initializing handshake query sequence matching verification profiles for username: " + identifier);
-                
-                // Note: Standard client-side Supabase query requires custom metadata setup, fallback allows direct testing route or raw login if username matches email structure.
-                alert("Query routing completed. Accessing system nodes...");
-            }
-
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: finalEmail,
-                password: password
-            });
-
-            if (error) {
-                alert("Handshake Aborted: Invalid identification key matching parameters. " + error.message);
-                return;
-            }
-
-            if (data?.user) {
-                localStorage.setItem('v-key', PREMIUM_KEY);
-                unlockDashboard(data.user);
-            }
-        }
-
-        // Instantiate Google Identity Architecture Core
-        function initializeGoogleCore() {
-            if (typeof google === 'undefined') {
-                setTimeout(initializeGoogleCore, 100);
-                return;
-            }
-
-            google.accounts.id.initialize({
-                client_id: GOOGLE_CLIENT_ID,
-                callback: catchTokenResponse,
-                ux_mode: 'popup'
-            });
-
-            const activeTargetId = document.getElementById('view-login').classList.contains('active') 
-                ? "google-login-btn" 
-                : "google-signup-btn";
-
-            const containerElement = document.getElementById(activeTargetId);
-            if(containerElement) {
-                containerElement.innerHTML = '';
-                google.accounts.id.renderButton(containerElement, { 
-                    theme: "dark", size: "large", width: "340", text: "continue_with", shape: "pill"
                 });
+
+                if (!checkResponse.ok) throw new Error("Could not contact verification node clusters.");
+                const dynamicRecords = await checkResponse.json();
+
+                if (dynamicRecords && dynamicRecords.length > 0) {
+                    errorAlert.textContent = "[CONFLICT]: This email is already in use. Please use a different email.";
+                    errorAlert.style.display = 'block';
+                    return;
+                }
+
+                // Step 2: Insert data into the user database profile stack
+                const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
+                const registerResponse = await fetch(registerUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        password: password // Stored transparently as specified for system tracking structures
+                    })
+                });
+
+                if (!registerResponse.ok) throw new Error("DB Engine transaction failure.");
+
+                // Redirect client cleanly to login window
+                document.getElementById('signup-form').reset();
+                toggleAuthView('login');
+                
+                const loginSuccess = document.getElementById('login-success');
+                loginSuccess.textContent = "[SUCCESS]: Account created successfully! Access your terminal below.";
+                loginSuccess.style.display = 'block';
+                document.getElementById('login-user').value = email;
+
+            } catch (err) {
+                errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
+                errorAlert.style.display = 'block';
             }
         }
 
-        // Catch OAuth validation token keys directly from Google infrastructure framework
-        async function catchTokenResponse(response) {
-            const { data, error } = await supabase.auth.signInWithIdToken({
-                provider: 'google',
-                token: response.credential
-            });
+        async function handleLogon(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value;
+            const errorAlert = document.getElementById('login-error');
+            const successAlert = document.getElementById('login-success');
 
-            if (error) {
-                alert("OAuth Provider Isolation Exception: " + error.message);
-                return;
-            }
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'none';
 
-            if (data?.user) {
-                localStorage.setItem('v-key', PREMIUM_KEY);
-                unlockDashboard(data.user);
+            try {
+                // Query permitting user processing verification either via raw username OR email string match
+                let queryParam = identifier.includes('@') ? `email=eq.${encodeURIComponent(identifier)}` : `username=eq.${encodeURIComponent(identifier)}`;
+                const logonUrl = `${SUPABASE_URL}/rest/v1/users?${queryParam}&password=eq.${encodeURIComponent(pass)}&select=username`;
+
+                const response = await fetch(logonUrl, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Authentication node handshake timeout.");
+                const matches = await response.json();
+
+                if (!matches || matches.length === 0) {
+                    errorAlert.textContent = "[DENIED]: Invalid email/username or cryptographic token password.";
+                    errorAlert.style.display = 'block';
+                    return;
+                }
+
+                // Authorized successfully
+                const userSessionName = matches[0].username;
+                localStorage.setItem('v_auth_user', userSessionName);
+                grantSystemAccess(userSessionName);
+
+            } catch (err) {
+                errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
+                errorAlert.style.display = 'block';
             }
         }
 
-        // Unhide system dashboards and finalize sequence
-        function unlockDashboard(user) {
-            document.getElementById('auth-portal').style.display = 'none';
-            document.getElementById('protected-dashboard-frame').style.display = 'block';
-            console.log(`[AUTH]: Secure framework mapping bind completed to user node: ${user.email}`);
-        }
-
-        // INTERACTIVE SIDEBAR RENDERING SYSTEM HOOKS
+        // SIDEBAR INTERACTIVE HOOKS
         function setupSidebarToggle() {
             const sidebar = document.querySelector('.sidebar');
             const toggleBtn = document.getElementById('sidebar-toggle');
@@ -930,6 +890,7 @@
                 sidebar.classList.toggle('open');
             });
 
+            // Auto closing if user clicks completely off the sidebar overlay grid
             document.addEventListener('click', (e) => {
                 if (!sidebar.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
                     sidebar.classList.remove('open');
@@ -1117,11 +1078,15 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.onclick = (e) => {
                     e.preventDefault();
+                    if(link.hasAttribute('onclick')) return; // Avoid intercepts on custom script links
                     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
                     document.getElementById(`${link.dataset.page}-page`).style.display = 'block';
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     link.classList.add('active');
+                    
+                    // Smooth Auto-hide after selection has been chosen
                     document.querySelector('.sidebar').classList.remove('open');
+                    
                     window.scrollTo(0,0);
                 }
             });
@@ -1133,7 +1098,7 @@
                 const lat = Date.now() - start;
                 if(document.getElementById('val-lat')) document.getElementById('val-lat').textContent = lat + "ms";
                 if(document.getElementById('real-ping')) document.getElementById('real-ping').textContent = "LATENCY: " + lat + "ms";
-            }).catch(() => {});
+            });
             if (window.performance && window.performance.memory) {
                 document.getElementById('val-mem').textContent = Math.round(window.performance.memory.usedJSHeapSize / 1048576) + "MB";
             }
