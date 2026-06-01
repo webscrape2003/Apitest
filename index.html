@@ -718,7 +718,7 @@
         async function handleLogon(e) {
             e.preventDefault();
             const identifier = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value;
+            const pass = document.getElementById('login-pass').value.trim();
             const errorAlert = document.getElementById('login-error');
             const successAlert = document.getElementById('login-success');
 
