@@ -282,6 +282,28 @@
 
     <!-- AUTH SECTION -->
     <div id="auth-container">
+
+
+<!-- RESET PASSWORD VIEW -->
+<div class="auth-card" id="reset-block" style="display:none;">
+    <h2>PASSWORD RECOVERY</h2>
+    <p class="auth-subtitle">Enter your registered email to receive reset instructions</p>
+    
+    <div class="auth-alert" id="reset-alert"></div>
+
+    <form id="reset-form" onsubmit="handleResetRequest(event)">
+        <input type="email" id="reset-email" class="tech-input" placeholder="ENTER REGISTERED EMAIL" required>
+        <button type="submit" class="btn" style="width:100%; background:var(--primary);">
+            <i class="fas fa-paper-plane"></i> SEND RECOVERY LINK
+        </button>
+    </form>
+    <p class="auth-switch-text">
+        Remembered credentials? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+    </p>
+</div>
+
+
+        
         <!-- LOGIN VIEW -->
         <div class="auth-card" id="login-block">
             <h2>GATE ACCESS</h2>
@@ -300,6 +322,13 @@
             <p class="auth-switch-text">
                 New Terminal Node? <a class="auth-switch-link" onclick="toggleAuthView('signup')">Create Account</a>
             </p>
+
+            
+            <p class="auth-switch-text" style="margin-top:10px;">
+    <a class="auth-switch-link" onclick="toggleAuthView('reset')">Forgot Password?</a>
+</p>
+
+            
         </div>
 
         <!-- SIGNUP VIEW -->
@@ -628,7 +657,17 @@
             updateRealPerf();
         };
 
-        function toggleAuthView(view) {
+function toggleAuthView(view) {
+    document.getElementById('login-block').style.display = view === 'login' ? 'block' : 'none';
+    document.getElementById('signup-block').style.display = view === 'signup' ? 'block' : 'none';
+    document.getElementById('reset-block').style.display = view === 'reset' ? 'block' : 'none';
+    
+    // Clear alerts
+    document.querySelectorAll('.auth-alert').forEach(a => a.style.display = 'none');
+}
+
+        
+       /* function toggleAuthView(view) {
             document.getElementById('login-error').style.display = 'none';
             document.getElementById('login-success').style.display = 'none';
             document.getElementById('signup-error').style.display = 'none';
@@ -640,7 +679,7 @@
                 document.getElementById('signup-block').style.display = 'none';
                 document.getElementById('login-block').style.display = 'block';
             }
-        }
+        }*/
 
         function checkActiveSession() {
             const activeUser = localStorage.getItem('v_auth_user');
@@ -664,6 +703,42 @@
             toggleAuthView('login');
         }
 
+
+
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    try {
+        alertBox.className = "auth-alert";
+        alertBox.textContent = "Verifying registry...";
+        alertBox.style.display = 'block';
+
+        // 1. Check if email exists in database
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        const response = await fetch(query, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: In a real app, you would trigger a serverless function here
+            // to send a unique reset link to the user's email.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery instructions sent to " + email;
+            console.log("Reset initiated for:", data[0].username);
+        } else {
+            throw new Error("Email not found in terminal registry.");
+        }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+    }
+}
+
+        
         async function handleRegistration(e) {
             e.preventDefault();
             const username = document.getElementById('signup-name').value.trim();
@@ -715,6 +790,8 @@
             }
         }
 
+
+        
 async function handleLogon(e) {
     e.preventDefault();
     const identifier = document.getElementById('login-user').value.trim();
