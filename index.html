@@ -50,76 +50,45 @@
 
 
 
-/* --- AUTONOMOUS ACCESS CONTROLS GATEKEEPER --- */
-#auth-gatekeeper {
-    position: fixed;
-    inset: 0;
-    background: #020617;
-    z-index: 20000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    transition: opacity 0.5s ease-out;
-}
+/* --- PREMIUM AUTH PORTAL OVERLAYS --- */
+        #auth-portal {
+            position: fixed; inset: 0; width: 100%; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; z-index: 99999; background: var(--bg);
+        }
 
-.auth-chassis {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(0, 243, 255, 0.2);
-    border-radius: 24px;
-    padding: 50px 40px;
-    max-width: 450px;
-    width: 100%;
-    text-align: center;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 243, 255, 0.05);
-    position: relative;
-}
+        .auth-card {
+            background: rgba(8, 12, 24, 0.65);
+            border: 1px solid var(--border);
+            border-radius: 24px; padding: 45px 35px; max-width: 450px; width: 100%;
+            backdrop-filter: blur(25px); text-align: center; position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--neon-glow);
+        }
 
-.auth-logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: var(--accent);
-    text-shadow: 0 0 20px var(--neon-glow);
-    margin-bottom: 10px;
-}
+        .auth-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1.5px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), transparent, var(--accent), var(--primary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
 
-.auth-subtitle {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-    font-family: 'JetBrains Mono', monospace;
-}
+        .auth-logo { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 25px var(--neon-glow); margin-bottom: 5px; }
+        .auth-tagline { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 35px; }
 
-.auth-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
-    margin: 30px 0;
-}
+        .tab-controller { display: flex; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); padding: 5px; border-radius: 12px; margin-bottom: 35px; }
+        .tab-btn { flex: 1; background: transparent; border: none; color: var(--text-dim); padding: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; border-radius: 8px; transition: all 0.3s ease; }
+        .tab-btn.active { color: #030712; background: linear-gradient(90deg, var(--accent), var(--primary)); font-weight: 700; box-shadow: 0 0 15px var(--neon-glow); }
 
-.auth-footer {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 30px;
-    font-family: 'Space Grotesk', sans-serif;
-}
+        .view-pane { display: none; animation: authFade 0.4s ease-out forwards; }
+        .view-pane.active { display: block; }
+        @keyframes authFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Spinner Glow Synchronization */
-.spinner-ring {
-    position: absolute;
-    top: -2px; left: -2px; right: -2px; bottom: -2px;
-    border-radius: 24px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    z-index: -1;
-    opacity: 0.3;
-    animation: borderGlow 4s linear infinite;
-}
-@keyframes borderGlow {
-    0% { filter: rotate(0deg); }
-    100% { filter: rotate(360deg); }
-}
+        .pane-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #fff; margin-bottom: 10px; }
+        .pane-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 30px; }
+
+        .google-trigger-wrapper { display: flex; justify-content: center; align-items: center; min-height: 50px; background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(0, 243, 255, 0.2); border-radius: 14px; padding: 15px; transition: 0.3s; }
+        .google-trigger-wrapper:hover { border-color: var(--accent); background: rgba(0, 243, 255, 0.02); box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.05); }
+        .legal-notice { font-size: 0.7rem; color: rgba(255, 255, 255, 0.25); margin-top: 35px; line-height: 1.4; }
 
 
 
@@ -412,19 +381,47 @@
 <body>
 
 
-<div id="auth-gatekeeper">
-    <div class="auth-chassis">
-        <div class="spinner-ring"></div>
-        <div class="auth-logo">VAJIRA<span style="color:#fff;">SYSTEMS</span></div>
-        <p class="auth-subtitle">CENTRAL GATEWAY ACCESS REQUIRED</p>
-        <div class="auth-divider"></div>
-        
-        <div id="google-btn-container"></div>
-        
-        <p class="auth-footer">Authorization managed via secure OAuth data nodes</p>
-    </div>
-</div>
+<!-- INSERT IMMEDIATELY UNDER YOUR <body> TAG -->
+<main id="auth-portal">
+    <div class="auth-card">
+        <div class="auth-logo">VAJIRA<span style="color:#fff">OFFICIAL</span></div>
+        <div class="auth-tagline">Cloud Node Access Protocol</div>
 
+        <!-- Tab Switching Mechanism -->
+        <div class="tab-controller">
+            <button class="tab-btn active" onclick="switchView('login')">Sign In</button>
+            <button class="tab-btn" onclick="switchView('signup')">Sign Up</button>
+        </div>
+
+        <!-- LOGIN VIEW -->
+        <div id="view-login" class="view-pane active">
+            <h3 class="pane-title">WELCOME BACK OPERATOR</h3>
+            <p class="pane-desc">Initialize secure handshake session via Federated Identity verification provider.</p>
+            <div class="google-trigger-wrapper">
+                <div class="google-btn-target" id="google-login-btn"></div>
+            </div>
+        </div>
+
+        <!-- SIGNUP VIEW -->
+        <div id="view-signup" class="view-pane">
+            <h3 class="pane-title">CREATE NETWORK IDENTITY</h3>
+            <p class="pane-desc">Register your cryptographic access certificate directly to our secure datastore nodes.</p>
+            <div class="google-trigger-wrapper">
+                <div class="google-btn-target" id="google-signup-btn"></div>
+            </div>
+        </div>
+
+        <div class="legal-notice">
+            Secured via End-to-End OAuth 2.0 Client Tokens.<br>
+            Unauthorized penetration testing attempts are logged.
+        </div>
+    </div>
+</main>
+
+<!-- Wrap ALL of your original webpage content (from your <div id="loader"> down to the closing </main>) inside this hidden layout wrapper tag -->
+<div id="protected-dashboard-frame" style="display: none;">
+
+    
     
     
     <!-- Startup Loader -->
@@ -962,80 +959,85 @@ const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmF5eXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg"; // Use your actual Anon Key
 const GOOGLE_CLIENT_ID = "240161724421-mfrj5gt6vhd2dv12om6peub6qgc3i4k0.apps.googleusercontent.com";
 
-// Instantiate Database Client Cluster
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Intercept window load routines to evaluate session credentials
-window.addEventListener('DOMContentLoaded', async () => {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    
-    if (session) {
-        // Active Session Found: Bypass login barrier immediately
-        grantAccess(session.user);
-    } else {
-        // Empty Profile Session Matrix: Render Sign-In Button Container
-        initializeGoogleSignIn();
-    }
-});
+        
+// Connect the client-side database platform instance
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function initializeGoogleSignIn() {
-    if (typeof google === 'undefined') {
-        setTimeout(initializeGoogleSignIn, 100);
-        return;
-    }
-
-    google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: handleCredentialResponse,
-        ux_mode: 'popup'
-    });
-
-    google.accounts.id.renderButton(
-        document.getElementById("google-btn-container"),
-        { 
-            theme: "dark", 
-            size: "large", 
-            width: "320",
-            text: "signin_with",
-            shape: "rectangular"
+        // Manage Sign-In / Sign-Up panel changes
+        function switchView(mode) {
+            document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            if(mode === 'login') {
+                document.getElementById('view-login').classList.add('active');
+                event.target.classList.add('active');
+            } else {
+                document.getElementById('view-signup').classList.add('active');
+                event.target.classList.add('active');
+            }
+            initializeGoogleCore();
         }
-    );
-}
 
-// Handler catching the ID token signature back from the Google Cluster
-async function handleCredentialResponse(response) {
-    const { data, error } = await supabase.auth.signInWithIdToken({
-        provider: 'google',
-        token: response.credential
-    });
+        // Intercept boot sequence to verify valid login signatures
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                unlockDashboard(session.user);
+            } else {
+                initializeGoogleCore();
+            }
+        });
 
-    if (error) {
-        console.error("Auth Exception:", error.message);
-        alert("Authorization Denied: " + error.message);
-        return;
-    }
+        // Instantiate Google's Identity Engine Core
+        function initializeGoogleCore() {
+            if (typeof google === 'undefined') {
+                setTimeout(initializeGoogleCore, 100);
+                return;
+            }
 
-    if (data?.user) {
-        grantAccess(data.user);
-    }
-}
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: catchTokenResponse,
+                ux_mode: 'popup'
+            });
 
-// Close security screen safely and drop loader flags
-function grantAccess(user) {
-    const gatekeeper = document.getElementById('auth-gatekeeper');
-    if (gatekeeper) {
-        gatekeeper.style.opacity = '0';
-        setTimeout(() => {
-            gatekeeper.style.display = 'none';
-        }, 500);
-    }
-    
-    // Inject dynamic identifier telemetry into systems frame logs
-    const consoleLog = document.getElementById('console-log');
-    if (consoleLog) {
-        consoleLog.innerHTML += `<br><span style="color:var(--accent)">[SECURITY]: User authenticated as ${user.email}</span>`;
-    }
-}
+            const activeTargetId = document.getElementById('view-login').classList.contains('active') 
+                ? "google-login-btn" 
+                : "google-signup-btn";
+
+            const containerElement = document.getElementById(activeTargetId);
+            if(containerElement) {
+                containerElement.innerHTML = '';
+                google.accounts.id.renderButton(containerElement, { 
+                    theme: "dark", size: "large", width: "340", text: "continue_with", shape: "pill"
+                });
+            }
+        }
+
+        // Catch incoming security signatures back from Google Cloud
+        async function catchTokenResponse(response) {
+            const { data, error } = await supabase.auth.signInWithIdToken({
+                provider: 'google',
+                token: response.credential
+            });
+
+            if (error) {
+                alert("Auth Node Exception: " + error.message);
+                return;
+            }
+
+            if (data?.user) {
+                unlockDashboard(data.user);
+            }
+        }
+
+        // Unhide system dashboards and run loader terminations
+        function unlockDashboard(user) {
+            document.getElementById('auth-portal').style.display = 'none';
+            document.getElementById('protected-dashboard-frame').style.display = 'block';
+            console.log(`[AUTH]: Secure link established to user node: ${user.email}`);
+        }
 
 
         
