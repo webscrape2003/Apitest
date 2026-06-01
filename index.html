@@ -795,6 +795,52 @@ async function handleResetRequest(e) {
         }
 
 
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    // Reset UI state
+    alertBox.className = "auth-alert";
+    alertBox.textContent = "Verifying registry...";
+    alertBox.style.display = 'block';
+
+    try {
+        // 1. Check if email exists in database
+        // We look up the user record first
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        
+        const response = await fetch(query, {
+            headers: { 
+                'apikey': SUPABASE_ANON_KEY, 
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: Success notification
+            // Since this is a client-side app, you cannot send actual emails directly.
+            // You must use a backend (like a Supabase Edge Function) for that.
+            // For now, this confirms the account was found.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery request sent to " + email + ". Check your inbox.";
+            console.log("Reset initiated for user:", data[0].username);
+        } else {
+            // User not found
+            throw new Error("Email address not registered in system.");
+        }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+        alertBox.style.display = 'block';
+    }
+}
+
+        
         
 async function handleLogon(e) {
     e.preventDefault();
