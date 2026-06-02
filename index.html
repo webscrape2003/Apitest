@@ -875,6 +875,23 @@ async function handleResetRequest(e) {
     }
 }
 
+
+
+
+// --- ADD THIS TO YOUR SCRIPT SECTION ---
+function handleKeyGeneration() {
+    const user = localStorage.getItem('v_auth_user');
+    const startTime = localStorage.getItem(`v_trial_start_${user}`);
+    
+    // Check if the user has a trial start time AND if 3 days (in ms) have passed
+    if (startTime && ((Date.now() - parseInt(startTime)) >= (3 * 24 * 60 * 60 * 1000))) {
+        // If expired, trigger the premium modal
+        openPremiumModal(); 
+    } else {
+        // If still within 3 days, run your normal key generation function
+        generateSecureKey(); 
+    }
+}      
         
         
 async function handleLogon(e) {
