@@ -413,9 +413,11 @@
             <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
                 <i class="fas fa-crown"></i> PREMIUM API KEY
             </button>
-            <button class="btn btn-ghost" onclick="generateSecureKey()">
-                <i class="fas fa-key"></i> GENERATE KEY
-            </button>
+           
+<button class="btn btn-ghost" onclick="handleKeyGeneration()" id="gen-key-btn">
+    <i class="fas fa-key"></i> <span id="gen-btn-text">GENERATE KEY</span>
+</button>
+            
         </div>
         
         <section id="home-page" class="page">
@@ -808,31 +810,26 @@ async function handleRegistration(e) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error("Supabase Error Details:", errorData);
             throw new Error(errorData.message || "Database rejected the transaction.");
         }
 
-        // --- NEW TRIAL LOGIC START ---
-        // Record the trial start timestamp for this specific user
+        // --- TRIAL LOGIC: Initialize 3-Day Trial ---
         const trialStartTime = Date.now();
         localStorage.setItem(`v_trial_start_${username}`, trialStartTime);
         
-        // Generate and store an initial access key
+        // Generate initial key
         const key = `vajira-${Math.random().toString(36).substring(7)}-${trialStartTime}`;
         localStorage.setItem('v-key', key);
-        // --- NEW TRIAL LOGIC END ---
+        // --------------------------------------------
 
-        alert("Registration successful! Your 3-day trial has been activated.");
+        alert("Registration successful! Your 3-day free trial has been activated.");
         toggleAuthView('login');
-
 
     } catch (err) {
         errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
         errorAlert.style.display = 'block';
     }
 }
-
-
 
 async function handleResetRequest(e) {
     e.preventDefault();
@@ -1043,6 +1040,38 @@ async function handleLogon(e) {
 
 
 
+
+function checkTrialExpiry() {
+    const user = localStorage.getItem('v_auth_user');
+    if (!user) return;
+
+    const startTime = localStorage.getItem(`v_trial_start_${user}`);
+    
+    // 3 Days in milliseconds
+    const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+    
+    if (startTime) {
+        const elapsed = Date.now() - parseInt(startTime);
+        
+        if (elapsed >= THREE_DAYS) {
+            // EXPIRED STATE
+            localStorage.setItem('v-key', 'EXPIRED'); // Overwrite key to block access
+            
+            // UI Updates
+            const genBtn = document.getElementById('gen-key-btn'); // Replace with your actual button ID
+            if (genBtn) {
+                genBtn.innerHTML = '<i class="fas fa-crown"></i> PREMIUM API KEY REQUIRED';
+                genBtn.style.pointerEvents = 'none';
+                genBtn.style.opacity = '0.6';
+            }
+            
+            // Force open the Premium Upgrade Modal
+            openPremiumModal(); 
+        }
+    }
+}
+
+        
 function loadSubscriptionData() {
     const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
     const logBox = document.getElementById('home-log-box');
