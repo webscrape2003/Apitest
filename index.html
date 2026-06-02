@@ -115,7 +115,6 @@
         .tracker-meta h3 { font-weight: 600; color: var(--text-light); }
         .tracker-meta .coin-count-hud { color: var(--gold-accent); font-weight: 700; }
 
-        /* 10 NODE RESPONSIVE TRACKER GRID */
         .milestone-row-nodes {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -200,7 +199,6 @@
             width: 100%; height: 100%; object-fit: contain; background: #000000; display: block;
         }
 
-        /* INTERACTIVE BROWSER BYPASS LAYERING OVERLAY */
         .ad-click-bypass-overlay {
             position: absolute; inset: 0;
             background-color: rgba(0, 0, 0, 0.9);
@@ -393,7 +391,6 @@
             const wrapper = document.getElementById('nodes-row-wrapper');
             wrapper.innerHTML = "";
             
-            // Build 10 tracking nodes dynamically based on loop assignments
             for(let i = 0; i < DAILY_MAX_ADS; i++) {
                 const node = document.createElement('div');
                 if (i < adsWatchedToday) {
@@ -431,15 +428,13 @@
             closeBtn.onclick = null;
         }
 
-        // TRIGGER PLAY VIA USER TAP: Bypasses browser restriction sandbox structures perfectly
         function engageDirectVideoPlay() {
             document.getElementById('bypass-click-trigger').style.display = 'none';
-            
             const video = document.getElementById('sdk-ad-video-core');
             const closeBtn = document.getElementById('ad-close-counter-btn');
             
             video.currentTime = 0;
-            video.play();
+            video.play().catch(err => console.log("Video Play Error intercepted safely"));
 
             let secondsLeft = AD_DURATION_SECONDS;
 
@@ -471,25 +466,37 @@
             localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
             
             refreshConsoleUIState();
-            alert("Sponsor credential tracking verified: +1 Coin loaded to your local system instance!");
+            alert("Sponsor credential tracking verified: +1 Coin loaded to your local account system!");
         }
 
+        // ================= SECURE SUBSCRIPTION MINTING FACTORY =================
         function commitConsolePurchase(planName, cost, days) {
             if (coins < cost) {
-                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium configuration tier.`);
+                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium plan configurations.`);
             }
 
             if (confirm(`Authorize spend configuration allocation of ${cost} coins to deploy ${planName}?`)) {
+                // Deduct coins from balance
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
+                // Calculate plan expiration timestamp parameters precisely
                 const durationMS = days * 24 * 60 * 60 * 1000;
-                localStorage.setItem(`v_trial_start_${user}`, Date.now());
-                localStorage.setItem(`v_plan_duration_${user}`, durationMS);
-                localStorage.removeItem(`v-key_expired_${user}`);
+                const expirationTimestamp = Date.now() + durationMS;
+                
+                localStorage.setItem(`v_plan_start_${user}`, Date.now());
+                localStorage.setItem(`v_plan_expiration_${user}`, expirationTimestamp);
+                localStorage.setItem(`v_active_plan_name_${user}`, planName);
+                localStorage.removeItem(`v_key_expired_${user}`);
+
+                // MINT UNIQUE RECOGNIZABLE API KEY (Prefixed by plan title identifier metrics)
+                const prefix = planName.toUpperCase().replace(/\s+/g, '_');
+                const uniqueHash = Math.random().toString(36).substring(2, 12).toUpperCase();
+                const generatedKey = `V_KEY_${prefix}_${uniqueHash}`;
+                localStorage.setItem(`v_premium_apikey_${user}`, generatedKey);
 
                 refreshConsoleUIState();
-                alert(`Successfully Activated: ${planName}`);
+                alert(`Successfully Activated ${planName}! Your high-speed API key is now active and ready inside the main dashboard panel console layout.`);
                 window.location.href = 'index.html';
             }
         }
