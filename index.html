@@ -801,8 +801,11 @@ async function handleResetRequest(e) {
 }
 
         
+
 async function handleRegistration(e) {
     e.preventDefault();
+    
+    // 1. Get input values
     const username = document.getElementById('signup-name').value.trim();
     const email = document.getElementById('signup-email').value.trim();
     const password = document.getElementById('signup-pass').value;
@@ -811,6 +814,7 @@ async function handleRegistration(e) {
 
     errorAlert.style.display = 'none';
 
+    // 2. Validate passwords
     if (password !== confirm) {
         errorAlert.textContent = "[ERROR]: Passwords do not match.";
         errorAlert.style.display = 'block';
@@ -824,6 +828,7 @@ async function handleRegistration(e) {
             password: password
         };
 
+        // 3. API Request to Supabase
         const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
         const response = await fetch(registerUrl, {
             method: 'POST',
@@ -836,21 +841,25 @@ async function handleRegistration(e) {
             body: JSON.stringify(payload)
         });
 
+        // 4. Handle API errors
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || "Database rejected the transaction.");
         }
 
-        // --- TRIAL LOGIC: Initialize 3-Day Trial ---
-        const trialStartTime = Date.now();
-        localStorage.setItem(`v_trial_start_${username}`, trialStartTime);
+const ts = Date.now();
+const rnd = Math.random().toString(36).substring(2, 10);
+const sum = rnd.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
+const longKey = `vajira-${rnd}${sum.toString().padStart(2, '0')}-${ts}`;
+localStorage.setItem('v-key', longKey);
         
-        // Generate initial key
-        const key = `vajira-${Math.random().toString(36).substring(7)}-${trialStartTime}`;
-        localStorage.setItem('v-key', key);
-        // --------------------------------------------
-
+        // 6. Finalize UI
         alert("Registration successful! Your 3-day free trial has been activated.");
+        
+        // Refresh the display and switch view
+        if (typeof updateTrialDisplay === 'function') {
+            updateTrialDisplay();
+        }
         toggleAuthView('login');
 
     } catch (err) {
@@ -858,6 +867,8 @@ async function handleRegistration(e) {
         errorAlert.style.display = 'block';
     }
 }
+
+        
 
 async function handleResetRequest(e) {
     e.preventDefault();
@@ -908,60 +919,51 @@ async function handleResetRequest(e) {
 
 
 function updateTrialDisplay() {
-    const user = localStorage.getItem('v_auth_user');
-    const statusDisplay = document.getElementById('api-key-status');
-    const startTime = localStorage.getItem(`v_trial_start_${user}`);
-    
-    if (!statusDisplay || !startTime) return;
-
-    // 3 Days duration in milliseconds
-    const DURATION = 3 * 24 * 60 * 60 * 1000;
-    const expiresAt = parseInt(startTime) + DURATION;
-
-    function refreshTimer() {
-        const now = Date.now();
-        const timeLeft = expiresAt - now;
-
-        if (timeLeft <= 0) {
-            // EXPIRED
-            statusDisplay.innerHTML = `
-                <div style="color: var(--error); font-weight: bold;">
-                    <i class="fas fa-exclamation-triangle"></i> TRIAL EXPIRED
-                </div>
-                <div style="font-size: 0.9rem; margin-top: 5px;">Please upgrade to a Premium API Key.</div>
-            `;
-            openPremiumModal();
-            clearInterval(timerInterval);
-        } else {
-            // ACTIVE: Calculate Days, Hours, Minutes
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            
-            const key = localStorage.getItem('v-key') || "NO KEY";
-            
-            statusDisplay.innerHTML = `
-                <div style="color: var(--accent); font-weight: bold;">TRIAL KEY ACTIVE</div>
-                <div style="font-family: 'JetBrains Mono'; margin: 8px 0; color: #fff;">${key}</div>
-                <div style="font-size: 0.8rem; color: var(--text-dim);">
-                    Expires in: <span style="color: var(--premium);">${days}d ${hours}h ${minutes}m</span>
-                </div>
-            `;
+        const user = localStorage.getItem('v_auth_user');
+        const statusDisplay = document.getElementById('api-key-status');
+        const startTime = localStorage.getItem(`v_trial_start_${user}`);
+        
+        if (!statusDisplay) return; // Safety check
+        if (!startTime) {
+            statusDisplay.textContent = "NO ACTIVE TRIAL FOUND";
+            return;
         }
+
+        const DURATION = 3 * 24 * 60 * 60 * 1000; // 3 Days
+        const expiresAt = parseInt(startTime) + DURATION;
+
+        function refreshTimer() {
+            const now = Date.now();
+            const timeLeft = expiresAt - now;
+
+            if (timeLeft <= 0) {
+                statusDisplay.innerHTML = `<span style="color:var(--error)">EXPIRED. Upgrade to Premium.</span>`;
+            } else {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                
+                const key = localStorage.getItem('v-key') || "NO KEY";
+
+
+
+                
+                statusDisplay.innerHTML = `
+                    <div style="color:var(--accent); font-weight:bold;">KEY ACTIVE</div>
+                    <div style="font-size:0.9rem; color:#fff; margin:5px 0;">${key}</div>
+                    <div style="font-size:0.75rem; color:var(--text-dim);">Expires in: ${days}d ${hours}h ${minutes}m</div>
+                `;
+            }
+        }
+
+        refreshTimer();
+        setInterval(refreshTimer, 60000); // Update every minute
     }
 
-    // Run immediately and then every 60 seconds
-    refreshTimer();
-    const timerInterval = setInterval(refreshTimer, 60000);
-}
-
-
-    // Add this call where your dashboard successfully loads
-window.addEventListener('DOMContentLoaded', () => {
-    if(localStorage.getItem('v_auth_user')) {
+    // Trigger the update when page loads
+    window.addEventListener('DOMContentLoaded', () => {
         updateTrialDisplay();
-    }
-});    
+    });
         
 async function handleLogon(e) {
     e.preventDefault();
