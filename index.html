@@ -413,12 +413,14 @@
             <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
                 <i class="fas fa-crown"></i> PREMIUM API KEY
             </button>
-           
-<button class="btn btn-ghost" onclick="handleKeyGeneration()" id="gen-key-btn">
-    <i class="fas fa-key"></i> <span id="gen-btn-text">GENERATE KEY</span>
-</button>
-            
         </div>
+
+<div id="api-key-container" style="padding: 15px; border: 1px solid var(--border); border-radius: 8px;">
+    <span id="api-key-status" style="font-family: 'JetBrains Mono'; color: var(--text-dim);">
+        INITIALIZING...
+    </span>
+</div>
+        
         
         <section id="home-page" class="page">
             <div class="home-mainframe-section">
@@ -878,20 +880,36 @@ async function handleResetRequest(e) {
 
 
 
-// --- ADD THIS TO YOUR SCRIPT SECTION ---
-function handleKeyGeneration() {
+
+function updateTrialDisplay() {
     const user = localStorage.getItem('v_auth_user');
+    if (!user) return;
+
     const startTime = localStorage.getItem(`v_trial_start_${user}`);
-    
-    // Check if the user has a trial start time AND if 3 days (in ms) have passed
-    if (startTime && ((Date.now() - parseInt(startTime)) >= (3 * 24 * 60 * 60 * 1000))) {
-        // If expired, trigger the premium modal
-        openPremiumModal(); 
-    } else {
-        // If still within 3 days, run your normal key generation function
-        generateSecureKey(); 
+    const statusDisplay = document.getElementById('api-key-status');
+    const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+
+    if (startTime) {
+        const elapsed = Date.now() - parseInt(startTime);
+        
+        if (elapsed >= THREE_DAYS) {
+            // EXPIRED STATE
+            statusDisplay.innerHTML = `<span style="color:var(--error)">API KEY EXPIRED. Please buy Premium API Key.</span>`;
+            // Automatically open premium modal
+            openPremiumModal(); 
+        } else {
+            // ACTIVE STATE
+            const key = localStorage.getItem('v-key');
+            statusDisplay.innerHTML = `YOUR FREE TRIAL KEY: <br><span style="color:var(--accent)">${key}</span>`;
+        }
     }
-}      
+}
+
+// Ensure this runs when the dashboard loads
+window.addEventListener('DOMContentLoaded', () => {
+    updateTrialDisplay();
+});
+
         
         
 async function handleLogon(e) {
