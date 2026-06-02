@@ -3,341 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Core Command Matrix</title>
+    <title>VajiraOfficial | Premium Holographic Matrix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-solid: #030307;
-            --terminal-dark: #07070f;
-            --neon-blue: #00f3ff;
-            --neon-purple: #bd00ff;
-            --neon-gold: #ffaa00;
-            --border-line: rgba(0, 243, 255, 0.15);
-            --text-main: #f1f5f9;
-            --text-muted: #475569;
+            --bg-deep: #020205;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glow-cyan: #00f3ff;
+            --glow-magenta: #ff007f;
+            --glow-gold: #ffaa00;
+            --text-pure: #ffffff;
+            --text-dim: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: var(--bg-solid);
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
+            color: var(--text-pure);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
-            overflow: hidden;
-        }
-
-        /* LIVE TELEMETRY SPLIT ENGINE CORE */
-        .workspace-split {
+            padding: 40px 20px;
             display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* ================= SIDEBAR CONSOLE (LEFT) ================= */
-        .console-stream-deck {
-            flex: 1.1;
-            background: var(--terminal-dark);
-            border-right: 2px solid rgba(0, 243, 255, 0.1);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .console-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            color: #fff;
-            text-transform: uppercase;
-        }
-        .console-header p {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--neon-blue);
-            margin-top: 5px;
-        }
-
-        /* INTEGRATED VIDEO SCREEN LAYER */
-        .video-bay-frame {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            border: 1px solid var(--border-line);
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.05);
-            margin: 30px 0;
-        }
-        .video-bay-frame video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        .video-placeholder-ui {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 20px;
-            background: radial-gradient(circle at center, rgba(13,13,25,0.8) 0%, #000 100%);
         }
-        .video-placeholder-ui i {
-            font-size: 2.5rem;
-            color: var(--neon-blue);
-            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-            margin-bottom: 15px;
-        }
-        .video-placeholder-ui h3 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; letter-spacing: 1px; }
-        .video-placeholder-ui p { font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; }
 
-        .stream-trigger-btn {
+        .super-wrapper {
             width: 100%;
-            background: transparent;
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            font-family: 'JetBrains Mono', monospace;
-            padding: 16px;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            letter-spacing: 1px;
-        }
-        .stream-trigger-btn:hover:not(:disabled) {
-            background: rgba(0, 243, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-        }
-        .stream-trigger-btn:disabled {
-            border-color: var(--text-muted);
-            color: var(--text-muted);
-            cursor: not-allowed;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 30px;
         }
 
-        /* ================= MANAGEMENT NODE PANEL (RIGHT) ================= */
-        .allocation-control-panel {
-            flex: 1.9;
-            padding: 50px;
-            overflow-y: auto;
+        /* ================= LEFT SIDE: STREAM & WALLET HOLOGRAPH ================= */
+        .hologram-left-panel {
             display: flex;
             flex-direction: column;
+            gap: 25px;
         }
 
-        .wallet-hud-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 25px;
-            margin-bottom: 40px;
-        }
-        .wallet-hud-row span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        .wallet-hud-row h2 {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--neon-blue);
-            font-size: 2rem;
-        }
-
-        /* TERMINAL ROW ROW LIST */
-        .terminal-row-item {
-            background: rgba(255,255,255,0.01);
-            border-left: 3px solid var(--text-muted);
-            padding: 25px 30px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-        }
-        .terminal-row-item:hover {
-            background: rgba(255,255,255,0.02);
-            transform: translateX(5px);
-        }
-        
-        .row-item-lite { border-left-color: var(--neon-blue); }
-        .row-item-weekly { border-left-color: var(--neon-purple); }
-        .row-item-pro { border-left-color: var(--neon-gold); }
-
-        .meta-group h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-        .meta-group span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: block;
-            margin-top: 3px;
-        }
-
-        .features-inline-list {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            max-width: 320px;
-        }
-
-        .pricing-action-box {
-            text-align: right;
-            min-width: 150px;
-        }
-        .pricing-action-box h4 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.6rem;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        
-        .buy-node-btn {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            text-transform: uppercase;
-        }
-        .row-item-lite .buy-node-btn:hover { border-color: var(--neon-blue); color: var(--neon-blue); }
-        .row-item-weekly .buy-node-btn:hover { border-color: var(--neon-purple); color: var(--neon-purple); }
-        .row-item-pro .buy-node-btn:hover { border-color: var(--neon-gold); color: var(--neon-gold); }
-
-        /* LIVE SYSTEM FEED INTERFACES */
-        .terminal-log-output {
-            margin-top: auto;
-            background: #000;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            height: 70px;
+        /* LARGE GLASS WALLET CARD */
+        .glass-wallet-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .glass-wallet-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--glow-cyan), var(--glow-magenta));
+        }
+        .glass-wallet-card span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); font-weight: 600; }
+        .glass-wallet-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; margin-top: 5px; background: linear-gradient(90deg, #fff, var(--text-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* THE CHROME VIDEO THEATER OVERLAY */
+        .video-theater-node {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        .video-canvas-wrapper {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .video-canvas-wrapper video { width: 100%; height: 100%; object-fit: cover; display: none; }
+        
+        .video-custom-ui {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 20px;
+            background: radial-gradient(circle at center, rgba(10,10,20,0.6) 0%, rgba(2,2,5,0.95) 100%);
+        }
+        .video-custom-ui .glow-icon {
+            width: 65px; height: 65px; background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--glow-cyan); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: var(--glow-cyan); margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0,243,255,0.2);
         }
 
-        @media (max-width: 968px) {
-            .workspace-split { flex-direction: column; overflow-y: auto; }
-            .console-stream-deck { flex: none; height: auto; border-right: none; border-bottom: 2px solid rgba(0,243,255,0.1); }
-            .allocation-control-panel { flex: none; padding: 30px; }
+        .super-action-btn {
+            width: 100%;
+            background: linear-gradient(90deg, var(--glow-cyan) 0%, #0099ff 100%);
+            color: #000; border: none; padding: 16px; border-radius: 14px;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .super-action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.3);
+        }
+        .super-action-btn:disabled {
+            background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--glass-border); cursor: not-allowed; box-shadow: none;
+        }
+
+        /* ================= RIGHT SIDE: LARGE VIEW TILES ================= */
+        .tiles-right-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* LARGE EXPANDED TILES DESIGN */
+        .mega-tier-tile {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .mega-tier-tile::after {
+            content: ''; position: absolute; inset: 0; border-radius: 28px;
+            opacity: 0; transition: opacity 0.4s; pointer-events: none;
+            border: 1px solid transparent;
+        }
+        
+        /* THE MATTE GLOW EFFECT ON HOVER */
+        .tile-cyan:hover { transform: scale(1.01) translateX(5px); }
+        .tile-cyan:hover::after { opacity: 1; border-color: var(--glow-cyan); box-shadow: inset 0 0 20px rgba(0,243,255,0.05), 0 10px 40px rgba(0,243,255,0.1); }
+        
+        .tile-magenta:hover { transform: scale(1.01) translateX(5px); }
+        .tile-magenta:hover::after { opacity: 1; border-color: var(--glow-magenta); box-shadow: inset 0 0 20px rgba(255,0,127,0.05), 0 10px 40px rgba(255,0,127,0.1); }
+
+        .tile-gold:hover { transform: scale(1.01) translateX(5px); }
+        .tile-gold:hover::after { opacity: 1; border-color: var(--glow-gold); box-shadow: inset 0 0 20px rgba(255,170,0,0.05), 0 10px 40px rgba(255,170,0,0.1); }
+
+        .tile-details h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;
+        }
+        .tile-details p { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; }
+
+        .tile-perks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .tile-perks li { font-size: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 8px; }
+        .tile-perks i { font-size: 0.75rem; }
+
+        .tile-pricing-buy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            border-left: 1px solid rgba(255,255,255,0.06);
+            padding-left: 30px;
+        }
+        .tile-pricing-buy h4 {
+            font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 12px;
+        }
+        .tile-pricing-buy h4 sub { font-family: 'Plus Jakarta Sans'; font-size: 0.8rem; color: var(--text-dim); font-weight: 400; }
+
+        .tile-buy-btn {
+            width: 100%; max-width: 160px; background: transparent;
+            border: 1px solid rgba(255,255,255,0.15); color: #fff;
+            padding: 12px 20px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .tile-cyan .tile-buy-btn:hover { background: var(--glow-cyan); border-color: var(--glow-cyan); color: #000; box-shadow: 0 0 20px rgba(0,243,255,0.3); }
+        .tile-magenta .tile-buy-btn:hover { background: var(--glow-magenta); border-color: var(--glow-magenta); color: #fff; box-shadow: 0 0 20px rgba(255,0,127,0.3); }
+        .tile-gold .tile-buy-btn:hover { background: var(--glow-gold); border-color: var(--glow-gold); color: #000; box-shadow: 0 0 20px rgba(255,170,0,0.3); }
+
+        /* TELEMETRY STOCK LOGGER */
+        .live-status-hud {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim);
+            background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px 15px;
+            display: flex; align-items: center; gap: 8px; margin-top: auto;
+        }
+        .pulse-dot { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; }
+
+        @media (max-width: 900px) {
+            .super-wrapper { grid-template-columns: 1fr; }
+            .mega-tier-tile { grid-template-columns: 1fr; gap: 25px; }
+            .tile-pricing-buy { border-left: none; padding-left: 0; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; }
+            .tile-pricing-buy .tile-buy-btn { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="workspace-split">
+    <div class="super-wrapper">
         
-        <!-- SIDEBAR CONSOLE (LEFT) -->
-        <aside class="console-stream-deck">
-            <div class="console-header">
-                <h1>Data Pipeline Console</h1>
-                <p>&gt;_ SYSTEM_RECOVERY_NODE // ONLINE</p>
+        <!-- LEFT HOLOGRAPHIC CONTROL ROW -->
+        <div class="hologram-left-panel">
+            
+            <div class="glass-wallet-card">
+                <span>Account Metric Assets</span>
+                <h2 id="coin-balance-display">00 COINS</h2>
             </div>
 
-            <!-- AD MOUNT POINT DIRECT STREAM SECTOR -->
-            <div class="video-bay-frame">
-                <div class="video-placeholder-ui" id="video-ui-canvas">
-                    <i class="fas fa-satellite-dish"></i>
-                    <h3>Pipeline Stream Idle</h3>
-                    <p>Launch session verification node to sync account state vectors</p>
+            <div class="video-theater-node">
+                <div class="video-canvas-wrapper">
+                    <div class="video-custom-ui" id="video-canvas-overlay">
+                        <div class="glow-icon"><i class="fas fa-play"></i></div>
+                        <h3 style="font-family:'Space Grotesk'">Authorization Pipeline</h3>
+                        <p style="font-size:0.75rem; margin-top:4px;">Stream synchronization code for identity validation rewards</p>
+                    </div>
+                    <video id="glass-video-player" preload="auto" playsinline>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <video id="core-video-engine" preload="auto" playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <div>
-                <button class="stream-trigger-btn" id="watch-ad-btn" onclick="initiateConsoleVideoPayload()">
-                    SYNC VALIDATION LOOP (<span id="ads-left-display">5</span>/5)
-                </button>
-            </div>
-        </aside>
-
-        <!-- CONTROL PANEL WORKSPACE (RIGHT) -->
-        <main class="allocation-control-panel">
-            <header class="wallet-hud-row">
-                <div>
-                    <span>Available Liquidity Supply</span>
-                    <h2 id="coin-balance-display">0 COINS</h2>
-                </div>
-                <button class="buy-node-btn" onclick="window.location.href='index.html'" style="border-color: var(--neon-blue); color: var(--neon-blue);">
-                    <i class="fas fa-arrow-left"></i> Core Command
-                </button>
-            </header>
-
-            <!-- PACKAGE ITEMS LAYOUT SECTOR -->
-            <div style="display: flex; flex-direction: column; gap: 15px;">
                 
-                <!-- ROW ACCESS MODULE: WEEKLY LITE -->
-                <div class="terminal-row-item row-item-lite">
-                    <div class="meta-group">
-                        <h3 style="color: var(--neon-blue);">WEEKLY LITE</h3>
-                        <span>7 Day Node Framework Allocation</span>
-                    </div>
-                    <div class="features-inline-list">
-                        &gt; Access to 91 API Engines Matrix Deployment<br>
-                        &gt; Standard Pipeline Server Priority
-                    </div>
-                    <div class="pricing-action-box">
-                        <h4>10 <sub>CNS</sub></h4>
-                        <button class="buy-node-btn" onclick="executeSystemPurchase('Weekly Lite', 10, 7)">DEPLOY TIERS</button>
-                    </div>
-                </div>
+                <button class="super-action-btn" id="watch-ad-btn" onclick="triggerGlassVideoSession()">
+                    <i class="fas fa-bolt"></i> RUN SYNC TRANSMISSION (<span id="ads-left-display">5</span>/5)
+                </button>
 
-                <!-- ROW ACCESS MODULE: WEEKLY CORE -->
-                <div class="terminal-row-item row-item-weekly">
-                    <div class="meta-group">
-                        <h3 style="color: var(--neon-purple);">WEEKLY CORE</h3>
-                        <span>14 Day Node Framework Allocation</span>
-                    </div>
-                    <div class="features-inline-list">
-                        &gt; Complete Edge Server Architecture Access<br>
-                        &gt; High Capacity Network Pipeline Bandwidth
-                    </div>
-                    <div class="pricing-action-box">
-                        <h4>25 <sub>CNS</sub></h4>
-                        <button class="buy-node-btn" onclick="executeSystemPurchase('Weekly', 25, 14)">DEPLOY TIERS</button>
-                    </div>
+                <div class="live-status-hud">
+                    <div class="pulse-dot"></div>
+                    <span id="system-hud-log">Holographic network layer synced smoothly.</span>
                 </div>
-
-                <!-- ROW ACCESS MODULE: PRO CORE -->
-                <div class="terminal-row-item row-item-pro">
-                    <div class="meta-group">
-                        <h3 style="color: var(--neon-gold);">PRO MATRIX</h3>
-                        <span>30 Day Node Framework Allocation</span>
-                    </div>
-                    <div class="features-inline-list">
-                        &gt; Dedicated Pipeline Hardware Configuration<br>
-                        &gt; Zero Latency Request Bypasses Activated
-                    </div>
-                    <div class="pricing-action-box">
-                        <h4>50 <sub>CNS</sub></h4>
-                        <button class="buy-node-btn" onclick="executeSystemPurchase('Pro', 50, 30)">DEPLOY TIERS</button>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- TELEMETRY RUNTIME ACTIVITY CONSOLE FEED -->
-            <div class="terminal-log-output" id="live-terminal-logs">
-                [SYSTEM] Ready for state processing parameters...
+        </div>
+
+        <!-- RIGHT TALL VIEW LARGE CARDS CONTAINER -->
+        <div class="tiles-right-container">
+            
+            <!-- MEGA CARD: WEEKLY LITE -->
+            <div class="mega-tier-tile tile-cyan">
+                <div class="tile-details">
+                    <h3 style="color: var(--glow-cyan);">WEEKLY LITE</h3>
+                    <p>7-Day Secure High Priority Server Allocation</p>
+                    <ul class="tile-perks">
+                        <li><i class="fas fa-check" style="color: var(--glow-cyan);"></i> 91 Native API Engines Fully Assembled</li>
+                        <li><i class="fas fa-check" style="color: var(--glow-cyan);"></i> Modular Pipeline Cloud Architecture</li>
+                    </ul>
+                </div>
+                <div class="tile-pricing-buy">
+                    <h4>10 <sub>CNS</sub></h4>
+                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Weekly Lite', 10, 7)">REDEEM</button>
+                </div>
             </div>
-        </main>
+
+            <!-- MEGA CARD: WEEKLY CORE -->
+            <div class="mega-tier-tile tile-magenta">
+                <div class="tile-details">
+                    <h3 style="color: var(--glow-magenta);">WEEKLY CORE</h3>
+                    <p>14-Day Full Access Infrastructure Blueprint</p>
+                    <ul class="tile-perks">
+                        <li><i class="fas fa-check" style="color: var(--glow-magenta);"></i> Inherits All Weekly Lite Cloud Matrices</li>
+                        <li><i class="fas fa-check" style="color: var(--glow-magenta);"></i> Infinite High-Bandwidth Injections</li>
+                    </ul>
+                </div>
+                <div class="tile-pricing-buy">
+                    <h4>25 <sub>CNS</sub></h4>
+                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Weekly', 25, 14)">REDEEM</button>
+                </div>
+            </div>
+
+            <!-- MEGA CARD: PRO MATRIX -->
+            <div class="mega-tier-tile tile-gold">
+                <div class="tile-details">
+                    <h3 style="color: var(--glow-gold);">PRO MATRIX</h3>
+                    <p>30-Day Sovereign High Performance Cluster</p>
+                    <ul class="tile-perks">
+                        <li><i class="fas fa-check" style="color: var(--glow-gold);"></i> Ultimate Priority Hardware Sockets</li>
+                        <li><i class="fas fa-check" style="color: var(--glow-gold);"></i> Zero Wait Time API Request Overrides</li>
+                    </ul>
+                </div>
+                <div class="tile-pricing-buy">
+                    <h4>50 <sub>CNS</sub></h4>
+                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Pro', 50, 30)">REDEEM</button>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
@@ -349,11 +304,11 @@
         let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
 
         window.onload = () => {
-            validateDailyAdReset();
-            syncStoreBalances();
+            checkDailySystemReset();
+            syncGlassMetrics();
         };
 
-        function validateDailyAdReset() {
+        function checkDailySystemReset() {
             const todayString = new Date().toDateString();
             if (lastAdReset !== todayString) {
                 adsWatchedToday = 0;
@@ -362,35 +317,36 @@
             }
         }
 
-        function syncStoreBalances() {
-            document.getElementById('coin-balance-display').textContent = `${coins} COINS`;
+        function syncGlassMetrics() {
+            document.getElementById('coin-balance-display').textContent = `${coins < 10 ? '0' + coins : coins} COINS`;
             document.getElementById('ads-left-display').textContent = 5 - adsWatchedToday;
             
             if (adsWatchedToday >= 5) {
                 document.getElementById('watch-ad-btn').disabled = true;
-                pushLogString("[SYSTEM] Daily transmission allowance limits reached. Core channels locked.");
+                document.getElementById('system-hud-log').textContent = "Daily authorization channels full. Return tomorrow.";
+                document.getElementById('system-hud-log').style.color = "var(--glow-magenta)";
             }
         }
 
-        function initiateConsoleVideoPayload() {
-            validateDailyAdReset();
+        function triggerGlassVideoSession() {
+            checkDailySystemReset();
             if (adsWatchedToday >= 5) return;
 
-            const video = document.getElementById('core-video-engine');
-            const placeholder = document.getElementById('video-ui-canvas');
+            const video = document.getElementById('glass-video-player');
+            const overlay = document.getElementById('video-canvas-overlay');
             const button = document.getElementById('watch-ad-btn');
 
-            placeholder.style.display = 'none';
+            overlay.style.display = 'none';
             video.style.display = 'block';
             button.disabled = true;
+            document.getElementById('system-hud-log').textContent = "Processing active timeline verification stream...";
 
-            pushLogString("[STREAM] Syncing validation loop vectors...");
             video.currentTime = 0;
             video.play();
 
             video.onended = () => {
                 video.style.display = 'none';
-                placeholder.style.display = 'flex';
+                overlay.style.display = 'flex';
                 button.disabled = false;
 
                 coins += 1;
@@ -398,18 +354,18 @@
                 localStorage.setItem(`v_coins_${user}`, coins);
                 localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
                 
-                pushLogString(`[SUCCESS] Block verified. +1 Coin added to node profile.`);
-                syncStoreBalances();
+                document.getElementById('system-hud-log').textContent = "Identity confirmed successfully. +1 Coin injected.";
+                syncGlassMetrics();
             };
         }
 
-        function executeSystemPurchase(planName, cost, days) {
+        function processPremiumPurchase(planName, cost, days) {
             if (coins < cost) {
-                pushLogString(`[ERROR] Transaction aborted. Deficit index: ${cost - coins} coins.`);
-                return alert("Insufficient coin inventory.");
+                document.getElementById('system-hud-log').textContent = `Transaction Denied: Lacking ${cost - coins} coins.`;
+                return alert("Insufficient coin inventory inside this node.");
             }
 
-            if (confirm(`Approve system balance drop of ${cost} coins to load framework profile: ${planName}?`)) {
+            if (confirm(`Authorize validation drop of ${cost} coins to load the ${planName} server configuration?`)) {
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
@@ -418,15 +374,10 @@
                 localStorage.setItem(`v_plan_duration_${user}`, runtimeExtension);
                 localStorage.removeItem(`v-key_expired_${user}`);
 
-                syncStoreBalances();
-                pushLogString(`[PROFILE] Active structural state written: ${planName}`);
-                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+                syncGlassMetrics();
+                alert(`Configuration successfully written. Enjoy ${planName} access.`);
+                window.location.href = 'index.html';
             }
-        }
-
-        function pushLogString(str) {
-            const output = document.getElementById('live-terminal-logs');
-            output.innerHTML = `${str}<br>${output.innerHTML}`;
         }
     </script>
 </body>
