@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Core Premium Store Node</title>
+    <title>VajiraOfficial | Core Premium Node Matrix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #020205;
-            --surface: rgba(10, 10, 18, 0.45);
-            --border: rgba(0, 243, 255, 0.15);
+            --bg: #05050a;
+            --surface: rgba(13, 13, 25, 0.7);
+            --border: rgba(0, 243, 255, 0.2);
             --accent: #00f3ff;
-            --accent-glow: rgba(0, 243, 255, 0.3);
-            --primary: #9d4edd;
-            --primary-glow: rgba(157, 78, 221, 0.3);
-            --premium: #ff9e00;
-            --premium-glow: rgba(255, 158, 0, 0.3);
-            --text: #f1f5f9;
+            --accent-glow: rgba(0, 243, 255, 0.4);
+            --primary: #c77dff;
+            --premium: #ffb703;
+            --text: #f8fafc;
             --text-dim: #64748b;
             --success: #10b981;
             --error: #f43f5e;
-            --panel-glare: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,247 +27,237 @@
             color: var(--text);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            padding: 50px 20px;
         }
 
-        /* AMBIENT BACKGROUND GLOW MATRIX */
-        body::before, body::after {
-            content: ''; position: fixed; width: 400px; height: 400px; border-radius: 50%; z-index: -1; filter: blur(120px); opacity: 0.15; pointer-events: none;
-        }
-        body::before { top: -10%; left: -10%; background: var(--accent); }
-        body::after { bottom: -10%; right: -10%; background: var(--primary); }
+        .container { max-width: 1000px; margin: 0 auto; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 2; }
-        
-        /* HEADER TRANSITION PANEL */
-        .store-header {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 30px 40px; border-radius: 24px; margin-bottom: 40px;
+        /* HEADER HUD CONTAINER */
+        .hud-header {
+            background: var(--surface); border: 2px solid var(--border);
+            padding: 35px; border-radius: 24px; margin-bottom: 40px;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            animation: slideDownFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.05);
         }
-        .store-title h1 { font-family: 'Cinzel', serif; font-size: 1.8rem; letter-spacing: 2px; background: linear-gradient(90deg, #fff, var(--text-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .store-title p { color: var(--text-dim); font-size: 0.85rem; margin-top: 6px; letter-spacing: 0.5px; }
+        .hud-title h1 { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem; letter-spacing: 2px; text-shadow: 0 0 15px var(--accent-glow); }
+        .hud-title p { color: var(--text-dim); font-size: 0.85rem; margin-top: 5px; }
         
-        .wallet-card {
-            background: rgba(2, 2, 5, 0.8); border: 1px solid var(--border);
-            padding: 14px 28px; border-radius: 16px; text-align: right;
-            position: relative; overflow: hidden; transition: 0.3s;
+        .wallet-node {
+            background: #000; border: 1px solid var(--border);
+            padding: 15px 30px; border-radius: 16px; text-align: center;
+            box-shadow: inset 0 0 15px rgba(0,243,255,0.1);
         }
-        .wallet-card::before { content: ''; position: absolute; inset: 0; background: var(--panel-glare); pointer-events: none; }
-        .wallet-card:hover { border-color: var(--accent); box-shadow: 0 0 25px var(--accent-glow); }
-        .wallet-card span { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
-        .wallet-card h3 { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 1.8rem; font-weight: 700; margin-top: 4px; text-shadow: 0 0 10px var(--accent-glow); }
+        .wallet-node span { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+        .wallet-node h3 { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 1.8rem; margin-top: 4px; }
 
-        /* LIVE TELEMETRY TICKER */
-        .live-ticker {
-            background: rgba(10, 10, 18, 0.2); border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 30px; padding: 10px 25px; margin-bottom: 30px;
-            display: flex; align-items: center; gap: 15px; font-size: 0.8rem; color: var(--text-dim);
+        /* BROADCAST PLATFORM DECK (ADS) */
+        .broadcast-deck {
+            background: linear-gradient(90deg, rgba(13,13,25,0.9) 0%, rgba(5,5,10,0.4) 100%);
+            border: 2px dashed var(--accent); border-radius: 24px; padding: 35px;
+            margin-bottom: 50px; display: flex; justify-content: space-between; align-items: center;
         }
-        .ticker-pulse { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); animation: pulseGlow 1.5s infinite; }
+        .broadcast-meta h2 { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
+        .broadcast-meta p { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
 
-        /* RECOVERY MINING CONTAINER */
-        .mining-bay {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-            padding: 30px; margin-bottom: 50px; backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden;
-            animation: slideDownFade 1s cubic-bezier(0.16, 1, 0.3, 1);
+        /* METHOD 2: MASSIVE WIDE-BLADE CARD MATRIX EXPOSURE */
+        .showcase-column { display: flex; flex-direction: column; gap: 30px; }
+        
+        .blade-card {
+            background: var(--surface); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px; padding: 40px; display: flex; align-items: center;
+            justify-content: space-between; position: relative; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
         }
-        .mining-bay::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--accent); }
-        .mining-meta h2 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; }
-        .mining-meta p { color: var(--text-dim); font-size: 0.85rem; margin-top: 6px; }
-        
-        /* CARD MATRIX CAROUSEL GRID */
-        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; opacity: 0; animation: fadeInUp 0.8s 0.2s forwards cubic-bezier(0.16, 1, 0.3, 1); }
-        .plan-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 28px; padding: 45px 35px; text-align: center;
-            position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        .blade-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(125deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+            pointer-events: none;
         }
-        .plan-card::before { content: ''; position: absolute; inset: 0; background: var(--panel-glare); pointer-events: none; }
-        .plan-card:hover { transform: translateY(-10px); background: rgba(15, 15, 30, 0.6); }
         
-        /* SPECIFIC CARD STYLING STATES */
-        .tier-lite:hover { border-color: var(--accent); box-shadow: 0 20px 40px -10px var(--accent-glow); }
-        .tier-weekly { border-color: rgba(157, 78, 221, 0.2); }
-        .tier-weekly:hover { border-color: var(--primary); box-shadow: 0 20px 40px -10px var(--primary-glow); }
-        .tier-pro { border-color: rgba(255, 158, 0, 0.25); }
-        .tier-pro:hover { border-color: var(--premium); box-shadow: 0 20px 40px -10px var(--premium-glow); }
-        
-        .tag-pop { position: absolute; top: 20px; right: 25px; background: rgba(255,158,0,0.15); border: 1px solid var(--premium); color: var(--premium); font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
+        /* HOVER BLADE EXPANSION ANIMATION */
+        .blade-card:hover {
+            transform: scale(1.02);
+            background: rgba(20, 20, 35, 0.8);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .blade-lite:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(0,243,255,0.15); }
+        .blade-weekly:hover { border-color: var(--primary); box-shadow: 0 0 30px rgba(199,125,255,0.15); }
+        .blade-pro { border: 1px solid rgba(255, 183, 3, 0.15); }
+        .blade-pro:hover { border-color: var(--premium); box-shadow: 0 0 40px rgba(255,183,3,0.2); }
 
-        .plan-name { font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-        .plan-duration { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 30px; }
-        
-        .plan-cost { font-family: 'JetBrains Mono'; font-size: 3rem; font-weight: 700; color: #fff; margin-bottom: 35px; position: relative; }
-        .plan-cost sub { font-size: 0.85rem; color: var(--text-dim); font-family: 'Plus Jakarta Sans'; bottom: 0; margin-left: 4px; }
-        
-        .plan-features { list-style: none; text-align: left; margin-bottom: 40px; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
-        .plan-features li { margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-        .plan-features li i { font-size: 0.9rem; }
+        /* INNER BLADE SEGMENTS */
+        .blade-left { flex: 1; }
+        .blade-center { flex: 1.2; padding: 0 30px; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); }
+        .blade-right { flex: 0.8; display: flex; flex-direction: column; align-items: flex-end; padding-left: 30px; }
 
-        /* BUTTON INTERFACES WITH RADIAL HOVER EFFECTS */
-        .btn {
-            width: 100%; border: none; padding: 16px; border-radius: 16px;
-            font-family: inherit; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.5px;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .tier-label { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px; }
+        .tier-duration { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        
+        .feature-stack { list-style: none; font-size: 0.85rem; color: #94a3b8; }
+        .feature-stack li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .feature-stack li:last-child { margin-bottom: 0; }
+        .feature-stack i { font-size: 0.8rem; }
+
+        .cost-display { font-family: 'JetBrains Mono'; font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 15px; }
+        .cost-display sub { font-size: 0.85rem; font-family: 'Plus Jakarta Sans'; color: var(--text-dim); }
+
+        /* UI BUTTON IMPLEMENTATIONS */
+        .action-btn {
+            width: 100%; border: none; padding: 16px 24px; border-radius: 16px;
+            font-family: inherit; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.5px;
+            cursor: pointer; transition: all 0.3s; text-transform: uppercase;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            position: relative; overflow: hidden;
         }
-        .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.1), transparent); opacity: 0; transition: 0.3s; }
-        .btn:hover::before { opacity: 1; }
+        .btn-accent { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,243,255,0.2); }
+        .btn-accent:hover { background: #fff; box-shadow: 0 0 25px #fff; }
         
-        .btn-lite { background: rgba(0, 243, 255, 0.1); color: var(--accent); border: 1px solid rgba(0, 243, 255, 0.3); }
-        .btn-lite:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); }
+        .btn-primary { background: var(--primary); color: #000; }
+        .btn-primary:hover { background: #e0aaff; box-shadow: 0 0 25px #e0aaff; }
         
-        .btn-weekly { background: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3); }
-        .btn-weekly:hover { background: #b5179e; box-shadow: 0 0 25px rgba(181, 23, 158, 0.5); }
+        .btn-premium { background: var(--premium); color: #000; }
+        .btn-premium:hover { background: #ffe3a8; box-shadow: 0 0 25px #ffe3a8; }
         
-        .btn-pro { background: var(--premium); color: #000; font-weight: 800; box-shadow: 0 4px 15px rgba(255, 158, 0, 0.3); }
-        .btn-pro:hover { background: #ffb703; box-shadow: 0 0 25px rgba(255, 183, 3, 0.5); }
-        
-        .btn:disabled { background: #0f111a !important; color: #334155 !important; border: 1px solid rgba(255,255,255,0.02) !important; cursor: not-allowed; box-shadow: none !important; }
-        .btn:disabled::before { display: none; }
+        .action-btn:disabled { background: #141424 !important; color: #334155 !important; border: 1px solid rgba(255,255,255,0.02) !important; cursor: not-allowed; box-shadow: none !important; }
 
-        /* ANATOMY OF CINEMATIC IMMERSIVE OVERLAY */
-        .video-overlay {
-            position: fixed; inset: 0; background: rgba(2,2,5,0.98); z-index: 9999;
+        /* REAL VIDEO OVERLAY CONTROLLER LAYER */
+        .video-player-overlay {
+            position: fixed; inset: 0; background: rgba(2,2,5,0.98); z-index: 99999;
             display: none; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
         }
-        .cinema-vault { text-align: center; max-width: 500px; padding: 20px; width: 100%; }
+        .video-viewport-wrapper {
+            width: 90%; max-width: 720px; background: #000; border-radius: 24px;
+            overflow: hidden; border: 2px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .video-viewport-wrapper video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
         
-        /* HOLLOW CIRCULAR TIMER RADIAL PIPELINE */
-        .radial-progress-box { position: relative; width: 140px; height: 140px; margin: 0 auto 35px; }
-        .radial-progress-box svg { transform: rotate(-90deg); width: 140px; height: 140px; }
-        .radial-progress-box circle { fill: none; stroke-width: 6; stroke-linecap: round; }
-        .radial-progress-box circle.bg-track { stroke: rgba(255,255,255,0.03); }
-        .radial-progress-box circle.prog-track {
-            stroke: var(--accent);
-            stroke-dasharray: 402;
-            stroke-dashoffset: 402;
-            transition: stroke-dashoffset 1s linear;
+        .video-watermark-lock {
+            position: absolute; top: 25px; left: 25px; background: rgba(0,0,0,0.6);
+            padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem; font-family: 'JetBrains Mono'; display: flex; align-items: center; gap: 8px;
         }
-        .timer-center-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 1.8rem; font-weight: 700; color: #fff; }
+        .live-dot { width: 6px; height: 6px; background: var(--error); border-radius: 50%; animation: pulse 1s infinite alternate; }
 
-        .cinema-meta-title { font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-        .cinema-console-box {
-            background: #000; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
-            padding: 15px; margin-top: 25px; height: 80px; overflow-y: hidden;
-            font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--text-dim); text-align: left;
-        }
+        @keyframes pulse { from { opacity: 0.3; } to { opacity: 1; } }
 
-        /* KEYFRAME ANNOUNCEMENTS */
-        @keyframes slideDownFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-        @media (max-width: 900px) {
-            .plans-grid { grid-template-columns: 1fr; gap: 25px; }
-            .store-header, .mining-bay { flex-direction: column; gap: 25px; text-align: center; }
-            .wallet-card { text-align: center; width: 100%; }
+        @media (max-width: 850px) {
+            .blade-card { flex-direction: column; text-align: center; gap: 25px; padding: 30px; }
+            .blade-center { border-left: none; border-right: none; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 20px 0; width: 100%; }
+            .blade-right { padding-left: 0; align-items: center; width: 100%; }
+            .hud-header, .broadcast-deck { flex-direction: column; text-align: center; gap: 20px; }
+            .wallet-node { width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- GLOBAL IMMERSION INTERFACE TIMELINE HEADER -->
-        <header class="store-header">
-            <div class="store-title">
-                <h1>CORE LIQUIDITY SYSTEM</h1>
-                <p>Convert neural validation streams into structural server framework extensions</p>
+        <!-- TOP HUD SYSTEM INFRASTRUCTURE -->
+        <header class="hud-header">
+            <div class="hud-title">
+                <h1>CREDIT ROUTING HUB</h1>
+                <p>Acquire infrastructure access tokens safely using validated account parameters</p>
             </div>
-            <div class="wallet-card">
-                <span>Account Balance Matrix</span>
+            <div class="wallet-node">
+                <span>LIQUID METRIC BALANCE</span>
                 <h3 id="coin-balance-display">0 COINS</h3>
             </div>
         </header>
 
-        <div class="live-ticker">
-            <div class="ticker-pulse"></div>
-            <div id="live-ticker-msg">Node transaction pipeline ready. Ready to synchronize state profiles.</div>
-        </div>
-
-        <!-- RECOVERY BAY (ADS INTERACTION) -->
-        <section class="mining-bay">
-            <div class="mining-meta">
-                <h2>AD-STREAM INBOUND PIPELINE</h2>
-                <p id="ad-status-text">Synchronize with validation streams to recover framework assets. Payload conversion: +1 Coin.</p>
+        <!-- VIDEO STREAMING INJECTION ROW -->
+        <section class="broadcast-deck">
+            <div class="broadcast-meta">
+                <h2>VERIFICATION TELEMETRY STREAM</h2>
+                <p id="ad-status-text">Stream real-time authorization footage to confirm security context. Allocation rate: +1 Coin.</p>
             </div>
             <div style="min-width: 240px;">
-                <button class="btn btn-lite" id="watch-ad-btn" onclick="triggerAdStream()">
-                    <i class="fas fa-bolt"></i> STREAM SESSION (<span id="ads-left-display">5</span>/5)
+                <button class="action-btn btn-accent" id="watch-ad-btn" onclick="openCinematicVideo()">
+                    <i class="fas fa-play-circle"></i> LAUNCH VIDEO (<span id="ads-left-display">5</span>/5)
                 </button>
             </div>
         </section>
 
-        <!-- CARDS DISPLAY SYSTEM -->
-        <main class="plans-grid">
-            <!-- WEEKLY LITE -->
-            <div class="plan-card tier-lite">
-                <div class="plan-name" style="color: var(--accent);">WEEKLY LITE</div>
-                <span class="plan-duration">7 Day System Allocation</span>
-                <div class="plan-cost">10 <sub>COINS</sub></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-circle-nodes" style="color:var(--accent)"></i> 91 API Engines Matrix Access</li>
-                    <li><i class="fas fa-circle-nodes" style="color:var(--accent)"></i> Edge Routing Execution Nodes</li>
-                    <li><i class="fas fa-circle-nodes" style="color:var(--accent)"></i> Standard Pipeline Priority</li>
-                </ul>
-                <button class="btn btn-lite" onclick="purchasePlan('Weekly Lite', 10, 7)">REDEEM PACKAGE</button>
+        <!-- METHOD 2: WIDE-BLADE DISPLAY INFRASTRUCTURE PANELS -->
+        <main class="showcase-column">
+            
+            <!-- BLADE PACKAGE: WEEKLY LITE -->
+            <div class="blade-card blade-lite">
+                <div class="blade-left">
+                    <div class="tier-label" style="color: var(--accent);">WEEKLY LITE</div>
+                    <span class="tier-duration">7 Days Server Validation</span>
+                </div>
+                <div class="blade-center">
+                    <ul class="feature-stack">
+                        <li><i class="fas fa-microchip" style="color:var(--accent)"></i> Complete 91 API Engines Matrix Deployment</li>
+                        <li><i class="fas fa-shield-halved" style="color:var(--accent)"></i> Vercel Edge Server Framework Support</li>
+                    </ul>
+                </div>
+                <div class="blade-right">
+                    <div class="cost-display">10 <sub>COINS</sub></div>
+                    <button class="action-btn btn-accent" onclick="purchasePlan('Weekly Lite', 10, 7)">REDEEM UNIT</button>
+                </div>
             </div>
 
-            <!-- WEEKLY BASE -->
-            <div class="plan-card tier-weekly">
-                <div class="plan-name" style="color: var(--primary);">WEEKLY CORE</div>
-                <span class="plan-duration">14 Day System Allocation</span>
-                <div class="plan-cost">25 <sub>COINS</sub></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-bolt" style="color:var(--primary)"></i> Integrated Weekly Lite Infrastructure</li>
-                    <li><i class="fas fa-bolt" style="color:var(--primary)"></i> High-Capacity Bandwidth Matrix</li>
-                    <li><i class="fas fa-bolt" style="color:var(--primary)"></i> Extended Node Runtime Blocks</li>
-                </ul>
-                <button class="btn btn-weekly" onclick="purchasePlan('Weekly', 25, 14)">REDEEM PACKAGE</button>
+            <!-- BLADE PACKAGE: WEEKLY CORE -->
+            <div class="blade-card blade-weekly">
+                <div class="blade-left">
+                    <div class="tier-label" style="color: var(--primary);">WEEKLY CORE</div>
+                    <span class="tier-duration">14 Days Server Validation</span>
+                </div>
+                <div class="blade-center">
+                    <ul class="feature-stack">
+                        <li><i class="fas fa-bolt" style="color:var(--primary)"></i> Inherits All Weekly Lite Functionality Matrix</li>
+                        <li><i class="fas fa-network-wired" style="color:var(--primary)"></i> Unrestricted Edge Transmission Bandwidth</li>
+                    </ul>
+                </div>
+                <div class="blade-right">
+                    <div class="cost-display">25 <sub>COINS</sub></div>
+                    <button class="action-btn btn-primary" onclick="purchasePlan('Weekly', 25, 14)">REDEEM UNIT</button>
+                </div>
             </div>
 
-            <!-- PRO MATRIX -->
-            <div class="plan-card tier-pro">
-                <div class="tag-pop">ULTIMATE</div>
-                <div class="plan-name" style="color: var(--premium);">PRO MATRIX</div>
-                <span class="plan-duration">30 Day System Allocation</span>
-                <div class="plan-cost">50 <sub>COINS</sub></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-crown" style="color:var(--premium)"></i> High-Tier Dedicated Infrastructure</li>
-                    <li><i class="fas fa-crown" style="color:var(--premium)"></i> Ultra-Low Execution Latency Nodes</li>
-                    <li><i class="fas fa-crown" style="color:var(--premium)"></i> 24/7 Sandbox Maintenance Bounds</li>
-                </ul>
-                <button class="btn btn-pro" onclick="purchasePlan('Pro', 50, 30)">REDEEM PACKAGE</button>
+            <!-- BLADE PACKAGE: PRO MATRIX -->
+            <div class="blade-card blade-pro">
+                <div class="blade-left">
+                    <div class="tier-label" style="color: var(--premium);">PRO MATRIX</div>
+                    <span class="tier-duration">30 Days Server Validation</span>
+                </div>
+                <div class="blade-center">
+                    <ul class="feature-stack">
+                        <li><i class="fas fa-crown" style="color:var(--premium)"></i> Maximum Priority Level Hardware Sockets</li>
+                        <li><i class="fas fa-terminal" style="color:var(--premium)"></i> Zero Latency Request Throttle Bypasses</li>
+                    </ul>
+                </div>
+                <div class="blade-right">
+                    <div class="cost-display">50 <sub>COINS</sub></div>
+                    <button class="action-btn btn-premium" onclick="purchasePlan('Pro', 50, 30)">REDEEM UNIT</button>
+                </div>
             </div>
+
         </main>
     </div>
 
-    <!-- CINEMATIC LOADING LAYER OVERLAY -->
-    <div class="video-overlay" id="video-engine-overlay">
-        <div class="cinema-vault">
-            <div class="radial-progress-box">
-                <svg>
-                    <circle class="bg-track" cx="70" cy="70" r="64"></circle>
-                    <circle class="prog-track" id="radial-progress-bar" cx="70" cy="70" r="64"></circle>
-                </svg>
-                <div class="timer-center-text" id="video-countdown-text">10</div>
+    <!-- ACTUAL VIDEO PLAYER LAYER CORE -->
+    <div class="video-player-overlay" id="video-player-overlay">
+        <div class="video-viewport-wrapper">
+            <div class="video-watermark-lock">
+                <div class="live-dot"></div>
+                <span>SECURITY STREAM VALIDATION MODE</span>
             </div>
-            <h3 class="cinema-meta-title">Processing External Validation Node</h3>
-            <p style="color: var(--text-dim); font-size: 0.8rem;">Maintain dynamic view matrix visibility during data streaming</p>
             
-            <div class="cinema-console-box" id="cinema-console-logs">
-                &gt; Establishing secure interface socket...<br>
-            </div>
+            <!-- Standard dynamic HTML5 player engine architecture with loop controls suppressed -->
+            <video id="security-video-engine" preload="auto" playsinline>
+                <!-- Replace with your chosen direct mp4 stream url asset -->
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
+                Your browser structure lacks native video asset execution compatibility.
+            </video>
         </div>
+        <p style="margin-top: 25px; font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--text-dim);" id="player-hud-prompt">
+            Watch carefully. The system completes payload conversion when the timeline reaches 100%.
+        </p>
     </div>
 
     <script>
@@ -280,31 +267,10 @@
         let adsWatchedToday = parseInt(localStorage.getItem(`v_ads_watched_${user}`)) || 0;
         let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
 
-        const logPhrases = [
-            "> Requesting authorization tokens...",
-            "> Compiling local account state data...",
-            "> Stream link confirmed by secondary server...",
-            "> Rendering payload allocation assets...",
-            "> Finalizing configuration nodes..."
-        ];
-
         window.onload = () => {
             validateDailyAdReset();
             syncStoreBalances();
-            simulateLiveTicker();
         };
-
-        function simulateLiveTicker() {
-            const tickers = [
-                "Node user_x78 redeemed Pro Matrix payload",
-                "Validation pipeline execution state stable",
-                "Network load matrix reading within standard levels"
-            ];
-            setInterval(() => {
-                const msg = tickers[Math.floor(Math.random() * tickers.length)];
-                document.getElementById('live-ticker-msg').textContent = msg;
-            }, 6000);
-        }
 
         function validateDailyAdReset() {
             const todayString = new Date().toDateString();
@@ -321,64 +287,45 @@
             
             if (adsWatchedToday >= 5) {
                 document.getElementById('watch-ad-btn').disabled = true;
-                document.getElementById('ad-status-text').innerHTML = `<span style="color:var(--error); font-weight:600;">DAILY MAXIMUM CAP ACHIEVED:</span> Come back tomorrow to generate more credits.`;
+                document.getElementById('ad-status-text').innerHTML = `<span style="color:var(--error); font-weight:800;">DAILY RESOURCE TIERS DEPLETED:</span> Return tomorrow for credit generation limits expansion.`;
             }
         }
 
-        function triggerAdStream() {
+        function openCinematicVideo() {
             validateDailyAdReset();
             if (adsWatchedToday >= 5) return;
 
-            const overlay = document.getElementById('video-engine-overlay');
-            const countdownText = document.getElementById('video-countdown-text');
-            const progressBar = document.getElementById('radial-progress-bar');
-            const consoleLogs = document.getElementById('cinema-console-logs');
-            
+            const overlay = document.getElementById('video-player-overlay');
+            const video = document.getElementById('security-video-engine');
+            const hudPrompt = document.getElementById('player-hud-prompt');
+
             overlay.style.display = 'flex';
-            consoleLogs.innerHTML = "> Spawning virtual security pipeline instances...<br>";
+            video.currentTime = 0;
+            video.play().catch(err => {
+                hudPrompt.innerHTML = `<span style="color:var(--error)">Execution error: Please click inside viewport to confirm browser audio/video codecs bypass.</span>`;
+                overlay.addEventListener('click', () => { video.play(); }, {once: true});
+            });
 
-            let totalTime = 10;
-            let timeLeft = totalTime;
-            
-            countdownText.textContent = timeLeft;
-            progressBar.style.strokeDashoffset = 0;
-
-            const streamInterval = setInterval(() => {
-                timeLeft--;
-                countdownText.textContent = timeLeft;
+            // Monitor video completion securely via native event listener hooks
+            video.onended = () => {
+                overlay.style.display = 'none';
                 
-                // Calculate radial offset percentage
-                const offset = 402 - (402 * (totalTime - timeLeft)) / totalTime;
-                progressBar.style.strokeDashoffset = offset;
-
-                // Push fake runtime data logs into console block
-                if (timeLeft % 2 === 0 && logPhrases[timeLeft/2]) {
-                    consoleLogs.innerHTML += `${logPhrases[timeLeft/2]}<br>`;
-                }
-
-                if (timeLeft <= 0) {
-                    clearInterval(streamInterval);
-                    overlay.style.display = 'none';
-                    
-                    coins += 1;
-                    adsWatchedToday += 1;
-                    localStorage.setItem(`v_coins_${user}`, coins);
-                    localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
-                    
-                    syncStoreBalances();
-                    createDynamicNotification("+1 Coin added to balance card.");
-                }
-            }, 1000);
+                coins += 1;
+                adsWatchedToday += 1;
+                localStorage.setItem(`v_coins_${user}`, coins);
+                localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
+                
+                syncStoreBalances();
+                alert("Authorization stream processed successfully! +1 Coin allocated to system registry.");
+            };
         }
 
         function purchasePlan(planName, cost, days) {
             if (coins < cost) {
-                return createDynamicNotification(`Insufficient coin inventory. Required: ${cost}`, true);
+                return alert(`Transaction Refused: Insufficient local node token supply. balance requirement: ${cost}`);
             }
 
-            // High-end custom modal injection overlay replacement for native ugly blocks
-            const userConfirmed = confirm(`Authorize validation charge of ${cost} coins to redeem the ${planName} interface framework?`);
-            if (userConfirmed) {
+            if (confirm(`Approve allocation parameters of ${cost} coins to redeem system tier ${planName}?`)) {
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
@@ -388,29 +335,9 @@
                 localStorage.removeItem(`v-key_expired_${user}`);
 
                 syncStoreBalances();
-                createDynamicNotification(`Plan configured: ${planName} active.`);
-                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+                alert(`Configuration Profile Loaded: Plan ${planName} is now active.`);
+                window.location.href = 'index.html'; 
             }
-        }
-
-        function createDynamicNotification(text, isError = false) {
-            const toast = document.createElement('div');
-            toast.style.position = 'fixed';
-            toast.style.bottom = '30px';
-            toast.style.right = '30px';
-            toast.style.background = isError ? 'var(--error)' : 'var(--accent)';
-            toast.style.color = isError ? '#fff' : '#000';
-            toast.style.padding = '15px 25px';
-            toast.style.borderRadius = '12px';
-            toast.style.fontFamily = 'inherit';
-            toast.style.fontWeight = '700';
-            toast.style.fontSize = '0.85rem';
-            toast.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-            toast.style.zIndex = '100000';
-            toast.style.animation = 'fadeInUp 0.3s forwards';
-            toast.textContent = text;
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3000);
         }
     </script>
 </body>
