@@ -407,6 +407,32 @@
 </button>
     </aside>
 
+
+
+
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 20px 0;">
+    <div id="api-key-container" style="
+        background: var(--surface);
+        padding: 20px 30px;
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        box-shadow: 0 0 15px var(--neon-glow);
+        text-align: center;
+        max-width: 80%;
+        backdrop-filter: blur(10px);
+    ">
+        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px;">
+            Your Access Status
+        </div>
+        <span id="api-key-status" style="font-family: 'JetBrains Mono'; font-size: 1.1rem; color: var(--text);">
+            INITIALIZING...
+        </span>
+    </div>
+</div>
+
+
+    
+    
     <main class="main-container">
         
         <div class="global-access-bar">
@@ -414,13 +440,10 @@
                 <i class="fas fa-crown"></i> PREMIUM API KEY
             </button>
         </div>
-
-<div id="api-key-container" style="padding: 15px; border: 1px solid var(--border); border-radius: 8px;">
-    <span id="api-key-status" style="font-family: 'JetBrains Mono'; color: var(--text-dim);">
-        INITIALIZING...
-    </span>
-</div>
         
+
+
+
         
         <section id="home-page" class="page">
             <div class="home-mainframe-section">
@@ -883,25 +906,30 @@ async function handleResetRequest(e) {
 
 function updateTrialDisplay() {
     const user = localStorage.getItem('v_auth_user');
-    if (!user) return;
-
-    const startTime = localStorage.getItem(`v_trial_start_${user}`);
     const statusDisplay = document.getElementById('api-key-status');
+    const startTime = localStorage.getItem(`v_trial_start_${user}`);
     const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
 
-    if (startTime) {
-        const elapsed = Date.now() - parseInt(startTime);
-        
-        if (elapsed >= THREE_DAYS) {
-            // EXPIRED STATE
-            statusDisplay.innerHTML = `<span style="color:var(--error)">API KEY EXPIRED. Please buy Premium API Key.</span>`;
-            // Automatically open premium modal
-            openPremiumModal(); 
-        } else {
-            // ACTIVE STATE
-            const key = localStorage.getItem('v-key');
-            statusDisplay.innerHTML = `YOUR FREE TRIAL KEY: <br><span style="color:var(--accent)">${key}</span>`;
-        }
+    if (!startTime) return;
+
+    const elapsed = Date.now() - parseInt(startTime);
+
+    if (elapsed >= THREE_DAYS) {
+        // EXPIRED LOOK
+        statusDisplay.innerHTML = `
+            <div style="color: var(--error); font-weight: bold;">
+                <i class="fas fa-exclamation-triangle"></i> TRIAL EXPIRED
+            </div>
+            <div style="font-size: 0.9rem; margin-top: 5px;">Please upgrade to a Premium API Key.</div>
+        `;
+        openPremiumModal();
+    } else {
+        // ACTIVE LOOK
+        const key = localStorage.getItem('v-key') || "NO KEY FOUND";
+        statusDisplay.innerHTML = `
+            <div style="color: var(--accent); font-weight: bold;">TRIAL KEY ACTIVE</div>
+            <div style="color: var(--text); margin-top: 5px;">${key}</div>
+        `;
     }
 }
 
