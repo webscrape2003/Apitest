@@ -32,7 +32,7 @@
             padding: 20px;
         }
 
-        /* IMMERSIVE MAIN CONSOLE FRAME CONTAINER */
+        /* CONSOLE VIEWPORT BOX */
         .console-viewport {
             width: 100%;
             max-width: 1050px;
@@ -79,7 +79,6 @@
             position: relative;
         }
 
-        /* INLINE COMPACT SCREEN PLAYER AREA */
         .player-stage-box {
             display: flex;
             align-items: center;
@@ -91,14 +90,13 @@
             border: 1px solid var(--panel-border);
             overflow: hidden; position: relative;
         }
-        .video-box-frame video { width: 100%; height: 100%; object-fit: cover; display: none; }
         
         .video-box-fallback {
             position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center;
             background: radial-gradient(circle, #1a2a44 0%, #000 100%);
         }
-        .video-box-fallback i { color: #ff1744; font-size: 1.5rem; }
+        .video-box-fallback i { color: #ffcc00; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255,204,0,0.4); }
 
         .watch-action-btn {
             background-color: #fcd34d; color: #0b1424;
@@ -109,7 +107,7 @@
         .watch-action-btn:hover:not(:disabled) { background-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
         .watch-action-btn:disabled { background-color: #1e293b; color: #475569; cursor: not-allowed; }
 
-        /* THE FIVE STAGE REWARD PIPELINE HOVER NODES */
+        /* THE FIVE STAGE REWARD PIPELINE TRACKER */
         .rewards-tracker-module {
             display: flex; flex-direction: column; gap: 15px;
         }
@@ -140,7 +138,9 @@
         .milestone-node .node-popover {
             position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
             font-size: 0.65rem; color: var(--text-muted); white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity 0.2s;
         }
+        .milestone-node.claimed:hover .node-popover { opacity: 1; }
 
         /* ================= PREMIUM PLAN DECK GENERATORS ================= */
         .section-divider-title {
@@ -160,7 +160,6 @@
             text-align: center; position: relative;
         }
         
-        /* CARD CONDITIONAL OVERLAYS INDIVIDUALS */
         .tier-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
         .tier-card-header .icon-badge {
             width: 36px; height: 36px; border-radius: 50%;
@@ -192,7 +191,6 @@
         .btn-elite { background-color: #f59e0b; color: #000; }
         .purchase-action-trigger:hover { transform: translateY(-1px); filter: brightness(1.1); }
 
-        /* HUD LOWER NOTIFICATION BANNER FOOTER */
         .console-footer-msg {
             margin-top: 25px; text-align: center;
             background-color: rgba(17, 31, 53, 0.4);
@@ -201,7 +199,57 @@
             font-size: 0.75rem; color: #94a3b8;
         }
 
-        /* MOBILE VIEWPORTS MEDIA OVERRIDES */
+        /* ================= FULL SCREEN NATIVE AD SDK INTERSTITIAL MODAL ================= */
+        .ad-network-modal-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background-color: #000;
+            display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        
+        .ad-video-element {
+            width: 100%; height: 100%; object-fit: contain; background: #000;
+        }
+
+        /* REALISTIC AD OVERLAY HEAD CONTROLS */
+        .ad-hud-header-strip {
+            position: absolute; top: 0; left: 0; right: 0; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+            z-index: 10000; pointer-events: none;
+        }
+        .ad-badge-marker {
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+            padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 600;
+            color: #fff; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .ad-close-action-node {
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; font-weight: 700; cursor: pointer; pointer-events: auto;
+            transition: background 0.2s;
+        }
+        .ad-close-action-node.non-skippable {
+            cursor: not-allowed; color: #ffcc00; font-size: 0.85rem; font-family: monospace;
+        }
+
+        /* BOTTOM SPONSORED BANNER CARD LINK */
+        .ad-sponsored-action-footer {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 450px; background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); z-index: 10000;
+        }
+        .ad-app-meta h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .ad-app-meta p { font-size: 0.7rem; color: #94a3b8; }
+        .ad-install-btn {
+            background: #22c55e; color: #fff; border: none; padding: 10px 18px;
+            border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 868px) {
             .console-viewport { padding: 20px; }
             .ad-broker-panel { grid-template-columns: 1fr; gap: 20px; }
@@ -212,27 +260,44 @@
 </head>
 <body>
 
-    <!-- CONSOLE VIEWPORT BOX -->
+    <!-- INTERSTITIAL REAL AD SYSTEM CONTAINER MODAL LAYER -->
+    <div class="ad-network-modal-overlay" id="ad-sdk-overlay-modal">
+        <div class="ad-hud-header-strip">
+            <div class="ad-badge-marker">Sponsored Advertisement</div>
+            <!-- Dynamic Close Node Counter matching Mobile SDKs -->
+            <div class="ad-close-action-node non-skippable" id="ad-close-counter-btn">15</div>
+        </div>
+
+        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline muted>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
+        </video>
+
+        <div class="ad-sponsored-action-footer">
+            <div class="ad-app-meta">
+                <h4>VajiraOfficial Premium Bot Engine</h4>
+                <p>Deploy secure micro-architectures instantly.</p>
+            </div>
+            <button class="ad-install-btn" onclick="alert('Redirecting to secure installation package layer...')">Install</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONSOLE WRAPPER VIEWPORT -->
     <div class="console-viewport">
         
-        <!-- HEAD PLATFORM HEADER BAR -->
         <header class="console-navbar">
             <button class="back-nav-btn" onclick="window.location.href='index.html'"><i class="fas fa-chevron-left"></i></button>
             <h1>Premium Access Store</h1>
         </header>
 
-        <!-- FREE SYSTEM COINS BROKER ROW MAPPED FROM 1000211471.png -->
+        <!-- FREE COIN CONSOLE HUB -->
         <section class="ad-broker-panel">
             <div class="player-stage-box">
                 <div class="video-box-frame">
-                    <div class="video-box-fallback" id="video-fallback-icon">
-                        <i class="fas fa-play"></i>
+                    <div class="video-box-fallback">
+                        <i class="fas fa-play-circle"></i>
                     </div>
-                    <video id="native-video-core" preload="auto" playsinline>
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
-                    </video>
                 </div>
-                <button class="watch-action-btn" id="watch-ad-btn" onclick="executeNativeVideoSession()">Watch Ad</button>
+                <button class="watch-action-btn" id="watch-ad-btn" onclick="launchSecureNetworkAd()">Watch Ad</button>
             </div>
 
             <div class="rewards-tracker-module">
@@ -244,23 +309,20 @@
                     <div class="coin-count-hud">COINS: <span id="coin-balance-display">0/5</span></div>
                 </div>
 
-                <!-- FIVE NODES LINE MILESTONES STEPPERS TRACKER -->
                 <div class="milestone-row-nodes" id="nodes-row-wrapper">
-                    <div class="milestone-node locked">1<div class="node-popover"></div></div>
-                    <div class="milestone-node locked">2<div class="node-popover"></div></div>
-                    <div class="milestone-node locked">3<div class="node-popover"></div></div>
-                    <div class="milestone-node locked">4<div class="node-popover"></div></div>
-                    <div class="milestone-node locked">5<div class="node-popover"></div></div>
+                    <div class="milestone-node locked">1<div class="node-popover">Claimed +1 Coin</div></div>
+                    <div class="milestone-node locked">2<div class="node-popover">Claimed +1 Coin</div></div>
+                    <div class="milestone-node locked">3<div class="node-popover">Claimed +1 Coin</div></div>
+                    <div class="milestone-node locked">4<div class="node-popover">Claimed +1 Coin</div></div>
+                    <div class="milestone-node locked">5<div class="node-popover">Claimed +1 Coin</div></div>
                 </div>
             </div>
         </section>
 
-        <!-- PLANS TIERS SUBSECTION SECTION -->
         <div class="section-divider-title">Premium Plans</div>
 
         <main class="tier-grid-cards">
-            
-            <!-- PLAN MODULE CARDS: WEEKLY LITE -->
+            <!-- WEEKLY LITE -->
             <div class="tier-card">
                 <div class="tier-card-header">
                     <div class="icon-badge badge-lite"><i class="fas fa-feather"></i></div>
@@ -278,7 +340,7 @@
                 <button class="purchase-action-trigger btn-lite" onclick="commitConsolePurchase('Weekly Lite', 10, 7)">Unlock with 10 Coins</button>
             </div>
 
-            <!-- PLAN MODULE CARDS: WEEKLY PRO -->
+            <!-- WEEKLY PRO -->
             <div class="tier-card">
                 <div class="tier-card-header">
                     <div class="icon-badge badge-pro"><i class="fas fa-shield-halved"></i></div>
@@ -296,7 +358,7 @@
                 <button class="purchase-action-trigger btn-pro" onclick="commitConsolePurchase('Weekly Pro', 25, 7)">Unlock with Prois</button>
             </div>
 
-            <!-- PLAN MODULE CARDS: MONTHLY ELITE -->
+            <!-- MONTHLY ELITE -->
             <div class="tier-card">
                 <div class="tier-card-header">
                     <div class="icon-badge badge-elite"><i class="fas fa-crown"></i></div>
@@ -313,7 +375,6 @@
                 </ul>
                 <button class="purchase-action-trigger btn-elite" onclick="commitConsolePurchase('Monthly Elite', 50, 30)">Special Gift Pack</button>
             </div>
-
         </main>
 
         <footer class="console-footer-msg">
@@ -322,12 +383,16 @@
 
     </div>
 
+    <!-- SCRIPT APPLICATION MANAGEMENT LOGIC HOOK -->
     <script>
         const user = localStorage.getItem('v_auth_user') || 'default_node';
 
         let coins = parseInt(localStorage.getItem(`v_coins_${user}`)) || 0;
         let adsWatchedToday = parseInt(localStorage.getItem(`v_ads_watched_${user}`)) || 0;
         let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
+        
+        let countdownTimerInterval;
+        const AD_DURATION_SECONDS = 15; // Secure lock length
 
         window.onload = () => {
             verifyDailyResetCycle();
@@ -346,12 +411,11 @@
         function refreshConsoleUIState() {
             document.getElementById('coin-balance-display').textContent = `${adsWatchedToday}/5`;
             
-            // Build visual claim indicators corresponding exactly to the visual row array in 1000211471.png
             const nodes = document.getElementById('nodes-row-wrapper').children;
             for(let i = 0; i < nodes.length; i++) {
                 if (i < adsWatchedToday) {
                     nodes[i].className = "milestone-node claimed";
-                    nodes[i].innerHTML = `<i class="fas fa-coins"></i><div class="node-popover">Claimed +1 Coin</div>`;
+                    nodes[i].innerHTML = `<i class="fas fa-crown"></i><div class="node-popover">Claimed +1 Coin</div>`;
                 } else {
                     nodes[i].className = "milestone-node locked";
                     nodes[i].innerHTML = `${i + 1}`;
@@ -359,46 +423,77 @@
             }
 
             if (adsWatchedToday >= 5) {
-                document.getElementById('watch-ad-btn').disabled = true;
-                document.getElementById('watch-ad-btn').textContent = "Maxed Out";
+                const watchBtn = document.getElementById('watch-ad-btn');
+                watchBtn.disabled = true;
+                watchBtn.textContent = "Limit Reached";
+                watchBtn.style.backgroundColor = "#1e293b";
+                watchBtn.style.color = "#475569";
             }
         }
 
-        function executeNativeVideoSession() {
+        // REAL METHOD AD TRIGGER: Pops up full screen overlay modal, fires strict timer, claims on finish
+        function launchSecureNetworkAd() {
             verifyDailyResetCycle();
             if (adsWatchedToday >= 5) return;
 
-            const video = document.getElementById('native-video-core');
-            const fallback = document.getElementById('video-fallback-icon');
-            const btn = document.getElementById('watch-ad-btn');
+            const modal = document.getElementById('ad-sdk-overlay-modal');
+            const video = document.getElementById('sdk-ad-video-core');
+            const closeBtn = document.getElementById('ad-close-counter-btn');
 
-            fallback.style.display = 'none';
-            video.style.display = 'block';
-            btn.disabled = true;
+            // Force full screen native-looking layer container overlay view
+            modal.style.display = 'flex';
+            
+            // Set up unskippable counter loop
+            let secondsLeft = AD_DURATION_SECONDS;
+            closeBtn.className = "ad-close-action-node non-skippable";
+            closeBtn.textContent = secondsLeft;
+            closeBtn.onclick = null; // Prevent skipping manipulation hacks
 
+            // Fallback play loop execution sequence
             video.currentTime = 0;
-            video.play();
+            video.play().catch(err => console.log("Autoplay caught, user interaction bypass handled."));
 
-            video.onended = () => {
-                video.style.display = 'none';
-                fallback.style.display = 'flex';
-                btn.disabled = false;
+            countdownTimerInterval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft > 0) {
+                    closeBtn.textContent = secondsLeft;
+                } else {
+                    clearInterval(countdownTimerInterval);
+                    // Conversion callback: transform counter node into real close button once finished
+                    closeBtn.className = "ad-close-action-node";
+                    closeBtn.innerHTML = `<i class="fas fa-times"></i>`;
+                    
+                    // Bind real reward collection parameters to close event click
+                    closeBtn.onclick = () => {
+                        terminateAdSessionAndReward();
+                    };
+                }
+            }, 1000);
+        }
 
-                coins += 1;
-                adsWatchedToday += 1;
-                localStorage.setItem(`v_coins_${user}`, coins);
-                localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
-                
-                refreshConsoleUIState();
-            };
+        function terminateAdSessionAndReward() {
+            const modal = document.getElementById('ad-sdk-overlay-modal');
+            const video = document.getElementById('sdk-ad-video-core');
+            
+            video.pause();
+            modal.style.display = 'none';
+
+            // Injection metrics allocation variables execution loop
+            coins += 1;
+            adsWatchedToday += 1;
+            localStorage.setItem(`v_coins_${user}`, coins);
+            localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
+            
+            refreshConsoleUIState();
+            alert("Reward Confirmed: +1 Coin loaded to account balance.");
         }
 
         function commitConsolePurchase(planName, cost, days) {
             if (coins < cost) {
-                return alert(`Insufficient Coins! You need ${cost} coins for this asset.`);
+                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium package configurations.`);
             }
 
-            if (confirm(`Unlock ${planName} for ${cost} coins?`)) {
+            if (confirm(`Authorize spend configuration allocation of ${cost} coins to deploy ${planName}?`)) {
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
