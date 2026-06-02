@@ -64,7 +64,7 @@
             text-transform: uppercase; text-shadow: 0 0 10px var(--gold-glow);
         }
 
-        /* EARN FREE COINS CONTAINER */
+        /* FREE COINS HUB PANEL */
         .ad-broker-panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -115,7 +115,7 @@
         .tracker-meta h3 { font-weight: 600; color: var(--text-light); }
         .tracker-meta .coin-count-hud { color: var(--gold-accent); font-weight: 700; }
 
-        /* 10 NODE RESPONSIVE WRAPPER GRID */
+        /* 10 NODE RESPONSIVE TRACKER GRID */
         .milestone-row-nodes {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -136,12 +136,6 @@
         .milestone-node.locked {
             background-color: #0f172a; border-color: #1e293b; color: #334155;
         }
-        .milestone-node .node-popover {
-            position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
-            font-size: 0.65rem; color: var(--text-muted); white-space: nowrap;
-            opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 10;
-        }
-        .milestone-node.claimed:hover .node-popover { opacity: 1; }
 
         .section-divider-title {
             text-align: center; font-size: 0.95rem; font-weight: 700;
@@ -195,45 +189,37 @@
             padding: 12px; border-radius: 8px; font-size: 0.75rem; color: #94a3b8;
         }
 
-        /* ================= FULL SCREEN AD MODAL WRAPPER ================= */
+        /* ================= AD NETWORK SDK MODAL OVERLAY ================= */
         .ad-network-modal-overlay {
             position: fixed; inset: 0; z-index: 9999;
-            background-color: #040812; display: none; flex-direction: column;
+            background-color: #000000; display: none; flex-direction: column;
             align-items: center; justify-content: center;
         }
         
         .ad-video-element {
-            width: 100%; height: 100%; object-fit: contain; background: #000; display: block;
+            width: 100%; height: 100%; object-fit: contain; background: #000000; display: block;
         }
 
-        .ad-hologram-fallback-screen {
+        /* INTERACTIVE BROWSER BYPASS LAYERING OVERLAY */
+        .ad-click-bypass-overlay {
             position: absolute; inset: 0;
-            background: radial-gradient(circle at center, #0c1b33 0%, #040914 100%);
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 30px;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10005; cursor: pointer; text-align: center; padding: 20px;
         }
-        .spinner-holo-ring {
-            width: 80px; height: 80px; border: 3px solid rgba(0, 243, 255, 0.1);
-            border-top: 3px solid var(--glow-cyan); border-radius: 50%;
-            animation: spinNode 1s linear infinite; margin-bottom: 25px;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        .bypass-play-icon {
+            width: 70px; height: 70px; background: var(--gold-accent); color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 15px; box-shadow: 0 0 25px var(--gold-glow);
+            transition: transform 0.2s;
         }
-        @keyframes spinNode { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .ad-progress-bar-container {
-            width: 250px; height: 6px; background: rgba(255,255,255,0.1);
-            border-radius: 10px; margin-top: 15px; overflow: hidden;
-        }
-        .ad-progress-fill-line {
-            width: 100%; height: 100%; background: linear-gradient(90deg, var(--glow-cyan), var(--gold-accent));
-            transform: translateX(-100%);
-        }
+        .ad-click-bypass-overlay:hover .bypass-play-icon { transform: scale(1.1); }
 
         .ad-hud-header-strip {
             position: absolute; top: 0; left: 0; right: 0; padding: 20px;
             display: flex; justify-content: space-between; align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
-            z-index: 10000; pointer-events: none;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 10010; pointer-events: none;
         }
         .ad-badge-marker {
             background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
@@ -255,7 +241,7 @@
             width: 90%; max-width: 450px; background: rgba(15, 23, 42, 0.95);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
             padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); z-index: 10000;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); z-index: 10010;
         }
         .ad-app-meta h4 { font-size: 0.9rem; margin-bottom: 2px; color: #fff; }
         .ad-app-meta p { font-size: 0.7rem; color: #94a3b8; }
@@ -276,29 +262,26 @@
 
     <div class="ad-network-modal-overlay" id="ad-sdk-overlay-modal">
         <div class="ad-hud-header-strip">
-            <div class="ad-badge-marker"><i class="fas fa-info-circle"></i> Sponsored Commercial Stream</div>
+            <div class="ad-badge-marker"><i class="fas fa-video"></i> Live Sponsored Ad Stream</div>
             <div class="ad-close-action-node non-skippable" id="ad-close-counter-btn">15</div>
         </div>
 
-        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline autoplay muted>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
-        </video>
-
-        <div class="ad-hologram-fallback-screen" id="ad-hologram-fallback">
-            <div class="spinner-holo-ring"></div>
-            <h3 style="font-family:'Space Grotesk'; color:var(--glow-cyan); font-size:1.3rem;">STREAMING SPONSOR MEDIA</h3>
-            <p style="font-size:0.8rem; color: var(--text-muted); margin-top: 6px;">Synchronizing decentralized premium reward parameters...</p>
-            <div class="ad-progress-bar-container">
-                <div class="ad-progress-fill-line" id="ad-progress-bar-fill"></div>
-            </div>
+        <div class="ad-click-bypass-overlay" id="bypass-click-trigger" onclick="engageDirectVideoPlay()">
+            <div class="bypass-play-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
+            <h3 style="font-family:'Space Grotesk'; color:#fff; font-size:1.1rem; letter-spacing:1px;">TAP TO WATCH ADVERTISEMENT</h3>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:5px;">Required action step to authorize security coin configuration minting loop.</p>
         </div>
+
+        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        </video>
 
         <div class="ad-sponsored-action-footer">
             <div class="ad-app-meta">
                 <h4>Premium Bot Core Engine</h4>
                 <p>Deploy secure high-performance modules instantly.</p>
             </div>
-            <button class="ad-install-btn" onclick="alert('Redirecting to secure installation package layer...')">Install</button>
+            <button class="ad-install-btn" onclick="alert('Redirecting to digital distribution repository...')">Install</button>
         </div>
     </div>
 
@@ -324,8 +307,6 @@
                     </div>
                     <div class="coin-count-hud">COINS: <span id="coin-balance-display">0/10</span></div>
                 </div>
-
-                <!-- DYNAMIC TARGET HUB MATRIX (Populated by JavaScript runtime loop) -->
                 <div class="milestone-row-nodes" id="nodes-row-wrapper"></div>
             </div>
         </section>
@@ -390,7 +371,7 @@
         
         let countdownTimerInterval;
         const AD_DURATION_SECONDS = 15;
-        const DAILY_MAX_ADS = 10; // Upgraded Daily Cap
+        const DAILY_MAX_ADS = 10;
 
         window.onload = () => {
             verifyDailyResetCycle();
@@ -410,14 +391,14 @@
             document.getElementById('coin-balance-display').textContent = `${adsWatchedToday}/${DAILY_MAX_ADS}`;
             
             const wrapper = document.getElementById('nodes-row-wrapper');
-            wrapper.innerHTML = ""; // Clear for structured rewrite loop
+            wrapper.innerHTML = "";
             
-            // Render 10 beautiful tracking slots dynamically
+            // Build 10 tracking nodes dynamically based on loop assignments
             for(let i = 0; i < DAILY_MAX_ADS; i++) {
                 const node = document.createElement('div');
                 if (i < adsWatchedToday) {
                     node.className = "milestone-node claimed";
-                    node.innerHTML = `<i class="fas fa-check-circle" style="color:#000;"></i><div class="node-popover">Claimed +1 Coin</div>`;
+                    node.innerHTML = `<i class="fas fa-check-circle" style="color:#000;"></i>`;
                 } else {
                     node.className = "milestone-node locked";
                     node.innerHTML = `${i + 1}`;
@@ -439,36 +420,31 @@
             if (adsWatchedToday >= DAILY_MAX_ADS) return;
 
             const modal = document.getElementById('ad-sdk-overlay-modal');
-            const video = document.getElementById('sdk-ad-video-core');
-            const fallback = document.getElementById('ad-hologram-fallback');
-            const fillLine = document.getElementById('ad-progress-bar-fill');
+            const bypassBtn = document.getElementById('bypass-click-trigger');
             const closeBtn = document.getElementById('ad-close-counter-btn');
 
             modal.style.display = 'flex';
-            fallback.style.display = 'none';
-            video.style.display = 'block';
+            bypassBtn.style.display = 'flex'; 
+
+            closeBtn.className = "ad-close-action-node non-skippable";
+            closeBtn.textContent = AD_DURATION_SECONDS;
+            closeBtn.onclick = null;
+        }
+
+        // TRIGGER PLAY VIA USER TAP: Bypasses browser restriction sandbox structures perfectly
+        function engageDirectVideoPlay() {
+            document.getElementById('bypass-click-trigger').style.display = 'none';
+            
+            const video = document.getElementById('sdk-ad-video-core');
+            const closeBtn = document.getElementById('ad-close-counter-btn');
+            
+            video.currentTime = 0;
+            video.play();
 
             let secondsLeft = AD_DURATION_SECONDS;
-            closeBtn.className = "ad-close-action-node non-skippable";
-            closeBtn.textContent = secondsLeft;
-            closeBtn.onclick = null; 
-
-            video.currentTime = 0;
-            let playPromise = video.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(() => {}).catch(error => {
-                    video.style.display = 'none';
-                    fallback.style.display = 'flex';
-                });
-            }
 
             countdownTimerInterval = setInterval(() => {
                 secondsLeft--;
-                
-                let completedPct = ((AD_DURATION_SECONDS - secondsLeft) / AD_DURATION_SECONDS) * 100;
-                fillLine.style.transform = `translateX(${-100 + completedPct}%)`;
-
                 if (secondsLeft > 0) {
                     closeBtn.textContent = secondsLeft;
                 } else {
@@ -495,12 +471,12 @@
             localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
             
             refreshConsoleUIState();
-            alert("Sponsor authentication drop verified: +1 Coin loaded to your balance!");
+            alert("Sponsor credential tracking verified: +1 Coin loaded to your local system instance!");
         }
 
         function commitConsolePurchase(planName, cost, days) {
             if (coins < cost) {
-                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium plan.`);
+                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium configuration tier.`);
             }
 
             if (confirm(`Authorize spend configuration allocation of ${cost} coins to deploy ${planName}?`)) {
