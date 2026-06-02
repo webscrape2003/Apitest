@@ -3,296 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Premium Holographic Matrix</title>
+    <title>Premium Access Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #020205;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glow-cyan: #00f3ff;
-            --glow-magenta: #ff007f;
-            --glow-gold: #ffaa00;
-            --text-pure: #ffffff;
-            --text-dim: #94a3b8;
+            --bg-deep: #0b1424;
+            --panel-bg: #111f35;
+            --panel-border: #1e3556;
+            --gold-accent: #fcd34d;
+            --gold-glow: rgba(252, 211, 77, 0.2);
+            --text-light: #f8fafc;
+            --text-muted: #64748b;
+            --btn-green: #00e676;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: var(--bg-deep);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
-            color: var(--text-pure);
+            background-color: #060b13;
+            background-image: radial-gradient(circle at center, #0e1e38 0%, #050911 100%);
+            color: var(--text-light);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
-            padding: 40px 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
-        .super-wrapper {
+        /* IMMERSIVE MAIN CONSOLE FRAME CONTAINER */
+        .console-viewport {
             width: 100%;
-            max-width: 1200px;
-            display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 30px;
-        }
-
-        /* ================= LEFT SIDE: STREAM & WALLET HOLOGRAPH ================= */
-        .hologram-left-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* LARGE GLASS WALLET CARD */
-        .glass-wallet-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            max-width: 1050px;
+            background-color: var(--bg-deep);
+            border: 2px solid var(--panel-border);
+            border-radius: 20px;
             padding: 30px;
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
-        .glass-wallet-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--glow-cyan), var(--glow-magenta));
-        }
-        .glass-wallet-card span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); font-weight: 600; }
-        .glass-wallet-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; margin-top: 5px; background: linear-gradient(90deg, #fff, var(--text-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* THE CHROME VIDEO THEATER OVERLAY */
-        .video-theater-node {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 25px;
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+        /* CORES HUB TOP NAVIGATION */
+        .console-navbar {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 100%;
-        }
-        .video-canvas-wrapper {
-            width: 100%;
-            aspect-ratio: 16/10;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .video-canvas-wrapper video { width: 100%; height: 100%; object-fit: cover; display: none; }
-        
-        .video-custom-ui {
-            position: absolute; inset: 0;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 20px;
-            background: radial-gradient(circle at center, rgba(10,10,20,0.6) 0%, rgba(2,2,5,0.95) 100%);
-        }
-        .video-custom-ui .glow-icon {
-            width: 65px; height: 65px; background: rgba(0, 243, 255, 0.1);
-            border: 1px solid var(--glow-cyan); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: var(--glow-cyan); margin-bottom: 15px;
-            box-shadow: 0 0 20px rgba(0,243,255,0.2);
-        }
-
-        .super-action-btn {
-            width: 100%;
-            background: linear-gradient(90deg, var(--glow-cyan) 0%, #0099ff 100%);
-            color: #000; border: none; padding: 16px; border-radius: 14px;
-            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        .super-action-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.3);
-        }
-        .super-action-btn:disabled {
-            background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--glass-border); cursor: not-allowed; box-shadow: none;
-        }
-
-        /* ================= RIGHT SIDE: LARGE VIEW TILES ================= */
-        .tiles-right-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* LARGE EXPANDED TILES DESIGN */
-        .mega-tier-tile {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 35px;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
             align-items: center;
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .mega-tier-tile::after {
-            content: ''; position: absolute; inset: 0; border-radius: 28px;
-            opacity: 0; transition: opacity 0.4s; pointer-events: none;
-            border: 1px solid transparent;
-        }
-        
-        /* THE MATTE GLOW EFFECT ON HOVER */
-        .tile-cyan:hover { transform: scale(1.01) translateX(5px); }
-        .tile-cyan:hover::after { opacity: 1; border-color: var(--glow-cyan); box-shadow: inset 0 0 20px rgba(0,243,255,0.05), 0 10px 40px rgba(0,243,255,0.1); }
-        
-        .tile-magenta:hover { transform: scale(1.01) translateX(5px); }
-        .tile-magenta:hover::after { opacity: 1; border-color: var(--glow-magenta); box-shadow: inset 0 0 20px rgba(255,0,127,0.05), 0 10px 40px rgba(255,0,127,0.1); }
-
-        .tile-gold:hover { transform: scale(1.01) translateX(5px); }
-        .tile-gold:hover::after { opacity: 1; border-color: var(--glow-gold); box-shadow: inset 0 0 20px rgba(255,170,0,0.05), 0 10px 40px rgba(255,170,0,0.1); }
-
-        .tile-details h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;
-        }
-        .tile-details p { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; }
-
-        .tile-perks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .tile-perks li { font-size: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 8px; }
-        .tile-perks i { font-size: 0.75rem; }
-
-        .tile-pricing-buy {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
             justify-content: center;
-            border-left: 1px solid rgba(255,255,255,0.06);
-            padding-left: 30px;
+            position: relative;
+            margin-bottom: 25px;
         }
-        .tile-pricing-buy h4 {
-            font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 12px;
+        .back-nav-btn {
+            position: absolute; left: 0;
+            background: none; border: none; color: var(--gold-accent);
+            font-size: 1.4rem; cursor: pointer; transition: transform 0.2s;
         }
-        .tile-pricing-buy h4 sub { font-family: 'Plus Jakarta Sans'; font-size: 0.8rem; color: var(--text-dim); font-weight: 400; }
+        .back-nav-btn:hover { transform: scale(1.1); }
+        
+        .console-navbar h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem; letter-spacing: 2px; color: var(--gold-accent);
+            text-transform: uppercase; text-shadow: 0 0 10px var(--gold-glow);
+        }
 
-        .tile-buy-btn {
-            width: 100%; max-width: 160px; background: transparent;
-            border: 1px solid rgba(255,255,255,0.15); color: #fff;
-            padding: 12px 20px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
-            cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        /* ================= EARN FREE COINS CONTAINER ================= */
+        .ad-broker-panel {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 14px;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1.1fr 2fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
         }
-        .tile-cyan .tile-buy-btn:hover { background: var(--glow-cyan); border-color: var(--glow-cyan); color: #000; box-shadow: 0 0 20px rgba(0,243,255,0.3); }
-        .tile-magenta .tile-buy-btn:hover { background: var(--glow-magenta); border-color: var(--glow-magenta); color: #fff; box-shadow: 0 0 20px rgba(255,0,127,0.3); }
-        .tile-gold .tile-buy-btn:hover { background: var(--glow-gold); border-color: var(--glow-gold); color: #000; box-shadow: 0 0 20px rgba(255,170,0,0.3); }
 
-        /* TELEMETRY STOCK LOGGER */
-        .live-status-hud {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim);
-            background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px 15px;
-            display: flex; align-items: center; gap: 8px; margin-top: auto;
+        /* INLINE COMPACT SCREEN PLAYER AREA */
+        .player-stage-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .pulse-dot { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; }
+        .video-box-frame {
+            width: 130px; aspect-ratio: 16/10;
+            background: #000; border-radius: 8px;
+            border: 1px solid var(--panel-border);
+            overflow: hidden; position: relative;
+        }
+        .video-box-frame video { width: 100%; height: 100%; object-fit: cover; display: none; }
+        
+        .video-box-fallback {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle, #1a2a44 0%, #000 100%);
+        }
+        .video-box-fallback i { color: #ff1744; font-size: 1.5rem; }
 
-        @media (max-width: 900px) {
-            .super-wrapper { grid-template-columns: 1fr; }
-            .mega-tier-tile { grid-template-columns: 1fr; gap: 25px; }
-            .tile-pricing-buy { border-left: none; padding-left: 0; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; }
-            .tile-pricing-buy .tile-buy-btn { max-width: 100%; }
+        .watch-action-btn {
+            background-color: #fcd34d; color: #0b1424;
+            border: none; padding: 12px 20px; border-radius: 8px;
+            font-weight: 800; font-size: 0.8rem; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s;
+        }
+        .watch-action-btn:hover:not(:disabled) { background-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+        .watch-action-btn:disabled { background-color: #1e293b; color: #475569; cursor: not-allowed; }
+
+        /* THE FIVE STAGE REWARD PIPELINE HOVER NODES */
+        .rewards-tracker-module {
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .tracker-meta {
+            display: flex; justify-content: space-between; font-size: 0.85rem;
+        }
+        .tracker-meta h3 { font-weight: 600; color: var(--text-light); }
+        .tracker-meta p { color: var(--text-muted); }
+        .tracker-meta .coin-count-hud { color: var(--gold-accent); font-weight: 700; }
+
+        .milestone-row-nodes {
+            display: flex; align-items: center; gap: 12px; margin-top: 5px;
+        }
+        .milestone-node {
+            width: 44px; height: 44px; border-radius: 50%;
+            background-color: #152238; border: 2px solid #243b5e;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; font-size: 0.8rem; font-weight: 700; color: #475569;
+        }
+        .milestone-node.claimed {
+            background: radial-gradient(circle, #ffe066 0%, #f59e0b 100%);
+            border-color: #fbbf24; color: #000;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+        .milestone-node.locked {
+            background-color: #0f172a; border-color: #1e293b; color: #334155;
+        }
+        .milestone-node .node-popover {
+            position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+            font-size: 0.65rem; color: var(--text-muted); white-space: nowrap;
+        }
+
+        /* ================= PREMIUM PLAN DECK GENERATORS ================= */
+        .section-divider-title {
+            text-align: center; font-size: 0.95rem; font-weight: 700;
+            color: #94a3b8; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .tier-grid-cards {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+        }
+        .tier-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px; padding: 25px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; position: relative;
+        }
+        
+        /* CARD CONDITIONAL OVERLAYS INDIVIDUALS */
+        .tier-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .tier-card-header .icon-badge {
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        
+        .badge-lite { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
+        .badge-pro { background: rgba(148, 163, 184, 0.1); color: #94a3b8; }
+        .badge-elite { background: rgba(252, 211, 77, 0.1); color: #fcd34d; }
+
+        .tier-card h2 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: #fff; }
+        .tier-card .duration-lbl { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .tier-card .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: var(--gold-accent); margin: 12px 0 20px 0; font-weight: 700; }
+
+        .tier-perks-stack {
+            list-style: none; width: 100%; text-align: left;
+            font-size: 0.75rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;
+        }
+        .tier-perks-stack li { display: flex; align-items: center; gap: 8px; }
+        .tier-perks-stack i { font-size: 0.5rem; color: var(--gold-accent); }
+
+        .purchase-action-trigger {
+            width: 100%; padding: 12px; border-radius: 8px; border: none;
+            font-weight: 700; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; transition: 0.2s;
+        }
+        .btn-lite { background-color: #00e676; color: #000; }
+        .btn-pro { background-color: #ffcc00; color: #000; }
+        .btn-elite { background-color: #f59e0b; color: #000; }
+        .purchase-action-trigger:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+        /* HUD LOWER NOTIFICATION BANNER FOOTER */
+        .console-footer-msg {
+            margin-top: 25px; text-align: center;
+            background-color: rgba(17, 31, 53, 0.4);
+            border: 1px dashed var(--panel-border);
+            padding: 12px; border-radius: 8px;
+            font-size: 0.75rem; color: #94a3b8;
+        }
+
+        /* MOBILE VIEWPORTS MEDIA OVERRIDES */
+        @media (max-width: 868px) {
+            .console-viewport { padding: 20px; }
+            .ad-broker-panel { grid-template-columns: 1fr; gap: 20px; }
+            .tier-grid-cards { grid-template-columns: 1fr; }
+            .milestone-row-nodes { justify-content: space-between; }
         }
     </style>
 </head>
 <body>
 
-    <div class="super-wrapper">
+    <!-- CONSOLE VIEWPORT BOX -->
+    <div class="console-viewport">
         
-        <!-- LEFT HOLOGRAPHIC CONTROL ROW -->
-        <div class="hologram-left-panel">
-            
-            <div class="glass-wallet-card">
-                <span>Account Metric Assets</span>
-                <h2 id="coin-balance-display">00 COINS</h2>
-            </div>
+        <!-- HEAD PLATFORM HEADER BAR -->
+        <header class="console-navbar">
+            <button class="back-nav-btn" onclick="window.location.href='index.html'"><i class="fas fa-chevron-left"></i></button>
+            <h1>Premium Access Store</h1>
+        </header>
 
-            <div class="video-theater-node">
-                <div class="video-canvas-wrapper">
-                    <div class="video-custom-ui" id="video-canvas-overlay">
-                        <div class="glow-icon"><i class="fas fa-play"></i></div>
-                        <h3 style="font-family:'Space Grotesk'">Authorization Pipeline</h3>
-                        <p style="font-size:0.75rem; margin-top:4px;">Stream synchronization code for identity validation rewards</p>
+        <!-- FREE SYSTEM COINS BROKER ROW MAPPED FROM 1000211471.png -->
+        <section class="ad-broker-panel">
+            <div class="player-stage-box">
+                <div class="video-box-frame">
+                    <div class="video-box-fallback" id="video-fallback-icon">
+                        <i class="fas fa-play"></i>
                     </div>
-                    <video id="glass-video-player" preload="auto" playsinline>
+                    <video id="native-video-core" preload="auto" playsinline>
                         <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
                     </video>
                 </div>
-                
-                <button class="super-action-btn" id="watch-ad-btn" onclick="triggerGlassVideoSession()">
-                    <i class="fas fa-bolt"></i> RUN SYNC TRANSMISSION (<span id="ads-left-display">5</span>/5)
-                </button>
-
-                <div class="live-status-hud">
-                    <div class="pulse-dot"></div>
-                    <span id="system-hud-log">Holographic network layer synced smoothly.</span>
-                </div>
+                <button class="watch-action-btn" id="watch-ad-btn" onclick="executeNativeVideoSession()">Watch Ad</button>
             </div>
 
-        </div>
+            <div class="rewards-tracker-module">
+                <div class="tracker-meta">
+                    <div>
+                        <h3>Earn Free Coins</h3>
+                        <p style="font-size:0.7rem; margin-top:2px;">Watch to earn: 1 Coin per video. Daily limit: 5 videos.</p>
+                    </div>
+                    <div class="coin-count-hud">COINS: <span id="coin-balance-display">0/5</span></div>
+                </div>
 
-        <!-- RIGHT TALL VIEW LARGE CARDS CONTAINER -->
-        <div class="tiles-right-container">
+                <!-- FIVE NODES LINE MILESTONES STEPPERS TRACKER -->
+                <div class="milestone-row-nodes" id="nodes-row-wrapper">
+                    <div class="milestone-node locked">1<div class="node-popover"></div></div>
+                    <div class="milestone-node locked">2<div class="node-popover"></div></div>
+                    <div class="milestone-node locked">3<div class="node-popover"></div></div>
+                    <div class="milestone-node locked">4<div class="node-popover"></div></div>
+                    <div class="milestone-node locked">5<div class="node-popover"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLANS TIERS SUBSECTION SECTION -->
+        <div class="section-divider-title">Premium Plans</div>
+
+        <main class="tier-grid-cards">
             
-            <!-- MEGA CARD: WEEKLY LITE -->
-            <div class="mega-tier-tile tile-cyan">
-                <div class="tile-details">
-                    <h3 style="color: var(--glow-cyan);">WEEKLY LITE</h3>
-                    <p>7-Day Secure High Priority Server Allocation</p>
-                    <ul class="tile-perks">
-                        <li><i class="fas fa-check" style="color: var(--glow-cyan);"></i> 91 Native API Engines Fully Assembled</li>
-                        <li><i class="fas fa-check" style="color: var(--glow-cyan);"></i> Modular Pipeline Cloud Architecture</li>
-                    </ul>
+            <!-- PLAN MODULE CARDS: WEEKLY LITE -->
+            <div class="tier-card">
+                <div class="tier-card-header">
+                    <div class="icon-badge badge-lite"><i class="fas fa-feather"></i></div>
+                    <div>
+                        <h2>Weekly Lite</h2>
+                        <div class="duration-lbl">1 Week</div>
+                    </div>
                 </div>
-                <div class="tile-pricing-buy">
-                    <h4>10 <sub>CNS</sub></h4>
-                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Weekly Lite', 10, 7)">REDEEM</button>
-                </div>
+                <div class="price-tag">10 Coins</div>
+                <ul class="tier-perks-stack">
+                    <li><i class="fas fa-circle"></i> Basic Features Access</li>
+                    <li><i class="fas fa-circle"></i> Ad-Free Content Browsing</li>
+                    <li><i class="fas fa-circle"></i> Exclusive Profile Badge</li>
+                </ul>
+                <button class="purchase-action-trigger btn-lite" onclick="commitConsolePurchase('Weekly Lite', 10, 7)">Unlock with 10 Coins</button>
             </div>
 
-            <!-- MEGA CARD: WEEKLY CORE -->
-            <div class="mega-tier-tile tile-magenta">
-                <div class="tile-details">
-                    <h3 style="color: var(--glow-magenta);">WEEKLY CORE</h3>
-                    <p>14-Day Full Access Infrastructure Blueprint</p>
-                    <ul class="tile-perks">
-                        <li><i class="fas fa-check" style="color: var(--glow-magenta);"></i> Inherits All Weekly Lite Cloud Matrices</li>
-                        <li><i class="fas fa-check" style="color: var(--glow-magenta);"></i> Infinite High-Bandwidth Injections</li>
-                    </ul>
+            <!-- PLAN MODULE CARDS: WEEKLY PRO -->
+            <div class="tier-card">
+                <div class="tier-card-header">
+                    <div class="icon-badge badge-pro"><i class="fas fa-shield-halved"></i></div>
+                    <div>
+                        <h2>Weekly Pro</h2>
+                        <div class="duration-lbl">1 Week</div>
+                    </div>
                 </div>
-                <div class="tile-pricing-buy">
-                    <h4>25 <sub>CNS</sub></h4>
-                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Weekly', 25, 14)">REDEEM</button>
-                </div>
+                <div class="price-tag">25 Coins</div>
+                <ul class="tier-perks-stack">
+                    <li><i class="fas fa-circle"></i> All Lite Features Active</li>
+                    <li><i class="fas fa-circle"></i> Offline Content Downloads</li>
+                    <li><i class="fas fa-circle"></i> Priority System Support</li>
+                </ul>
+                <button class="purchase-action-trigger btn-pro" onclick="commitConsolePurchase('Weekly Pro', 25, 7)">Unlock with Prois</button>
             </div>
 
-            <!-- MEGA CARD: PRO MATRIX -->
-            <div class="mega-tier-tile tile-gold">
-                <div class="tile-details">
-                    <h3 style="color: var(--glow-gold);">PRO MATRIX</h3>
-                    <p>30-Day Sovereign High Performance Cluster</p>
-                    <ul class="tile-perks">
-                        <li><i class="fas fa-check" style="color: var(--glow-gold);"></i> Ultimate Priority Hardware Sockets</li>
-                        <li><i class="fas fa-check" style="color: var(--glow-gold);"></i> Zero Wait Time API Request Overrides</li>
-                    </ul>
+            <!-- PLAN MODULE CARDS: MONTHLY ELITE -->
+            <div class="tier-card">
+                <div class="tier-card-header">
+                    <div class="icon-badge badge-elite"><i class="fas fa-crown"></i></div>
+                    <div>
+                        <h2>Monthly Elite</h2>
+                        <div class="duration-lbl">1 Month</div>
+                    </div>
                 </div>
-                <div class="tile-pricing-buy">
-                    <h4>50 <sub>CNS</sub></h4>
-                    <button class="tile-buy-btn" onclick="processPremiumPurchase('Pro', 50, 30)">REDEEM</button>
-                </div>
+                <div class="price-tag">50 Coins</div>
+                <ul class="tier-perks-stack">
+                    <li><i class="fas fa-circle"></i> All Pro Features Included</li>
+                    <li><i class="fas fa-circle"></i> Early Access to New Content</li>
+                    <li><i class="fas fa-circle"></i> Special System Gift Pack</li>
+                </ul>
+                <button class="purchase-action-trigger btn-elite" onclick="commitConsolePurchase('Monthly Elite', 50, 30)">Special Gift Pack</button>
             </div>
 
-        </div>
+        </main>
+
+        <footer class="console-footer-msg">
+            Need more coins? Earn them by watching ads daily or purchasing a premium plan for instant access!
+        </footer>
 
     </div>
 
@@ -304,78 +330,85 @@
         let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
 
         window.onload = () => {
-            checkDailySystemReset();
-            syncGlassMetrics();
+            verifyDailyResetCycle();
+            refreshConsoleUIState();
         };
 
-        function checkDailySystemReset() {
-            const todayString = new Date().toDateString();
-            if (lastAdReset !== todayString) {
+        function verifyDailyResetCycle() {
+            const today = new Date().toDateString();
+            if (lastAdReset !== today) {
                 adsWatchedToday = 0;
                 localStorage.setItem(`v_ads_watched_${user}`, 0);
-                localStorage.setItem(`v_ad_reset_${user}`, todayString);
+                localStorage.setItem(`v_ad_reset_${user}`, today);
             }
         }
 
-        function syncGlassMetrics() {
-            document.getElementById('coin-balance-display').textContent = `${coins < 10 ? '0' + coins : coins} COINS`;
-            document.getElementById('ads-left-display').textContent = 5 - adsWatchedToday;
+        function refreshConsoleUIState() {
+            document.getElementById('coin-balance-display').textContent = `${adsWatchedToday}/5`;
             
+            // Build visual claim indicators corresponding exactly to the visual row array in 1000211471.png
+            const nodes = document.getElementById('nodes-row-wrapper').children;
+            for(let i = 0; i < nodes.length; i++) {
+                if (i < adsWatchedToday) {
+                    nodes[i].className = "milestone-node claimed";
+                    nodes[i].innerHTML = `<i class="fas fa-coins"></i><div class="node-popover">Claimed +1 Coin</div>`;
+                } else {
+                    nodes[i].className = "milestone-node locked";
+                    nodes[i].innerHTML = `${i + 1}`;
+                }
+            }
+
             if (adsWatchedToday >= 5) {
                 document.getElementById('watch-ad-btn').disabled = true;
-                document.getElementById('system-hud-log').textContent = "Daily authorization channels full. Return tomorrow.";
-                document.getElementById('system-hud-log').style.color = "var(--glow-magenta)";
+                document.getElementById('watch-ad-btn').textContent = "Maxed Out";
             }
         }
 
-        function triggerGlassVideoSession() {
-            checkDailySystemReset();
+        function executeNativeVideoSession() {
+            verifyDailyResetCycle();
             if (adsWatchedToday >= 5) return;
 
-            const video = document.getElementById('glass-video-player');
-            const overlay = document.getElementById('video-canvas-overlay');
-            const button = document.getElementById('watch-ad-btn');
+            const video = document.getElementById('native-video-core');
+            const fallback = document.getElementById('video-fallback-icon');
+            const btn = document.getElementById('watch-ad-btn');
 
-            overlay.style.display = 'none';
+            fallback.style.display = 'none';
             video.style.display = 'block';
-            button.disabled = true;
-            document.getElementById('system-hud-log').textContent = "Processing active timeline verification stream...";
+            btn.disabled = true;
 
             video.currentTime = 0;
             video.play();
 
             video.onended = () => {
                 video.style.display = 'none';
-                overlay.style.display = 'flex';
-                button.disabled = false;
+                fallback.style.display = 'flex';
+                btn.disabled = false;
 
                 coins += 1;
                 adsWatchedToday += 1;
                 localStorage.setItem(`v_coins_${user}`, coins);
                 localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
                 
-                document.getElementById('system-hud-log').textContent = "Identity confirmed successfully. +1 Coin injected.";
-                syncGlassMetrics();
+                refreshConsoleUIState();
             };
         }
 
-        function processPremiumPurchase(planName, cost, days) {
+        function commitConsolePurchase(planName, cost, days) {
             if (coins < cost) {
-                document.getElementById('system-hud-log').textContent = `Transaction Denied: Lacking ${cost - coins} coins.`;
-                return alert("Insufficient coin inventory inside this node.");
+                return alert(`Insufficient Coins! You need ${cost} coins for this asset.`);
             }
 
-            if (confirm(`Authorize validation drop of ${cost} coins to load the ${planName} server configuration?`)) {
+            if (confirm(`Unlock ${planName} for ${cost} coins?`)) {
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
-                const runtimeExtension = days * 24 * 60 * 60 * 1000;
+                const durationMS = days * 24 * 60 * 60 * 1000;
                 localStorage.setItem(`v_trial_start_${user}`, Date.now());
-                localStorage.setItem(`v_plan_duration_${user}`, runtimeExtension);
+                localStorage.setItem(`v_plan_duration_${user}`, durationMS);
                 localStorage.removeItem(`v-key_expired_${user}`);
 
-                syncGlassMetrics();
-                alert(`Configuration successfully written. Enjoy ${planName} access.`);
+                refreshConsoleUIState();
+                alert(`Successfully Activated: ${planName}`);
                 window.location.href = 'index.html';
             }
         }
