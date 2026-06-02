@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Access Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #0b1424;
@@ -16,6 +16,7 @@
             --text-light: #f8fafc;
             --text-muted: #64748b;
             --btn-green: #00e676;
+            --glow-cyan: #00f3ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +33,7 @@
             padding: 20px;
         }
 
-        /* CONSOLE VIEWPORT BOX */
+        /* MAIN CONSOLE FRAME CONTAINER */
         .console-viewport {
             width: 100%;
             max-width: 1050px;
@@ -107,7 +108,7 @@
         .watch-action-btn:hover:not(:disabled) { background-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
         .watch-action-btn:disabled { background-color: #1e293b; color: #475569; cursor: not-allowed; }
 
-        /* THE FIVE STAGE REWARD PIPELINE TRACKER */
+        /* REWARD PIPELINE HOVER NODES */
         .rewards-tracker-module {
             display: flex; flex-direction: column; gap: 15px;
         }
@@ -202,13 +203,39 @@
         /* ================= FULL SCREEN NATIVE AD SDK INTERSTITIAL MODAL ================= */
         .ad-network-modal-overlay {
             position: fixed; inset: 0; z-index: 9999;
-            background-color: #000;
+            background-color: #040812;
             display: none; flex-direction: column;
             align-items: center; justify-content: center;
         }
         
         .ad-video-element {
             width: 100%; height: 100%; object-fit: contain; background: #000;
+            display: block;
+        }
+
+        /* CHROME HOLO FALLBACK IF VIDEO IS BLOCKED BY MOBILE OS browser */
+        .ad-hologram-fallback-screen {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, #0c1b33 0%, #040914 100%);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 30px;
+        }
+        .spinner-holo-ring {
+            width: 80px; height: 80px; border: 3px solid rgba(0, 243, 25ff, 0.1);
+            border-top: 3px solid var(--glow-cyan); border-radius: 50%;
+            animation: spinNode 1s linear infinite; margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(0, 243, 25ff, 0.2);
+        }
+        @keyframes spinNode { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* REALISTIC LIVE PROGRESS AD COUNTER BAR */
+        .ad-progress-bar-container {
+            width: 250px; height: 6px; background: rgba(255,255,255,0.1);
+            border-radius: 10px; margin-top: 15px; overflow: hidden;
+        }
+        .ad-progress-fill-line {
+            width: 100%; height: 100%; background: linear-gradient(90deg, var(--glow-cyan), var(--gold-accent));
+            transform: translateX(-100%);
         }
 
         /* REALISTIC AD OVERLAY HEAD CONTROLS */
@@ -224,14 +251,14 @@
             color: #fff; text-transform: uppercase; letter-spacing: 1px;
         }
         .ad-close-action-node {
-            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; width: 42px; height: 42px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1rem; font-weight: 700; cursor: pointer; pointer-events: auto;
             transition: background 0.2s;
         }
         .ad-close-action-node.non-skippable {
-            cursor: not-allowed; color: #ffcc00; font-size: 0.85rem; font-family: monospace;
+            cursor: not-allowed; color: #ffcc00; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace;
         }
 
         /* BOTTOM SPONSORED BANNER CARD LINK */
@@ -242,7 +269,7 @@
             padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8); z-index: 10000;
         }
-        .ad-app-meta h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .ad-app-meta h4 { font-size: 0.9rem; margin-bottom: 2px; color: #fff; }
         .ad-app-meta p { font-size: 0.7rem; color: #94a3b8; }
         .ad-install-btn {
             background: #22c55e; color: #fff; border: none; padding: 10px 18px;
@@ -260,28 +287,39 @@
 </head>
 <body>
 
-    <!-- INTERSTITIAL REAL AD SYSTEM CONTAINER MODAL LAYER -->
+    <!-- INTERSTITIAL HIGH-END AD ENGINE OVERLAY MODAL -->
     <div class="ad-network-modal-overlay" id="ad-sdk-overlay-modal">
         <div class="ad-hud-header-strip">
-            <div class="ad-badge-marker">Sponsored Advertisement</div>
-            <!-- Dynamic Close Node Counter matching Mobile SDKs -->
+            <div class="ad-badge-marker"><i class="fas fa-info-circle"></i> Sponsored Commercial Stream</div>
             <div class="ad-close-action-node non-skippable" id="ad-close-counter-btn">15</div>
         </div>
 
-        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline muted>
+        <!-- HTML5 Native Direct Stream (With strict muted-autoplay flags embedded directly) -->
+        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline autoplay muted>
             <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
         </video>
 
+        <!-- GUARANTEED CYBER FALLBACK SCREEN (Triggers if browser blocks the video source link entirely) -->
+        <div class="ad-hologram-fallback-screen" id="ad-hologram-fallback">
+            <div class="spinner-holo-ring"></div>
+            <h3 style="font-family:'Space Grotesk'; color:var(--glow-cyan); font-size:1.3rem;">STREAMING SPONSOR MEDIA</h3>
+            <p style="font-size:0.8rem; color: var(--text-muted); margin-top: 6px;">Synchronizing decentralized premium reward parameters...</p>
+            
+            <div class="ad-progress-bar-container">
+                <div class="ad-progress-fill-line" id="ad-progress-bar-fill"></div>
+            </div>
+        </div>
+
         <div class="ad-sponsored-action-footer">
             <div class="ad-app-meta">
-                <h4>VajiraOfficial Premium Bot Engine</h4>
-                <p>Deploy secure micro-architectures instantly.</p>
+                <h4>VajiraOfficial Premium Core</h4>
+                <p>Deploy secure high-performance modules instantly.</p>
             </div>
-            <button class="ad-install-btn" onclick="alert('Redirecting to secure installation package layer...')">Install</button>
+            <button class="ad-install-btn" onclick="alert('Redirecting to deployment index directory...')">Install</button>
         </div>
     </div>
 
-    <!-- MAIN CONSOLE WRAPPER VIEWPORT -->
+    <!-- MAIN CONSOLE VIEWPORT BOX -->
     <div class="console-viewport">
         
         <header class="console-navbar">
@@ -289,12 +327,12 @@
             <h1>Premium Access Store</h1>
         </header>
 
-        <!-- FREE COIN CONSOLE HUB -->
+        <!-- COIN EARNING INTERFACE FRAME (As matched verbatim from 1000211471.png) -->
         <section class="ad-broker-panel">
             <div class="player-stage-box">
                 <div class="video-box-frame">
                     <div class="video-box-fallback">
-                        <i class="fas fa-play-circle"></i>
+                        <i class="fas fa-play-circle" style="font-size: 2rem;"></i>
                     </div>
                 </div>
                 <button class="watch-action-btn" id="watch-ad-btn" onclick="launchSecureNetworkAd()">Watch Ad</button>
@@ -383,7 +421,7 @@
 
     </div>
 
-    <!-- SCRIPT APPLICATION MANAGEMENT LOGIC HOOK -->
+    <!-- SCRIPT ENGINE RUNTIME LAYER -->
     <script>
         const user = localStorage.getItem('v_auth_user') || 'default_node';
 
@@ -392,7 +430,7 @@
         let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
         
         let countdownTimerInterval;
-        const AD_DURATION_SECONDS = 15; // Secure lock length
+        const AD_DURATION_SECONDS = 15; // Set duration of ad stream here
 
         window.onload = () => {
             verifyDailyResetCycle();
@@ -415,7 +453,7 @@
             for(let i = 0; i < nodes.length; i++) {
                 if (i < adsWatchedToday) {
                     nodes[i].className = "milestone-node claimed";
-                    nodes[i].innerHTML = `<i class="fas fa-crown"></i><div class="node-popover">Claimed +1 Coin</div>`;
+                    nodes[i].innerHTML = `<i class="fas fa-check-circle" style="color:#000;"></i><div class="node-popover">Claimed +1 Coin</div>`;
                 } else {
                     nodes[i].className = "milestone-node locked";
                     nodes[i].innerHTML = `${i + 1}`;
@@ -431,39 +469,53 @@
             }
         }
 
-        // REAL METHOD AD TRIGGER: Pops up full screen overlay modal, fires strict timer, claims on finish
         function launchSecureNetworkAd() {
             verifyDailyResetCycle();
             if (adsWatchedToday >= 5) return;
 
             const modal = document.getElementById('ad-sdk-overlay-modal');
             const video = document.getElementById('sdk-ad-video-core');
+            const fallback = document.getElementById('ad-hologram-fallback');
+            const fillLine = document.getElementById('ad-progress-bar-fill');
             const closeBtn = document.getElementById('ad-close-counter-btn');
 
-            // Force full screen native-looking layer container overlay view
             modal.style.display = 'flex';
-            
-            // Set up unskippable counter loop
+            fallback.style.display = 'none';
+            video.style.display = 'block';
+
             let secondsLeft = AD_DURATION_SECONDS;
             closeBtn.className = "ad-close-action-node non-skippable";
             closeBtn.textContent = secondsLeft;
-            closeBtn.onclick = null; // Prevent skipping manipulation hacks
+            closeBtn.onclick = null; 
 
-            // Fallback play loop execution sequence
+            // Execute play request with an absolute fallback catcher
             video.currentTime = 0;
-            video.play().catch(err => console.log("Autoplay caught, user interaction bypass handled."));
+            let playPromise = video.play();
 
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Video played beautifully on this browser setup
+                }).catch(error => {
+                    // Video blocked or dropped by Android/Chrome OS! Execute visual graphics backup array loop instantly:
+                    video.style.display = 'none';
+                    fallback.style.display = 'flex';
+                });
+            }
+
+            // Run strict countdown cycle increments independent of source layer
             countdownTimerInterval = setInterval(() => {
                 secondsLeft--;
+                
+                // Track bar conversion percentage equations 
+                let completedPct = ((AD_DURATION_SECONDS - secondsLeft) / AD_DURATION_SECONDS) * 100;
+                fillLine.style.transform = `translateX(${-100 + completedPct}%)`;
+
                 if (secondsLeft > 0) {
                     closeBtn.textContent = secondsLeft;
                 } else {
                     clearInterval(countdownTimerInterval);
-                    // Conversion callback: transform counter node into real close button once finished
                     closeBtn.className = "ad-close-action-node";
                     closeBtn.innerHTML = `<i class="fas fa-times"></i>`;
-                    
-                    // Bind real reward collection parameters to close event click
                     closeBtn.onclick = () => {
                         terminateAdSessionAndReward();
                     };
@@ -478,19 +530,18 @@
             video.pause();
             modal.style.display = 'none';
 
-            // Injection metrics allocation variables execution loop
             coins += 1;
             adsWatchedToday += 1;
             localStorage.setItem(`v_coins_${user}`, coins);
             localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
             
             refreshConsoleUIState();
-            alert("Reward Confirmed: +1 Coin loaded to account balance.");
+            alert("Sponsor authentication drop verified: +1 Coin loaded to your balance!");
         }
 
         function commitConsolePurchase(planName, cost, days) {
             if (coins < cost) {
-                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium package configurations.`);
+                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium plan configurations.`);
             }
 
             if (confirm(`Authorize spend configuration allocation of ${cost} coins to deploy ${planName}?`)) {
