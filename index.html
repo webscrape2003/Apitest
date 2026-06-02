@@ -3,261 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VajiraOfficial | Core Premium Node Matrix</title>
+    <title>VajiraOfficial | Core Command Matrix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@500;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05050a;
-            --surface: rgba(13, 13, 25, 0.7);
-            --border: rgba(0, 243, 255, 0.2);
-            --accent: #00f3ff;
-            --accent-glow: rgba(0, 243, 255, 0.4);
-            --primary: #c77dff;
-            --premium: #ffb703;
-            --text: #f8fafc;
-            --text-dim: #64748b;
-            --success: #10b981;
-            --error: #f43f5e;
+            --bg-solid: #030307;
+            --terminal-dark: #07070f;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bd00ff;
+            --neon-gold: #ffaa00;
+            --border-line: rgba(0, 243, 255, 0.15);
+            --text-main: #f1f5f9;
+            --text-muted: #475569;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-solid);
+            color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
-            padding: 50px 20px;
+            overflow: hidden;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        /* HEADER HUD CONTAINER */
-        .hud-header {
-            background: var(--surface); border: 2px solid var(--border);
-            padding: 35px; border-radius: 24px; margin-bottom: 40px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.05);
+        /* LIVE TELEMETRY SPLIT ENGINE CORE */
+        .workspace-split {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
         }
-        .hud-title h1 { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem; letter-spacing: 2px; text-shadow: 0 0 15px var(--accent-glow); }
-        .hud-title p { color: var(--text-dim); font-size: 0.85rem; margin-top: 5px; }
-        
-        .wallet-node {
-            background: #000; border: 1px solid var(--border);
-            padding: 15px 30px; border-radius: 16px; text-align: center;
-            box-shadow: inset 0 0 15px rgba(0,243,255,0.1);
-        }
-        .wallet-node span { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-        .wallet-node h3 { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 1.8rem; margin-top: 4px; }
 
-        /* BROADCAST PLATFORM DECK (ADS) */
-        .broadcast-deck {
-            background: linear-gradient(90deg, rgba(13,13,25,0.9) 0%, rgba(5,5,10,0.4) 100%);
-            border: 2px dashed var(--accent); border-radius: 24px; padding: 35px;
-            margin-bottom: 50px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .broadcast-meta h2 { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
-        .broadcast-meta p { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
-
-        /* METHOD 2: MASSIVE WIDE-BLADE CARD MATRIX EXPOSURE */
-        .showcase-column { display: flex; flex-direction: column; gap: 30px; }
-        
-        .blade-card {
-            background: var(--surface); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px; padding: 40px; display: flex; align-items: center;
-            justify-content: space-between; position: relative; overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-        }
-        .blade-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(125deg, rgba(255,255,255,0.03) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        
-        /* HOVER BLADE EXPANSION ANIMATION */
-        .blade-card:hover {
-            transform: scale(1.02);
-            background: rgba(20, 20, 35, 0.8);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-        }
-        .blade-lite:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(0,243,255,0.15); }
-        .blade-weekly:hover { border-color: var(--primary); box-shadow: 0 0 30px rgba(199,125,255,0.15); }
-        .blade-pro { border: 1px solid rgba(255, 183, 3, 0.15); }
-        .blade-pro:hover { border-color: var(--premium); box-shadow: 0 0 40px rgba(255,183,3,0.2); }
-
-        /* INNER BLADE SEGMENTS */
-        .blade-left { flex: 1; }
-        .blade-center { flex: 1.2; padding: 0 30px; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); }
-        .blade-right { flex: 0.8; display: flex; flex-direction: column; align-items: flex-end; padding-left: 30px; }
-
-        .tier-label { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px; }
-        .tier-duration { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
-        
-        .feature-stack { list-style: none; font-size: 0.85rem; color: #94a3b8; }
-        .feature-stack li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .feature-stack li:last-child { margin-bottom: 0; }
-        .feature-stack i { font-size: 0.8rem; }
-
-        .cost-display { font-family: 'JetBrains Mono'; font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 15px; }
-        .cost-display sub { font-size: 0.85rem; font-family: 'Plus Jakarta Sans'; color: var(--text-dim); }
-
-        /* UI BUTTON IMPLEMENTATIONS */
-        .action-btn {
-            width: 100%; border: none; padding: 16px 24px; border-radius: 16px;
-            font-family: inherit; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.5px;
-            cursor: pointer; transition: all 0.3s; text-transform: uppercase;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        .btn-accent { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,243,255,0.2); }
-        .btn-accent:hover { background: #fff; box-shadow: 0 0 25px #fff; }
-        
-        .btn-primary { background: var(--primary); color: #000; }
-        .btn-primary:hover { background: #e0aaff; box-shadow: 0 0 25px #e0aaff; }
-        
-        .btn-premium { background: var(--premium); color: #000; }
-        .btn-premium:hover { background: #ffe3a8; box-shadow: 0 0 25px #ffe3a8; }
-        
-        .action-btn:disabled { background: #141424 !important; color: #334155 !important; border: 1px solid rgba(255,255,255,0.02) !important; cursor: not-allowed; box-shadow: none !important; }
-
-        /* REAL VIDEO OVERLAY CONTROLLER LAYER */
-        .video-player-overlay {
-            position: fixed; inset: 0; background: rgba(2,2,5,0.98); z-index: 99999;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(20px);
-        }
-        .video-viewport-wrapper {
-            width: 90%; max-width: 720px; background: #000; border-radius: 24px;
-            overflow: hidden; border: 2px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        /* ================= SIDEBAR CONSOLE (LEFT) ================= */
+        .console-stream-deck {
+            flex: 1.1;
+            background: var(--terminal-dark);
+            border-right: 2px solid rgba(0, 243, 255, 0.1);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             position: relative;
         }
-        .video-viewport-wrapper video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
-        
-        .video-watermark-lock {
-            position: absolute; top: 25px; left: 25px; background: rgba(0,0,0,0.6);
-            padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem; font-family: 'JetBrains Mono'; display: flex; align-items: center; gap: 8px;
+
+        .console-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
         }
-        .live-dot { width: 6px; height: 6px; background: var(--error); border-radius: 50%; animation: pulse 1s infinite alternate; }
+        .console-header p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--neon-blue);
+            margin-top: 5px;
+        }
 
-        @keyframes pulse { from { opacity: 0.3; } to { opacity: 1; } }
+        /* INTEGRATED VIDEO SCREEN LAYER */
+        .video-bay-frame {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border: 1px solid var(--border-line);
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.05);
+            margin: 30px 0;
+        }
+        .video-bay-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
 
-        @media (max-width: 850px) {
-            .blade-card { flex-direction: column; text-align: center; gap: 25px; padding: 30px; }
-            .blade-center { border-left: none; border-right: none; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 20px 0; width: 100%; }
-            .blade-right { padding-left: 0; align-items: center; width: 100%; }
-            .hud-header, .broadcast-deck { flex-direction: column; text-align: center; gap: 20px; }
-            .wallet-node { width: 100%; }
+        .video-placeholder-ui {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(13,13,25,0.8) 0%, #000 100%);
+        }
+        .video-placeholder-ui i {
+            font-size: 2.5rem;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            margin-bottom: 15px;
+        }
+        .video-placeholder-ui h3 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; letter-spacing: 1px; }
+        .video-placeholder-ui p { font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; }
+
+        .stream-trigger-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .stream-trigger-btn:hover:not(:disabled) {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        .stream-trigger-btn:disabled {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* ================= MANAGEMENT NODE PANEL (RIGHT) ================= */
+        .allocation-control-panel {
+            flex: 1.9;
+            padding: 50px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wallet-hud-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+        .wallet-hud-row span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .wallet-hud-row h2 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-blue);
+            font-size: 2rem;
+        }
+
+        /* TERMINAL ROW ROW LIST */
+        .terminal-row-item {
+            background: rgba(255,255,255,0.01);
+            border-left: 3px solid var(--text-muted);
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .terminal-row-item:hover {
+            background: rgba(255,255,255,0.02);
+            transform: translateX(5px);
+        }
+        
+        .row-item-lite { border-left-color: var(--neon-blue); }
+        .row-item-weekly { border-left-color: var(--neon-purple); }
+        .row-item-pro { border-left-color: var(--neon-gold); }
+
+        .meta-group h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .meta-group span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 3px;
+        }
+
+        .features-inline-list {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            max-width: 320px;
+        }
+
+        .pricing-action-box {
+            text-align: right;
+            min-width: 150px;
+        }
+        .pricing-action-box h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .buy-node-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .row-item-lite .buy-node-btn:hover { border-color: var(--neon-blue); color: var(--neon-blue); }
+        .row-item-weekly .buy-node-btn:hover { border-color: var(--neon-purple); color: var(--neon-purple); }
+        .row-item-pro .buy-node-btn:hover { border-color: var(--neon-gold); color: var(--neon-gold); }
+
+        /* LIVE SYSTEM FEED INTERFACES */
+        .terminal-log-output {
+            margin-top: auto;
+            background: #000;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            height: 70px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 968px) {
+            .workspace-split { flex-direction: column; overflow-y: auto; }
+            .console-stream-deck { flex: none; height: auto; border-right: none; border-bottom: 2px solid rgba(0,243,255,0.1); }
+            .allocation-control-panel { flex: none; padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- TOP HUD SYSTEM INFRASTRUCTURE -->
-        <header class="hud-header">
-            <div class="hud-title">
-                <h1>CREDIT ROUTING HUB</h1>
-                <p>Acquire infrastructure access tokens safely using validated account parameters</p>
+    <div class="workspace-split">
+        
+        <!-- SIDEBAR CONSOLE (LEFT) -->
+        <aside class="console-stream-deck">
+            <div class="console-header">
+                <h1>Data Pipeline Console</h1>
+                <p>&gt;_ SYSTEM_RECOVERY_NODE // ONLINE</p>
             </div>
-            <div class="wallet-node">
-                <span>LIQUID METRIC BALANCE</span>
-                <h3 id="coin-balance-display">0 COINS</h3>
-            </div>
-        </header>
 
-        <!-- VIDEO STREAMING INJECTION ROW -->
-        <section class="broadcast-deck">
-            <div class="broadcast-meta">
-                <h2>VERIFICATION TELEMETRY STREAM</h2>
-                <p id="ad-status-text">Stream real-time authorization footage to confirm security context. Allocation rate: +1 Coin.</p>
+            <!-- AD MOUNT POINT DIRECT STREAM SECTOR -->
+            <div class="video-bay-frame">
+                <div class="video-placeholder-ui" id="video-ui-canvas">
+                    <i class="fas fa-satellite-dish"></i>
+                    <h3>Pipeline Stream Idle</h3>
+                    <p>Launch session verification node to sync account state vectors</p>
+                </div>
+                <video id="core-video-engine" preload="auto" playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
+                </video>
             </div>
-            <div style="min-width: 240px;">
-                <button class="action-btn btn-accent" id="watch-ad-btn" onclick="openCinematicVideo()">
-                    <i class="fas fa-play-circle"></i> LAUNCH VIDEO (<span id="ads-left-display">5</span>/5)
+
+            <div>
+                <button class="stream-trigger-btn" id="watch-ad-btn" onclick="initiateConsoleVideoPayload()">
+                    SYNC VALIDATION LOOP (<span id="ads-left-display">5</span>/5)
                 </button>
             </div>
-        </section>
+        </aside>
 
-        <!-- METHOD 2: WIDE-BLADE DISPLAY INFRASTRUCTURE PANELS -->
-        <main class="showcase-column">
-            
-            <!-- BLADE PACKAGE: WEEKLY LITE -->
-            <div class="blade-card blade-lite">
-                <div class="blade-left">
-                    <div class="tier-label" style="color: var(--accent);">WEEKLY LITE</div>
-                    <span class="tier-duration">7 Days Server Validation</span>
+        <!-- CONTROL PANEL WORKSPACE (RIGHT) -->
+        <main class="allocation-control-panel">
+            <header class="wallet-hud-row">
+                <div>
+                    <span>Available Liquidity Supply</span>
+                    <h2 id="coin-balance-display">0 COINS</h2>
                 </div>
-                <div class="blade-center">
-                    <ul class="feature-stack">
-                        <li><i class="fas fa-microchip" style="color:var(--accent)"></i> Complete 91 API Engines Matrix Deployment</li>
-                        <li><i class="fas fa-shield-halved" style="color:var(--accent)"></i> Vercel Edge Server Framework Support</li>
-                    </ul>
+                <button class="buy-node-btn" onclick="window.location.href='index.html'" style="border-color: var(--neon-blue); color: var(--neon-blue);">
+                    <i class="fas fa-arrow-left"></i> Core Command
+                </button>
+            </header>
+
+            <!-- PACKAGE ITEMS LAYOUT SECTOR -->
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <!-- ROW ACCESS MODULE: WEEKLY LITE -->
+                <div class="terminal-row-item row-item-lite">
+                    <div class="meta-group">
+                        <h3 style="color: var(--neon-blue);">WEEKLY LITE</h3>
+                        <span>7 Day Node Framework Allocation</span>
+                    </div>
+                    <div class="features-inline-list">
+                        &gt; Access to 91 API Engines Matrix Deployment<br>
+                        &gt; Standard Pipeline Server Priority
+                    </div>
+                    <div class="pricing-action-box">
+                        <h4>10 <sub>CNS</sub></h4>
+                        <button class="buy-node-btn" onclick="executeSystemPurchase('Weekly Lite', 10, 7)">DEPLOY TIERS</button>
+                    </div>
                 </div>
-                <div class="blade-right">
-                    <div class="cost-display">10 <sub>COINS</sub></div>
-                    <button class="action-btn btn-accent" onclick="purchasePlan('Weekly Lite', 10, 7)">REDEEM UNIT</button>
+
+                <!-- ROW ACCESS MODULE: WEEKLY CORE -->
+                <div class="terminal-row-item row-item-weekly">
+                    <div class="meta-group">
+                        <h3 style="color: var(--neon-purple);">WEEKLY CORE</h3>
+                        <span>14 Day Node Framework Allocation</span>
+                    </div>
+                    <div class="features-inline-list">
+                        &gt; Complete Edge Server Architecture Access<br>
+                        &gt; High Capacity Network Pipeline Bandwidth
+                    </div>
+                    <div class="pricing-action-box">
+                        <h4>25 <sub>CNS</sub></h4>
+                        <button class="buy-node-btn" onclick="executeSystemPurchase('Weekly', 25, 14)">DEPLOY TIERS</button>
+                    </div>
                 </div>
+
+                <!-- ROW ACCESS MODULE: PRO CORE -->
+                <div class="terminal-row-item row-item-pro">
+                    <div class="meta-group">
+                        <h3 style="color: var(--neon-gold);">PRO MATRIX</h3>
+                        <span>30 Day Node Framework Allocation</span>
+                    </div>
+                    <div class="features-inline-list">
+                        &gt; Dedicated Pipeline Hardware Configuration<br>
+                        &gt; Zero Latency Request Bypasses Activated
+                    </div>
+                    <div class="pricing-action-box">
+                        <h4>50 <sub>CNS</sub></h4>
+                        <button class="buy-node-btn" onclick="executeSystemPurchase('Pro', 50, 30)">DEPLOY TIERS</button>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- BLADE PACKAGE: WEEKLY CORE -->
-            <div class="blade-card blade-weekly">
-                <div class="blade-left">
-                    <div class="tier-label" style="color: var(--primary);">WEEKLY CORE</div>
-                    <span class="tier-duration">14 Days Server Validation</span>
-                </div>
-                <div class="blade-center">
-                    <ul class="feature-stack">
-                        <li><i class="fas fa-bolt" style="color:var(--primary)"></i> Inherits All Weekly Lite Functionality Matrix</li>
-                        <li><i class="fas fa-network-wired" style="color:var(--primary)"></i> Unrestricted Edge Transmission Bandwidth</li>
-                    </ul>
-                </div>
-                <div class="blade-right">
-                    <div class="cost-display">25 <sub>COINS</sub></div>
-                    <button class="action-btn btn-primary" onclick="purchasePlan('Weekly', 25, 14)">REDEEM UNIT</button>
-                </div>
+            <!-- TELEMETRY RUNTIME ACTIVITY CONSOLE FEED -->
+            <div class="terminal-log-output" id="live-terminal-logs">
+                [SYSTEM] Ready for state processing parameters...
             </div>
-
-            <!-- BLADE PACKAGE: PRO MATRIX -->
-            <div class="blade-card blade-pro">
-                <div class="blade-left">
-                    <div class="tier-label" style="color: var(--premium);">PRO MATRIX</div>
-                    <span class="tier-duration">30 Days Server Validation</span>
-                </div>
-                <div class="blade-center">
-                    <ul class="feature-stack">
-                        <li><i class="fas fa-crown" style="color:var(--premium)"></i> Maximum Priority Level Hardware Sockets</li>
-                        <li><i class="fas fa-terminal" style="color:var(--premium)"></i> Zero Latency Request Throttle Bypasses</li>
-                    </ul>
-                </div>
-                <div class="blade-right">
-                    <div class="cost-display">50 <sub>COINS</sub></div>
-                    <button class="action-btn btn-premium" onclick="purchasePlan('Pro', 50, 30)">REDEEM UNIT</button>
-                </div>
-            </div>
-
         </main>
-    </div>
 
-    <!-- ACTUAL VIDEO PLAYER LAYER CORE -->
-    <div class="video-player-overlay" id="video-player-overlay">
-        <div class="video-viewport-wrapper">
-            <div class="video-watermark-lock">
-                <div class="live-dot"></div>
-                <span>SECURITY STREAM VALIDATION MODE</span>
-            </div>
-            
-            <!-- Standard dynamic HTML5 player engine architecture with loop controls suppressed -->
-            <video id="security-video-engine" preload="auto" playsinline>
-                <!-- Replace with your chosen direct mp4 stream url asset -->
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41762-large.mp4" type="video/mp4">
-                Your browser structure lacks native video asset execution compatibility.
-            </video>
-        </div>
-        <p style="margin-top: 25px; font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--text-dim);" id="player-hud-prompt">
-            Watch carefully. The system completes payload conversion when the timeline reaches 100%.
-        </p>
     </div>
 
     <script>
@@ -287,45 +368,48 @@
             
             if (adsWatchedToday >= 5) {
                 document.getElementById('watch-ad-btn').disabled = true;
-                document.getElementById('ad-status-text').innerHTML = `<span style="color:var(--error); font-weight:800;">DAILY RESOURCE TIERS DEPLETED:</span> Return tomorrow for credit generation limits expansion.`;
+                pushLogString("[SYSTEM] Daily transmission allowance limits reached. Core channels locked.");
             }
         }
 
-        function openCinematicVideo() {
+        function initiateConsoleVideoPayload() {
             validateDailyAdReset();
             if (adsWatchedToday >= 5) return;
 
-            const overlay = document.getElementById('video-player-overlay');
-            const video = document.getElementById('security-video-engine');
-            const hudPrompt = document.getElementById('player-hud-prompt');
+            const video = document.getElementById('core-video-engine');
+            const placeholder = document.getElementById('video-ui-canvas');
+            const button = document.getElementById('watch-ad-btn');
 
-            overlay.style.display = 'flex';
+            placeholder.style.display = 'none';
+            video.style.display = 'block';
+            button.disabled = true;
+
+            pushLogString("[STREAM] Syncing validation loop vectors...");
             video.currentTime = 0;
-            video.play().catch(err => {
-                hudPrompt.innerHTML = `<span style="color:var(--error)">Execution error: Please click inside viewport to confirm browser audio/video codecs bypass.</span>`;
-                overlay.addEventListener('click', () => { video.play(); }, {once: true});
-            });
+            video.play();
 
-            // Monitor video completion securely via native event listener hooks
             video.onended = () => {
-                overlay.style.display = 'none';
-                
+                video.style.display = 'none';
+                placeholder.style.display = 'flex';
+                button.disabled = false;
+
                 coins += 1;
                 adsWatchedToday += 1;
                 localStorage.setItem(`v_coins_${user}`, coins);
                 localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
                 
+                pushLogString(`[SUCCESS] Block verified. +1 Coin added to node profile.`);
                 syncStoreBalances();
-                alert("Authorization stream processed successfully! +1 Coin allocated to system registry.");
             };
         }
 
-        function purchasePlan(planName, cost, days) {
+        function executeSystemPurchase(planName, cost, days) {
             if (coins < cost) {
-                return alert(`Transaction Refused: Insufficient local node token supply. balance requirement: ${cost}`);
+                pushLogString(`[ERROR] Transaction aborted. Deficit index: ${cost - coins} coins.`);
+                return alert("Insufficient coin inventory.");
             }
 
-            if (confirm(`Approve allocation parameters of ${cost} coins to redeem system tier ${planName}?`)) {
+            if (confirm(`Approve system balance drop of ${cost} coins to load framework profile: ${planName}?`)) {
                 coins -= cost;
                 localStorage.setItem(`v_coins_${user}`, coins);
 
@@ -335,9 +419,14 @@
                 localStorage.removeItem(`v-key_expired_${user}`);
 
                 syncStoreBalances();
-                alert(`Configuration Profile Loaded: Plan ${planName} is now active.`);
-                window.location.href = 'index.html'; 
+                pushLogString(`[PROFILE] Active structural state written: ${planName}`);
+                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
             }
+        }
+
+        function pushLogString(str) {
+            const output = document.getElementById('live-terminal-logs');
+            output.innerHTML = `${str}<br>${output.innerHTML}`;
         }
     </script>
 </body>
