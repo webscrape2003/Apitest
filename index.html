@@ -31,14 +31,28 @@
             min-height: 100vh;
         }
 
-        .param-group { margin-bottom: 15px; text-align: left; }
-        .param-input {
-            width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border); border-radius: 6px; color: var(--text);
-            box-sizing: border-box; font-family: 'JetBrains Mono', monospace;
-        }
-        .param-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 10px var(--neon-glow); }
 
+.param-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+.param-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+}
+.param-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--neon-glow);
+}
+
+        
         /* --- STARTUP LOADER --- */
         #loader {
             position: fixed; inset: 0; background: #000; z-index: 10000;
@@ -55,7 +69,10 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* --- BACKGROUND --- */
-        .bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(circle at 50% 50%, #071324 0%, #020617 100%); }
+        .bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; background: radial-gradient(circle at 50% 50%, #071324 0%, #020617 100%);
+        }
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -64,7 +81,7 @@
         }
         @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 60px; } }
 
-        /* --- AUTH SYSTEM --- */
+        /* --- AUTH SYSTEM NEW BEAUTIFUL THEME LAYER --- */
         #auth-container {
             position: fixed; inset: 0; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
@@ -80,15 +97,27 @@
             text-align: center; position: relative;
             animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
         }
-        .auth-card h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .auth-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px; }
+        .auth-card::before {
+            content: ''; position: absolute; inset: -1px; border-radius: 24px;
+            padding: 1px; background: linear-gradient(135deg, var(--accent), var(--primary), transparent, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .auth-card h2 { 
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; 
+            margin-bottom: 8px; letter-spacing: 3px; 
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .auth-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 0.5px; }
         .auth-switch-text { font-size: 0.9rem; color: var(--text-dim); margin-top: 25px; }
         .auth-switch-link { color: var(--accent); font-weight: 700; text-decoration: none; cursor: pointer; transition: 0.2s; }
+        .auth-switch-link:hover { text-shadow: 0 0 10px var(--accent); color: white; }
         
         .auth-alert {
             padding: 14px 18px; border-radius: 12px; font-size: 0.85rem; margin-bottom: 25px;
             display: none; font-family: 'JetBrains Mono', monospace; text-align: left;
-            border-left: 4px solid transparent;
+            line-height: 1.4; border-left: 4px solid transparent;
         }
         .auth-alert.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-left-color: var(--error); color: #fca5a5; }
         .auth-alert.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-left-color: var(--success); color: #a7f3d0; }
@@ -100,20 +129,27 @@
             border-bottom: 1px solid var(--border); display: flex; align-items: center;
             justify-content: space-between; padding: 0 50px; z-index: 1002;
         }
-        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 5px; color: var(--accent); }
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
         
         #sidebar-toggle {
             background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); color: var(--text);
-            padding: 12px 16px; border-radius: 12px; cursor: pointer;
+            padding: 12px 16px; border-radius: 12px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
         }
+        #sidebar-toggle:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
 
+        /* --- CENTERED ACCESS CONTROLS BAR --- */
         .global-access-bar {
             display: flex; justify-content: center; align-items: center; gap: 20px;
             margin-bottom: 35px; padding: 20px; background: rgba(15, 23, 42, 0.4);
             border: 1px solid var(--border); border-radius: 20px; backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR TOGGLE MECHANICS --- */
         .sidebar {
             position: fixed; left: -280px; top: 85px; bottom: 0; width: 280px;
             background: rgba(8, 12, 24, 0.95); backdrop-filter: blur(30px);
@@ -121,15 +157,30 @@
             overflow-y: auto; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .sidebar.open { left: 0; box-shadow: 5px 0 25px rgba(0, 243, 255, 0.15); }
-        .sidebar-section-header { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; margin: 20px 0 10px 0; text-transform: uppercase; }
+        .sidebar-section-header {
+            font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--accent);
+            letter-spacing: 2px; padding-left: 12px; margin: 20px 0 10px 0; text-transform: uppercase; opacity: 0.8;
+        }
+        .sidebar-divider { height: 1px; background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), transparent); margin: 15px 10px; }
         .nav-link {
             padding: 14px 20px; display: flex; align-items: center; gap: 15px;
-            color: var(--text-dim); text-decoration: none; transition: 0.3s;
-            font-size: 0.95rem; border-radius: 12px; margin-bottom: 8px;
+            color: var(--text-dim); text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem; border-radius: 12px; margin-bottom: 8px; border: 1px solid transparent;
         }
-        .nav-link.active { color: #030712; background: linear-gradient(90deg, var(--accent), var(--primary)); font-weight: 700; box-shadow: 0 0 20px var(--neon-glow); }
+        .nav-link i { font-size: 1.1rem; transition: transform 0.3s ease; }
+        .nav-link:hover {
+            color: var(--accent); background: rgba(0, 243, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.25); transform: translateX(6px);
+        }
+        .nav-link:hover i { transform: scale(1.15); }
+        .nav-link.active {
+            color: #030712; background: linear-gradient(90deg, var(--accent), var(--primary));
+            font-weight: 700; border-color: var(--accent); box-shadow: 0 0 20px var(--neon-glow);
+        }
+        .nav-link.active i { color: #030712; transform: scale(1.1); }
 
-        .main-container { margin-top: 85px; padding: 50px; min-height: 100vh; display: none; }
+        /* --- MAIN WRAPPER LAYOUT --- */
+        .main-container { margin-left: 0; margin-top: 85px; padding: 50px; min-height: 100vh; transition: padding 0.3s ease; display: none; }
 
         /* --- DASHBOARD ELEMENTS --- */
         .home-mainframe-section {
@@ -137,60 +188,105 @@
             background: radial-gradient(ellipse at top right, rgba(0, 98, 255, 0.08), transparent 60%);
             padding: 40px; border-radius: 30px; margin-bottom: 30px;
         }
+        .system-specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 35px; }
+        .spec-item {
+            background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border);
+            padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 15px;
+        }
+        .spec-item i { font-size: 1.5rem; color: var(--accent); }
+        .spec-details h5 { font-family: 'Orbitron'; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-dim); }
+        .spec-details p { font-family: 'JetBrains Mono'; font-size: 0.95rem; color: white; margin-top: 3px; }
+
+        .dashboard-feature-row {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+            padding: 30px; margin-top: 25px; display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: center;
+        }
+        .console-stream {
+            background: #010409; border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            color: var(--success); height: 130px; overflow-y: hidden; line-height: 1.6;
+        }
+
+        .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin-bottom: 15px; }
+
         .perf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
         .perf-card { background: rgba(0,0,0,0.4); padding: 25px; border-radius: 18px; border: 1px solid var(--border); text-align: center; }
         .perf-val { font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent); display: block; margin-top: 5px; }
-        
+        .perf-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- API LAYOUTS --- */
         .api-list { display: flex; flex-direction: column; gap: 15px; }
         .api-row {
             background: var(--surface); border: 1px solid var(--border);
             border-radius: 16px; padding: 20px 35px; display: flex;
-            align-items: center; justify-content: space-between; transition: 0.4s;
+            align-items: center; justify-content: space-between;
+            transition: 0.4s; animation: slideUp 0.6s ease-out backwards;
         }
         .api-row:hover { border-color: var(--accent); transform: scale(1.01) translateX(10px); }
+        .api-meta { display: flex; align-items: center; gap: 25px; }
+        .api-icon { width: 50px; height: 50px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+        .status-active { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-dead { background: var(--error); box-shadow: 0 0 10px var(--error); }
+
+        .count-badge { background: var(--accent); color: black; padding: 2px 10px; border-radius: 10px; font-weight: 900; font-size: 0.8rem; margin-left: 15px; }
+        .method { font-family: 'JetBrains Mono'; font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-left: 8px; color: var(--accent); }
 
         .btn {
             background: var(--primary); border: none; color: white; padding: 14px 25px;
-            border-radius: 12px; font-weight: 700; cursor: pointer;
+            border-radius: 12px; font-family: inherit; font-weight: 700; cursor: pointer;
             transition: 0.3s; display: flex; align-items: center; gap: 10px; justify-content: center;
         }
-        .btn:hover { box-shadow: 0 0 15px rgba(0, 98, 255, 0.4); }
+        .btn:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0, 98, 255, 0.4); }
         .btn-ghost { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-        .btn-ghost:hover { background: var(--accent); color: black; }
+        .btn-ghost:hover { background: var(--accent); color: black; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+
+        .registry-sector-header {
+            margin-top: 45px; margin-bottom: 20px; font-family: 'Orbitron'; font-size: 1.1rem;
+            color: var(--accent); letter-spacing: 2px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2); padding-bottom: 12px;
+        }
 
         .premium-stealth { background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), transparent); border: 2px solid var(--premium); border-radius: 20px; padding: 30px; margin-top: 30px; }
         .blurred-key { background: #000; padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono'; filter: blur(10px); user-select: none; border: 1px dashed var(--premium); }
 
-        /* SUBSCRIPTION DASHBOARD SPECIFIC */
-        .billing-card { background: var(--surface); border: 1px solid var(--border); padding: 30px; border-radius: 24px; margin-top: 25px; }
-        .billing-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .billing-table th { text-align: left; padding: 15px; color: var(--accent); font-family: 'Orbitron'; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
-        .billing-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
-        .status-pill { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
-        .status-trial { background: rgba(0, 243, 255, 0.1); color: var(--accent); border: 1px solid var(--accent); }
-        .status-paid { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid var(--success); }
-
-        /* MODALS */
+        /* --- MODALS --- */
         .modal { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(15px); z-index: 2000; display: none; align-items: center; justify-content: center; }
         .modal-box { background: var(--bg); width: 90%; max-width: 650px; border-radius: 30px; border: 2px solid var(--accent); padding: 40px; text-align: center; max-height: 90vh; overflow-y: auto; }
         
         .tech-input {
             width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
             padding: 16px 20px; border-radius: 12px; color: white; font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 18px; outline: none; transition: 0.3s;
+            margin-bottom: 18px; outline: none; transition: 0.3s; font-size: 0.9rem;
         }
+        .tech-input:focus { border-color: var(--accent); box-shadow: 0 0 12px rgba(0, 243, 255, 0.25); background: rgba(255,255,255,0.06); }
 
-        pre { background: #000; padding: 20px; border-radius: 12px; color: var(--accent); font-size: 0.85rem; max-height: 350px; overflow-y: auto; display: none; margin-top: 20px; text-align: left; white-space: pre-wrap; word-break: break-all; font-family: 'JetBrains Mono'; }
+        pre { 
+            background: #000; padding: 20px; border-radius: 12px; color: var(--accent); 
+            font-size: 0.85rem; max-height: 350px; overflow-y: auto; display: none; 
+            margin-top: 20px; border: 1px solid var(--border); text-align: left;
+            white-space: pre-wrap; word-break: break-all; font-family: 'JetBrains Mono', monospace;
+        }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- MOBILE VIEW RESPONSIVENESS LAYER --- */
         @media (max-width: 768px) {
-            nav { padding: 0 15px; }
+            nav { padding: 0 15px; height: 75px; }
             .sidebar { top: 75px; width: 260px; }
-            .main-container { padding: 20px; }
-            .logo { font-size: 1.3rem; }
-            .perf-grid { grid-template-columns: repeat(2, 1fr); }
-            .api-row { flex-direction: column; gap: 15px; }
+            .main-container { margin-top: 75px; padding: 20px; }
+            .logo { font-size: 1.3rem; letter-spacing: 2px; }
+            .global-access-bar { flex-direction: column; gap: 12px; padding: 15px; }
+            .global-access-bar .btn { width: 100%; }
+            .home-mainframe-section { padding: 20px; border-radius: 20px; }
+            .hero h1 { font-size: 1.8rem; }
+            .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .system-specs-grid { grid-template-columns: 1fr; gap: 10px; }
+            .dashboard-feature-row { grid-template-columns: 1fr !important; gap: 15px; padding: 20px; }
+            .api-row { flex-direction: column; align-items: stretch; padding: 20px 15px; gap: 15px; }
+            .api-row > div:last-child { display: flex; width: 100%; gap: 10px; }
         }
     </style>
 </head>
@@ -199,7 +295,7 @@
     <div id="loader">
         <div class="loader-box">
             <div class="spinner"></div>
-            <div class="logo" style="margin-top:10px;">VAJIRA_OS INITIALIZING...</div>
+            <div class="logo" style="margin-top:10px;">INITIALIZING VAJIRA_SYSTEMS...</div>
         </div>
     </div>
 
@@ -208,191 +304,281 @@
 
     <!-- AUTH SECTION -->
     <div id="auth-container">
-        <!-- RESET VIEW -->
-        <div class="auth-card" id="reset-block" style="display:none;">
-            <h2>RECOVERY</h2>
-            <p class="auth-subtitle">Enter email for registry search</p>
-            <div class="auth-alert" id="reset-alert"></div>
-            <form onsubmit="handleResetRequest(event)">
-                <input type="email" id="reset-email" class="tech-input" placeholder="REGISTERED EMAIL" required>
-                <button type="submit" class="btn" style="width:100%;">SEND RECOVERY LINK</button>
-            </form>
-            <p class="auth-switch-text">Return to <a class="auth-switch-link" onclick="toggleAuthView('login')">Login</a></p>
-        </div>
+
+
+<!-- RESET PASSWORD VIEW -->
+<div class="auth-card" id="reset-block" style="display:none;">
+    <h2>PASSWORD RECOVERY</h2>
+    <p class="auth-subtitle">Enter your registered email to receive reset instructions</p>
+    
+    <div class="auth-alert" id="reset-alert"></div>
+
+    <form id="reset-form" onsubmit="handleResetRequest(event)">
+        <input type="email" id="reset-email" class="tech-input" placeholder="ENTER REGISTERED EMAIL" required>
+        <button type="submit" class="btn" style="width:100%; background:var(--primary);">
+            <i class="fas fa-paper-plane"></i> SEND RECOVERY LINK
+        </button>
+    </form>
+    <p class="auth-switch-text">
+        Remembered credentials? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+    </p>
+</div>
+
+
         
         <!-- LOGIN VIEW -->
         <div class="auth-card" id="login-block">
             <h2>GATE ACCESS</h2>
-            <p class="auth-subtitle">Verify node credentials</p>
+            <p class="auth-subtitle">Verify system credentials to authorize session</p>
+            
             <div class="auth-alert error" id="login-error"></div>
-            <form onsubmit="handleLogon(event)">
-                <input type="text" id="login-user" class="tech-input" placeholder="USERNAME" required>
-                <input type="password" id="login-pass" class="tech-input" placeholder="PASSWORD" required>
-                <button type="submit" class="btn" style="width:100%;">AUTHORIZE SESSION</button>
+            <div class="auth-alert success" id="login-success"></div>
+
+            <form id="login-form" onsubmit="handleLogon(event)">
+                <input type="text" id="login-user" class="tech-input" placeholder="EMAIL OR USERNAME" required autocomplete="username">
+                <input type="password" id="login-pass" class="tech-input" placeholder="ACCESS PASSWORD" required autocomplete="current-password">
+                <button type="submit" class="btn" style="width:100%;">
+                    <i class="fas fa-shield-alt"></i> AUTHORIZE SESSION
+                </button>
             </form>
-            <p class="auth-switch-text">New Terminal? <a class="auth-switch-link" onclick="toggleAuthView('signup')">Create Account</a></p>
+            <p class="auth-switch-text">
+                New Terminal Node? <a class="auth-switch-link" onclick="toggleAuthView('signup')">Create Account</a>
+            </p>
+
+            
+            <p class="auth-switch-text" style="margin-top:10px;">
+    <a class="auth-switch-link" onclick="toggleAuthView('reset')">Forgot Password?</a>
+</p>
+
+            
         </div>
 
         <!-- SIGNUP VIEW -->
         <div class="auth-card" id="signup-block" style="display:none;">
             <h2>NODE REGISTRY</h2>
-            <p class="auth-subtitle">Provision access framework</p>
+            <p class="auth-subtitle">Provision security access framework permissions</p>
+            
             <div class="auth-alert error" id="signup-error"></div>
-            <form onsubmit="handleRegistration(event)">
-                <input type="text" id="signup-name" class="tech-input" placeholder="USERNAME" required>
-                <input type="email" id="signup-email" class="tech-input" placeholder="EMAIL" required>
-                <input type="password" id="signup-pass" class="tech-input" placeholder="PASSWORD" required>
-                <input type="password" id="signup-confirm" class="tech-input" placeholder="CONFIRM PASSWORD" required>
-                <button type="submit" class="btn" style="width:100%;">REGISTER TERMINAL</button>
+
+            <form id="signup-form" onsubmit="handleRegistration(event)">
+                <input type="text" id="signup-name" class="tech-input" placeholder="UNIQUE USERNAME" required autocomplete="username">
+                <input type="email" id="signup-email" class="tech-input" placeholder="EMAIL ADDRESS" required autocomplete="email">
+                <input type="password" id="signup-pass" class="tech-input" placeholder="SECURE PASSWORD" required autocomplete="new-password">
+                <input type="password" id="signup-confirm" class="tech-input" placeholder="CONFIRM ACCESS PASSWORD" required autocomplete="new-password">
+                <button type="submit" class="btn" style="width:100%; background:linear-gradient(90deg, var(--accent), var(--primary));">
+                    <i class="fas fa-user-plus"></i> REGISTER TERMINAL
+                </button>
             </form>
-            <p class="auth-switch-text">Existing Node? <a class="auth-switch-link" onclick="toggleAuthView('login')">Login</a></p>
+            <p class="auth-switch-text">
+                Existing Node structure? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+            </p>
         </div>
     </div>
+
+
     
     <nav>
         <div style="display:flex; align-items:center; gap:20px;">
             <button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
             <div class="logo">VAJIRA<span style="color:white">OFFICIAL</span></div>
         </div>
-        <div id="auth-user-badge" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.85rem; display:none;">NODE: --</div>
+        <div style="display:flex; gap:25px; align-items:center;">
+            <div id="auth-user-badge" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.85rem; display:none;"><i class="fas fa-user-circle"></i> USER: --</div>
+            <div id="real-ping" style="font-family:'JetBrains Mono'; color:var(--success); font-size:0.8rem;">LATENCY: --ms</div>
+        </div>
     </nav>
 
     <aside class="sidebar">
-        <div class="sidebar-section-header">CORE</div>
-        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-desktop"></i> Dashboard</a>
-        <a href="#" class="nav-link" data-page="subscription"><i class="fas fa-crown" style="color:var(--premium)"></i> Subscriptions</a>
+        <div class="sidebar-section-header">Core Dashboard</div>
+        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-desktop"></i> System Dashboard</a>
         
-        <div class="sidebar-section-header">API ENGINES</div>
-        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-database"></i> All Nodes</a>
-        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Downloaders</a>
-        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Movie Hub</a>
-        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> Neural AI</a>
-        <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Core</a>
+        <div class="sidebar-divider"></div>
         
-        <div style="margin-top:40px; padding: 0 10px;">
-            <button onclick="terminateSession()" class="btn" style="background:var(--error); width:100%; font-size:0.8rem;">LOGOUT SESSION</button>
-        </div>
+        <div class="sidebar-section-header">API Engine Registries</div>
+        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-database"></i> All Platform Node APIs</a>
+        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Downloaders Core</a>
+        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Cinematic Hub</a>
+        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> Neural Systems</a>
+        <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Systems</a>
+        
+        <div class="sidebar-divider"></div>
+        <button onclick="terminateSession()" class="btn-logout" style="background: var(--error); color: white; padding: 10px 20px; border: none; cursor: pointer;">
+    <i class="fas fa-sign-out-alt"></i> LOGOUT
+</button>
     </aside>
 
     <main class="main-container">
+        
+        <div class="global-access-bar">
+            <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
+                <i class="fas fa-crown"></i> PREMIUM API KEY
+            </button>
+            <button class="btn btn-ghost" onclick="generateSecureKey()">
+                <i class="fas fa-key"></i> GENERATE KEY
+            </button>
+        </div>
+        
         <section id="home-page" class="page">
             <div class="home-mainframe-section">
-                <h1 class="orbitron">NETWORK INTELLIGENCE</h1>
-                <p style="color:var(--text-dim); margin: 15px 0;">91 Production Modules ready for deployment.</p>
-                <div class="perf-grid">
-                    <div class="perf-card"><span class="perf-label">Status</span><span class="perf-val" style="color:var(--success)">ONLINE</span></div>
-                    <div class="perf-card"><span class="perf-label">Trial Plan</span><span class="perf-val" id="trial-days-display">3 DAYS</span></div>
-                    <div class="perf-card"><span class="perf-label">APIs</span><span class="perf-val">91</span></div>
-                    <div class="perf-card"><span class="perf-label">Latency</span><span class="perf-val" id="val-lat">--ms</span></div>
+                <div class="hero" style="margin-bottom:0; background:transparent; border:none; padding:0;">
+                    <h1>NETWORK INTELLIGENCE</h1>
+                    <p style="color:var(--text-dim); font-size:1.1rem; max-width:800px; line-height:1.6;">
+                        Enterprise-grade distributed processing framework provisioning programmatic endpoints over <span style="color:var(--accent);font-weight:700;">91 Production Modules</span>. Highly scalable microservices optimized for automation architectures.
+                    </p>
+                    <p style="color:rgba(255,255,255,0.4); font-size:0.9rem; margin-top:10px; font-family:'JetBrains Mono';">
+                        Developer Structure Node: W.M Vajira Rathnayaka (Age: 23).
+                    </p>
+                    
+                    <div class="perf-grid">
+                        <div class="perf-card"><span class="perf-label">Session Latency</span><span class="perf-val" id="val-lat">--ms</span></div>
+                        <div class="perf-card"><span class="perf-label">Memory Usage</span><span class="perf-val" id="val-mem">--MB</span></div>
+                        <div class="perf-card"><span class="perf-label">Registry Node</span><span class="perf-val" style="color:var(--success)">ONLINE</span></div>
+                        <div class="perf-card"><span class="perf-label">Total APIs</span><span class="perf-val">91</span></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="global-access-bar">
-                <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
-                    <i class="fas fa-crown"></i> UPGRADE TO PREMIUM
-                </button>
-                <button class="btn btn-ghost" id="gen-key-btn" onclick="handleTrialGeneration()">
-                    <i class="fas fa-key"></i> GENERATE TRIAL KEY
-                </button>
-            </div>
-
-            <div id="home-log-box" style="background:rgba(0,0,0,0.3); padding:20px; border-radius:15px; border:1px solid var(--border); font-family:'JetBrains Mono'; font-size:0.8rem;">
-                [SYSTEM]: Initializing connection clusters...<br>
-                [INFO]: Dynamic rate limiting applied to free nodes.
-            </div>
-        </section>
-
-        <!-- SUBSCRIPTION PAGE -->
-        <section id="subscription-page" class="page" style="display:none;">
-            <h2 class="orbitron">MANAGEMENT & BILLING</h2>
-            <div style="display:grid; grid-template-columns: 1fr 1.5fr; gap:25px; margin-top:30px;">
-                <div class="billing-card" style="border-color:var(--premium);">
-                    <h3 class="orbitron" style="color:var(--premium)">CURRENT PLAN</h3>
-                    <p id="sub-plan-name" style="font-size:1.4rem; margin-top:10px; font-weight:bold;">FREE TRIAL</p>
-                    <p id="sub-plan-timer" style="color:var(--text-dim); margin-top:5px;"></p>
-                    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
-                    <button class="btn" style="width:100%; background:var(--premium); color:black;" onclick="openPremiumModal()">EXTEND TO PREMIUM</button>
-                </div>
-                <div class="billing-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h3 class="orbitron">TRANSACTION LOGS</h3>
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn btn-ghost" style="padding:8px 15px; font-size:0.7rem;" onclick="exportData('csv')">EXPORT CSV</button>
-                            <button class="btn btn-ghost" style="padding:8px 15px; font-size:0.7rem;" onclick="exportData('pdf')">EXPORT PDF</button>
+                <div class="system-specs-grid">
+                    <div class="spec-item">
+                        <i class="fas fa-layer-group"></i>
+                        <div class="spec-details">
+                            <h5>CORE RUNTIME</h5>
+                            <p>NodeJS / Express Cluster</p>
                         </div>
                     </div>
-                    <table class="billing-table">
-                        <thead>
-                            <tr>
-                                <th>DATE</th>
-                                <th>DESCRIPTION</th>
-                                <th>AMOUNT</th>
-                                <th>STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody id="billing-history-body">
-                            <!-- Populated via JS -->
-                        </tbody>
-                    </table>
+                    <div class="spec-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="spec-details">
+                            <h5>SECURITY PROTOCOL</h5>
+                            <p>AES-256 Tokenization</p>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-server"></i>
+                        <div class="spec-details">
+                            <h5>EDGE ROUTING</h5>
+                            <p>Vercel Global Gateway</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="dashboard-feature-row">
+                <div>
+                    <h4 class="orbitron" style="font-size:0.9rem; color:var(--accent);"><i class="fas fa-network-wired"></i> EDGE SYSTEM LOGS</h4>
+                    <p style="font-size:0.8rem; color:var(--text-dim); margin-top:5px;">Real-time stream of incoming microservice events.</p>
+                </div>
+                <div class="console-stream" id="console-log">
+                    [SYSTEM]: Boot routine initialization completed.<br>
+                    [ROUTER]: Inbound cluster mappings established for 91 engines.<br>
+                    [DB_POOL]: Standby listeners ready on client sockets...
+                </div>
+            </div>
+
+            <div class="dashboard-feature-row" style="grid-template-columns: 2fr 1fr;">
+                <div>
+                    <h4 class="orbitron" style="font-size:0.9rem; color:white;"><i class="fas fa-microchip"></i> COMPUTE LOAD CLUSTERS</h4>
+                    <p style="font-size:0.8rem; color:var(--text-dim); margin-top:5px;">Dynamic memory allocations across active virtual endpoints.</p>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border); padding:15px; border-radius:12px; display:flex; justify-content:space-around; text-align:center;">
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_01</span><p style="font-size:0.7rem; color:var(--success)">IDLE</p></div>
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_02</span><p style="font-size:0.7rem; color:var(--success)">ACTIVE</p></div>
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_03</span><p style="font-size:0.7rem; color:var(--success)">IDLE</p></div>
+                </div>
+            </div>
+
+            <div class="premium-stealth">
+                <h3 class="orbitron" style="font-size:0.9rem; color:var(--premium); margin-bottom:15px;">LIFETIME ACCESS CREDENTIALS</h3>
+                <div class="blurred-key">vajira-VajiraOfficial2003</div>
+                <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.8rem; color:var(--text-dim);">Status: <span style="color:var(--premium)">PERMANENT</span></span>
+                    <button class="btn btn-ghost" style="border-color:var(--premium); color:var(--premium);" onclick="openPremiumModal()">UPGRADE NOW</button>
+                </div>
+            </div>
+
+            <h3 class="orbitron" style="margin-top:40px; margin-bottom:30px; color:var(--accent); letter-spacing:3px;">SYSTEM FEATURED MODULES</h3>
+            <div class="api-list" id="featured-list"></div>
         </section>
 
         <section id="apis-page" class="page" style="display:none;">
-            <h2 class="orbitron">PLATFORM ISOLATION ENGINES</h2>
+            <h2 class="orbitron" style="margin-bottom:10px;">PLATFORM ISOLATION ENGINES</h2>
+            <p style="color:var(--text-dim); font-size:0.9rem; margin-bottom:30px;">All endpoints sorted cleanly by structural providers and data nodes.</p>
             <div id="full-registry"></div>
         </section>
         
-        <section id="downloaders-page" class="page" style="display:none;"><div class="api-list" id="list-downloaders"></div></section>
-        <section id="movie-page" class="page" style="display:none;"><div class="api-list" id="list-movie"></div></section>
-        <section id="ai-page" class="page" style="display:none;"><div class="api-list" id="list-ai"></div></section>
-        <section id="images-page" class="page" style="display:none;"><div class="api-list" id="list-images"></div></section>
+        <section id="downloaders-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">DOWNLOADERS <span class="count-badge" id="count-downloaders">--</span></h2>
+            <div class="api-list" id="list-downloaders"></div>
+        </section>
+        
+        <section id="movie-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">MOVIE SYSTEMS <span class="count-badge" id="count-movie">--</span></h2>
+            <div class="api-list" id="list-movie"></div>
+        </section>
+        
+        <section id="ai-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">NEURAL SYSTEMS <span class="count-badge" id="count-ai">--</span></h2>
+            <div class="api-list" id="list-ai"></div>
+        </section>
+        
+        <section id="images-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">IMAGE ENGINES <span class="count-badge" id="count-images">--</span></h2>
+            <div class="api-list" id="list-images"></div>
+        </section>
     </main>
 
-    <!-- EXPIRED ALERT MODAL -->
-    <div class="modal" id="modal-expired">
-        <div class="modal-box" style="border-color:var(--error);">
-            <i class="fas fa-hourglass-end" style="color:var(--error); font-size:3rem; margin-bottom:20px;"></i>
-            <h2 class="orbitron">TRIAL ACCESS EXPIRED</h2>
-            <p style="margin:20px 0; color:var(--text-dim);">Your 3-day free terminal access has ended. To continue utilizing our 91 production APIs, please authorize a Premium Plan.</p>
-            <button class="btn" style="width:100%; background:var(--premium); color:black;" onclick="switchToPage('subscription')">UPGRADE NOW</button>
-            <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="closeModal()">CLOSE</button>
+    <div class="modal" id="modal-key-info">
+        <div class="modal-box">
+            <h2 class="orbitron" style="color:var(--accent); margin-bottom:20px;">ACCESS CERTIFICATE</h2>
+            <div style="background:#000; padding:20px; border-radius:12px; font-family:'JetBrains Mono'; color:var(--accent); border:1px dashed var(--accent); margin-bottom:20px;" id="disp-key">--</div>
+            <div style="text-align:left; color:var(--text-dim); line-height:1.8; margin-bottom:25px;">
+                <p>Status: <span style="color:var(--success)">VALIDATED</span></p>
+                <p>Issued: <span id="disp-date">--</span></p>
+                <p>Expiry: <span style="color:var(--accent)">30 DAYS</span></p>
+            </div>
+            <button class="btn" style="width:100%; justify-content:center;" onclick="copyActiveKey()"><i class="fas fa-copy"></i> COPY KEY</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
-    <!-- PREMIUM MODAL -->
     <div class="modal" id="modal-premium">
         <div class="modal-box" style="border-color:var(--premium);">
             <i class="fas fa-crown" style="color:var(--premium); font-size:3rem; margin-bottom:20px;"></i>
-            <h2 class="orbitron" style="color:var(--premium);">PREMIUM UPGRADE</h2>
-            <div style="background:rgba(0,0,0,0.4); padding:25px; border-radius:20px; text-align:left; line-height:1.8; margin-bottom:20px;">
-                <p>Lifetime Access: <span style="color:var(--premium)">250 LKR</span></p>
+            <h2 class="orbitron" style="color:var(--premium); margin-bottom:20px;">PREMIUM UPGRADE</h2>
+            <div style="background:rgba(0,0,0,0.4); padding:25px; border-radius:20px; text-align:left; line-height:1.8;">
+                <p>Lifetime Price: <span style="color:var(--premium)">250 LKR</span></p>
                 <p>Bank: <span style="color:white">BOC (Bank of Ceylon)</span></p>
                 <p>Account: <span style="color:white">0089860809</span></p>
-                <p>Name: <span style="color:white">W.M VAJIRA RATHNAYAKA</span></p>
+                <p>Name: <span style="color:white">W.M VAJIRA RATHNAYAKA BALAGODA</span></p>
             </div>
-            <button class="btn" style="width:100%; background:#25D366; color:white;" onclick="window.open('https://wa.me/94719199757')">CONTACT ON WHATSAPP</button>
-            <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="closeModal()">CLOSE</button>
+            <button class="btn" style="width:100%; margin-top:30px; background:#25D366; color:white;" onclick="window.open('https://wa.me/94719199757')">
+                <i class="fab fa-whatsapp"></i> CONTACT ON WHATSAPP
+            </button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
-    <div class="modal" id="terminal-modal">
-        <div class="modal-box">
-            <h2 class="orbitron" id="term-title" style="margin-bottom:25px;">TERMINAL_EXECUTE</h2>
-            <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
-            <div id="term-params-container"></div>
-            <button class="btn" style="width:100%;" id="term-run">EXECUTE REQUEST</button>
-            <pre id="term-res"></pre>
-            <button class="btn btn-ghost" style="margin-top:15px; width:100%;" onclick="closeModal()">CLOSE</button>
-        </div>
+    <!-- UPDATED TERMINAL MODAL -->
+<div class="modal" id="terminal-modal">
+    <div class="modal-box">
+        <h2 class="orbitron" id="term-title" style="margin-bottom:25px;">TERMINAL_EXECUTE</h2>
+        <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
+        
+        <!-- This container will now dynamically hold all required data parameters -->
+        <div id="term-params-container"></div>
+        
+        <button class="btn" style="width:100%;" id="term-run">EXECUTE REQUEST</button>
+        <pre id="term-res" class="mono"></pre>
+        <button class="btn btn-ghost" style="margin-top:15px; width:100%; justify-content:center;" onclick="closeModal()">CLOSE TERMINAL</button>
     </div>
+</div>
+
 
     <script>
         const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co"; 
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmF5eXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg";
         const BASE_URL = "https://vajira-official-apis.vercel.app";
+        const PREMIUM_KEY = "vajira-VajiraOfficial2003";
 
-        // COMPLETE API ARRAY (AS PROVIDED)
         const apiData = [
             { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube Video in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
             { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Download YouTube Audio in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
@@ -475,7 +661,7 @@
             { id: 79, name: "Ytsbz Search", endpoint: "/api/ytsbz", category: "movie", param: "q", description: "Ytsbz movie search.", example: "2025", method: "GET", status: "active" },
             { id: 80, name: "All Torrent Downloader", endpoint: "/api/alltorrentdl", category: "movie", param: "url", description: "Magnet link downloader.", example: "Magnet link", method: "GET", status: "active" },
             { id: 81, name: "Moviebox search", endpoint: "/api/movieboxs", category: "movie", param: "query", description: "Moviebox content search.", example: "Movie name", method: "GET", status: "active" },
-            { id: 82, name: "Movie box stream details", endpoint: "/api/movieboxdls", category: "movie", param: "subjectId=PUT_ID&detailPath=PUT_PATH&season=0&episode=0", description: "Fetch media resolutions, streams, and captions.", example: "Text Eg:- subjectId=4009074076768698256&detailPath=transformers-one-wwiZVkjB9M4", method: "GET", status: "active" },
+            { id: 76, name: "Movie box stream details", endpoint: "/api/movieboxdls", category: "movie", param: "subjectId=PUT_ID&detailPath=PUT_PATH&season=0&episode=0", description: "Fetch media resolutions, streams, and captions.", example: "Text Eg:- subjectId=4009074076768698256&detailPath=transformers-one-wwiZVkjB9M4", method: "GET", status: "active", lastChecked: null, responseTime: null },
             { id: 83, name: "Movibd search", endpoint: "/api/movibd", category: "movie", param: "search", description: "Search Movibd.", example: "Movie name", method: "GET", status: "active" },
             { id: 84, name: "Movibd downloader", endpoint: "/api/movibddl", category: "movie", param: "url", description: "Download from Movibd.", example: "Movie URL", method: "GET", status: "active" },
             { id: 85, name: "Moviect Search", endpoint: "/api/moviect", category: "movie", param: "search", description: "Search Moviect.", example: "Movie name", method: "GET", status: "active" },
@@ -488,21 +674,44 @@
             { id: 93, name: "Xhamster search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "Xhamster name", method: "GET", status: "active" }
         ];
 
-        let currentUser = null;
-
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            }, 1500);
+            }, 2000);
             
             checkActiveSession();
             renderLists();
             setupNav();
             setupSidebarToggle();
             setInterval(updateRealPerf, 3000);
+            setInterval(simulateLogs, 4000);
             updateRealPerf();
         };
+
+function toggleAuthView(view) {
+    document.getElementById('login-block').style.display = view === 'login' ? 'block' : 'none';
+    document.getElementById('signup-block').style.display = view === 'signup' ? 'block' : 'none';
+    document.getElementById('reset-block').style.display = view === 'reset' ? 'block' : 'none';
+    
+    // Clear alerts
+    document.querySelectorAll('.auth-alert').forEach(a => a.style.display = 'none');
+}
+
+        
+       /* function toggleAuthView(view) {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('login-success').style.display = 'none';
+            document.getElementById('signup-error').style.display = 'none';
+
+            if (view === 'signup') {
+                document.getElementById('login-block').style.display = 'none';
+                document.getElementById('signup-block').style.display = 'block';
+            } else {
+                document.getElementById('signup-block').style.display = 'none';
+                document.getElementById('login-block').style.display = 'block';
+            }
+        }*/
 
         function checkActiveSession() {
             const activeUser = localStorage.getItem('v_auth_user');
@@ -510,111 +719,237 @@
         }
 
         function grantSystemAccess(username) {
-            currentUser = username;
             document.getElementById('auth-container').style.display = 'none';
             document.querySelector('.main-container').style.display = 'block';
             const userBadge = document.getElementById('auth-user-badge');
             userBadge.innerHTML = `<i class="fas fa-user-circle"></i> NODE: ${username.toUpperCase()}`;
             userBadge.style.display = 'block';
-            loadSubscriptionData();
-        }
-
-        // --- TRIAL LOGIC START ---
-        function loadSubscriptionData() {
-            const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
-            const logBox = document.getElementById('home-log-box');
-            const subTimer = document.getElementById('sub-plan-timer');
-            const billingBody = document.getElementById('billing-history-body');
-
-            if (issuedAt) {
-                const diff = Date.now() - parseInt(issuedAt);
-                const daysPast = diff / (1000 * 60 * 60 * 24);
-                
-                if (daysPast > 3) {
-                    logBox.innerHTML += `<br><span style="color:var(--error)">[SYSTEM]: Free API Key Expired. Upgrade required.</span>`;
-                    subTimer.innerHTML = `STATUS: <span style="color:var(--error)">EXPIRED</span>`;
-                    document.getElementById('gen-key-btn').innerHTML = `<i class="fas fa-lock"></i> TRIAL ENDED`;
-                    document.getElementById('trial-days-display').textContent = "EXPIRED";
-                } else {
-                    const timeLeft = (3 - daysPast).toFixed(2);
-                    logBox.innerHTML += `<br>[SYSTEM]: Trial session valid. ${timeLeft} days remaining.`;
-                    subTimer.innerHTML = `EXPIRES IN: <span style="color:var(--accent)">${timeLeft} Days</span>`;
-                    document.getElementById('trial-days-display').textContent = timeLeft + " DAYS";
-                }
-
-                // Billing History
-                const date = new Date(parseInt(issuedAt)).toLocaleDateString();
-                billingBody.innerHTML = `<tr><td>${date}</td><td>3-Day Terminal Trial</td><td>FREE</td><td><span class="status-pill status-trial">COMPLETED</span></td></tr>`;
-            } else {
-                subTimer.innerHTML = `NO ACTIVE SESSION`;
-                billingBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No history recorded</td></tr>`;
-            }
-        }
-
-        function handleTrialGeneration() {
-            const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
-            if (issuedAt) {
-                const diff = Date.now() - parseInt(issuedAt);
-                if (diff / (1000 * 60 * 60 * 24) > 3) {
-                    document.getElementById('modal-expired').style.display = 'flex';
-                } else {
-                    alert("A trial key is already active for this account.");
-                }
-                return;
-            }
-
-            const ts = Date.now();
-            const key = `vajira-free-${Math.random().toString(36).substring(7)}-${ts}`;
-            localStorage.setItem(`v_trial_start_${currentUser}`, ts);
-            localStorage.setItem(`v-key`, key);
-            
-            alert(`TRIAL GENERATED: ${key}\n\nValid for 3 days.`);
-            loadSubscriptionData();
-        }
-
-        async function handleLogon(e) {
-            e.preventDefault();
-            const user = document.getElementById('login-user').value.trim();
-            localStorage.setItem('v_auth_user', user);
-            grantSystemAccess(user);
-        }
-
-        async function handleRegistration(e) {
-            e.preventDefault();
-            const user = document.getElementById('signup-name').value.trim();
-            localStorage.setItem('v_auth_user', user);
-            grantSystemAccess(user);
         }
 
         function terminateSession() {
             localStorage.removeItem('v_auth_user');
-            location.reload();
+            document.getElementById('auth-user-badge').style.display = 'none';
+            document.querySelector('.main-container').style.display = 'none';
+            document.getElementById('login-form').reset();
+            document.getElementById('auth-container').style.display = 'flex';
+            toggleAuthView('login');
         }
 
-        function exportData(type) {
-            alert(`Generating ${type.toUpperCase()}... Please wait... Record successfully saved to cluster storage.`);
+
+
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    try {
+        alertBox.className = "auth-alert";
+        alertBox.textContent = "Verifying registry...";
+        alertBox.style.display = 'block';
+
+        // 1. Check if email exists in database
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        const response = await fetch(query, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: In a real app, you would trigger a serverless function here
+            // to send a unique reset link to the user's email.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery instructions sent to " + email;
+            console.log("Reset initiated for:", data[0].username);
+        } else {
+            throw new Error("Email not found in terminal registry.");
+        }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+    }
+}
+
+        
+        async function handleRegistration(e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-pass').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            const errorAlert = document.getElementById('signup-error');
+
+            errorAlert.style.display = 'none';
+
+            if (password !== confirm) {
+                errorAlert.textContent = "[ERROR]: Passwords do not match.";
+                errorAlert.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Prepare the payload strictly
+                const payload = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
+
+                const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
+                const response = await fetch(registerUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation' // Changed from minimal to see if it returns the object
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Supabase Error Details:", errorData);
+                    throw new Error(errorData.message || "Database rejected the transaction.");
+                }
+
+                alert("Registration successful!");
+                toggleAuthView('login');
+
+            } catch (err) {
+                errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
+                errorAlert.style.display = 'block';
+            }
         }
 
-        function switchToPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById(`${id}-page`).style.display = 'block';
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.querySelector(`[data-page="${id}"]`).classList.add('active');
-            closeModal();
+
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    // Reset UI state
+    alertBox.className = "auth-alert";
+    alertBox.textContent = "Verifying registry...";
+    alertBox.style.display = 'block';
+
+    try {
+        // 1. Check if email exists in database
+        // We look up the user record first
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        
+        const response = await fetch(query, {
+            headers: { 
+                'apikey': SUPABASE_ANON_KEY, 
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: Success notification
+            // Since this is a client-side app, you cannot send actual emails directly.
+            // You must use a backend (like a Supabase Edge Function) for that.
+            // For now, this confirms the account was found.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery request sent to " + email + ". Check your inbox.";
+            console.log("Reset initiated for user:", data[0].username);
+        } else {
+            // User not found
+            throw new Error("Email address not registered in system.");
+        }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+        alertBox.style.display = 'block';
+    }
+}
+
+        
+        
+async function handleLogon(e) {
+    e.preventDefault();
+    const identifier = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim(); // .trim() ensures no hidden spaces
+    const errorAlert = document.getElementById('login-error');
+
+    errorAlert.style.display = 'none';
+
+    try {
+        // Build the query to check if email OR username matches
+        // We do NOT filter by password in the URL initially to see if the user exists at all
+        let query = identifier.includes('@') 
+            ? `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(identifier)}&select=username,password`
+            : `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(identifier)}&select=username,password`;
+
+        const response = await fetch(query, {
+            method: 'GET',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        // Check if we found the user
+        if (data && data.length > 0) {
+            const userRecord = data[0];
+            
+            // Now compare the password manually in JavaScript
+            if (userRecord.password === pass) {
+                localStorage.setItem('v_auth_user', userRecord.username);
+                grantSystemAccess(userRecord.username);
+            } else {
+                throw new Error("Incorrect password provided.");
+            }
+        } else {
+            throw new Error("No user found with that identifier.");
         }
 
-        // --- UI & API LOGIC ---
-        function setupNav() {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.onclick = (e) => {
-                    e.preventDefault();
-                    switchToPage(link.dataset.page);
+    } catch (err) {
+        errorAlert.textContent = `[DENIED]: ${err.message}`;
+        errorAlert.style.display = 'block';
+    }
+}
+
+        function setupSidebarToggle() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
                 }
             });
         }
 
+        function simulateLogs() {
+            const logs = [
+                `[ROUTER]: Handshake complete for secure consumer connection.`,
+                `[API_CORE]: Indexing token arrays against active memory clusters.`,
+                `[GATEWAY]: Request processed via Node_02 cluster in ${Math.floor(Math.random()*40)+10}ms`,
+                `[SYSTEM]: Health definitions verified. Status: 100% Operational.`
+            ];
+            const logBox = document.getElementById('console-log');
+            if(logBox) {
+                logBox.innerHTML += `<br>` + logs[Math.floor(Math.random() * logs.length)];
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+        }
+
         function renderLists() {
             const sections = {
+                'featured-list': apiData.slice(0, 5),
                 'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
                 'list-movie': apiData.filter(a => a.category === 'movie'),
                 'list-ai': apiData.filter(a => a.category === 'ai'),
@@ -624,88 +959,262 @@
             for (const [id, data] of Object.entries(sections)) {
                 const el = document.getElementById(id);
                 if (el) {
-                    data.forEach(api => el.appendChild(createApiRow(api)));
+                    el.innerHTML = '';
+                    data.forEach((api, idx) => {
+                        const line = createApiRow(api);
+                        line.style.animationDelay = `${idx * 0.05}s`;
+                        el.appendChild(line);
+                    });
                 }
+                const countId = id.replace('list-', 'count-');
+                if(document.getElementById(countId)) document.getElementById(countId).textContent = data.length;
             }
 
             const fullRegistry = document.getElementById('full-registry');
-            apiData.forEach(api => fullRegistry.appendChild(createApiRow(api)));
+            if (fullRegistry) {
+                fullRegistry.innerHTML = '';
+                
+                const platformGroups = {
+                    youtube: { title: "YOUTUBE MODULE ENDPOINTS", icon: "fab fa-youtube", apis: [] },
+                    socials: { title: "SOCIAL MEDIA ENGINE CORES (FB / IG / TWITTER / TIKTOK)", icon: "fas fa-share-nodes", apis: [] },
+                    spotify: { title: "SPOTIFY & AUDIO RETRIEVAL ARRAYS", icon: "fas fa-music", apis: [] },
+                    movies: { title: "CINEMATIC DOMAIN APIS (MLFBD / VEGA / CINESUBZ / MOVIEBOX)", icon: "fas fa-film", apis: [] },
+                    ai: { title: "NEURAL COGNITION SYSTEM APIS (GEMINI / VAJIRA-AI)", icon: "fas fa-brain", apis: [] },
+                    adult: { title: "ADULT ARCHITECTURE OVERLAYS (XNXX / PORNHUB)", icon: "fas fa-user-slash", apis: [] },
+                    general: { title: "SYSTEM OPERATIONS & GENERIC UTILITIES", icon: "fas fa-sliders", apis: [] }
+                };
+
+                apiData.forEach(api => {
+                    const name = api.name.toLowerCase();
+                    const ep = api.endpoint.toLowerCase();
+
+                    if (name.includes('youtube') || ep.includes('yt')) {
+                        platformGroups.youtube.apis.push(api);
+                    } else if (name.includes('facebook') || name.includes('fbdl') || name.includes('instagram') || name.includes('igdl') || name.includes('twitter') || name.includes('tiktok') || ep.includes('tt') || name.includes('pinterest') || name.includes('capcut') || name.includes('telegram') || name.includes('dailymotion')) {
+                        platformGroups.socials.apis.push(api);
+                    } else if (name.includes('spotify') || name.includes('lyrics') || ep.includes('spoti')) {
+                        platformGroups.spotify.apis.push(api);
+                    } else if (name.includes('movie') || name.includes('animexin') || name.includes('123mkv') || name.includes('naijaprey') || name.includes('mlfbd') || name.includes('notun') || name.includes('vega') || name.includes('animostlk') || name.includes('cinesubz') || name.includes('ytsbz') || name.includes('torrent') || name.includes('movibd') || name.includes('moviect')) {
+                        platformGroups.movies.apis.push(api);
+                    } else if (name.includes('ai') || name.includes('gemini') || name.includes('blackbox') || name.includes('gpt') || ep.includes('img') || name.includes('video')) {
+                        platformGroups.ai.apis.push(api);
+                    } else if (name.includes('xnxx') || name.includes('xhamster') || name.includes('pornhub')) {
+                        platformGroups.adult.apis.push(api);
+                    } else {
+                        platformGroups.general.apis.push(api);
+                    }
+                });
+
+                Object.entries(platformGroups).forEach(([key, group]) => {
+                    if (group.apis.length > 0) {
+                        const block = document.createElement('div');
+                        block.className = 'registry-sector-block';
+
+                        const header = document.createElement('div');
+                        header.className = 'registry-sector-header';
+                        header.innerHTML = `<i class="${group.icon}"></i> ${group.title} <span class="count-badge">${group.apis.length} TERMINALS</span>`;
+
+                        const list = document.createElement('div');
+                        list.className = 'api-list';
+
+                        group.apis.forEach((api, index) => {
+                            const row = createApiRow(api);
+                            row.style.animationDelay = `${index * 0.02}s`;
+                            list.appendChild(row);
+                        });
+
+                        block.appendChild(header);
+                        block.appendChild(list);
+                        fullRegistry.appendChild(block);
+                    }
+                });
+            }
         }
 
         function createApiRow(api) {
             const line = document.createElement('div');
             line.className = 'api-row';
+            const url = `${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...`;
             line.innerHTML = `
-                <div style="display:flex; align-items:center; gap:20px;">
-                    <div style="color:var(--accent); font-size:1.5rem;"><i class="fas fa-microchip"></i></div>
+                <div class="api-meta">
+                    <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
                     <div>
-                        <div style="font-weight:bold;">${api.name} <span style="font-size:0.7rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">${api.method}</span></div>
-                        <div style="font-size:0.8rem; color:var(--text-dim);">${api.description}</div>
+                        <span class="api-name"><span class="status-dot status-${api.status === 'active' ? 'active' : 'dead'}"></span>${api.name} <span class="method">${api.method}</span></span>
+                        <p style="color:var(--text-dim); font-size:0.85rem; margin-top:5px;">${api.description}</p>
                     </div>
                 </div>
-                <button class="btn" onclick='openTerminal(${JSON.stringify(api)})'><i class="fas fa-play"></i> TEST</button>
+                <div style="display:flex; gap:15px;">
+                    <button class="btn btn-ghost" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> COPY</button>
+                    <button class="btn" onclick='openTerminal(${JSON.stringify(api)})'><i class="fas fa-play"></i> TEST</button>
+                </div>
             `;
             return line;
         }
 
-        window.openTerminal = (api) => {
-            const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
-            if (issuedAt) {
-                if ((Date.now() - parseInt(issuedAt)) / (1000 * 60 * 60 * 24) > 3) {
-                    document.getElementById('modal-expired').style.display = 'flex';
-                    return;
-                }
-            }
+        function getIcon(cat) { return { downloaders: 'cloud-download-alt', movie: 'film', ai: 'brain', images: 'palette' }[cat] || 'link'; }
 
-            currentApi = api;
-            document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
-            document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
-            document.getElementById('term-res').style.display = 'none';
-            const container = document.getElementById('term-params-container');
-            container.innerHTML = '';
-            api.param.split('&').forEach(pair => {
-                const input = document.createElement('input');
-                input.className = 'tech-input dynamic-param';
-                input.dataset.paramName = pair.split('=')[0];
-                input.placeholder = `ENTER ${pair.split('=')[0].toUpperCase()}`;
-                container.appendChild(input);
-            });
-            document.getElementById('terminal-modal').style.display = 'flex';
-        };
-
-        document.getElementById('term-run').addEventListener('click', async () => {
-            const key = document.getElementById('term-key').value;
-            const resBox = document.getElementById('term-res');
-            resBox.style.display = 'block';
-            resBox.textContent = ">>> Processing...";
-
-            let query = `apikey=${encodeURIComponent(key)}`;
-            document.querySelectorAll('.dynamic-param').forEach(i => query += `&${i.dataset.paramName}=${encodeURIComponent(i.value)}`);
-
-            try {
-                const res = await fetch(`${BASE_URL}${currentApi.endpoint}?${query}`);
-                const data = await res.json();
-                resBox.textContent = JSON.stringify(data, null, 4);
-            } catch(e) { resBox.textContent = "Error: " + e.message; }
-        });
-
-        function setupSidebarToggle() {
-            document.getElementById('sidebar-toggle').onclick = () => document.querySelector('.sidebar').classList.toggle('open');
-        }
-
-        function updateRealPerf() {
-            const start = Date.now();
-            fetch(window.location.href, { mode: 'no-cors' }).then(() => {
-                document.getElementById('val-lat').textContent = (Date.now() - start) + "ms";
-            });
+        function copyLink(url) {
+            const key = localStorage.getItem('v-key') || 'YOUR_KEY';
+            navigator.clipboard.writeText(url.replace('YOUR_KEY', key));
+            alert("Endpoint URL Copied!");
         }
 
         function openPremiumModal() { document.getElementById('modal-premium').style.display = 'flex'; }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        function toggleAuthView(view) {
-            document.getElementById('login-block').style.display = view === 'login' ? 'block' : 'none';
-            document.getElementById('signup-block').style.display = view === 'signup' ? 'block' : 'none';
-            document.getElementById('reset-block').style.display = view === 'reset' ? 'block' : 'none';
+        function closeModal() { 
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
+            document.getElementById('term-res').style.display = 'none';
+        }
+
+        function generateSecureKey() {
+            const ts = Date.now();
+            const rnd = Math.random().toString(36).substring(2, 10);
+            const sum = rnd.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
+            const key = `vajira-${rnd}${sum.toString().padStart(2, '0')}-${ts}`;
+            localStorage.setItem('v-key', key);
+            document.getElementById('disp-key').textContent = key;
+            document.getElementById('disp-date').textContent = new Date().toLocaleDateString();
+            document.getElementById('modal-key-info').style.display = 'flex';
+        }
+
+        function copyActiveKey() {
+            navigator.clipboard.writeText(localStorage.getItem('v-key') || PREMIUM_KEY);
+            alert("Key Copied!");
+        }
+
+      /*  let currentApi = null;
+        window.openTerminal = (api) => {
+            currentApi = api;
+            document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
+            document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
+            document.getElementById('term-val').value = '';
+            document.getElementById('term-res').style.display = 'none';
+            document.getElementById('terminal-modal').style.display = 'flex';
+        };*/
+
+        let currentApi = null;
+
+window.openTerminal = (api) => {
+    currentApi = api;
+    document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
+    document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
+    document.getElementById('term-res').style.display = 'none';
+    
+    const container = document.getElementById('term-params-container');
+    container.innerHTML = ''; // Clear out any previous boxes
+
+    // Split parameters by '&' to find out how many distinct keys exist
+    // Example: "subjectId=PUT_ID&detailPath=PUT_PATH" -> ["subjectId=PUT_ID", "detailPath=PUT_PATH"]
+    const paramPairs = api.param.split('&');
+
+    paramPairs.forEach(pair => {
+        const parts = pair.split('=');
+        const paramName = parts[0]; 
+        const defaultValue = parts[1] || '';
+
+        // Create a new input field for this specific parameter
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'tech-input dynamic-param';
+        input.dataset.paramName = paramName; // Safely store the query key name
+        input.placeholder = `ENTER ${paramName.toUpperCase()}`;
+        
+        // If it isn't a placeholder indicator, auto-fill it (like season=0 or episode=0)
+        if (!defaultValue.includes('PUT_') && defaultValue !== '...') {
+            input.value = defaultValue;
+        }
+
+        container.appendChild(input);
+    });
+
+    document.getElementById('terminal-modal').style.display = 'flex';
+};
+
+
+        document.getElementById('term-run').addEventListener('click', async () => {
+    const key = document.getElementById('term-key').value;
+    const resBox = document.getElementById('term-res');
+    
+    if (!key) return alert("Access Key credentials are required.");
+    
+    // Collect all values from our generated data parameter boxes
+    const paramInputs = document.querySelectorAll('.dynamic-param');
+    let queryString = `apikey=${encodeURIComponent(key)}`;
+    let validationFailed = false;
+
+    paramInputs.forEach(input => {
+        const name = input.dataset.paramName;
+        const value = input.value.trim();
+
+        if (!value) {
+            alert(`Parameter [${name}] is required.`);
+            validationFailed = true;
+            return;
+        }
+        queryString += `&${name}=${encodeURIComponent(value)}`;
+    });
+
+    if (validationFailed) return;
+
+    resBox.style.display = 'block'; 
+    resBox.textContent = ">>> Sending processing bits to cluster node...\n>>> Formatting response body...";
+    
+    try {
+        // Constructs URL seamlessly whether there is 1 parameter or 4 parameters
+        const finalUrl = `${BASE_URL}${currentApi.endpoint}?${queryString}`;
+        console.log("Executing Request to:", finalUrl);
+
+        const response = await fetch(finalUrl);
+        const data = await response.json();
+        resBox.textContent = JSON.stringify(data, null, 4);
+    } catch(e) { 
+        resBox.textContent = ">>> Target Exception: " + e.message; 
+    }
+});
+
+
+        function setupNav() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    if(link.hasAttribute('onclick')) return; 
+                    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+                    document.getElementById(`${link.dataset.page}-page`).style.display = 'block';
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    document.querySelector('.sidebar').classList.remove('open');
+                    window.scrollTo(0,0);
+                }
+            });
+        }
+
+
+
+function terminateSession() {
+    // 1. Remove the authentication token/user from local storage
+    localStorage.removeItem('v_auth_user');
+    
+    // 2. Hide the main dashboard
+    document.querySelector('.main-container').style.display = 'none';
+    
+    // 3. Show the login/signup container again
+    document.getElementById('auth-container').style.display = 'block';
+    
+    // 4. Optionally reload to clear any remaining in-memory state
+    window.location.reload(); 
+}
+
+
+        
+        function updateRealPerf() {
+            const start = Date.now();
+            fetch(window.location.href, { mode: 'no-cors' }).then(() => {
+                const lat = Date.now() - start;
+                if(document.getElementById('val-lat')) document.getElementById('val-lat').textContent = lat + "ms";
+                if(document.getElementById('real-ping')) document.getElementById('real-ping').textContent = "LATENCY: " + lat + "ms";
+            }).catch(() => {});
+            if (window.performance && window.performance.memory) {
+                document.getElementById('val-mem').textContent = Math.round(window.performance.memory.usedJSHeapSize / 1048576) + "MB";
+            }
         }
     </script>
 </body>
