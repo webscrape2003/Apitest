@@ -771,56 +771,65 @@ async function handleResetRequest(e) {
 }
 
         
-        async function handleRegistration(e) {
-            e.preventDefault();
-            const username = document.getElementById('signup-name').value.trim();
-            const email = document.getElementById('signup-email').value.trim();
-            const password = document.getElementById('signup-pass').value;
-            const confirm = document.getElementById('signup-confirm').value;
-            const errorAlert = document.getElementById('signup-error');
+async function handleRegistration(e) {
+    e.preventDefault();
+    const username = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-pass').value;
+    const confirm = document.getElementById('signup-confirm').value;
+    const errorAlert = document.getElementById('signup-error');
 
-            errorAlert.style.display = 'none';
+    errorAlert.style.display = 'none';
 
-            if (password !== confirm) {
-                errorAlert.textContent = "[ERROR]: Passwords do not match.";
-                errorAlert.style.display = 'block';
-                return;
-            }
+    if (password !== confirm) {
+        errorAlert.textContent = "[ERROR]: Passwords do not match.";
+        errorAlert.style.display = 'block';
+        return;
+    }
 
-            try {
-                // Prepare the payload strictly
-                const payload = {
-                    username: username,
-                    email: email,
-                    password: password
-                };
+    try {
+        const payload = {
+            username: username,
+            email: email,
+            password: password
+        };
 
-                const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
-                const response = await fetch(registerUrl, {
-                    method: 'POST',
-                    headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=representation' // Changed from minimal to see if it returns the object
-                    },
-                    body: JSON.stringify(payload)
-                });
+        const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
+        const response = await fetch(registerUrl, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify(payload)
+        });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error("Supabase Error Details:", errorData);
-                    throw new Error(errorData.message || "Database rejected the transaction.");
-                }
-
-                alert("Registration successful!");
-                toggleAuthView('login');
-
-            } catch (err) {
-                errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
-                errorAlert.style.display = 'block';
-            }
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Supabase Error Details:", errorData);
+            throw new Error(errorData.message || "Database rejected the transaction.");
         }
+
+        // --- NEW TRIAL LOGIC START ---
+        // Record the trial start timestamp for this specific user
+        const trialStartTime = Date.now();
+        localStorage.setItem(`v_trial_start_${username}`, trialStartTime);
+        
+        // Generate and store an initial access key
+        const key = `vajira-${Math.random().toString(36).substring(7)}-${trialStartTime}`;
+        localStorage.setItem('v-key', key);
+        // --- NEW TRIAL LOGIC END ---
+
+        alert("Registration successful! Your 3-day trial has been activated.");
+        toggleAuthView('login');
+
+    } catch (err) {
+        errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
+        errorAlert.style.display = 'block';
+    }
+}
 
 
 
@@ -1031,6 +1040,47 @@ async function handleLogon(e) {
             }
         }
 
+
+
+function loadSubscriptionData() {
+    const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
+    const logBox = document.getElementById('home-log-box');
+    const subTimer = document.getElementById('sub-plan-timer');
+    const billingBody = document.getElementById('billing-history-body');
+
+    if (issuedAt) {
+        const diff = Date.now() - parseInt(issuedAt);
+        const daysPast = diff / (1000 * 60 * 60 * 24);
+        
+        if (daysPast >= 3) {
+            // EXPIRED STATE
+            subTimer.innerHTML = `STATUS: <span style="color:var(--error)">EXPIRED</span>`;
+            document.getElementById('trial-days-display').textContent = "EXPIRED";
+            document.getElementById('modal-expired').style.display = 'flex'; // Triggers popup
+            
+            // Update UI to reflect expiry
+            if(logBox) logBox.innerHTML += `<br><span style="color:var(--error)">[SYSTEM]: Your free trial is now over. Please upgrade to a Premium Key.</span>`;
+        } else {
+            // ACTIVE STATE
+            const timeLeft = (3 - daysPast).toFixed(2);
+            subTimer.innerHTML = `EXPIRES IN: <span style="color:var(--accent)">${timeLeft} Days</span>`;
+            document.getElementById('trial-days-display').textContent = timeLeft + " DAYS";
+        }
+
+        // Update Billing Table
+        const date = new Date(parseInt(issuedAt)).toLocaleDateString();
+        billingBody.innerHTML = `<tr><td>${date}</td><td>3-Day Terminal Trial</td><td>FREE</td><td><span class="status-pill ${daysPast >= 3 ? 'status-paid' : 'status-trial'}">${daysPast >= 3 ? 'EXPIRED' : 'ACTIVE'}</span></td></tr>`;
+    } else {
+        subTimer.innerHTML = `NO ACTIVE SESSION`;
+        billingBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No history recorded</td></tr>`;
+    }
+}
+
+
+
+
+
+        
         function createApiRow(api) {
             const line = document.createElement('div');
             line.className = 'api-row';
