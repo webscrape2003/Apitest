@@ -825,6 +825,7 @@ async function handleRegistration(e) {
         alert("Registration successful! Your 3-day trial has been activated.");
         toggleAuthView('login');
 
+
     } catch (err) {
         errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
         errorAlert.style.display = 'block';
