@@ -3,501 +3,1479 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Access Store</title>
+    <title>VajiraOfficial | Ultimate Tech Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #0b1424;
-            --panel-bg: #111f35;
-            --panel-border: #1e3556;
-            --gold-accent: #fcd34d;
-            --gold-glow: rgba(252, 211, 77, 0.2);
-            --text-light: #f8fafc;
-            --text-muted: #64748b;
-            --btn-green: #00e676;
-            --glow-cyan: #00f3ff;
+            --primary: #0062ff;
+            --accent: #00f3ff;
+            --premium: #facc15;
+            --bg: #030712;
+            --surface: rgba(15, 23, 42, 0.6);
+            --border: rgba(0, 243, 255, 0.15);
+            --neon-glow: rgba(0, 243, 255, 0.4);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
-            background-color: #060b13;
-            background-image: radial-gradient(circle at center, #0e1e38 0%, #050911 100%);
-            color: var(--text-light);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .console-viewport {
-            width: 100%;
-            max-width: 1050px;
-            background-color: var(--bg-deep);
-            border: 2px solid var(--panel-border);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-            position: relative;
-        }
-
-        .console-navbar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 25px;
-        }
-        .back-nav-btn {
-            position: absolute; left: 0;
-            background: none; border: none; color: var(--gold-accent);
-            font-size: 1.4rem; cursor: pointer; transition: transform 0.2s;
-        }
-        .back-nav-btn:hover { transform: scale(1.1); }
-        
-        .console-navbar h1 {
+            background-color: var(--bg);
+            color: var(--text);
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem; letter-spacing: 2px; color: var(--gold-accent);
-            text-transform: uppercase; text-shadow: 0 0 10px var(--gold-glow);
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* FREE COINS HUB PANEL */
-        .ad-broker-panel {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 14px;
-            padding: 25px;
-            display: grid;
-            grid-template-columns: 1.1fr 2fr;
-            gap: 30px;
-            align-items: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
 
-        .player-stage-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+.param-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+.param-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+}
+.param-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--neon-glow);
+}
+
+
+
+
+
+        
+        
+        /* --- STARTUP LOADER --- */
+        #loader {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: 0.5s ease;
         }
-        .video-box-frame {
-            width: 130px; aspect-ratio: 16/10;
-            background: #000; border-radius: 8px;
-            border: 1px solid var(--panel-border);
-            overflow: hidden; position: relative;
+        .loader-box { text-align: center; }
+        .spinner {
+            width: 80px; height: 80px; border: 4px solid rgba(255, 255, 255, 0.05);
+            border-top: 4px solid var(--accent); border-radius: 50%;
+            animation: spin 0.8s linear infinite; margin: 0 auto 20px;
+            box-shadow: 0 0 25px var(--accent);
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- BACKGROUND --- */
+        .bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; background: radial-gradient(circle at 50% 50%, #071324 0%, #020617 100%);
+        }
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px; z-index: -1; transform: perspective(500px) rotateX(60deg);
+            transform-origin: top; animation: grid-move 15s linear infinite; opacity: 0.4;
+        }
+        @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 60px; } }
+
+        /* --- AUTH SYSTEM NEW BEAUTIFUL THEME LAYER --- */
+        #auth-container {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, rgba(8, 18, 36, 0.8) 0%, rgba(2, 6, 23, 0.98) 100%);
+            backdrop-filter: blur(25px); padding: 20px;
+        }
+        .auth-card {
+            background: rgba(10, 17, 32, 0.75);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            border-radius: 24px; width: 100%; max-width: 450px;
+            padding: 45px 40px; 
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 243, 255, 0.1);
+            text-align: center; position: relative;
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+        .auth-card::before {
+            content: ''; position: absolute; inset: -1px; border-radius: 24px;
+            padding: 1px; background: linear-gradient(135deg, var(--accent), var(--primary), transparent, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .auth-card h2 { 
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; 
+            margin-bottom: 8px; letter-spacing: 3px; 
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .auth-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 0.5px; }
+        .auth-switch-text { font-size: 0.9rem; color: var(--text-dim); margin-top: 25px; }
+        .auth-switch-link { color: var(--accent); font-weight: 700; text-decoration: none; cursor: pointer; transition: 0.2s; }
+        .auth-switch-link:hover { text-shadow: 0 0 10px var(--accent); color: white; }
+        
+        .auth-alert {
+            padding: 14px 18px; border-radius: 12px; font-size: 0.85rem; margin-bottom: 25px;
+            display: none; font-family: 'JetBrains Mono', monospace; text-align: left;
+            line-height: 1.4; border-left: 4px solid transparent;
+        }
+        .auth-alert.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-left-color: var(--error); color: #fca5a5; }
+        .auth-alert.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-left-color: var(--success); color: #a7f3d0; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 85px;
+            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border); display: flex; align-items: center;
+            justify-content: space-between; padding: 0 50px; z-index: 1002;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: 5px; color: var(--accent); text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
         
-        .video-box-fallback {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle, #1a2a44 0%, #000 100%);
-        }
-        .video-box-fallback i { color: #ffcc00; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255,204,0,0.4); }
-
-        .watch-action-btn {
-            background-color: #fcd34d; color: #0b1424;
-            border: none; padding: 12px 20px; border-radius: 8px;
-            font-weight: 800; font-size: 0.8rem; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s;
-        }
-        .watch-action-btn:hover:not(:disabled) { background-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
-        .watch-action-btn:disabled { background-color: #1e293b; color: #475569; cursor: not-allowed; }
-
-        .rewards-tracker-module {
-            display: flex; flex-direction: column; gap: 15px;
-        }
-        .tracker-meta {
-            display: flex; justify-content: space-between; font-size: 0.85rem;
-        }
-        .tracker-meta h3 { font-weight: 600; color: var(--text-light); }
-        .tracker-meta .coin-count-hud { color: var(--gold-accent); font-weight: 700; }
-
-        .milestone-row-nodes {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-top: 5px;
-        }
-        .milestone-node {
-            height: 40px; border-radius: 8px;
-            background-color: #152238; border: 2px solid #243b5e;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; font-size: 0.8rem; font-weight: 700; color: #475569;
-        }
-        .milestone-node.claimed {
-            background: radial-gradient(circle, #ffe066 0%, #f59e0b 100%);
-            border-color: #fbbf24; color: #000;
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
-        }
-        .milestone-node.locked {
-            background-color: #0f172a; border-color: #1e293b; color: #334155;
-        }
-
-        .section-divider-title {
-            text-align: center; font-size: 0.95rem; font-weight: 700;
-            color: #94a3b8; text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-
-        .tier-grid-cards {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-        }
-        .tier-card {
-            background-color: var(--panel-bg); border: 1px solid var(--panel-border);
-            border-radius: 12px; padding: 25px;
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-        }
-        
-        .tier-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .tier-card-header .icon-badge {
-            width: 36px; height: 36px; border-radius: 50%;
+        #sidebar-toggle {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); color: var(--text);
+            padding: 12px 16px; border-radius: 12px; cursor: pointer; transition: 0.3s;
             display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
         }
+        #sidebar-toggle:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+
+        /* --- CENTERED ACCESS CONTROLS BAR --- */
+        .global-access-bar {
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+            margin-bottom: 35px; padding: 20px; background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border); border-radius: 20px; backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- SIDEBAR TOGGLE MECHANICS --- */
+        .sidebar {
+            position: fixed; left: -280px; top: 85px; bottom: 0; width: 280px;
+            background: rgba(8, 12, 24, 0.95); backdrop-filter: blur(30px);
+            border-right: 1px solid rgba(0, 243, 255, 0.2); padding: 25px 15px; z-index: 1001;
+            overflow-y: auto; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar.open { left: 0; box-shadow: 5px 0 25px rgba(0, 243, 255, 0.15); }
+        .sidebar-section-header {
+            font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--accent);
+            letter-spacing: 2px; padding-left: 12px; margin: 20px 0 10px 0; text-transform: uppercase; opacity: 0.8;
+        }
+        .sidebar-divider { height: 1px; background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), transparent); margin: 15px 10px; }
+        .nav-link {
+            padding: 14px 20px; display: flex; align-items: center; gap: 15px;
+            color: var(--text-dim); text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem; border-radius: 12px; margin-bottom: 8px; border: 1px solid transparent;
+        }
+        .nav-link i { font-size: 1.1rem; transition: transform 0.3s ease; }
+        .nav-link:hover {
+            color: var(--accent); background: rgba(0, 243, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.25); transform: translateX(6px);
+        }
+        .nav-link:hover i { transform: scale(1.15); }
+        .nav-link.active {
+            color: #030712; background: linear-gradient(90deg, var(--accent), var(--primary));
+            font-weight: 700; border-color: var(--accent); box-shadow: 0 0 20px var(--neon-glow);
+        }
+        .nav-link.active i { color: #030712; transform: scale(1.1); }
+
+        /* --- MAIN WRAPPER LAYOUT --- */
+        .main-container { margin-left: 0; margin-top: 85px; padding: 50px; min-height: 100vh; transition: padding 0.3s ease; display: none; }
+
+        /* --- DASHBOARD ELEMENTS --- */
+        .home-mainframe-section {
+            border: 1px solid rgba(0, 98, 255, 0.2);
+            background: radial-gradient(ellipse at top right, rgba(0, 98, 255, 0.08), transparent 60%);
+            padding: 40px; border-radius: 30px; margin-bottom: 30px;
+        }
+        .system-specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 35px; }
+        .spec-item {
+            background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border);
+            padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 15px;
+        }
+        .spec-item i { font-size: 1.5rem; color: var(--accent); }
+        .spec-details h5 { font-family: 'Orbitron'; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-dim); }
+        .spec-details p { font-family: 'JetBrains Mono'; font-size: 0.95rem; color: white; margin-top: 3px; }
+
+        .dashboard-feature-row {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+            padding: 30px; margin-top: 25px; display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: center;
+        }
+        .console-stream {
+            background: #010409; border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            color: var(--success); height: 130px; overflow-y: hidden; line-height: 1.6;
+        }
+
+        .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin-bottom: 15px; }
+
+        .perf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+        .perf-card { background: rgba(0,0,0,0.4); padding: 25px; border-radius: 18px; border: 1px solid var(--border); text-align: center; }
+        .perf-val { font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--accent); display: block; margin-top: 5px; }
+        .perf-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- API LAYOUTS --- */
+        .api-list { display: flex; flex-direction: column; gap: 15px; }
+        .api-row {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px 35px; display: flex;
+            align-items: center; justify-content: space-between;
+            transition: 0.4s; animation: slideUp 0.6s ease-out backwards;
+        }
+        .api-row:hover { border-color: var(--accent); transform: scale(1.01) translateX(10px); }
+        .api-meta { display: flex; align-items: center; gap: 25px; }
+        .api-icon { width: 50px; height: 50px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+        .status-active { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-dead { background: var(--error); box-shadow: 0 0 10px var(--error); }
+
+        .count-badge { background: var(--accent); color: black; padding: 2px 10px; border-radius: 10px; font-weight: 900; font-size: 0.8rem; margin-left: 15px; }
+        .method { font-family: 'JetBrains Mono'; font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-left: 8px; color: var(--accent); }
+
+        .btn {
+            background: var(--primary); border: none; color: white; padding: 14px 25px;
+            border-radius: 12px; font-family: inherit; font-weight: 700; cursor: pointer;
+            transition: 0.3s; display: flex; align-items: center; gap: 10px; justify-content: center;
+        }
+        .btn:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0, 98, 255, 0.4); }
+        .btn-ghost { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+        .btn-ghost:hover { background: var(--accent); color: black; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+
+        .registry-sector-header {
+            margin-top: 45px; margin-bottom: 20px; font-family: 'Orbitron'; font-size: 1.1rem;
+            color: var(--accent); letter-spacing: 2px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2); padding-bottom: 12px;
+        }
+
+        .premium-stealth { background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), transparent); border: 2px solid var(--premium); border-radius: 20px; padding: 30px; margin-top: 30px; }
+        .blurred-key { background: #000; padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono'; filter: blur(10px); user-select: none; border: 1px dashed var(--premium); }
+
+        /* --- MODALS --- */
+        .modal { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(15px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-box { background: var(--bg); width: 90%; max-width: 650px; border-radius: 30px; border: 2px solid var(--accent); padding: 40px; text-align: center; max-height: 90vh; overflow-y: auto; }
         
-        .badge-lite { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
-        .badge-pro { background: rgba(148, 163, 184, 0.1); color: #94a3b8; }
-        .badge-elite { background: rgba(252, 211, 77, 0.1); color: #fcd34d; }
-
-        .tier-card h2 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: #fff; }
-        .tier-card .duration-lbl { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .tier-card .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: var(--gold-accent); margin: 12px 0 20px 0; font-weight: 700; }
-
-        .tier-perks-stack {
-            list-style: none; width: 100%; text-align: left;
-            font-size: 0.75rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px;
-            margin-bottom: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;
+        .tech-input {
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 16px 20px; border-radius: 12px; color: white; font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 18px; outline: none; transition: 0.3s; font-size: 0.9rem;
         }
-        .tier-perks-stack li { display: flex; align-items: center; gap: 8px; }
-        .tier-perks-stack i { font-size: 0.5rem; color: var(--gold-accent); }
+        .tech-input:focus { border-color: var(--accent); box-shadow: 0 0 12px rgba(0, 243, 255, 0.25); background: rgba(255,255,255,0.06); }
 
-        .purchase-action-trigger {
-            width: 100%; padding: 12px; border-radius: 8px; border: none;
-            font-weight: 700; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; transition: 0.2s;
-        }
-        .btn-lite { background-color: #00e676; color: #000; }
-        .btn-pro { background-color: #ffcc00; color: #000; }
-        .btn-elite { background-color: #f59e0b; color: #000; }
-        .purchase-action-trigger:hover { transform: translateY(-1px); filter: brightness(1.1); }
-
-        .console-footer-msg {
-            margin-top: 25px; text-align: center;
-            background-color: rgba(17, 31, 53, 0.4); border: 1px dashed var(--panel-border);
-            padding: 12px; border-radius: 8px; font-size: 0.75rem; color: #94a3b8;
+        pre { 
+            background: #000; padding: 20px; border-radius: 12px; color: var(--accent); 
+            font-size: 0.85rem; max-height: 350px; overflow-y: auto; display: none; 
+            margin-top: 20px; border: 1px solid var(--border); text-align: left;
+            white-space: pre-wrap; word-break: break-all; font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ================= AD NETWORK SDK MODAL OVERLAY ================= */
-        .ad-network-modal-overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background-color: #000000; display: none; flex-direction: column;
-            align-items: center; justify-content: center;
-        }
-        
-        .ad-video-element {
-            width: 100%; height: 100%; object-fit: contain; background: #000000; display: block;
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .ad-click-bypass-overlay {
-            position: absolute; inset: 0;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10005; cursor: pointer; text-align: center; padding: 20px;
-        }
-        .bypass-play-icon {
-            width: 70px; height: 70px; background: var(--gold-accent); color: #000;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; margin-bottom: 15px; box-shadow: 0 0 25px var(--gold-glow);
-            transition: transform 0.2s;
-        }
-        .ad-click-bypass-overlay:hover .bypass-play-icon { transform: scale(1.1); }
-
-        .ad-hud-header-strip {
-            position: absolute; top: 0; left: 0; right: 0; padding: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
-            z-index: 10010; pointer-events: none;
-        }
-        .ad-badge-marker {
-            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
-            padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 600;
-            color: #fff; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .ad-close-action-node {
-            background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; width: 42px; height: 42px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; font-weight: 700; cursor: pointer; pointer-events: auto;
-        }
-        .ad-close-action-node.non-skippable {
-            cursor: not-allowed; color: #ffcc00; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace;
-        }
-
-        .ad-sponsored-action-footer {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 450px; background: rgba(15, 23, 42, 0.95);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); z-index: 10010;
-        }
-        .ad-app-meta h4 { font-size: 0.9rem; margin-bottom: 2px; color: #fff; }
-        .ad-app-meta p { font-size: 0.7rem; color: #94a3b8; }
-        .ad-install-btn {
-            background: #22c55e; color: #fff; border: none; padding: 10px 18px;
-            border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 868px) {
-            .console-viewport { padding: 20px; }
-            .ad-broker-panel { grid-template-columns: 1fr; gap: 20px; }
-            .tier-grid-cards { grid-template-columns: 1fr; }
+        /* --- MOBILE VIEW RESPONSIVENESS LAYER --- */
+        @media (max-width: 768px) {
+            nav { padding: 0 15px; height: 75px; }
+            .sidebar { top: 75px; width: 260px; }
+            .main-container { margin-top: 75px; padding: 20px; }
+            .logo { font-size: 1.3rem; letter-spacing: 2px; }
+            .global-access-bar { flex-direction: column; gap: 12px; padding: 15px; }
+            .global-access-bar .btn { width: 100%; }
+            .home-mainframe-section { padding: 20px; border-radius: 20px; }
+            .hero h1 { font-size: 1.8rem; }
+            .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .system-specs-grid { grid-template-columns: 1fr; gap: 10px; }
+            .dashboard-feature-row { grid-template-columns: 1fr !important; gap: 15px; padding: 20px; }
+            .api-row { flex-direction: column; align-items: stretch; padding: 20px 15px; gap: 15px; }
+            .api-row > div:last-child { display: flex; width: 100%; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="ad-network-modal-overlay" id="ad-sdk-overlay-modal">
-        <div class="ad-hud-header-strip">
-            <div class="ad-badge-marker"><i class="fas fa-video"></i> Live Sponsored Ad Stream</div>
-            <div class="ad-close-action-node non-skippable" id="ad-close-counter-btn">15</div>
-        </div>
-
-        <div class="ad-click-bypass-overlay" id="bypass-click-trigger" onclick="engageDirectVideoPlay()">
-            <div class="bypass-play-icon"><i class="fas fa-play" style="margin-left: 4px;"></i></div>
-            <h3 style="font-family:'Space Grotesk'; color:#fff; font-size:1.1rem; letter-spacing:1px;">TAP TO WATCH ADVERTISEMENT</h3>
-            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:5px;">Required action step to authorize security coin configuration minting loop.</p>
-        </div>
-
-        <video class="ad-video-element" id="sdk-ad-video-core" preload="auto" playsinline>
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-        </video>
-
-        <div class="ad-sponsored-action-footer">
-            <div class="ad-app-meta">
-                <h4>Premium Bot Core Engine</h4>
-                <p>Deploy secure high-performance modules instantly.</p>
-            </div>
-            <button class="ad-install-btn" onclick="alert('Redirecting to digital distribution repository...')">Install</button>
+    <div id="loader">
+        <div class="loader-box">
+            <div class="spinner"></div>
+            <div class="logo" style="margin-top:10px;">INITIALIZING VAJIRA_SYSTEMS...</div>
         </div>
     </div>
 
-    <div class="console-viewport">
-        <header class="console-navbar">
-            <button class="back-nav-btn" onclick="window.location.href='index.html'"><i class="fas fa-chevron-left"></i></button>
-            <h1>Premium Access Store</h1>
-        </header>
+    <div class="bg-canvas"></div>
+    <div class="bg-grid"></div>
 
-        <section class="ad-broker-panel">
-            <div class="player-stage-box">
-                <div class="video-box-frame">
-                    <div class="video-box-fallback"><i class="fas fa-play-circle" style="font-size: 2rem;"></i></div>
-                </div>
-                <button class="watch-action-btn" id="watch-ad-btn" onclick="launchSecureNetworkAd()">Watch Ad</button>
-            </div>
+    <!-- AUTH SECTION -->
+    <div id="auth-container">
 
-            <div class="rewards-tracker-module">
-                <div class="tracker-meta">
-                    <div>
-                        <h3>Earn Free Coins</h3>
-                        <p style="font-size:0.7rem; margin-top:2px;">Watch to earn: 1 Coin per video. Daily limit: 10 videos.</p>
+
+<!-- RESET PASSWORD VIEW -->
+<div class="auth-card" id="reset-block" style="display:none;">
+    <h2>PASSWORD RECOVERY</h2>
+    <p class="auth-subtitle">Enter your registered email to receive reset instructions</p>
+    
+    <div class="auth-alert" id="reset-alert"></div>
+
+    <form id="reset-form" onsubmit="handleResetRequest(event)">
+        <input type="email" id="reset-email" class="tech-input" placeholder="ENTER REGISTERED EMAIL" required>
+        <button type="submit" class="btn" style="width:100%; background:var(--primary);">
+            <i class="fas fa-paper-plane"></i> SEND RECOVERY LINK
+        </button>
+    </form>
+    <p class="auth-switch-text">
+        Remembered credentials? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+    </p>
+</div>
+
+
+        
+        <!-- LOGIN VIEW -->
+        <div class="auth-card" id="login-block">
+            <h2>GATE ACCESS</h2>
+            <p class="auth-subtitle">Verify system credentials to authorize session</p>
+            
+            <div class="auth-alert error" id="login-error"></div>
+            <div class="auth-alert success" id="login-success"></div>
+
+            <form id="login-form" onsubmit="handleLogon(event)">
+                <input type="text" id="login-user" class="tech-input" placeholder="EMAIL OR USERNAME" required autocomplete="username">
+                <input type="password" id="login-pass" class="tech-input" placeholder="ACCESS PASSWORD" required autocomplete="current-password">
+                <button type="submit" class="btn" style="width:100%;">
+                    <i class="fas fa-shield-alt"></i> AUTHORIZE SESSION
+                </button>
+            </form>
+            <p class="auth-switch-text">
+                New Terminal Node? <a class="auth-switch-link" onclick="toggleAuthView('signup')">Create Account</a>
+            </p>
+
+            
+            <p class="auth-switch-text" style="margin-top:10px;">
+    <a class="auth-switch-link" onclick="toggleAuthView('reset')">Forgot Password?</a>
+</p>
+
+            
+        </div>
+
+        <!-- SIGNUP VIEW -->
+        <div class="auth-card" id="signup-block" style="display:none;">
+            <h2>NODE REGISTRY</h2>
+            <p class="auth-subtitle">Provision security access framework permissions</p>
+            
+            <div class="auth-alert error" id="signup-error"></div>
+
+            <form id="signup-form" onsubmit="handleRegistration(event)">
+                <input type="text" id="signup-name" class="tech-input" placeholder="UNIQUE USERNAME" required autocomplete="username">
+                <input type="email" id="signup-email" class="tech-input" placeholder="EMAIL ADDRESS" required autocomplete="email">
+                <input type="password" id="signup-pass" class="tech-input" placeholder="SECURE PASSWORD" required autocomplete="new-password">
+                <input type="password" id="signup-confirm" class="tech-input" placeholder="CONFIRM ACCESS PASSWORD" required autocomplete="new-password">
+                <button type="submit" class="btn" style="width:100%; background:linear-gradient(90deg, var(--accent), var(--primary));">
+                    <i class="fas fa-user-plus"></i> REGISTER TERMINAL
+                </button>
+            </form>
+            <p class="auth-switch-text">
+                Existing Node structure? <a class="auth-switch-link" onclick="toggleAuthView('login')">Return to Login</a>
+            </p>
+        </div>
+    </div>
+
+
+    
+    <nav>
+        <div style="display:flex; align-items:center; gap:20px;">
+            <button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+            <div class="logo">VAJIRA<span style="color:white">OFFICIAL</span></div>
+        </div>
+        <div style="display:flex; gap:25px; align-items:center;">
+            <div id="auth-user-badge" style="font-family:'JetBrains Mono'; color:var(--accent); font-size:0.85rem; display:none;"><i class="fas fa-user-circle"></i> USER: --</div>
+            <div id="real-ping" style="font-family:'JetBrains Mono'; color:var(--success); font-size:0.8rem;">LATENCY: --ms</div>
+        </div>
+    </nav>
+
+    <aside class="sidebar">
+        <div class="sidebar-section-header">Core Dashboard</div>
+        <a href="#" class="nav-link active" data-page="home"><i class="fas fa-desktop"></i> System Dashboard</a>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-section-header">API Engine Registries</div>
+        <a href="#" class="nav-link" data-page="apis"><i class="fas fa-database"></i> All Platform Node APIs</a>
+        <a href="#" class="nav-link" data-page="downloaders"><i class="fas fa-download"></i> Downloaders Core</a>
+        <a href="#" class="nav-link" data-page="movie"><i class="fas fa-film"></i> Cinematic Hub</a>
+        <a href="#" class="nav-link" data-page="ai"><i class="fas fa-robot"></i> Neural Systems</a>
+        <a href="#" class="nav-link" data-page="images"><i class="fas fa-image"></i> Graphic Systems</a>
+        
+        <div class="sidebar-divider"></div>
+        <button onclick="terminateSession()" class="btn-logout" style="background: var(--error); color: white; padding: 10px 20px; border: none; cursor: pointer;">
+    <i class="fas fa-sign-out-alt"></i> LOGOUT
+</button>
+    </aside>
+
+
+
+    
+    
+    <main class="main-container">
+
+<div class="access-section" style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin: 20px 0;">
+
+
+
+
+    
+
+    <div id="api-key-container" style="
+        background: var(--surface);
+        padding: 20px 30px;
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        box-shadow: 0 0 15px var(--neon-glow);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        backdrop-filter: blur(10px);
+    ">
+        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px;">
+            Your Access Status
+        </div>
+        <div id="api-key-status" style="font-family: 'JetBrains Mono'; font-size: 1.1rem; color: var(--text); word-break: break-all;">
+            INITIALIZING...
+        </div>
+    </div>
+
+
+
+
+
+<div class="global-access-bar">
+            <button class="btn" style="background:var(--premium); color:black;" onclick="openPremiumModal()">
+                <i class="fas fa-crown"></i> PREMIUM API KEY
+            </button>
+        </div>
+
+    
+</div>
+    
+
+
+        
+        <section id="home-page" class="page">
+            <div class="home-mainframe-section">
+                <div class="hero" style="margin-bottom:0; background:transparent; border:none; padding:0;">
+                    <h1>NETWORK INTELLIGENCE</h1>
+                    <p style="color:var(--text-dim); font-size:1.1rem; max-width:800px; line-height:1.6;">
+                        Enterprise-grade distributed processing framework provisioning programmatic endpoints over <span style="color:var(--accent);font-weight:700;">91 Production Modules</span>. Highly scalable microservices optimized for automation architectures.
+                    </p>
+                    <p style="color:rgba(255,255,255,0.4); font-size:0.9rem; margin-top:10px; font-family:'JetBrains Mono';">
+                        Developer Structure Node: W.M Vajira Rathnayaka (Age: 23).
+                    </p>
+                    
+                    <div class="perf-grid">
+                        <div class="perf-card"><span class="perf-label">Session Latency</span><span class="perf-val" id="val-lat">--ms</span></div>
+                        <div class="perf-card"><span class="perf-label">Memory Usage</span><span class="perf-val" id="val-mem">--MB</span></div>
+                        <div class="perf-card"><span class="perf-label">Registry Node</span><span class="perf-val" style="color:var(--success)">ONLINE</span></div>
+                        <div class="perf-card"><span class="perf-label">Total APIs</span><span class="perf-val">91</span></div>
                     </div>
-                    <div class="coin-count-hud">COINS: <span id="coin-balance-display">0/10</span></div>
                 </div>
-                <div class="milestone-row-nodes" id="nodes-row-wrapper"></div>
+
+                <div class="system-specs-grid">
+                    <div class="spec-item">
+                        <i class="fas fa-layer-group"></i>
+                        <div class="spec-details">
+                            <h5>CORE RUNTIME</h5>
+                            <p>NodeJS / Express Cluster</p>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="spec-details">
+                            <h5>SECURITY PROTOCOL</h5>
+                            <p>AES-256 Tokenization</p>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-server"></i>
+                        <div class="spec-details">
+                            <h5>EDGE ROUTING</h5>
+                            <p>Vercel Global Gateway</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="dashboard-feature-row">
+                <div>
+                    <h4 class="orbitron" style="font-size:0.9rem; color:var(--accent);"><i class="fas fa-network-wired"></i> EDGE SYSTEM LOGS</h4>
+                    <p style="font-size:0.8rem; color:var(--text-dim); margin-top:5px;">Real-time stream of incoming microservice events.</p>
+                </div>
+                <div class="console-stream" id="console-log">
+                    [SYSTEM]: Boot routine initialization completed.<br>
+                    [ROUTER]: Inbound cluster mappings established for 91 engines.<br>
+                    [DB_POOL]: Standby listeners ready on client sockets...
+                </div>
+            </div>
+
+            <div class="dashboard-feature-row" style="grid-template-columns: 2fr 1fr;">
+                <div>
+                    <h4 class="orbitron" style="font-size:0.9rem; color:white;"><i class="fas fa-microchip"></i> COMPUTE LOAD CLUSTERS</h4>
+                    <p style="font-size:0.8rem; color:var(--text-dim); margin-top:5px;">Dynamic memory allocations across active virtual endpoints.</p>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border); padding:15px; border-radius:12px; display:flex; justify-content:space-around; text-align:center;">
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_01</span><p style="font-size:0.7rem; color:var(--success)">IDLE</p></div>
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_02</span><p style="font-size:0.7rem; color:var(--success)">ACTIVE</p></div>
+                    <div><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">vNode_03</span><p style="font-size:0.7rem; color:var(--success)">IDLE</p></div>
+                </div>
+            </div>
+
+            <div class="premium-stealth">
+                <h3 class="orbitron" style="font-size:0.9rem; color:var(--premium); margin-bottom:15px;">LIFETIME ACCESS CREDENTIALS</h3>
+                <div class="blurred-key">vajira-VajiraOfficial2003</div>
+                <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.8rem; color:var(--text-dim);">Status: <span style="color:var(--premium)">PERMANENT</span></span>
+                    <button class="btn btn-ghost" style="border-color:var(--premium); color:var(--premium);" onclick="openPremiumModal()">UPGRADE NOW</button>
+                </div>
+            </div>
+
+            <h3 class="orbitron" style="margin-top:40px; margin-bottom:30px; color:var(--accent); letter-spacing:3px;">SYSTEM FEATURED MODULES</h3>
+            <div class="api-list" id="featured-list"></div>
         </section>
 
-        <div class="section-divider-title">Premium Plans</div>
+        <section id="apis-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:10px;">PLATFORM ISOLATION ENGINES</h2>
+            <p style="color:var(--text-dim); font-size:0.9rem; margin-bottom:30px;">All endpoints sorted cleanly by structural providers and data nodes.</p>
+            <div id="full-registry"></div>
+        </section>
+        
+        <section id="downloaders-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">DOWNLOADERS <span class="count-badge" id="count-downloaders">--</span></h2>
+            <div class="api-list" id="list-downloaders"></div>
+        </section>
+        
+        <section id="movie-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">MOVIE SYSTEMS <span class="count-badge" id="count-movie">--</span></h2>
+            <div class="api-list" id="list-movie"></div>
+        </section>
+        
+        <section id="ai-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">NEURAL SYSTEMS <span class="count-badge" id="count-ai">--</span></h2>
+            <div class="api-list" id="list-ai"></div>
+        </section>
+        
+        <section id="images-page" class="page" style="display:none;">
+            <h2 class="orbitron" style="margin-bottom:20px;">IMAGE ENGINES <span class="count-badge" id="count-images">--</span></h2>
+            <div class="api-list" id="list-images"></div>
+        </section>
+    </main>
 
-        <main class="tier-grid-cards">
-            <div class="tier-card">
-                <div class="tier-card-header">
-                    <div class="icon-badge badge-lite"><i class="fas fa-feather"></i></div>
-                    <div><h2>Weekly Lite</h2><div class="duration-lbl">1 Week</div></div>
-                </div>
-                <div class="price-tag">10 Coins</div>
-                <ul class="tier-perks-stack">
-                    <li><i class="fas fa-circle"></i> Basic Features Access</li>
-                    <li><i class="fas fa-circle"></i> Ad-Free Content Browsing</li>
-                    <li><i class="fas fa-circle"></i> Exclusive Profile Badge</li>
-                </ul>
-                <button class="purchase-action-trigger btn-lite" onclick="commitConsolePurchase('Weekly Lite', 10, 7)">Unlock with 10 Coins</button>
+    <div class="modal" id="modal-key-info">
+        <div class="modal-box">
+            <h2 class="orbitron" style="color:var(--accent); margin-bottom:20px;">ACCESS CERTIFICATE</h2>
+            <div style="background:#000; padding:20px; border-radius:12px; font-family:'JetBrains Mono'; color:var(--accent); border:1px dashed var(--accent); margin-bottom:20px;" id="disp-key">--</div>
+            <div style="text-align:left; color:var(--text-dim); line-height:1.8; margin-bottom:25px;">
+                <p>Status: <span style="color:var(--success)">VALIDATED</span></p>
+                <p>Issued: <span id="disp-date">--</span></p>
+                <p>Expiry: <span style="color:var(--accent)">30 DAYS</span></p>
             </div>
-
-            <div class="tier-card">
-                <div class="tier-card-header">
-                    <div class="icon-badge badge-pro"><i class="fas fa-shield-halved"></i></div>
-                    <div><h2>Weekly Pro</h2><div class="duration-lbl">1 Week</div></div>
-                </div>
-                <div class="price-tag">25 Coins</div>
-                <ul class="tier-perks-stack">
-                    <li><i class="fas fa-circle"></i> All Lite Features Active</li>
-                    <li><i class="fas fa-circle"></i> Offline Content Downloads</li>
-                    <li><i class="fas fa-circle"></i> Priority System Support</li>
-                </ul>
-                <button class="purchase-action-trigger btn-pro" onclick="commitConsolePurchase('Weekly Pro', 25, 7)">Unlock with 25 Coins</button>
-            </div>
-
-            <div class="tier-card">
-                <div class="tier-card-header">
-                    <div class="icon-badge badge-elite"><i class="fas fa-crown"></i></div>
-                    <div><h2>Monthly Elite</h2><div class="duration-lbl">1 Month</div></div>
-                </div>
-                <div class="price-tag">50 Coins</div>
-                <ul class="tier-perks-stack">
-                    <li><i class="fas fa-circle"></i> All Pro Features Included</li>
-                    <li><i class="fas fa-circle"></i> Early Access to New Content</li>
-                    <li><i class="fas fa-circle"></i> Special System Gift Pack</li>
-                </ul>
-                <button class="purchase-action-trigger btn-elite" onclick="commitConsolePurchase('Monthly Elite', 50, 30)">Unlock with 50 Coins</button>
-            </div>
-        </main>
-
-        <footer class="console-footer-msg">
-            Need more coins? Earn them by watching ads daily or purchasing a premium plan for instant access!
-        </footer>
+            <button class="btn" style="width:100%; justify-content:center;" onclick="copyActiveKey()"><i class="fas fa-copy"></i> COPY KEY</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+        </div>
     </div>
 
-    <script>
-        const user = localStorage.getItem('v_auth_user') || 'default_node';
+    <div class="modal" id="modal-premium">
+        <div class="modal-box" style="border-color:var(--premium);">
+            <i class="fas fa-crown" style="color:var(--premium); font-size:3rem; margin-bottom:20px;"></i>
+            <h2 class="orbitron" style="color:var(--premium); margin-bottom:20px;">PREMIUM UPGRADE</h2>
+            <div style="background:rgba(0,0,0,0.4); padding:25px; border-radius:20px; text-align:left; line-height:1.8;">
+                <p>Lifetime Price: <span style="color:var(--premium)">250 LKR</span></p>
+                <p>Bank: <span style="color:white">BOC (Bank of Ceylon)</span></p>
+                <p>Account: <span style="color:white">0089860809</span></p>
+                <p>Name: <span style="color:white">W.M VAJIRA RATHNAYAKA BALAGODA</span></p>
+            </div>
+            <button class="btn" style="width:100%; margin-top:30px; background:#25D366; color:white;" onclick="window.open('https://wa.me/94719199757')">
+                <i class="fab fa-whatsapp"></i> CONTACT ON WHATSAPP
+            </button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px; justify-content:center;" onclick="closeModal()">CLOSE</button>
+        </div>
+    </div>
 
-        let coins = parseInt(localStorage.getItem(`v_coins_${user}`)) || 0;
-        let adsWatchedToday = parseInt(localStorage.getItem(`v_ads_watched_${user}`)) || 0;
-        let lastAdReset = localStorage.getItem(`v_ad_reset_${user}`);
+    <!-- UPDATED TERMINAL MODAL -->
+<div class="modal" id="terminal-modal">
+    <div class="modal-box">
+        <h2 class="orbitron" id="term-title" style="margin-bottom:25px;">TERMINAL_EXECUTE</h2>
+        <input type="text" id="term-key" class="tech-input" placeholder="ACCESS_KEY">
         
-        let countdownTimerInterval;
-        const AD_DURATION_SECONDS = 15;
-        const DAILY_MAX_ADS = 10;
+        <!-- This container will now dynamically hold all required data parameters -->
+        <div id="term-params-container"></div>
+        
+        <button class="btn" style="width:100%;" id="term-run">EXECUTE REQUEST</button>
+        <pre id="term-res" class="mono"></pre>
+        <button class="btn btn-ghost" style="margin-top:15px; width:100%; justify-content:center;" onclick="closeModal()">CLOSE TERMINAL</button>
+    </div>
+</div>
 
-        window.onload = () => {
-            verifyDailyResetCycle();
-            refreshConsoleUIState();
+
+    <script>
+        const SUPABASE_URL = "https://pqgvxedfjgmdhyvayytm.supabase.co"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxZ3Z4ZWRmamdtZGh5dmF5eXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTE3MjcsImV4cCI6MjA5NTg4NzcyN30.IaiAlbn6TwdyF1iE4Lmo_2VNNq27unQwyIFAAUXipTg";
+        const BASE_URL = "https://vajira-official-apis.vercel.app";
+        const PREMIUM_KEY = "vajira-VajiraOfficial2003";
+
+        const apiData = [
+            { id: 1, name: "YouTube Video Downloader", endpoint: "/api/ytmp4", category: "downloaders", param: "url", description: "Download YouTube Video in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+            { id: 2, name: "YouTube Audio Downloader", endpoint: "/api/ytmp3", category: "downloaders", param: "url", description: "Download YouTube Audio in multiple formats.", example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", method: "GET", status: "active" },
+            { id: 3, name: "Twitter/X Downloader", endpoint: "/api/twitterdl", category: "downloaders", param: "url", description: "Extract videos from Twitter/X.", example: "https://twitter.com/user/status/123", method: "GET", status: "active" },
+            { id: 4, name: "Instagram Downloader", endpoint: "/api/igdl", category: "downloaders", param: "url", description: "Download Instagram content.", example: "https://www.instagram.com/p/Cxxx/", method: "GET", status: "active" },
+            { id: 5, name: "Facebook Downloader", endpoint: "/api/fbdl", category: "downloaders", param: "url", description: "Premium Facebook video download.", example: "https://www.facebook.com/watch/?v=123", method: "GET", status: "active" },
+            { id: 6, name: "Spotify Downloader", endpoint: "/api/spotifydl", category: "downloaders", param: "url", description: "Extract Spotify tracks with HQ quality.", example: "https://open.spotify.com/track/...", method: "GET", status: "active" },
+            { id: 7, name: "GitHub Cloner", endpoint: "/api/gitclone", category: "downloaders", param: "url", description: "Clone GitHub repositories as ZIP.", example: "https://github.com/user/repo", method: "GET", status: "active" },
+            { id: 8, name: "Aptoide Search", endpoint: "/api/aptoide", category: "ai", param: "q", description: "Search Android apps on Aptoide.", example: "WhatsApp", method: "GET", status: "active" },
+            { id: 9, name: "Spotify Search", endpoint: "/api/spotifysearch", category: "ai", param: "query", description: "Advanced Spotify metadata search.", example: "Ed Sheeran", method: "GET", status: "active" },
+            { id: 10, name: "TikTok Search", endpoint: "/api/ttsearch", category: "ai", param: "q", description: "TikTok content discovery engine.", example: "funny videos", method: "GET", status: "active" },
+            { id: 11, name: "Blackbox AI", endpoint: "/api/blackboxai", category: "ai", param: "q", description: "Advanced AI reasoning responses.", example: "How to code in C++?", method: "GET", status: "active" },
+            { id: 12, name: "Gemini AI", endpoint: "/api/gemini", category: "ai", param: "text", description: "Interface with Google Gemini AI.", example: "Explain quantum physics", method: "GET", status: "active" },
+            { id: 13, name: "Text to Image AI", endpoint: "/api/txt2img", category: "ai", param: "text", description: "Generate images from text prompts.", example: "Cyberpunk city 8k", method: "GET", status: "active" },
+            { id: 14, name: "Genshin Build Helper", endpoint: "/api/genshinbuild", category: "utilities", param: "q", description: "Get optimal Genshin builds.", example: "Zhongli", method: "GET", status: "active" },
+            { id: 15, name: "Pastebin Reader", endpoint: "/api/getpastebin", category: "utilities", param: "url", description: "Read Pastebin content easily.", example: "https://pastebin.com/...", method: "GET", status: "active" },
+            { id: 16, name: "Website to ZIP", endpoint: "/api/web2zip", category: "downloaders", param: "url", description: "Convert websites to ZIP files.", example: "https://example.com", method: "GET", status: "active" },
+            { id: 17, name: "Website Screenshot", endpoint: "/api/ssweb", category: "images", param: "url", description: "Take website screenshots.", example: "https://google.com", method: "GET", status: "active" },
+            { id: 18, name: "Text Translator", endpoint: "/api/translate", category: "utilities", param: "text", description: "Multi-language neural translation.", example: "Hello", method: "GET", status: "active" },
+            { id: 19, name: "Weather API", endpoint: "/api/cuaca", category: "utilities", param: "kota", description: "Real-time global weather data.", example: "London", method: "GET", status: "active" },
+            { id: 20, name: "Virtual Credit Card", endpoint: "/api/vcc", category: "utilities", param: "query", description: "Generate test VCC details.", example: "4111...", method: "GET", status: "active" },
+            { id: 21, name: "Welcome/Goodbye Image", endpoint: "/api/welcome-goodbye-image", category: "images", param: "name", description: "Generate welcome banners.", example: "John", method: "GET", status: "active" },
+            { id: 22, name: "Emoji Mixer", endpoint: "/api/emojimix", category: "images", param: "emojis", description: "Mix two emojis into one.", example: "😀+🔥", method: "GET", status: "active" },
+            { id: 23, name: "Quote Creator", endpoint: "/api/qc", category: "images", param: "text", description: "Create stylish quote images.", example: "Stay hungry", method: "GET", status: "active" },
+            { id: 24, name: "Brat Image Generator", endpoint: "/api/brat", category: "images", param: "text", description: "Generate brat-style text.", example: "Brat", method: "GET", status: "active" },
+            { id: 25, name: "Handwriting Generator", endpoint: "/api/nulis", category: "images", param: "text", description: "Convert text to handwriting.", example: "Homework", method: "GET", status: "active" },
+            { id: 26, name: "QR Code Generator", endpoint: "/api/qrcodegenerator", category: "images", param: "text", description: "Generate clean QR codes.", example: "https://google.com", method: "GET", status: "active" },
+            { id: 27, name: "Ghibli Images", endpoint: "/api/ghibliimage", category: "images", param: "query", description: "Studio Ghibli art search.", example: "Totoro", method: "GET", status: "active" },
+            { id: 28, name: "Tweet Generator", endpoint: "/api/tweet", category: "images", param: "text", description: "Create fake tweet images.", example: "Hello", method: "GET", status: "active" },
+            { id: 29, name: "Khodam Checker", endpoint: "/api/cekkhodam", category: "utilities", param: "name", description: "Spiritual analysis.", example: "Ahmad", method: "GET", status: "active" },
+            { id: 30, name: "Spotify DL Search", endpoint: "/api/spotidl", category: "downloaders", param: "q", description: "Spotify downloader.", example: "Pasoori", method: "GET", status: "active" },
+            { id: 31, name: "Movies Search", endpoint: "/api/moviesearch", category: "movie", param: "query", description: "Find movie metadata.", example: "Doctor Strange", method: "GET", status: "active" },
+            { id: 32, name: "Movies Downloader", endpoint: "/api/moviesdl", category: "movie", param: "q", description: "Download movie content.", example: "Movie name", method: "GET", status: "active" },
+            { id: 33, name: "Animexine Search", endpoint: "/api/animexinsearch", category: "movie", param: "q", description: "Search anime.", example: "Tales", method: "GET", status: "active" },
+            { id: 34, name: "Animexine Downloader", endpoint: "/api/animexindetails", category: "movie", param: "url", description: "Get anime download links.", example: "Animexine URL", method: "GET", status: "active" },
+            { id: 35, name: "MovieBd Search", endpoint: "/api/moviebdsearch", category: "movie", param: "q", description: "Movie database search.", example: "2025", method: "GET", status: "active" },
+            { id: 36, name: "MovieBd Dl", endpoint: "/api/moviebddl", category: "movie", param: "url", description: "Download from MovieBd.", example: "MovieBd URL", method: "GET", status: "active" },
+            { id: 37, name: "TikTok Downloader", endpoint: "/api/ttdl", category: "downloaders", param: "url", description: "No-Watermark download.", example: "TikTok URL", method: "GET", status: "active" },
+            { id: 38, name: "Wallpaper", endpoint: "/api/wallpaper", category: "ai", param: "q", description: "HQ Wallpaper search.", example: "Nature", method: "GET", status: "active" },
+            { id: 39, name: "Sticker", endpoint: "/api/sticker", category: "ai", param: "q", description: "WhatsApp sticker search.", example: "Anime", method: "GET", status: "active" },
+            { id: 40, name: "Voice Gpt", endpoint: "/api/voicegpt", category: "ai", param: "q", description: "AI Voice interaction.", example: "How are you?", method: "GET", status: "active" },
+            { id: 41, name: "Npm Search", endpoint: "/api/npmsearch", category: "ai", param: "q", description: "Search npm packages.", example: "axios", method: "GET", status: "active" },
+            { id: 42, name: "Xnxx Search", endpoint: "/api/xnxx-search", category: "downloaders", param: "q", description: "Adult site search.", example: "search name", method: "GET", status: "active" },
+            { id: 43, name: "Xnxx Dl", endpoint: "/api/xnxx-dl", category: "downloaders", param: "url", description: "Adult content downloader.", example: "Xnxx URL", method: "GET", status: "active" },
+            { id: 44, name: "Vajira Ai", endpoint: "/api/vajiraai", category: "ai", param: "q", description: "Native AI chat engine.", example: "Explain life", method: "GET", status: "active" },
+            { id: 45, name: "Vajira Ai Image", endpoint: "/api/vajiraai-image", category: "ai", param: "q", description: "AI Image generator.", example: "Quantum cat", method: "GET", status: "active" },
+            { id: 46, name: "Gdrive Video Download", endpoint: "/api/gdrivedl", category: "downloaders", param: "url", description: "Download Gdrive videos.", example: "Gdrive Link", method: "GET", status: "active" },
+            { id: 47, name: "123mkv Search", endpoint: "/api/123mkv", category: "movie", param: "q", description: "Search on 123mkv.", example: "Action", method: "GET", status: "active" },
+            { id: 48, name: "123mkv Download", endpoint: "/api/123mkvdetails", category: "movie", param: "url", description: "Download from 123mkv.", example: "123mkv URL", method: "GET", status: "active" },
+            { id: 49, name: "Dailymotion Download", endpoint: "/api/dailymotion", category: "downloaders", param: "url", description: "Extract Dailymotion videos.", example: "Dailymotion URL", method: "GET", status: "active" },
+            { id: 50, name: "Capcut Download", endpoint: "/api/capcut", category: "downloaders", param: "url", description: "Download Capcut templates.", example: "Capcut URL", method: "GET", status: "active" },
+            { id: 51, name: "Pinterest Video Download", endpoint: "/api/pinterest", category: "downloaders", param: "url", description: "Download Pinterest videos.", example: "Pinterest URL", method: "GET", status: "active" },
+            { id: 52, name: "Lyrics Search", endpoint: "/api/lyrics", category: "ai", param: "q", description: "Find song lyrics globally.", example: "Shape of You", method: "GET", status: "active" },
+            { id: 53, name: "Youtube Channel Details", endpoint: "/api/ytchannel", category: "downloaders", param: "url", description: "Get YT channel info.", example: "Channel URL", method: "GET", status: "active" },
+            { id: 54, name: "Text to Video", endpoint: "/api/text2video", category: "ai", param: "q", description: "Generate video from text.", example: "Cat dancing", method: "GET", status: "active" },
+            { id: 55, name: "Pc Game downloader", endpoint: "/api/pcgame", category: "downloaders", param: "q", description: "Download PC games.", example: "NFS", method: "GET", status: "active" },
+            { id: 56, name: "Wildshare downloader", endpoint: "/api/wildshare", category: "downloaders", param: "url", description: "Extract Wildshare files.", example: "Wildshare URL", method: "GET", status: "active" },
+            { id: 57, name: "Naijaprey Movie search", endpoint: "/api/Naijaprey", category: "movie", param: "q", description: "Search Naijaprey movies.", example: "2025", method: "GET", status: "active" },
+            { id: 58, name: "Naijaprey Downloader", endpoint: "/api/naijapreydetails", category: "movie", param: "url", description: "Download from Naijaprey.", example: "Naijaprey URL", method: "GET", status: "active" },
+            { id: 59, name: "Gofile downloader", endpoint: "/api/gofile", category: "downloaders", param: "url", description: "Download from Gofile.", example: "Gofile URL", method: "GET", status: "active" },
+            { id: 60, name: "mlfbd Movie search", endpoint: "/api/mlfbds", category: "movie", param: "text", description: "Search mlfbd movies.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 61, name: "mlfbd downloader", endpoint: "/api/mlfbddl", category: "movie", param: "url", description: "Download from mlfbd.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 62, name: "Movielover Movie search", endpoint: "/api/movielovers", category: "movie", param: "text", description: "Search Movielover films.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 63, name: "Movielover downloader", endpoint: "/api/movieloverdl", category: "movie", param: "url", description: "Download from Movielover.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 64, name: "MyFlix Movie search", endpoint: "/api/myflixs", category: "movie", param: "text", description: "Search MyFlix content.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 65, name: "MyFlix downloader", endpoint: "/api/myflixdl", category: "movie", param: "link", description: "Download from MyFlix.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 66, name: "Youtube search", endpoint: "/api/ytsearch", category: "downloaders", param: "q", description: "YouTube content search.", example: "Music", method: "GET", status: "active" },
+            { id: 67, name: "Notun Movie search", endpoint: "/api/notuns", category: "movie", param: "text", description: "Search Notun movies.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 68, name: "Notun downloader", endpoint: "/api/notundl", category: "movie", param: "url", description: "Download from Notun.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 69, name: "Vega Movie search", endpoint: "/api/vegamovies", category: "movie", param: "text", description: "Search Vega movies.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 70, name: "Vega downloader", endpoint: "/api/vegamoviedl", category: "movie", param: "link", description: "Download from Vega.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 71, name: "Xhamster search", endpoint: "/api/xhamsters", category: "movie", param: "text", description: "Adult search hub.", example: "Name", method: "GET", status: "active" },
+            { id: 72, name: "mediafire search", endpoint: "/api/mediafiredl", category: "movie", param: "url", description: "Download Mediafire files.", example: "Mediafire URL", method: "GET", status: "active" },
+            { id: 73, name: "Animostlk search", endpoint: "/api/animostlk", category: "movie", param: "q", description: "Search Animostlk movies.", example: "Anime name", method: "GET", status: "active" },
+            { id: 74, name: "Animostlk downloader", endpoint: "/api/animostlkdl", category: "movie", param: "url", description: "Download from Animostlk.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 75, name: "Cinesubz search", endpoint: "/api/cinesubz", category: "movie", param: "q", description: "Search Cinesubz movies.", example: "Movie name", method: "GET", status: "active" },
+            { id: 76, name: "Cinesubz details", endpoint: "/api/cinesubzdetails", category: "movie", param: "url", description: "Cinesubz info.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 77, name: "Cinesubz Tvshow details", endpoint: "/api/cinesubztvshowdetails", category: "movie", param: "url", description: "Tvshow info.", example: "Tv URL", method: "GET", status: "active" },
+            { id: 78, name: "Telegram Downloader", endpoint: "/api/telegramdl", category: "downloaders", param: "url", description: "Download Telegram files.", example: "Telegram Link", method: "GET", status: "active" },
+            { id: 79, name: "Ytsbz Search", endpoint: "/api/ytsbz", category: "movie", param: "q", description: "Ytsbz movie search.", example: "2025", method: "GET", status: "active" },
+            { id: 80, name: "All Torrent Downloader", endpoint: "/api/alltorrentdl", category: "movie", param: "url", description: "Magnet link downloader.", example: "Magnet link", method: "GET", status: "active" },
+            { id: 81, name: "Moviebox search", endpoint: "/api/movieboxs", category: "movie", param: "query", description: "Moviebox content search.", example: "Movie name", method: "GET", status: "active" },
+            { id: 76, name: "Movie box stream details", endpoint: "/api/movieboxdls", category: "movie", param: "subjectId=PUT_ID&detailPath=PUT_PATH&season=0&episode=0", description: "Fetch media resolutions, streams, and captions.", example: "Text Eg:- subjectId=4009074076768698256&detailPath=transformers-one-wwiZVkjB9M4", method: "GET", status: "active", lastChecked: null, responseTime: null },
+            { id: 83, name: "Movibd search", endpoint: "/api/movibd", category: "movie", param: "search", description: "Search Movibd.", example: "Movie name", method: "GET", status: "active" },
+            { id: 84, name: "Movibd downloader", endpoint: "/api/movibddl", category: "movie", param: "url", description: "Download from Movibd.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 85, name: "Moviect Search", endpoint: "/api/moviect", category: "movie", param: "search", description: "Search Moviect.", example: "Movie name", method: "GET", status: "active" },
+            { id: 86, name: "Moviect downloader", endpoint: "/api/moviectdl", category: "movie", param: "url", description: "Download from Moviect.", example: "Movie URL", method: "GET", status: "active" },
+            { id: 87, name: "PornHub Search", endpoint: "/api/pornhub", category: "ai", param: "query", description: "Adult site search.", example: "Mia", method: "GET", status: "active" },
+            { id: 88, name: "Fitgirl search", endpoint: "/api/fitgirls", category: "movie", param: "q", description: "Search Fitgirl games.", example: "Game name", method: "GET", status: "active" },
+            { id: 89, name: "Fitgirl details", endpoint: "/api/fitgirldetails", category: "movie", param: "url", description: "Fitgirl info.", example: "Game URL", method: "GET", status: "active" },
+            { id: 90, name: "Fitgirl dl", endpoint: "/api/fitgirldl", category: "movie", param: "url", description: "Direct Fitgirl download.", example: "Rar URL", method: "GET", status: "active" },
+            { id: 92, name: "Youtube Metadata", endpoint: "/api/ytmetadata", category: "downloaders", param: "url", description: "Get YT video metadata.", example: "Video URL", method: "GET", status: "active" },
+            { id: 93, name: "Xhamster search", endpoint: "/api/xhamster", category: "downloaders", param: "text", description: "Adult content indexer.", example: "Xhamster name", method: "GET", status: "active" }
+        ];
+
+        
+
+window.onload = () => {
+    // 1. Loader Logic
+    setTimeout(() => {
+        document.getElementById('loader').style.opacity = '0';
+        setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+    }, 2000);
+    
+    // 2. Existing Initializations
+    checkActiveSession();
+    renderLists();
+    setupNav();
+    setupSidebarToggle();
+    setInterval(updateRealPerf, 3000);
+    setInterval(simulateLogs, 4000);
+    updateRealPerf();
+    
+    // 3. Coin Fetching
+    fetchAndDisplayUserCoins(); // Initial call
+    setInterval(fetchAndDisplayUserCoins, 5000); // Add the interval here
+};
+
+
+
+        
+
+function toggleAuthView(view) {
+    document.getElementById('login-block').style.display = view === 'login' ? 'block' : 'none';
+    document.getElementById('signup-block').style.display = view === 'signup' ? 'block' : 'none';
+    document.getElementById('reset-block').style.display = view === 'reset' ? 'block' : 'none';
+    
+    // Clear alerts
+    document.querySelectorAll('.auth-alert').forEach(a => a.style.display = 'none');
+}
+
+        
+       /* function toggleAuthView(view) {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('login-success').style.display = 'none';
+            document.getElementById('signup-error').style.display = 'none';
+
+            if (view === 'signup') {
+                document.getElementById('login-block').style.display = 'none';
+                document.getElementById('signup-block').style.display = 'block';
+            } else {
+                document.getElementById('signup-block').style.display = 'none';
+                document.getElementById('login-block').style.display = 'block';
+            }
+        }*/
+
+        function checkActiveSession() {
+            const activeUser = localStorage.getItem('v_auth_user');
+            if (activeUser) grantSystemAccess(activeUser);
+        }
+
+        function grantSystemAccess(username) {
+            document.getElementById('auth-container').style.display = 'none';
+            document.querySelector('.main-container').style.display = 'block';
+            const userBadge = document.getElementById('auth-user-badge');
+            userBadge.innerHTML = `<i class="fas fa-user-circle"></i> NODE: ${username.toUpperCase()}`;
+            userBadge.style.display = 'block';
+        }
+
+        function terminateSession() {
+            localStorage.removeItem('v_auth_user');
+            document.getElementById('auth-user-badge').style.display = 'none';
+            document.querySelector('.main-container').style.display = 'none';
+            document.getElementById('login-form').reset();
+            document.getElementById('auth-container').style.display = 'flex';
+            toggleAuthView('login');
+        }
+
+
+
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    try {
+        alertBox.className = "auth-alert";
+        alertBox.textContent = "Verifying registry...";
+        alertBox.style.display = 'block';
+
+        // 1. Check if email exists in database
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        const response = await fetch(query, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: In a real app, you would trigger a serverless function here
+            // to send a unique reset link to the user's email.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery instructions sent to " + email;
+            console.log("Reset initiated for:", data[0].username);
+        } else {
+            throw new Error("Email not found in terminal registry.");
+        }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+    }
+}
+
+        
+
+
+
+
+
+async function handleRegistration(e) {
+    e.preventDefault();
+    
+    // 1. Get input values
+    const username = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-pass').value;
+    const confirm = document.getElementById('signup-confirm').value;
+    const errorAlert = document.getElementById('signup-error');
+
+    errorAlert.style.display = 'none';
+
+    // 2. Validate passwords
+    if (password !== confirm) {
+        errorAlert.textContent = "[ERROR]: Passwords do not match.";
+        errorAlert.style.display = 'block';
+        return;
+    }
+
+    try {
+        // 3. Generate the unique key
+        const ts = Date.now();
+        const rnd = Math.random().toString(36).substring(2, 10);
+        const sum = rnd.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
+        const longKey = `vajira-${rnd}${sum.toString().padStart(2, '0')}-${ts}`;
+
+        // 4. Prepare payload including the api_key for Supabase
+        const payload = {
+            username: username,
+            email: email,
+            password: password,
+            api_key: longKey // Saves the unique key to your database
         };
 
-        function verifyDailyResetCycle() {
-            const today = new Date().toDateString();
-            if (lastAdReset !== today) {
-                adsWatchedToday = 0;
-                localStorage.setItem(`v_ads_watched_${user}`, 0);
-                localStorage.setItem(`v_ad_reset_${user}`, today);
+        // 5. API Request to Supabase
+        const registerUrl = `${SUPABASE_URL}/rest/v1/users`;
+        const response = await fetch(registerUrl, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        // 6. Handle API errors
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Database rejected the transaction.");
+        }
+
+        // 7. Store locally for the session
+        localStorage.setItem(`v-key_${username}`, longKey);
+        localStorage.setItem(`v_trial_start_${username}`, Date.now());
+        localStorage.setItem('v_auth_user', username);
+        
+        // 8. Finalize UI
+        alert("Registration successful! Your 3-day free trial has been activated.");
+        
+        if (typeof updateTrialDisplay === 'function') {
+            updateTrialDisplay();
+        }
+        toggleAuthView('login');
+
+    } catch (err) {
+        errorAlert.textContent = `[EXCEPTION]: ${err.message}`;
+        errorAlert.style.display = 'block';
+    }
+        }
+
+        
+
+
+        
+
+async function handleResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const alertBox = document.getElementById('reset-alert');
+
+    // Reset UI state
+    alertBox.className = "auth-alert";
+    alertBox.textContent = "Verifying registry...";
+    alertBox.style.display = 'block';
+
+    try {
+        // 1. Check if email exists in database
+        // We look up the user record first
+        const query = `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(email)}&select=username`;
+        
+        const response = await fetch(query, {
+            headers: { 
+                'apikey': SUPABASE_ANON_KEY, 
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
             }
+        });
+        
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // 2. Logic: Success notification
+            // Since this is a client-side app, you cannot send actual emails directly.
+            // You must use a backend (like a Supabase Edge Function) for that.
+            // For now, this confirms the account was found.
+            alertBox.className = "auth-alert success";
+            alertBox.textContent = "Recovery request sent to " + email + ". Check your inbox.";
+            console.log("Reset initiated for user:", data[0].username);
+        } else {
+            // User not found
+            throw new Error("Email address not registered in system.");
         }
+    } catch (err) {
+        alertBox.className = "auth-alert error";
+        alertBox.textContent = "[ERROR]: " + err.message;
+        alertBox.style.display = 'block';
+    }
+}
 
-        function refreshConsoleUIState() {
-            document.getElementById('coin-balance-display').textContent = `${adsWatchedToday}/${DAILY_MAX_ADS}`;
+
+
+
+
+function updateTrialDisplay() {
+    const user = localStorage.getItem('v_auth_user');
+    const statusDisplay = document.getElementById('api-key-status');
+    if (!statusDisplay || !user) return;
+
+    const currentKey = localStorage.getItem(`v-key_${user}`);
+    const startTime = parseInt(localStorage.getItem(`v_trial_start_${user}`));
+    
+    // Fallback if local storage initialization values are empty
+    if (!currentKey || !startTime) {
+        statusDisplay.innerHTML = `<span style="color:var(--error)">NO ACTIVE STATUS FOUND</span>`;
+        return;
+    }
+
+    const DURATION = 3 * 24 * 60 * 60 * 1000; // 3 Days in MS
+    const expiresAt = startTime + DURATION;
+
+    async function refreshTimer() {
+        const now = Date.now();
+        const timeLeft = expiresAt - now;
+
+        // If the 3-day free trial time runs out, look up purchased coins/tokens
+        if (timeLeft <= 0) {
+            if (window.timerInterval) clearInterval(window.timerInterval);
             
-            const wrapper = document.getElementById('nodes-row-wrapper');
-            wrapper.innerHTML = "";
+            statusDisplay.innerHTML = `<div style="color:var(--text-dim); font-size:0.8rem;">VALIDATING COIN BUY REGISTRY...</div>`;
             
-            for(let i = 0; i < DAILY_MAX_ADS; i++) {
-                const node = document.createElement('div');
-                if (i < adsWatchedToday) {
-                    node.className = "milestone-node claimed";
-                    node.innerHTML = `<i class="fas fa-check-circle" style="color:#000;"></i>`;
-                } else {
-                    node.className = "milestone-node locked";
-                    node.innerHTML = `${i + 1}`;
-                }
-                wrapper.appendChild(node);
-            }
-
-            if (adsWatchedToday >= DAILY_MAX_ADS) {
-                const watchBtn = document.getElementById('watch-ad-btn');
-                watchBtn.disabled = true;
-                watchBtn.textContent = "Limit Reached";
-                watchBtn.style.backgroundColor = "#1e293b";
-                watchBtn.style.color = "#475569";
-            }
-        }
-
-        function launchSecureNetworkAd() {
-            verifyDailyResetCycle();
-            if (adsWatchedToday >= DAILY_MAX_ADS) return;
-
-            const modal = document.getElementById('ad-sdk-overlay-modal');
-            const bypassBtn = document.getElementById('bypass-click-trigger');
-            const closeBtn = document.getElementById('ad-close-counter-btn');
-
-            modal.style.display = 'flex';
-            bypassBtn.style.display = 'flex'; 
-
-            closeBtn.className = "ad-close-action-node non-skippable";
-            closeBtn.textContent = AD_DURATION_SECONDS;
-            closeBtn.onclick = null;
-        }
-
-        function engageDirectVideoPlay() {
-            document.getElementById('bypass-click-trigger').style.display = 'none';
-            const video = document.getElementById('sdk-ad-video-core');
-            const closeBtn = document.getElementById('ad-close-counter-btn');
-            
-            video.currentTime = 0;
-            video.play().catch(err => console.log("Video Play Error intercepted safely"));
-
-            let secondsLeft = AD_DURATION_SECONDS;
-
-            countdownTimerInterval = setInterval(() => {
-                secondsLeft--;
-                if (secondsLeft > 0) {
-                    closeBtn.textContent = secondsLeft;
-                } else {
-                    clearInterval(countdownTimerInterval);
-                    closeBtn.className = "ad-close-action-node";
-                    closeBtn.innerHTML = `<i class="fas fa-times"></i>`;
-                    closeBtn.onclick = () => {
-                        terminateAdSessionAndReward();
-                    };
-                }
-            }, 1000);
-        }
-
-        function terminateAdSessionAndReward() {
-            const modal = document.getElementById('ad-sdk-overlay-modal');
-            const video = document.getElementById('sdk-ad-video-core');
-            
-            video.pause();
-            modal.style.display = 'none';
-
-            coins += 1;
-            adsWatchedToday += 1;
-            localStorage.setItem(`v_coins_${user}`, coins);
-            localStorage.setItem(`v_ads_watched_${user}`, adsWatchedToday);
-            
-            refreshConsoleUIState();
-            alert("Sponsor credential tracking verified: +1 Coin loaded to your local account system!");
-        }
-
-        // ================= SECURE SUBSCRIPTION MINTING FACTORY =================
-        function commitConsolePurchase(planName, cost, days) {
-            if (coins < cost) {
-                return alert(`Insufficient Coins! You need ${cost} coins to unlock this premium plan configurations.`);
-            }
-
-            if (confirm(`Authorize spend configuration allocation of ${cost} coins to deploy ${planName}?`)) {
-                // Deduct coins from balance
-                coins -= cost;
-                localStorage.setItem(`v_coins_${user}`, coins);
-
-                // Calculate plan expiration timestamp parameters precisely
-                const durationMS = days * 24 * 60 * 60 * 1000;
-                const expirationTimestamp = Date.now() + durationMS;
+            try {
+                // Query Supabase users data node for active purchased key tokens
+                const query = `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(user)}&select=api_key`;
+                const response = await fetch(query, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
                 
-                localStorage.setItem(`v_plan_start_${user}`, Date.now());
-                localStorage.setItem(`v_plan_expiration_${user}`, expirationTimestamp);
-                localStorage.setItem(`v_active_plan_name_${user}`, planName);
-                localStorage.removeItem(`v_key_expired_${user}`);
+                const data = await response.json();
+                
+                // If the user bought coins or holds the premium developer key pattern
+                if (data && data.length > 0 && data[0].api_key && data[0].api_key !== PREMIUM_KEY) {
+                    localStorage.setItem(`v-key_${user}`, data[0].api_key);
+                    
+                    statusDisplay.innerHTML = `
+                        <div style="color:var(--premium); font-weight:bold;"><i class="fas fa-crown"></i> PREMIUM ACTIVE</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size:0.9rem; color:#fff; word-break:break-all; margin:5px 0;">${data[0].api_key}</div>
+                        <div style="font-size:0.75rem; color:var(--success);">STORE SUBSCRIPTION: VALIDATED UNLIMITED</div>
+                    `;
+                } else {
+                    // Force display option to buy tokens in the store structure
+                    statusDisplay.innerHTML = `
+                        <div style="color:var(--error); font-weight:bold; margin-bottom: 5px;">TRIAL EXPIRED</div>
+                        <button class="btn" style="background:var(--premium); color:black; font-size:0.8rem; padding: 6px 12px; margin: 0 auto; display:flex;" onclick="openPremiumModal()">
+                            <i class="fas fa-shopping-cart"></i> BUY COINS / STORE ACCESS
+                        </button>
+                    `;
+                }
+            } catch (err) {
+                statusDisplay.innerHTML = `<div style="color:var(--error); font-size:0.8rem;">GATEWAY TIMEOUT: ${err.message}</div>`;
+            }
+        } else {
+            // Live countdown tick if free trial time range is active
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            statusDisplay.innerHTML = `
+                <div style="color:var(--accent); font-weight:bold;">TRIAL KEY ACTIVE</div>
+                <div style="font-family: 'JetBrains Mono'; font-size:0.9rem; color:#fff; word-break:break-all; margin:5px 0;">${currentKey}</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">
+                    Expires in: ${days}d ${hours}h ${minutes}m ${seconds}s
+                </div>
+            `;
+        }
+    }
 
-                // MINT UNIQUE RECOGNIZABLE API KEY (Prefixed by plan title identifier metrics)
-                const prefix = planName.toUpperCase().replace(/\s+/g, '_');
-                const uniqueHash = Math.random().toString(36).substring(2, 12).toUpperCase();
-                const generatedKey = `V_KEY_${prefix}_${uniqueHash}`;
-                localStorage.setItem(`v_premium_apikey_${user}`, generatedKey);
+    if (window.timerInterval) clearInterval(window.timerInterval);
+    window.timerInterval = setInterval(refreshTimer, 1000);
+    refreshTimer();
+}
 
-                refreshConsoleUIState();
-                alert(`Successfully Activated ${planName}! Your high-speed API key is now active and ready inside the main dashboard panel console layout.`);
-                window.location.href = 'index.html';
+    // Trigger the update when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        updateTrialDisplay();
+    });
+
+        
+        
+async function handleLogon(e) {
+    e.preventDefault();
+    const identifier = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim(); // .trim() ensures no hidden spaces
+    const errorAlert = document.getElementById('login-error');
+
+    errorAlert.style.display = 'none';
+
+    try {
+        // Build the query to check if email OR username matches
+        // We do NOT filter by password in the URL initially to see if the user exists at all
+        let query = identifier.includes('@') 
+            ? `${SUPABASE_URL}/rest/v1/users?email=eq.${encodeURIComponent(identifier)}&select=username,password`
+            : `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(identifier)}&select=username,password`;
+
+        const response = await fetch(query, {
+            method: 'GET',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        // Check if we found the user
+        if (data && data.length > 0) {
+            const userRecord = data[0];
+            
+            // Now compare the password manually in JavaScript
+            if (userRecord.password === pass) {
+                localStorage.setItem('v_auth_user', userRecord.username);
+                grantSystemAccess(userRecord.username);
+            } else {
+                throw new Error("Incorrect password provided.");
+            }
+        } else {
+            throw new Error("No user found with that identifier.");
+        }
+
+    } catch (err) {
+        errorAlert.textContent = `[DENIED]: ${err.message}`;
+        errorAlert.style.display = 'block';
+    }
+}
+
+        function setupSidebarToggle() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+
+        function simulateLogs() {
+            const logs = [
+                `[ROUTER]: Handshake complete for secure consumer connection.`,
+                `[API_CORE]: Indexing token arrays against active memory clusters.`,
+                `[GATEWAY]: Request processed via Node_02 cluster in ${Math.floor(Math.random()*40)+10}ms`,
+                `[SYSTEM]: Health definitions verified. Status: 100% Operational.`
+            ];
+            const logBox = document.getElementById('console-log');
+            if(logBox) {
+                logBox.innerHTML += `<br>` + logs[Math.floor(Math.random() * logs.length)];
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+        }
+
+        function renderLists() {
+            const sections = {
+                'featured-list': apiData.slice(0, 5),
+                'list-downloaders': apiData.filter(a => a.category === 'downloaders'),
+                'list-movie': apiData.filter(a => a.category === 'movie'),
+                'list-ai': apiData.filter(a => a.category === 'ai'),
+                'list-images': apiData.filter(a => a.category === 'images')
+            };
+
+            for (const [id, data] of Object.entries(sections)) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = '';
+                    data.forEach((api, idx) => {
+                        const line = createApiRow(api);
+                        line.style.animationDelay = `${idx * 0.05}s`;
+                        el.appendChild(line);
+                    });
+                }
+                const countId = id.replace('list-', 'count-');
+                if(document.getElementById(countId)) document.getElementById(countId).textContent = data.length;
+            }
+
+            const fullRegistry = document.getElementById('full-registry');
+            if (fullRegistry) {
+                fullRegistry.innerHTML = '';
+                
+                const platformGroups = {
+                    youtube: { title: "YOUTUBE MODULE ENDPOINTS", icon: "fab fa-youtube", apis: [] },
+                    socials: { title: "SOCIAL MEDIA ENGINE CORES (FB / IG / TWITTER / TIKTOK)", icon: "fas fa-share-nodes", apis: [] },
+                    spotify: { title: "SPOTIFY & AUDIO RETRIEVAL ARRAYS", icon: "fas fa-music", apis: [] },
+                    movies: { title: "CINEMATIC DOMAIN APIS (MLFBD / VEGA / CINESUBZ / MOVIEBOX)", icon: "fas fa-film", apis: [] },
+                    ai: { title: "NEURAL COGNITION SYSTEM APIS (GEMINI / VAJIRA-AI)", icon: "fas fa-brain", apis: [] },
+                    adult: { title: "ADULT ARCHITECTURE OVERLAYS (XNXX / PORNHUB)", icon: "fas fa-user-slash", apis: [] },
+                    general: { title: "SYSTEM OPERATIONS & GENERIC UTILITIES", icon: "fas fa-sliders", apis: [] }
+                };
+
+                apiData.forEach(api => {
+                    const name = api.name.toLowerCase();
+                    const ep = api.endpoint.toLowerCase();
+
+                    if (name.includes('youtube') || ep.includes('yt')) {
+                        platformGroups.youtube.apis.push(api);
+                    } else if (name.includes('facebook') || name.includes('fbdl') || name.includes('instagram') || name.includes('igdl') || name.includes('twitter') || name.includes('tiktok') || ep.includes('tt') || name.includes('pinterest') || name.includes('capcut') || name.includes('telegram') || name.includes('dailymotion')) {
+                        platformGroups.socials.apis.push(api);
+                    } else if (name.includes('spotify') || name.includes('lyrics') || ep.includes('spoti')) {
+                        platformGroups.spotify.apis.push(api);
+                    } else if (name.includes('movie') || name.includes('animexin') || name.includes('123mkv') || name.includes('naijaprey') || name.includes('mlfbd') || name.includes('notun') || name.includes('vega') || name.includes('animostlk') || name.includes('cinesubz') || name.includes('ytsbz') || name.includes('torrent') || name.includes('movibd') || name.includes('moviect')) {
+                        platformGroups.movies.apis.push(api);
+                    } else if (name.includes('ai') || name.includes('gemini') || name.includes('blackbox') || name.includes('gpt') || ep.includes('img') || name.includes('video')) {
+                        platformGroups.ai.apis.push(api);
+                    } else if (name.includes('xnxx') || name.includes('xhamster') || name.includes('pornhub')) {
+                        platformGroups.adult.apis.push(api);
+                    } else {
+                        platformGroups.general.apis.push(api);
+                    }
+                });
+
+                Object.entries(platformGroups).forEach(([key, group]) => {
+                    if (group.apis.length > 0) {
+                        const block = document.createElement('div');
+                        block.className = 'registry-sector-block';
+
+                        const header = document.createElement('div');
+                        header.className = 'registry-sector-header';
+                        header.innerHTML = `<i class="${group.icon}"></i> ${group.title} <span class="count-badge">${group.apis.length} TERMINALS</span>`;
+
+                        const list = document.createElement('div');
+                        list.className = 'api-list';
+
+                        group.apis.forEach((api, index) => {
+                            const row = createApiRow(api);
+                            row.style.animationDelay = `${index * 0.02}s`;
+                            list.appendChild(row);
+                        });
+
+                        block.appendChild(header);
+                        block.appendChild(list);
+                        fullRegistry.appendChild(block);
+                    }
+                });
+            }
+        }
+
+
+
+
+function checkTrialExpiry() {
+    const user = localStorage.getItem('v_auth_user');
+    if (!user) return;
+
+    const startTime = localStorage.getItem(`v_trial_start_${user}`);
+    
+    // 3 Days in milliseconds
+    const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+    
+    if (startTime) {
+        const elapsed = Date.now() - parseInt(startTime);
+        
+        if (elapsed >= THREE_DAYS) {
+            // EXPIRED STATE
+            localStorage.setItem('v-key', 'EXPIRED'); // Overwrite key to block access
+            
+            // UI Updates
+            const genBtn = document.getElementById('gen-key-btn'); // Replace with your actual button ID
+            if (genBtn) {
+                genBtn.innerHTML = '<i class="fas fa-crown"></i> PREMIUM API KEY REQUIRED';
+                genBtn.style.pointerEvents = 'none';
+                genBtn.style.opacity = '0.6';
+            }
+            
+            // Force open the Premium Upgrade Modal
+            openPremiumModal(); 
+        }
+    }
+}
+
+        
+function loadSubscriptionData() {
+    const issuedAt = localStorage.getItem(`v_trial_start_${currentUser}`);
+    const logBox = document.getElementById('home-log-box');
+    const subTimer = document.getElementById('sub-plan-timer');
+    const billingBody = document.getElementById('billing-history-body');
+
+    if (issuedAt) {
+        const diff = Date.now() - parseInt(issuedAt);
+        const daysPast = diff / (1000 * 60 * 60 * 24);
+        
+        if (daysPast >= 3) {
+            // EXPIRED STATE
+            subTimer.innerHTML = `STATUS: <span style="color:var(--error)">EXPIRED</span>`;
+            document.getElementById('trial-days-display').textContent = "EXPIRED";
+            document.getElementById('modal-expired').style.display = 'flex'; // Triggers popup
+            
+            // Update UI to reflect expiry
+            if(logBox) logBox.innerHTML += `<br><span style="color:var(--error)">[SYSTEM]: Your free trial is now over. Please upgrade to a Premium Key.</span>`;
+        } else {
+            // ACTIVE STATE
+            const timeLeft = (3 - daysPast).toFixed(2);
+            subTimer.innerHTML = `EXPIRES IN: <span style="color:var(--accent)">${timeLeft} Days</span>`;
+            document.getElementById('trial-days-display').textContent = timeLeft + " DAYS";
+        }
+
+        // Update Billing Table
+        const date = new Date(parseInt(issuedAt)).toLocaleDateString();
+        billingBody.innerHTML = `<tr><td>${date}</td><td>3-Day Terminal Trial</td><td>FREE</td><td><span class="status-pill ${daysPast >= 3 ? 'status-paid' : 'status-trial'}">${daysPast >= 3 ? 'EXPIRED' : 'ACTIVE'}</span></td></tr>`;
+    } else {
+        subTimer.innerHTML = `NO ACTIVE SESSION`;
+        billingBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No history recorded</td></tr>`;
+    }
+}
+
+
+
+
+
+        
+        function createApiRow(api) {
+            const line = document.createElement('div');
+            line.className = 'api-row';
+            const url = `${BASE_URL}${api.endpoint}?apikey=YOUR_KEY&${api.param}=...`;
+            line.innerHTML = `
+                <div class="api-meta">
+                    <div class="api-icon"><i class="fas fa-${getIcon(api.category)}"></i></div>
+                    <div>
+                        <span class="api-name"><span class="status-dot status-${api.status === 'active' ? 'active' : 'dead'}"></span>${api.name} <span class="method">${api.method}</span></span>
+                        <p style="color:var(--text-dim); font-size:0.85rem; margin-top:5px;">${api.description}</p>
+                    </div>
+                </div>
+                <div style="display:flex; gap:15px;">
+                    <button class="btn btn-ghost" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> COPY</button>
+                    <button class="btn" onclick='openTerminal(${JSON.stringify(api)})'><i class="fas fa-play"></i> TEST</button>
+                </div>
+            `;
+            return line;
+        }
+
+        function getIcon(cat) { return { downloaders: 'cloud-download-alt', movie: 'film', ai: 'brain', images: 'palette' }[cat] || 'link'; }
+
+        function copyLink(url) {
+            const key = localStorage.getItem('v-key') || 'YOUR_KEY';
+            navigator.clipboard.writeText(url.replace('YOUR_KEY', key));
+            alert("Endpoint URL Copied!");
+        }
+
+        function openPremiumModal() { document.getElementById('modal-premium').style.display = 'flex'; }
+        function closeModal() { 
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
+            document.getElementById('term-res').style.display = 'none';
+        }
+
+        function generateSecureKey() {
+            const ts = Date.now();
+            const rnd = Math.random().toString(36).substring(2, 10);
+            const sum = rnd.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 100;
+            const key = `vajira-${rnd}${sum.toString().padStart(2, '0')}-${ts}`;
+            localStorage.setItem('v-key', key);
+            document.getElementById('disp-key').textContent = key;
+            document.getElementById('disp-date').textContent = new Date().toLocaleDateString();
+            document.getElementById('modal-key-info').style.display = 'flex';
+        }
+
+        function copyActiveKey() {
+            navigator.clipboard.writeText(localStorage.getItem('v-key') || PREMIUM_KEY);
+            alert("Key Copied!");
+        }
+
+      /*  let currentApi = null;
+        window.openTerminal = (api) => {
+            currentApi = api;
+            document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
+            document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
+            document.getElementById('term-val').value = '';
+            document.getElementById('term-res').style.display = 'none';
+            document.getElementById('terminal-modal').style.display = 'flex';
+        };*/
+
+        let currentApi = null;
+
+window.openTerminal = (api) => {
+    currentApi = api;
+    document.getElementById('term-title').textContent = `EXECUTE: ${api.name}`;
+    document.getElementById('term-key').value = localStorage.getItem('v-key') || '';
+    document.getElementById('term-res').style.display = 'none';
+    
+    const container = document.getElementById('term-params-container');
+    container.innerHTML = ''; // Clear out any previous boxes
+
+    // Split parameters by '&' to find out how many distinct keys exist
+    // Example: "subjectId=PUT_ID&detailPath=PUT_PATH" -> ["subjectId=PUT_ID", "detailPath=PUT_PATH"]
+    const paramPairs = api.param.split('&');
+
+    paramPairs.forEach(pair => {
+        const parts = pair.split('=');
+        const paramName = parts[0]; 
+        const defaultValue = parts[1] || '';
+
+        // Create a new input field for this specific parameter
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'tech-input dynamic-param';
+        input.dataset.paramName = paramName; // Safely store the query key name
+        input.placeholder = `ENTER ${paramName.toUpperCase()}`;
+        
+        // If it isn't a placeholder indicator, auto-fill it (like season=0 or episode=0)
+        if (!defaultValue.includes('PUT_') && defaultValue !== '...') {
+            input.value = defaultValue;
+        }
+
+        container.appendChild(input);
+    });
+
+    document.getElementById('terminal-modal').style.display = 'flex';
+};
+
+
+        document.getElementById('term-run').addEventListener('click', async () => {
+    const key = document.getElementById('term-key').value;
+    const resBox = document.getElementById('term-res');
+    
+    if (!key) return alert("Access Key credentials are required.");
+    
+    // Collect all values from our generated data parameter boxes
+    const paramInputs = document.querySelectorAll('.dynamic-param');
+    let queryString = `apikey=${encodeURIComponent(key)}`;
+    let validationFailed = false;
+
+    paramInputs.forEach(input => {
+        const name = input.dataset.paramName;
+        const value = input.value.trim();
+
+        if (!value) {
+            alert(`Parameter [${name}] is required.`);
+            validationFailed = true;
+            return;
+        }
+        queryString += `&${name}=${encodeURIComponent(value)}`;
+    });
+
+    if (validationFailed) return;
+
+    resBox.style.display = 'block'; 
+    resBox.textContent = ">>> Sending processing bits to cluster node...\n>>> Formatting response body...";
+    
+    try {
+        // Constructs URL seamlessly whether there is 1 parameter or 4 parameters
+        const finalUrl = `${BASE_URL}${currentApi.endpoint}?${queryString}`;
+        console.log("Executing Request to:", finalUrl);
+
+        const response = await fetch(finalUrl);
+        const data = await response.json();
+        resBox.textContent = JSON.stringify(data, null, 4);
+    } catch(e) { 
+        resBox.textContent = ">>> Target Exception: " + e.message; 
+    }
+});
+
+
+        function setupNav() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    if(link.hasAttribute('onclick')) return; 
+                    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+                    document.getElementById(`${link.dataset.page}-page`).style.display = 'block';
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    document.querySelector('.sidebar').classList.remove('open');
+                    window.scrollTo(0,0);
+                }
+            });
+        }
+
+
+
+function terminateSession() {
+    // 1. Remove the authentication token/user from local storage
+    localStorage.removeItem('v_auth_user');
+    
+    // 2. Hide the main dashboard
+    document.querySelector('.main-container').style.display = 'none';
+    
+    // 3. Show the login/signup container again
+    document.getElementById('auth-container').style.display = 'block';
+    
+    // 4. Optionally reload to clear any remaining in-memory state
+    window.location.reload(); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+
+        
+        function updateRealPerf() {
+            const start = Date.now();
+            fetch(window.location.href, { mode: 'no-cors' }).then(() => {
+                const lat = Date.now() - start;
+                if(document.getElementById('val-lat')) document.getElementById('val-lat').textContent = lat + "ms";
+                if(document.getElementById('real-ping')) document.getElementById('real-ping').textContent = "LATENCY: " + lat + "ms";
+            }).catch(() => {});
+            if (window.performance && window.performance.memory) {
+                document.getElementById('val-mem').textContent = Math.round(window.performance.memory.usedJSHeapSize / 1048576) + "MB";
             }
         }
     </script>
