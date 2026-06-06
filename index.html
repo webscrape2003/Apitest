@@ -16,6 +16,10 @@
             font-family: 'Poppins', sans-serif;
         }
 
+
+
+
+        
 body {
     background: #000;
     color: #fff;
@@ -27,7 +31,7 @@ body {
     position: relative;
 }
 
-/* Full Page Ultra Crisp Backplane Engine */
+/* Absolute Full Screen Background Fix */
 body::before {
     content: "";
     position: fixed;
@@ -36,18 +40,19 @@ body::before {
     width: 100vw;
     height: 100vh;
     
-    /* Change image name inside url() to swap between your assets */
+    /* Connect your background image file name here */
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.45)), url('https://i.ibb.co/PGF2dDzp/6byx7u.jpg');
-    background-size: 100% 100%;
+    
+    /* Forces the image to adapt completely into the full view size */
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     z-index: -1;
     
-    /* Forces system graphics to render with zero quality loss or smoothing blur */
+    /* Keeps image pixels ultra-sharp */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
 }
-
 
 
 
