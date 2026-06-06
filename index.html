@@ -32,82 +32,160 @@
 
 .showcase-container {
     width: 90%;
-    max-width: 450px;
+    max-width: 480px;
     background: rgba(10, 0, 0, 0.85);
     border: 1px solid rgba(255, 0, 0, 0.3);
-    border-radius: 15px;
-    margin: 20px auto;
-    padding: 15px;
+    border-radius: 20px;
+    margin: 30px auto;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
 }
+
 .showcase-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 }
+
 .showcase-header h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
+    font-size: 13px;
     color: #ff0000;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
 }
+
 #cmdSearch {
-    background: #0a0000;
-    border: 1px solid rgba(255,0,0,0.3);
-    border-radius: 6px;
-    padding: 5px 10px;
+    background: #050000;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
     color: #fff;
-    font-size: 10px;
+    font-size: 11px;
     outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    transition: 0.3s;
 }
-#cmdSearch:focus { border-color: #ff0000; }
+
+#cmdSearch:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.3);
+}
+
 .showcase-tabs {
     display: flex;
     gap: 6px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none; /* Firefox */
 }
+
+.showcase-tabs::-webkit-scrollbar {
+    display: none; /* Safari/Chrome */
+}
+
 .sc-tab {
-    flex: 1;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.05);
+    flex: 0 0 auto;
+    background: rgba(15, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     color: #888;
-    padding: 5px;
-    font-size: 9px;
+    padding: 6px 14px;
+    font-size: 10px;
     font-family: 'Orbitron', sans-serif;
     cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .sc-tab.active, .sc-tab:hover {
-    background: rgba(255,0,0,0.1);
+    background: #ff0000;
     border-color: #ff0000;
-    color: #fff;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }
+
 .cmd-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
 }
+
+/* Custom Scrollbar for Command Grid viewports */
+.cmd-grid::-webkit-scrollbar {
+    width: 3px;
+}
+.cmd-grid::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+.cmd-grid::-webkit-scrollbar-thumb {
+    background: #ff0000;
+    border-radius: 10px;
+}
+
 .cmd-item {
-    background: rgba(0,0,0,0.4);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.03);
+    background: rgba(5, 0, 0, 0.8);
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
     text-align: left;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1);
+    opacity: 1;
 }
+
+/* Professional Entrance Animation style triggered via UI Switches */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.93);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.cmd-item.animate-in {
+    animation: cardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cmd-item:hover {
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.03);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
 .cmd-item span {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     color: #ff0000;
-    font-weight: bold;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+    display: block;
 }
+
 .cmd-item p {
-    font-size: 9px;
+    font-size: 10px;
     color: #aaa;
-    margin-top: 2px;
+    margin-top: 4px;
+    line-height: 1.3;
 }
+
+/* Micro styling tailored for rendering variables */
+.rendering-node p {
+    color: #666;
+    font-style: italic;
+}
+
 
 
 
@@ -1518,24 +1596,232 @@
 
    <div class="showcase-container">
     <div class="showcase-header">
-        <h3><i class="fas fa-terminal"></i> COMMAND MATRIX</h3>
-        <input type="text" id="cmdSearch" placeholder="Search plugin commands..." onkeyup="filterCommands()">
+        <h3><i class="fas fa-terminal"></i> CORE COMMAND MATRIX</h3>
+        <input type="text" id="cmdSearch" placeholder="Filter active plugins..." onkeyup="filterCommands()">
     </div>
+    
     <div class="showcase-tabs">
-        <button class="sc-tab active" onclick="switchCmdTab('all')">ALL</button>
-        <button class="sc-tab" onclick="switchCmdTab('dl')">DOWNLOAD</button>
-        <button class="sc-tab" onclick="switchCmdTab('group')">GROUP</button>
-        <button class="sc-tab" onclick="switchCmdTab('ai')">AI</button>
+        <button class="sc-tab active" onclick="switchCmdTab(event, 'all')">ALL</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'dl')">DOWNLOAD</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'movie')">MOVIES</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'games')">GAMES</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'main')">MAIN</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'search')">SEARCH</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'owner')">OWNER</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'group')">GROUP</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'other')">OTHER</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'setting')">SETTINGS</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'ai')">AI ENGINE</button>
+        <button class="sc-tab" onclick="switchCmdTab(event, 'logo')">LOGO</button>
     </div>
+
     <div class="cmd-grid" id="cmdGrid">
-        <div class="cmd-item" data-cat="dl"><span>.video</span><p>Download HD video links</p></div>
-        <div class="cmd-item" data-cat="dl"><span>.song</span><p>Fetch audio streaming files</p></div>
-        <div class="cmd-item" data-cat="group"><span>.kick</span><p>Remove target user index</p></div>
-        <div class="cmd-item" data-cat="group"><span>.promote</span><p>Assign administrative tier</p></div>
-        <div class="cmd-item" data-cat="ai"><span>.gpt</span><p>Request artificial response</p></div>
-        <div class="cmd-item" data-cat="ai"><span>.ai</span><p>Generate midjourney layout</p></div>
+        <!-- DOWNLOAD CATEGORY -->
+        <div class="cmd-item" data-cat="dl"><span>.song</span><p>Download music (MP3)</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.video</span><p>Download videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.ig</span><p>Download videos Insta</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.spotify</span><p>Download spotify song</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.tiktok</span><p>Download TikTok videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.fb</span><p>Download Facebook videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.apk</span><p>Download apps</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.twitter</span><p>Download twitter video</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.xnxx</span><p>Download 18+ videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.img</span><p>Download images</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.an1</span><p>Download mod APK files</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.ssave</span><p>Save status video/image</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.ringtone</span><p>Download Ringtones</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.capcut</span><p>Download Capcut Videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.pinterest</span><p>Download pinterest Videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.subtitle</span><p>Download Sinhalasubtitle</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.starttiktok</span><p>Auto send tiktok Videos</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.stoptiktok</span><p>Halt tiktok Auto-Feeder</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.startautosong</span><p>Auto dispatch incoming music</p></div>
+        <div class="cmd-item" data-cat="dl"><span>.stopautosong</span><p>Halt music dispatching</p></div>
+
+        <!-- MOVIE CATEGORY -->
+        <div class="cmd-item" data-cat="movie"><span>.subz</span><p>Search movies + subtitles</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.sinhalasub</span><p>Search via Sinhalasub</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.moviebox</span><p>Search via Moviebox</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.notun</span><p>Search via Notun</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.mp4moviez</span><p>Search via Mp4moviez</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.torrent</span><p>Query torrent file index</p></div>
+        <div class="cmd-item" data-cat="movie"><span>.animost</span><p>Search anime via Animost</p></div>
+
+        <!-- PC GAMES CATEGORY -->
+        <div class="cmd-item" data-cat="games"><span>.steam</span><p>Download Steam pipeline releases</p></div>
+        <div class="cmd-item" data-cat="games"><span>.fitgirl</span><p>Download FitGirl repacks</p></div>
+        <div class="cmd-item" data-cat="games"><span>.fnet</span><p>Download 4fnet database games</p></div>
+        <div class="cmd-item" data-cat="games"><span>.pccompress</span><p>Download compressed pc setups</p></div>
+
+        <!-- MAIN UTILITY CATEGORY -->
+        <div class="cmd-item" data-cat="main"><span>.pair</span><p>Initiate multi-device linkage</p></div>
+        <div class="cmd-item" data-cat="main"><span>.alive</span><p>Verify live process health</p></div>
+        <div class="cmd-item" data-cat="main"><span>.repo</span><p>Return open-source profile repository</p></div>
+        <div class="cmd-item" data-cat="main"><span>.ping</span><p>Run network ping benchmark</p></div>
+        <div class="cmd-item" data-cat="main"><span>.system</span><p>Expose underlying hardware data</p></div>
+        <div class="cmd-item" data-cat="main"><span>.jid</span><p>Retrieve active chat room JID</p></div>
+        <div class="cmd-item" data-cat="main"><span>.chr</span><p>Perform automated channel reaction</p></div>
+
+        <!-- SEARCH SEARCH CATEGORY -->
+        <div class="cmd-item" data-cat="search"><span>.news</span><p>Fetch updated news flashes</p></div>
+        <div class="cmd-item" data-cat="search"><span>.news2</span><p>Alternative raw global feed</p></div>
+        <div class="cmd-item" data-cat="search"><span>.define</span><p>Query lexicon word definitions</p></div>
+        <div class="cmd-item" data-cat="search"><span>.countryinfo</span><p>Expose standalone national statistics</p></div>
+        <div class="cmd-item" data-cat="search"><span>.channelstalk</span><p>Spy structural WhatsApp Channels</p></div>
+        <div class="cmd-item" data-cat="search"><span>.profile</span><p>Parse client profile data structures</p></div>
+        <div class="cmd-item" data-cat="search"><span>.npm</span><p>Search Node Package Manager listings</p></div>
+        <div class="cmd-item" data-cat="search"><span>.yahoo</span><p>Scrape Yahoo search telemetry</p></div>
+
+        <!-- OWNER CORE CATEGORY -->
+        <div class="cmd-item" data-cat="owner"><span>.setname</span><p>Update authorization identity</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.flexa</span><p>Deploy owner card flex message</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.active</span><p>Show operational core logs</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.setaccountnumber</span><p>Update digital payment node</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.setaccountname</span><p>Set matching receiver name</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.setbank</span><p>Assign default routing bank</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.bank</span><p>Print stored transaction details</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.owner</span><p>Expose profile cards metadata</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.save</span><p>Commit session changes to database</p></div>
+        <div class="cmd-item" data-cat="owner"><span>.vv</span><p>Bypass ViewOnce storage flags</p></div>
+
+        <!-- GROUP UTILITY CATEGORY -->
+        <div class="cmd-item" data-cat="group"><span>.joingroup</span><p>Force resolution entry via link</p></div>
+        <div class="cmd-item" data-cat="group"><span>.promote</span><p>Grant group administrator privileges</p></div>
+        <div class="cmd-item" data-cat="group"><span>.demote</span><p>Strip moderator permission tiers</p></div>
+        <div class="cmd-item" data-cat="group"><span>.opentime</span><p>Schedule automatic channel unlock</p></div>
+        <div class="cmd-item" data-cat="group"><span>.closetime</span><p>Schedule automatic group lock</p></div>
+        <div class="cmd-item" data-cat="group"><span>.kick</span><p>Purge specific participant index</p></div>
+        <div class="cmd-item" data-cat="group"><span>.mute</span><p>Restrict participant message dispatch</p></div>
+        <div class="cmd-item" data-cat="group"><span>.open</span><p>Instantly release conversation lock</p></div>
+        <div class="cmd-item" data-cat="group"><span>.invite</span><p>Retrieve cryptographic invite hash</p></div>
+        <div class="cmd-item" data-cat="group"><span>.choose</span><p>Pseudorandom participant selector</p></div>
+        <div class="cmd-item" data-cat="group"><span>.hidetag</span><p>Ghost mention entire member array</p></div>
+        <div class="cmd-item" data-cat="group"><span>.rps</span><p>Trigger internal Rock-Paper-Scissors mini-game</p></div>
+        <div class="cmd-item" data-cat="group"><span>.broadcast</span><p>Relay transmission load to all channels</p></div>
+
+        <!-- OTHER CONVERSION CATEGORY -->
+        <div class="cmd-item" data-cat="other"><span>.subscribe</span><p>Register service listener access</p></div>
+        <div class="cmd-item" data-cat="other"><span>.channels</span><p>Print authorized channel pointers</p></div>
+        <div class="cmd-item" data-cat="other"><span>.password</span><p>Compute dynamic cryptographic keys</p></div>
+        <div class="cmd-item" data-cat="other"><span>.readmore</span><p>Append truncation read-more payload blocks</p></div>
+        <div class="cmd-item" data-cat="other"><span>.url</span><p>Parse image array via Catbox CDN</p></div>
+        <div class="cmd-item" data-cat="other"><span>.url2</span><p>Parse image array via ImgBB CDN</p></div>
+        <div class="cmd-item" data-cat="other"><span>.url3</span><p>Parse image array via Top4Top CDN</p></div>
+        <div class="cmd-item" data-cat="other"><span>.trt</span><p>Translate specific target language strings</p></div>
+        <div class="cmd-item" data-cat="other"><span>.tovid</span><p>Animate static frame to mp4 sequence</p></div>
+        <div class="cmd-item" data-cat="other"><span>.toimg</span><p>Render sticker asset to webp/png matrix</p></div>
+        <div class="cmd-item" data-cat="other"><span>.topdf</span><p>Compress file into portable document format</p></div>
+        <div class="cmd-item" data-cat="other"><span>.ssweb</span><p>Capture webpage layout via automated browser</p></div>
+        <div class="cmd-item" data-cat="other"><span>.short</span><p>Compress target URLs via TinyURL API</p></div>
+
+        <!-- SETTING AUTOMATION CATEGORY -->
+        <div class="cmd-item" data-cat="setting"><span>.mode</span><p>Toggle Public/Private execution switches</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autoviewstatus</span><p>Auto-parse status timelines</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autolikestatus</span><p>Auto-inject status updates reactions</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autostatusreply</span><p>Auto-reply message hooks on status views</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autoreply</span><p>Trigger dynamic automated chat handling</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autorecord</span><p>Force audio presence recording loops</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autovoice</span><p>Send predefined audio drops natively</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autosticker</span><p>Instantly convert received images to webp</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autotype</span><p>Mimic terminal typing status cues</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autoread</span><p>Instantly mark incoming logs as blue ticks</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autoreact</span><p>Inject instant custom emoji reactions</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autoaivoice</span><p>Link conversational voice array to VajiraAi</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.anticall</span><p>Auto-block or reject inbound connection streams</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.antibad</span><p>Moderate profanity and wipe matches</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.alwaysonline</span><p>Maintain session validation profiles online</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.setstatusmessage</span><p>Modify status banner configurations</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.resetwarn</span><p>Clear tracking safety index violations</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.antidelete</span><p>Cache and resend deleted group messages</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.setbotname</span><p>Re-badge visible system architecture name</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.welcome</span><p>Trigger structural onboarding cards on join</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autonews</span><p>Deploy global real-time news automated feed</p></div>
+        <div class="cmd-item" data-cat="setting"><span>.autotranslate</span><p>Automate active conversation string translations</p></div>
+
+        <!-- AI PROCESSING ENGINE -->
+        <div class="cmd-item" data-cat="ai"><span>.chatgpt</span><p>Query openAI language engine clusters</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.liama</span><p>Process commands via Meta LLaMA model nodes</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.metaai</span><p>Call distributed operational meta-assistants</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.voicegpt</span><p>Convert query into synthetic text-to-speech AI</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.aisinhala</span><p>Process native localized Sinhala NLP inputs</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.letmegpt</span><p>Automate browser search optimization pipelines</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.mistral</span><p>Invoke high-efficiency Mistral open-weights model</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.deepimg</span><p>Compile vector models into images via stable diffusion</p></div>
+        <div class="cmd-item" data-cat="ai"><span>.ghibli</span><p>Pass input target frames through Ghibli aesthetic mapping</p></div>
+
+        <!-- LOGO RENDERING GRAPHICS -->
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.graffiti</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.comic</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.glitch</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.neon</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.cloud</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.fire</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.luxury</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.water</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.galaxy</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.blackpink</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.neonlight</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.holographic</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.sand</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.blood</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.matrix</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.thunder</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.darkgold</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.bokeh</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.leaves</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.papercut</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.transformer</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.metallic</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.fabric</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.pixel</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.frozen</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.skeleton</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.steel</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.goldlight</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.lava</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.wood</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.foggy</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.balloon</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.typography</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.lightglow</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.devil</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.neon-devil</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.wings</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.snake</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.metal-star</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.plastic</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.coffee</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.cake</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.watercolor</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.silk</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.royal-dark</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.gradient</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.metal-blue</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.purple-neon</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.wet-glass</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.neon-border</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.love-message</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.rusty-metal</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.matrix2</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.light-flare</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.ocean-view</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.stars-night</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.neon-multi</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.hot-balloon</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.graffiti5</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.shiny-metal</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.galaxy-text</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.fps-logo</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.summer-sand</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.road-paint</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.minion</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.hot-metal</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.chocolate</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.modern-gold</span><p>Render Text</p></div>
+        <div class="cmd-item rendering-node" data-cat="logo"><span>.snow-3d</span><p>Render Text</p></div>
     </div>
 </div>
+
  
 
     
@@ -1762,35 +2048,71 @@ if ('getBattery' in navigator) {
 
 
 function filterCommands() {
-    let input = document.getElementById('cmdSearch').value.toLowerCase();
-    let items = document.getElementsByClassName('cmd-item');
+    const input = document.getElementById('cmdSearch').value.toLowerCase();
+    const items = document.getElementsByClassName('cmd-item');
+    const activeTab = document.querySelector('.sc-tab.active').getAttribute('onclick').match(/'([^']+)'/)[1];
     
     for (let i = 0; i < items.length; i++) {
-        if (items[i].innerText.toLowerCase().includes(input)) {
-            items[i].style.display = "";
+        const itemCat = items[i].getAttribute('data-cat');
+        const textMatch = items[i].innerText.toLowerCase().includes(input);
+        
+        // Ensure standard category logic validation filters pass
+        const categoryMatch = (activeTab === 'all' || itemCat === activeTab);
+        
+        if (textMatch && categoryMatch) {
+            items[i].style.display = "block";
         } else {
             items[i].style.display = "none";
         }
     }
 }
 
-function switchCmdTab(category) {
-    let tabs = document.getElementsByClassName('sc-tab');
-    let items = document.getElementsByClassName('cmd-item');
+function switchCmdTab(event, category) {
+    const tabs = document.getElementsByClassName('sc-tab');
+    const items = document.getElementsByClassName('cmd-item');
+    const searchInput = document.getElementById('cmdSearch');
     
-    // Manage Active Class Tab Button
-    event.target.parentElement.querySelector('.active').classList.remove('active');
+    // Reset matching validation search inputs instantly during jumps
+    searchInput.value = "";
+
+    // Toggle active interface highlights safely
+    for (let t of tabs) {
+        t.classList.remove('active');
+    }
     event.target.classList.add('active');
 
+    // Parse array with card tracking delays to fire fluid entry motion
+    let currentDelayCounter = 0;
+    
     for (let i = 0; i < items.length; i++) {
         let itemCat = items[i].getAttribute('data-cat');
+        items[i].classList.remove('animate-in'); // Reset animation state
+        
         if (category === 'all' || itemCat === category) {
-            items[i].style.display = "";
+            items[i].style.display = "block";
+            
+            // Apply professional staggered sequence animations
+            items[i].style.animationDelay = `${currentDelayCounter * 20}ms`;
+            items[i].classList.add('animate-in');
+            currentDelayCounter++;
         } else {
             items[i].style.display = "none";
         }
     }
+    
+    // Scroll the items window seamlessly back to the top anchor
+    document.getElementById('cmdGrid').scrollTop = 0;
 }
+
+// Fire an initial layout routine sequence inside the interface window on browser initialization
+document.addEventListener("DOMContentLoaded", () => {
+    const items = document.getElementsByClassName('cmd-item');
+    for (let i = 0; i < items.length; i++) {
+        items[i].style.animationDelay = `${i * 8}ms`;
+        items[i].classList.add('animate-in');
+    }
+});
+
 
     
 
