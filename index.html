@@ -27,28 +27,31 @@ body {
     position: relative;
 }
 
-/* Futuristic Crisp Backdrop Engine */
+/* High-Definition Responsive Graphic Backplane */
 body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Update file string name to your chosen image asset below */
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), url('https://i.ibb.co/PGF2dDzp/6byx7u.jpg');
+    top: 5%;         /* Keeps it slightly balanced down from top browser edge */
+    left: 50%;
+    transform: translateX(-50%); /* Locks it perfectly dead-center horizontally */
+    width: 90vw;     /* Adapts size intelligently across both smartphones and PCs */
+    height: 85vh;    /* Forces character file limits safely into viewports without cuts */
+    
+    /* Swap image file strings here if you want to test 1000215014.jpg instead */
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url('https://i.ibb.co/PGF2dDzp/6byx7u.jpg');
     background-size: contain;
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
     
-    /* Anti-blur rendering filters */
+    /* Hardware acceleration anti-pixelation engine updates */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     
-    /* Adds a clean atmospheric depth ambient glow to screen sides */
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+    /* Soft atmospheric dark glow around the viewport boundaries */
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.9);
 }
+
 
 
 
