@@ -1,322 +1,957 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
-    <title>LK21 - Popup Player Video</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VAJIRA MD LITE</title>
     <style>
-        /* CSS tidak berubah */
-        html,
-        body {
+        /* ───────── RESET & BASE ───────── */
+        * {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #000;
+            box-sizing: border-box;
         }
 
-        .embed-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .embed-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        /* ───────── LOADING WRAPPER ───────── */
+        #loadingWrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
         }
-
-        a#uyeouyeo {
-            text-decoration: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            cursor: pointer;
+        #loadingWrapper.hidden {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
         }
 
-        a#uyeouyeo.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .message-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 450px;
-            padding: 20px;
+        .loader-content {
             text-align: center;
-            color: #e0e0e0;
-            background: rgba(43, 43, 43, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            backdrop-filter: blur(5px);
-            z-index: 1000;
+            max-width: 420px;
+            width: 90%;
         }
 
-        a#uyeouyeo .message-box {
-            transform: translate(-50%, -50%) scale(0.95);
+        /* V Logo */
+        .v-logo {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #cc0000, #880000);
+            box-shadow: 0 0 50px rgba(204, 0, 0, 0.5);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .v-logo span {
+            font-size: 54px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            letter-spacing: -4px;
         }
 
-        a#uyeouyeo.visible .message-box {
-            transform: translate(-50%, -50%) scale(1);
+        .loader-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 40%, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+        .loader-sub {
+            color: #888;
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
         }
 
-        .message-box p {
-            margin: 8px 0;
-            line-height: 1.6;
+        /* Progress Bar */
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #cc0000, #ff3333, #cc0000);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            transition: width 0.15s linear;
+            animation: shimmer 1.2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
         }
 
-        .message-box .warning {
-            color: yellow;
-            font-weight: bold;
-            margin-top: 20px;
-            display: block;
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
             font-size: 12px;
+            color: #777;
+            letter-spacing: 1px;
+        }
+        .progress-label .pct {
+            color: #cc0000;
+            font-weight: 700;
         }
 
-        .spinner-overlay {
-            position: fixed;
+        /* ───────── TUTORIAL WRAPPER ───────── */
+        #tutorialWrapper {
+            display: none;
+            width: 100%;
+            max-width: 560px;
+            padding: 20px;
+            animation: fadeUp 0.6s ease;
+        }
+        #tutorialWrapper.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tut-card {
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 24px;
+            padding: 32px 28px 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        .tut-card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index:1;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #cc0000, #ff3333, #cc0000);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
         }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #555555;
-            /* Fallback border */
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #ffffff;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
+
+        .tut-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+        .tut-step-indicator {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+        .tut-step-indicator strong {
+            color: #cc0000;
+            font-weight: 700;
+        }
+        .tut-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .tut-dots span {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -30px;
-            margin-left: -30px;
-            -webkit-animation: muter 1s linear infinite;
-            -moz-animation: muter 1s linear infinite;
-            animation: muter 1s linear infinite;
+            background: #2a2a2a;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .tut-dots span.active {
+            background: #cc0000;
+            transform: scale(1.25);
+            box-shadow: 0 0 12px rgba(204, 0, 0, 0.5);
         }
 
-        /* Keyframes dengan prefix */
-        @-webkit-keyframes muter {
-            to {
-                -webkit-transform: rotate(360deg);
+        .tut-body {
+            min-height: 280px;
+            padding: 6px 0 12px;
+        }
+
+        .tut-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+        .tut-title .highlight {
+            color: #cc0000;
+        }
+
+        .tut-text {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .tut-text strong {
+            color: #fff;
+        }
+
+        /* ─── FORM ELEMENTS ─── */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #aaa;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e1e1e;
+            border: 1px solid #2e2e2e;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: border 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #cc0000;
+            box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.2);
+        }
+        .form-group input::placeholder {
+            color: #555;
+        }
+        .form-group select option {
+            background: #1e1e1e;
+            color: #fff;
+        }
+
+        .btn-otp {
+            margin-top: 6px;
+            padding: 10px 20px;
+            background: #cc0000;
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-otp:hover {
+            background: #e60000;
+        }
+        .btn-otp:active {
+            transform: scale(0.96);
+        }
+        .btn-otp:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .otp-status {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #ffaa00;
+            min-height: 20px;
+        }
+        .otp-status.success {
+            color: #4caf50;
+        }
+        .otp-status.error {
+            color: #ff4444;
+        }
+
+        /* ─── CHECKBOX (last tab) ─── */
+        .accept-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 22px 0 18px;
+            padding: 16px 20px;
+            background: #1a1a1a;
+            border-radius: 14px;
+            border: 1px solid #2a2a2a;
+            transition: border 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .accept-box:hover {
+            border-color: #cc0000;
+            background: #1e1e1e;
+        }
+        .accept-box input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #cc0000;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .accept-box label {
+            font-size: 15px;
+            color: #ccc;
+            cursor: pointer;
+            user-select: none;
+        }
+        .accept-box label strong {
+            color: #fff;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            padding: 14px;
+            background: #cc0000;
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s, opacity 0.3s;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .btn-confirm.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .btn-confirm.enabled:hover {
+            background: #e60000;
+        }
+        .btn-confirm.enabled:active {
+            transform: scale(0.97);
+        }
+
+        /* ─── NAVIGATION ─── */
+        .tut-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid #222;
+        }
+        .btn-nav {
+            padding: 10px 26px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s;
+        }
+        .btn-nav:active {
+            transform: scale(0.96);
+        }
+        .btn-prev {
+            background: #222;
+            color: #aaa;
+        }
+        .btn-prev:hover {
+            background: #2e2e2e;
+            color: #fff;
+        }
+        .btn-next {
+            background: #cc0000;
+            color: #fff;
+        }
+        .btn-next:hover {
+            background: #e60000;
+        }
+        .btn-next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ─── FEATURE BADGES ─── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0 6px;
+        }
+        .feature-badge {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature-badge .icon {
+            color: #cc0000;
+            font-weight: 700;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 500px) {
+            .tut-card {
+                padding: 22px 16px 20px;
+            }
+            .loader-title {
+                font-size: 24px;
+            }
+            .v-logo {
+                width: 70px;
+                height: 70px;
+            }
+            .v-logo span {
+                font-size: 42px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .tut-title {
+                font-size: 19px;
+            }
+            .tut-nav {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .btn-nav {
+                flex: 1;
+                text-align: center;
+                padding: 10px 14px;
+            }
+            .accept-box {
+                padding: 14px 16px;
             }
         }
 
-        @-moz-keyframes muter {
-            to {
-                -moz-transform: rotate(360deg);
-            }
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-
-        @keyframes muter {
-            to {
-                transform: rotate(360deg);
-            }
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cc0000;
         }
     </style>
-    <script>
-        if (window.self === window.top) {
-            window.location.replace('https://lk21.de');
-        }
-
-        function devtoolIsOpening() {
-            console.clear();
-            var before = new Date().getTime();
-            debugger;
-            var after = new Date().getTime();
-            if (after - before > 200) {
-                document.write("Dont open Developer Tools.");
-                window.location.replace("https://www.google.com");
-            }
-            setTimeout(devtoolIsOpening, 100);
-        }
-        devtoolIsOpening();
-    </script>
 </head>
-
 <body>
-    <a id="uyeouyeo" href="https://organicowner.com/b.3oVS0/Pn3Jpsv/bEmhV/JEZ/Du0a0LNQz/A/4INyjRQc5sLDTkQv3GMNDHgA2/NoTKAK" target="_blank" rel="noopener nofollow">
-        <div class="message-box">
-            <p><strong>Klik Di Mana Saja untuk Memulai Film</strong></p>
-            <p style="font-size: 14px; opacity: 0.7;">
-                <em>"Terima kasih sudah mengklik ku 1 kali, untuk menampilkan iklan dan <strong>Play Movie</strong>, mudah rezeki dan sehat terus buat kamu. Aamiin"</em>
-            </p>
-            <span class="warning">THIS PLAYER CONTAINS ADS</span>
+
+    <!-- ═══════════════ LOADING SCREEN ═══════════════ -->
+    <div id="loadingWrapper">
+        <div class="loader-content">
+            <div class="v-logo"><span>V</span></div>
+            <div class="loader-title">VAJIRA MD LITE</div>
+            <div class="loader-sub">WhatsApp Bot</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-label">
+                <span>INITIALIZING</span>
+                <span class="pct" id="progressPct">0%</span>
+            </div>
         </div>
-    </a>
+    </div>
 
-    <div class="embed-container">
-        <iframe src="https://cloud.hownetwork.xyz/video.php?id=69eec6eba8c4575f98dd6050bebc90bc" scrolling="no" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+    <!-- ═══════════════ TUTORIAL ═══════════════ -->
+    <div id="tutorialWrapper">
+        <div class="tut-card">
+
+            <!-- header -->
+            <div class="tut-header">
+                <span class="tut-step-indicator">STEP <strong id="stepNum">1</strong> / 4</span>
+                <div class="tut-dots" id="dotsContainer">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- body -->
+            <div class="tut-body" id="tutBody">
+                <!-- dynamically rendered -->
+            </div>
+
+            <!-- navigation -->
+            <div class="tut-nav">
+                <button class="btn-nav btn-prev" id="prevBtn">← Back</button>
+                <button class="btn-nav btn-next" id="nextBtn">Next →</button>
+            </div>
+
+        </div>
     </div>
-    <div class="spinner-overlay" id="loading-spinner">
-        <div class="spinner"></div>
-    </div>
+
     <script>
-        'use strict';
-        document.addEventListener('DOMContentLoaded', function() {
-            var uyeouyeo = document.getElementById('uyeouyeo');
-            var urlGanjil = 'https://organicowner.com/b.3oVS0/Pn3Jpsv/bEmhV/JEZ/Du0a0LNQz/A/4INyjRQc5sLDTkQv3GMNDHgA2/NoTKAK';
-            var urlGenap = 'https://playeriframe.sbs/play1';
-            
-            var checkIsSmartTV = function() {
-                var userAgent = navigator.userAgent.toLowerCase();
+        // ═══════════════════════════════════════════════════════════
+        //  DATA
+        // ═══════════════════════════════════════════════════════════
 
-                var tvKeywords = [
-                    'smart-tv',
-                    'smarttv',
-                    'googletv',
-                    'appletv',
-                    'hbbtv',
-                    'netcast',
-                    'viera',
-                    'nettv',
-                    'roku',
-                    'tizen',
-                    'webos',
-                    'mi tv',
-                    'mibox',
-                    'firetv',
-                    'androidtv',
-                    'bravia',
-                    'opera tv',
-                    'crkey'
-                ];
+        const tabs = [{
+            id: 'about',
+            title: 'About VAJIRA MD',
+            render: () => `
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+                    <div style="width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #cc0000, #880000);display:flex;justify-content:center;align-items:center;flex-shrink:0;box-shadow:0 0 30px rgba(204,0,0,0.3);">
+                        <span style="font-size:34px;font-weight:900;color:#fff;">V</span>
+                    </div>
+                    <div>
+                        <div style="font-size:20px;font-weight:700;">VAJIRA MD</div>
+                        <div style="color:#888;font-size:13px;">WhatsApp Bot</div>
+                    </div>
+                </div>
+                <div class="tut-text">
+                    <strong>Developer:</strong> Vajira Rathnayaka<br>
+                    <strong>Age:</strong> 23<br>
+                    <strong>Village:</strong> Balangoda<br>
+                    <strong>Country:</strong> Sri Lanka<br><br>
+                    VAJIRA MD LITE is a powerful WhatsApp automation bot built with <strong>Node.js</strong> and the
+                    <strong>Baileys</strong> library. It handles auto-reply, media sending, voice notes, TikTok
+                    downloads, and much more — all from your WhatsApp number.
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-badge"><span class="icon">⚡</span> Ultra-fast</div>
+                    <div class="feature-badge"><span class="icon">🔒</span> Secure</div>
+                    <div class="feature-badge"><span class="icon">🎵</span> Auto Voice</div>
+                    <div class="feature-badge"><span class="icon">📱</span> Multi-device</div>
+                </div>
+            `
+        }, {
+            id: 'settings',
+            title: 'Bot Settings',
+            render: () => `
+                <div class="tut-text" style="margin-bottom:14px;">
+                    Connect your WhatsApp number to start using <strong>VAJIRA MD</strong>.
+                    Enter your number below and request an OTP.
+                </div>
+                <div class="form-group">
+                    <label>📞 Connected Number</label>
+                    <input type="text" id="phoneInput" placeholder="+94 71 234 5678" value="+94 71 234 5678">
+                </div>
+                <button class="btn-otp" id="otpBtn">🔑 Request OTP</button>
+                <div class="otp-status" id="otpStatus">Enter your number and tap Request OTP</div>
+                <div class="form-group" style="margin-top:14px;">
+                    <label>🔐 OTP Code</label>
+                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                </div>
+                <div style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <span class="feature-badge" style="flex:1;"><span class="icon">🎤</span> Auto Voice</span>
+                    <span class="feature-badge" style="flex:1;"><span class="icon">📨</span> Auto Reply</span>
+                    <span class="feature-badge" style="flex:1;"><span class="icon">📊</span> Analytics</span>
+                </div>
+            `
+        }, {
+            id: 'autosender',
+            title: 'Auto Sender',
+            render: () => `
+                <div class="tut-text" style="margin-bottom:14px;">
+                    Configure automated sending of <strong>songs</strong> or <strong>TikTok</strong> content.
+                    First log in with your number, then choose your sender type.
+                </div>
+                <div class="form-group">
+                    <label>📱 Sender Number</label>
+                    <input type="text" id="senderPhone" placeholder="+94 71 234 5678" value="+94 71 234 5678">
+                </div>
+                <button class="btn-otp" id="senderOtpBtn" style="margin-bottom:12px;">🔑 Send OTP to this number</button>
+                <div class="otp-status" id="senderOtpStatus" style="margin-bottom:14px;">Enter number and request OTP</div>
 
-                for (var i = 0; i < tvKeywords.length; i++) {
-                    if (userAgent.indexOf(tvKeywords[i]) !== -1) {
-                        return true;
-                    }
+                <div class="form-group">
+                    <label>📂 Auto Sender Type</label>
+                    <select id="senderType">
+                        <option value="audio">🎵 Audio / Song</option>
+                        <option value="tiktok">📱 TikTok Video</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>📍 Location (JID ID)</label>
+                    <input type="text" id="jidInput" placeholder="e.g. 94712345678@s.whatsapp.net" value="94712345678@s.whatsapp.net">
+                </div>
+                <div class="form-group">
+                    <label>✏️ Caption</label>
+                    <input type="text" id="captionInput" placeholder="Your caption here..." value="Check out this! 🔥">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div class="form-group">
+                        <label>🎚️ Audio Quality</label>
+                        <select id="audioQuality">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>⏱️ Interval (sec)</label>
+                        <input type="number" id="intervalInput" value="30" min="5" max="300">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>🔑 Keywords (comma separated)</label>
+                    <input type="text" id="keywordsInput" placeholder="music, viral, trending" value="music, viral">
+                </div>
+            `
+        }, {
+            id: 'privacy',
+            title: 'Privacy & Safety',
+            render: () => `
+                <div class="tut-text" style="margin-bottom:10px;">
+                    <strong>🛡️ VAJIRA MD</strong> is designed with <strong>privacy</strong> and
+                    <strong>ultra-fast</strong> performance. Your data stays secure.
+                </div>
+                <div class="feature-grid" style="margin-bottom:18px;">
+                    <div class="feature-badge"><span class="icon">🚫</span> Anti-Ban</div>
+                    <div class="feature-badge"><span class="icon">⚡</span> Ultra-Fast</div>
+                    <div class="feature-badge"><span class="icon">🔐</span> End-to-End</div>
+                    <div class="feature-badge"><span class="icon">🔄</span> Auto-Retry</div>
+                    <div class="feature-badge"><span class="icon">🛡️</span> No Logs</div>
+                    <div class="feature-badge"><span class="icon">📡</span> 99.9% Uptime</div>
+                </div>
+                <div class="tut-text" style="font-size:14px;color:#999;margin-bottom:8px;">
+                    ✅ By accepting, you agree that you own the connected number and will use this bot responsibly.
+                </div>
+
+                <!-- accept checkbox -->
+                <div class="accept-box" id="acceptBox">
+                    <input type="checkbox" id="acceptCheck">
+                    <label for="acceptCheck">I accept the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong></label>
+                </div>
+
+                <button class="btn-confirm" id="confirmBtn">✅ Confirm & Open Dashboard</button>
+            `
+        }];
+
+        // ═══════════════════════════════════════════════════════════
+        //  STATE
+        // ═══════════════════════════════════════════════════════════
+
+        let currentTab = 0;
+        let progress = 0;
+        let loadingComplete = false;
+
+        // ── DOM refs ──
+        const loadingWrapper = document.getElementById('loadingWrapper');
+        const tutorialWrapper = document.getElementById('tutorialWrapper');
+        const progressFill = document.getElementById('progressFill');
+        const progressPct = document.getElementById('progressPct');
+        const stepNum = document.getElementById('stepNum');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const tutBody = document.getElementById('tutBody');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // ═══════════════════════════════════════════════════════════
+        //  LOADING
+        // ═══════════════════════════════════════════════════════════
+
+        function simulateLoading() {
+            const duration = 2800; // ms
+            const interval = 40;
+            const steps = duration / interval;
+            let step = 0;
+
+            const timer = setInterval(() => {
+                step++;
+                const pct = Math.min(100, Math.round((step / steps) * 100));
+                progressFill.style.width = pct + '%';
+                progressPct.textContent = pct + '%';
+
+                if (pct >= 100) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        loadingWrapper.classList.add('hidden');
+                        tutorialWrapper.classList.add('active');
+                        loadingComplete = true;
+                        renderTab(0);
+                    }, 400);
+                }
+            }, interval);
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        //  RENDER TUTORIAL
+        // ═══════════════════════════════════════════════════════════
+
+        function renderTab(index) {
+            const tab = tabs[index];
+            if (!tab) return;
+
+            // update step & dots
+            stepNum.textContent = index + 1;
+            const dots = dotsContainer.querySelectorAll('span');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // render body
+            tutBody.innerHTML = tab.render();
+
+            // nav buttons
+            prevBtn.style.display = index === 0 ? 'none' : 'inline-block';
+            nextBtn.textContent = index === tabs.length - 1 ? '🚀 Finish' : 'Next →';
+
+            // wire up dynamic events after render
+            wireEvents(index);
+        }
+
+        // ── event wiring per tab ──
+        function wireEvents(index) {
+            const tab = tabs[index];
+
+            // Tab 2: OTP logic
+            if (index === 1) {
+                const otpBtn = document.getElementById('otpBtn');
+                const phoneInput = document.getElementById('phoneInput');
+                const otpInput = document.getElementById('otpInput');
+                const otpStatus = document.getElementById('otpStatus');
+
+                if (otpBtn) {
+                    otpBtn.onclick = function() {
+                        const phone = phoneInput.value.trim();
+                        if (!phone || phone.length < 8) {
+                            otpStatus.textContent = '⚠️ Please enter a valid phone number.';
+                            otpStatus.className = 'otp-status error';
+                            return;
+                        }
+                        otpStatus.textContent = `📤 OTP sent to ${phone} (simulated)`;
+                        otpStatus.className = 'otp-status success';
+                        otpBtn.disabled = true;
+                        otpBtn.textContent = '⏳ Sent!';
+                        setTimeout(() => {
+                            otpBtn.disabled = false;
+                            otpBtn.textContent = '🔑 Request OTP';
+                        }, 3000);
+                    };
                 }
 
-                if (userAgent.indexOf('android') !== -1 && userAgent.indexOf('mobile') === -1) {
-                    return true;
-                }
-
-                return false;
-            };
-
-            function getChromeVersion() {
-                try {
-                    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
-                    return raw ? parseInt(raw[2], 10) : false;
-                } catch (e) {
-                    return false;
+                // auto-login when OTP is entered (simulated)
+                if (otpInput) {
+                    otpInput.oninput = function() {
+                        const val = this.value.replace(/\D/g, '');
+                        if (val.length === 6) {
+                            otpStatus.textContent = '✅ OTP verified! Logged in successfully.';
+                            otpStatus.className = 'otp-status success';
+                            // store in session
+                            sessionStorage.setItem('vajira_logged', 'true');
+                            sessionStorage.setItem('vajira_phone', phoneInput ? phoneInput.value : '');
+                        } else {
+                            if (otpStatus.textContent.includes('verified')) {
+                                otpStatus.textContent = '⏳ Enter 6-digit OTP';
+                                otpStatus.className = 'otp-status';
+                            }
+                        }
+                    };
                 }
             }
 
-            function isAndroid() {
-                return /android/i.test(navigator.userAgent.toLowerCase());
+            // Tab 3: Auto Sender OTP
+            if (index === 2) {
+                const senderOtpBtn = document.getElementById('senderOtpBtn');
+                const senderPhone = document.getElementById('senderPhone');
+                const senderOtpStatus = document.getElementById('senderOtpStatus');
+
+                if (senderOtpBtn) {
+                    senderOtpBtn.onclick = function() {
+                        const phone = senderPhone.value.trim();
+                        if (!phone || phone.length < 8) {
+                            senderOtpStatus.textContent = '⚠️ Please enter a valid number.';
+                            senderOtpStatus.className = 'otp-status error';
+                            return;
+                        }
+                        senderOtpStatus.textContent = `📤 OTP sent to ${phone} (simulated)`;
+                        senderOtpStatus.className = 'otp-status success';
+                        senderOtpBtn.disabled = true;
+                        senderOtpBtn.textContent = '⏳ Sent!';
+                        setTimeout(() => {
+                            senderOtpBtn.disabled = false;
+                            senderOtpBtn.textContent = '🔑 Send OTP to this number';
+                        }, 3000);
+                    };
+                }
             }
 
-            function detectAdBlock(callback) {
-                var bait = document.createElement('div');
-                bait.setAttribute('class', 'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links ad-text ad-banner');
-                bait.style.cssText = 'width: 300px !important; height: 250px !important; position: absolute !important; left: -9999px !important; top: -9999px !important;';
-                document.body.appendChild(bait);
+            // Tab 4: Checkbox + Confirm
+            if (index === 3) {
+                const acceptCheck = document.getElementById('acceptCheck');
+                const confirmBtn = document.getElementById('confirmBtn');
+                const acceptBox = document.getElementById('acceptBox');
 
-                setTimeout(function() {
-                    var detected = false;
-                    if (bait.offsetHeight === 0 || bait.clientHeight === 0) {
-                        detected = true;
-                    } else if (window.getComputedStyle(bait).display === 'none' || window.getComputedStyle(bait).visibility === 'hidden') {
-                        detected = true;
-                    } else if (!document.body.contains(bait)) {
-                        detected = true;
-                    }
-                    if (bait.parentNode) bait.parentNode.removeChild(bait);
-                    callback(detected);
-                }, 150);
-            }
-
-            if (uyeouyeo) {
-                detectAdBlock(function(isAdBlockActive) {
-                    var now = new Date();
-                    var seconds = now.getSeconds();
-                    if (isAndroid()) {
-                        uyeouyeo.href = (isAdBlockActive || seconds % 2 === 0) ? urlGenap : urlGanjil;
+                function updateConfirm() {
+                    if (acceptCheck && acceptCheck.checked) {
+                        confirmBtn.classList.add('enabled');
                     } else {
-                        uyeouyeo.href = urlGanjil;
-                    }
-                });
-            }
-
-            var storageKey = 'adLastClicked';
-            var cooldownMinutes = 3;
-
-            function isLocalStorageSupported() {
-                try {
-                    localStorage.setItem('test', 'test');
-                    localStorage.removeItem('test');
-                    return true;
-                } catch (e) {
-                    return false;
-                }
-            }
-
-            function showAdIfNeeded() {
-                var chromeVersion = getChromeVersion();
-
-                if (chromeVersion !== false && chromeVersion < 100) {
-                    return;
-                }
-                if (checkIsSmartTV()) {
-                    return;
-                }
-
-                var lastClickedTime = isLocalStorageSupported() ? parseInt(localStorage.getItem(storageKey), 10) : NaN;
-                var now = new Date().getTime();
-
-                if (!isLocalStorageSupported() || isNaN(lastClickedTime) || now > lastClickedTime) {
-                    if (uyeouyeo && uyeouyeo.className.indexOf('visible') === -1) {
-                        uyeouyeo.className += ' visible';
+                        confirmBtn.classList.remove('enabled');
                     }
                 }
-            }
 
-            function handeluyeouyeoLink() {
-                if (uyeouyeo) {
-                    uyeouyeo.className = uyeouyeo.className.replace('visible', '').trim();
+                if (acceptCheck) {
+                    acceptCheck.onchange = updateConfirm;
+                    // click on box toggles checkbox
+                    if (acceptBox) {
+                        acceptBox.onclick = function(e) {
+                            if (e.target.tagName !== 'INPUT') {
+                                acceptCheck.checked = !acceptCheck.checked;
+                                updateConfirm();
+                            }
+                        };
+                    }
                 }
 
-                if (isLocalStorageSupported()) {
-                    var now = new Date().getTime();
-                    var expiryTime = now + (cooldownMinutes * 60 * 1000);
-                    localStorage.setItem(storageKey, expiryTime);
+                if (confirmBtn) {
+                    confirmBtn.onclick = function() {
+                        if (acceptCheck && acceptCheck.checked) {
+                            // store acceptance
+                            sessionStorage.setItem('vajira_accepted', 'true');
+                            // redirect to dashboard
+                            window.location.href = '/dashboard.html';
+                        }
+                    };
                 }
+
+                // initial state
+                updateConfirm();
             }
 
-            showAdIfNeeded();
-            if (uyeouyeo) {
-                uyeouyeo.addEventListener('click', handeluyeouyeoLink);
+            // ── Next button logic per tab ──
+            // We'll handle this globally in the nav click
+        }
+
+        // ── Navigation ──
+        function goToTab(index) {
+            if (index < 0 || index >= tabs.length) return;
+            currentTab = index;
+            renderTab(index);
+        }
+
+        prevBtn.onclick = function() {
+            if (currentTab > 0) goToTab(currentTab - 1);
+        };
+
+        nextBtn.onclick = function() {
+            // Tab-specific validation
+            if (currentTab === 1) {
+                // settings tab: ensure OTP is verified
+                const otpInput = document.getElementById('otpInput');
+                const otpStatus = document.getElementById('otpStatus');
+                if (!otpInput || otpInput.value.replace(/\D/g, '').length !== 6) {
+                    if (otpStatus) {
+                        otpStatus.textContent = '⚠️ Please enter the 6-digit OTP first.';
+                        otpStatus.className = 'otp-status error';
+                    }
+                    return;
+                }
+                // store settings
+                const phone = document.getElementById('phoneInput');
+                if (phone) sessionStorage.setItem('vajira_phone', phone.value);
+            }
+
+            if (currentTab === 2) {
+                // autosender: ensure sender OTP was requested (simple check)
+                const status = document.getElementById('senderOtpStatus');
+                if (status && !status.textContent.includes('sent')) {
+                    status.textContent = '⚠️ Please request OTP for the sender number.';
+                    status.className = 'otp-status error';
+                    return;
+                }
+                // store autosender settings
+                const jid = document.getElementById('jidInput');
+                const caption = document.getElementById('captionInput');
+                const interval = document.getElementById('intervalInput');
+                const keywords = document.getElementById('keywordsInput');
+                const senderType = document.getElementById('senderType');
+                const audioQ = document.getElementById('audioQuality');
+                if (jid) sessionStorage.setItem('vajira_jid', jid.value);
+                if (caption) sessionStorage.setItem('vajira_caption', caption.value);
+                if (interval) sessionStorage.setItem('vajira_interval', interval.value);
+                if (keywords) sessionStorage.setItem('vajira_keywords', keywords.value);
+                if (senderType) sessionStorage.setItem('vajira_senderType', senderType.value);
+                if (audioQ) sessionStorage.setItem('vajira_audioQuality', audioQ.value);
+            }
+
+            if (currentTab === tabs.length - 1) {
+                // last tab: confirm button handles redirect
+                const confirmBtn = document.getElementById('confirmBtn');
+                if (confirmBtn && confirmBtn.classList.contains('enabled')) {
+                    confirmBtn.click();
+                } else {
+                    const acceptCheck = document.getElementById('acceptCheck');
+                    if (acceptCheck && !acceptCheck.checked) {
+                        const box = document.getElementById('acceptBox');
+                        if (box) box.style.borderColor = '#cc0000';
+                        setTimeout(() => { if (box) box.style.borderColor = ''; }, 800);
+                    }
+                }
+                return;
+            }
+
+            if (currentTab < tabs.length - 1) {
+                goToTab(currentTab + 1);
+            }
+        };
+
+        // ═══════════════════════════════════════════════════════════
+        //  KEYBOARD SUPPORT
+        // ═══════════════════════════════════════════════════════════
+
+        document.addEventListener('keydown', (e) => {
+            if (!tutorialWrapper.classList.contains('active')) return;
+            if (e.key === 'ArrowRight' || e.key === 'Enter') {
+                e.preventDefault();
+                nextBtn.click();
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevBtn.click();
             }
         });
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0b283f4bd4e2c60',t:'MTc4MTM2ODU5OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
+        // ═══════════════════════════════════════════════════════════
+        //  START
+        // ═══════════════════════════════════════════════════════════
+
+        simulateLoading();
+    </script>
+
+</body>
 </html>
