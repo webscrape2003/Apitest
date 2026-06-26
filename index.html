@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>VAJIRA MD · Tech Onboarding</title>
 
     <style>
@@ -13,16 +13,21 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             background: #08080a;
             color: #e8e8ee;
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
+            padding: 12px;
+            overflow: hidden;
         }
 
         /* ─── AMBIENT GLOW BACKGROUND ─── */
@@ -57,9 +62,9 @@
 
         .loader-tech {
             position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 32px;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
         }
         .loader-tech .ring-outer {
             position: absolute;
@@ -71,7 +76,7 @@
         .loader-tech .ring-outer::after {
             content: '';
             position: absolute;
-            inset: -6px;
+            inset: -4px;
             border-radius: 50%;
             border: 1.5px solid transparent;
             border-top-color: rgba(204, 0, 0, 0.15);
@@ -85,33 +90,31 @@
                 transform: rotate(360deg);
             }
         }
-
         .loader-tech .ring-mid {
             position: absolute;
-            inset: 12px;
+            inset: 10px;
             border-radius: 50%;
             border: 2px solid rgba(204, 0, 0, 0.05);
         }
         .loader-tech .ring-mid::after {
             content: '';
             position: absolute;
-            inset: -4px;
+            inset: -3px;
             border-radius: 50%;
             border: 1.5px solid transparent;
             border-bottom-color: rgba(204, 0, 0, 0.12);
             animation: spinOuter 6s linear infinite reverse;
         }
-
         .loader-tech .core {
             position: absolute;
-            inset: 28px;
+            inset: 20px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #cc0000, #660000);
-            box-shadow: 0 0 60px rgba(204, 0, 0, 0.3), 0 0 120px rgba(204, 0, 0, 0.08);
+            box-shadow: 0 0 40px rgba(204, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 800;
             color: #fff;
             animation: corePulse 2.4s ease-in-out infinite;
@@ -119,13 +122,12 @@
         @keyframes corePulse {
             0%,
             100% {
-                box-shadow: 0 0 60px rgba(204, 0, 0, 0.3), 0 0 120px rgba(204, 0, 0, 0.08);
+                box-shadow: 0 0 40px rgba(204, 0, 0, 0.3);
             }
             50% {
-                box-shadow: 0 0 80px rgba(204, 0, 0, 0.5), 0 0 160px rgba(204, 0, 0, 0.12);
+                box-shadow: 0 0 60px rgba(204, 0, 0, 0.5);
             }
         }
-
         .loader-tech .progress-ring {
             position: absolute;
             inset: 0;
@@ -137,35 +139,33 @@
             stroke: #cc0000;
             stroke-width: 3;
             stroke-linecap: round;
-            stroke-dasharray: 420;
-            stroke-dashoffset: 420;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
             transition: stroke-dashoffset 0.3s ease;
             filter: drop-shadow(0 0 12px rgba(204, 0, 0, 0.3));
         }
-
         .loader-brand {
             text-align: center;
-            margin-top: 8px;
         }
         .loader-brand .brand-main {
-            font-size: 30px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             background: linear-gradient(135deg, #ffffff 50%, #cc0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .loader-brand .brand-sub {
-            font-size: 13px;
+            font-size: 10px;
             color: #555;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .loader-percent {
-            margin-top: 16px;
-            font-size: 14px;
+            margin-top: 10px;
+            font-size: 12px;
             font-weight: 300;
             color: #666;
             letter-spacing: 2px;
@@ -175,10 +175,12 @@
         #tutorialContainer {
             display: none;
             width: 100%;
-            max-width: 960px;
+            max-width: 920px;
+            height: 100%;
+            max-height: 600px;
             position: relative;
             z-index: 1;
-            animation: containerRise 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: containerRise 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #tutorialContainer.active {
             display: block;
@@ -187,7 +189,7 @@
         @keyframes containerRise {
             0% {
                 opacity: 0;
-                transform: translateY(50px) scale(0.96);
+                transform: translateY(30px) scale(0.97);
             }
             100% {
                 opacity: 1;
@@ -198,29 +200,24 @@
         /* ─── GLOW CARD ─── */
         .glow-card {
             background: linear-gradient(145deg, #0e0e12, #0a0a0e);
-            border-radius: 28px;
-            padding: 38px 36px 30px;
-            border: 1px solid rgba(204, 0, 0, 0.12);
+            border-radius: 20px;
+            padding: 16px 22px 14px;
+            border: 1px solid rgba(204, 0, 0, 0.10);
             position: relative;
             overflow: hidden;
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.8),
-                inset 0 0 0 1px rgba(204, 0, 0, 0.04);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(204, 0, 0, 0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* ─── GLOW BORDER ANIMATION ─── */
         .glow-card::before {
             content: '';
             position: absolute;
             inset: -2px;
-            border-radius: 30px;
+            border-radius: 22px;
             padding: 2px;
-            background: conic-gradient(from 0deg,
-                    transparent,
-                    rgba(204, 0, 0, 0.15),
-                    rgba(204, 0, 0, 0.4),
-                    rgba(204, 0, 0, 0.15),
-                    transparent);
+            background: conic-gradient(from 0deg, transparent, rgba(204, 0, 0, 0.12), rgba(204, 0, 0, 0.3), rgba(204, 0, 0, 0.12), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -246,8 +243,9 @@
             background: linear-gradient(90deg, transparent, #cc0000, #ff3333, #cc0000, transparent);
             background-size: 300% 100%;
             animation: scanLine 3s linear infinite;
-            opacity: 0.5;
+            opacity: 0.4;
             filter: blur(0.5px);
+            pointer-events: none;
         }
         @keyframes scanLine {
             0% {
@@ -262,38 +260,40 @@
         .step-dots {
             display: flex;
             justify-content: center;
-            gap: 14px;
-            margin-bottom: 28px;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
             position: relative;
             z-index: 2;
         }
         .step-dots .dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #1a1a22;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: default;
             position: relative;
             border: 1px solid transparent;
+            flex-shrink: 0;
         }
         .step-dots .dot.active {
             background: #cc0000;
-            box-shadow: 0 0 24px rgba(204, 0, 0, 0.5), 0 0 60px rgba(204, 0, 0, 0.1);
-            transform: scale(1.3);
-            border-color: rgba(204, 0, 0, 0.3);
+            box-shadow: 0 0 18px rgba(204, 0, 0, 0.4);
+            transform: scale(1.25);
+            border-color: rgba(204, 0, 0, 0.2);
         }
         .step-dots .dot.done {
             background: #cc0000;
-            opacity: 0.4;
-            transform: scale(0.8);
+            opacity: 0.3;
+            transform: scale(0.75);
         }
         .step-dots .dot.active::after {
             content: '';
             position: absolute;
-            inset: -6px;
+            inset: -5px;
             border-radius: 50%;
-            border: 1px solid rgba(204, 0, 0, 0.15);
+            border: 1px solid rgba(204, 0, 0, 0.12);
             animation: dotGlow 2.4s ease-in-out infinite;
         }
         @keyframes dotGlow {
@@ -303,8 +303,8 @@
                 opacity: 0.3;
             }
             50% {
-                transform: scale(1.5);
-                opacity: 0.8;
+                transform: scale(1.6);
+                opacity: 0.7;
             }
         }
 
@@ -313,16 +313,19 @@
             display: none;
             position: relative;
             z-index: 2;
-            animation: tabFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: tabFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            flex: 1;
+            overflow: hidden;
         }
         .tab-content.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes tabFade {
             0% {
                 opacity: 0;
-                transform: translateX(16px) scale(0.98);
+                transform: translateX(10px) scale(0.98);
             }
             100% {
                 opacity: 1;
@@ -336,84 +339,91 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 6px;
+            gap: 6px;
+            margin-bottom: 2px;
+            flex-shrink: 0;
         }
         .tab-header .badge-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 5px;
         }
         .tab-header .badge {
-            font-size: 10px;
+            font-size: 8px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             background: rgba(204, 0, 0, 0.08);
             color: #cc0000;
-            padding: 4px 16px;
+            padding: 2px 12px;
             border-radius: 30px;
-            border: 1px solid rgba(204, 0, 0, 0.12);
+            border: 1px solid rgba(204, 0, 0, 0.10);
             font-weight: 600;
         }
         .tab-header .badge.muted {
-            background: rgba(255, 255, 255, 0.03);
-            color: #666;
-            border-color: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            color: #555;
+            border-color: rgba(255, 255, 255, 0.04);
         }
 
         .tab-content h2 {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin: 8px 0 2px;
+            letter-spacing: -0.3px;
+            margin: 2px 0 0;
+            flex-shrink: 0;
+            line-height: 1.2;
         }
         .tab-content h2 .accent {
             color: #cc0000;
-            text-shadow: 0 0 40px rgba(204, 0, 0, 0.15);
+            text-shadow: 0 0 30px rgba(204, 0, 0, 0.10);
         }
         .tab-content .sub {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 24px;
-            padding-left: 16px;
-            border-left: 2px solid rgba(204, 0, 0, 0.3);
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 12px;
+            border-left: 2px solid rgba(204, 0, 0, 0.25);
             font-weight: 300;
             letter-spacing: 0.2px;
+            flex-shrink: 0;
+            line-height: 1.3;
         }
 
         /* ─── TECH GRID (About) ─── */
         .tech-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px 24px;
-            background: rgba(255, 255, 255, 0.015);
-            padding: 18px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(204, 0, 0, 0.04);
-            margin-bottom: 16px;
+            gap: 4px 18px;
+            background: rgba(255, 255, 255, 0.012);
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(204, 0, 0, 0.03);
+            margin-bottom: 8px;
+            flex-shrink: 0;
         }
         .tech-grid .item {
             display: flex;
             flex-direction: column;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
         .tech-grid .item:last-child,
         .tech-grid .item:nth-last-child(2) {
             border-bottom: 0;
         }
         .tech-grid .item .label {
-            font-size: 10px;
+            font-size: 8px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             color: #555;
             font-weight: 500;
         }
         .tech-grid .item .value {
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 500;
             color: #e0e0e8;
-            margin-top: 2px;
+            margin-top: 0px;
+            line-height: 1.2;
         }
         .tech-grid .item .value.highlight {
             color: #cc0000;
@@ -422,17 +432,17 @@
         /* ─── INFO BOX ─── */
         .info-box {
             background: rgba(204, 0, 0, 0.02);
-            border-radius: 14px;
-            padding: 16px 20px;
+            border-radius: 10px;
+            padding: 8px 14px;
             border-left: 3px solid #cc0000;
-            border: 1px solid rgba(204, 0, 0, 0.06);
+            border: 1px solid rgba(204, 0, 0, 0.04);
             border-left-width: 3px;
-            margin: 8px 0 4px;
+            flex-shrink: 0;
         }
         .info-box p {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #aaa;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #999;
         }
         .info-box p strong {
             color: #eee;
@@ -445,126 +455,129 @@
         .feature-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px 12px;
-            margin: 6px 0 18px;
+            gap: 4px 8px;
+            margin: 2px 0 6px;
+            flex-shrink: 0;
         }
         .feature-pills span {
             background: rgba(255, 255, 255, 0.02);
-            padding: 6px 18px;
+            padding: 3px 12px;
             border-radius: 30px;
-            font-size: 13px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            color: #bbb;
+            font-size: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: #aaa;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .feature-pills span .icon {
             color: #cc0000;
+            font-size: 12px;
         }
 
-        /* ─── DESCRIPTION ROW (Replaces inputs) ─── */
+        /* ─── DESCRIPTION ROW (ultra compact) ─── */
         .desc-row {
             display: flex;
-            flex-wrap: wrap;
             align-items: flex-start;
-            gap: 12px 18px;
-            background: rgba(255, 255, 255, 0.015);
-            padding: 16px 20px;
-            border-radius: 14px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: border-color 0.4s, box-shadow 0.4s, background 0.3s;
+            gap: 8px 12px;
+            background: rgba(255, 255, 255, 0.012);
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
+            transition: border-color 0.3s;
         }
         .desc-row:hover {
-            border-color: rgba(204, 0, 0, 0.08);
-            background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 30px rgba(204, 0, 0, 0.02);
+            border-color: rgba(204, 0, 0, 0.06);
         }
         .desc-row .icon-box {
-            font-size: 20px;
-            min-width: 36px;
+            font-size: 16px;
+            min-width: 28px;
             color: #cc0000;
-            opacity: 0.8;
-            margin-top: 2px;
+            opacity: 0.7;
+            margin-top: 1px;
+            flex-shrink: 0;
         }
         .desc-row .content {
             flex: 1;
-            min-width: 180px;
+            min-width: 0;
         }
         .desc-row .content .title {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             color: #ccc;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .desc-row .content .title .tag-value {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 400;
             color: #cc0000;
-            background: rgba(204, 0, 0, 0.06);
-            padding: 0 12px;
+            background: rgba(204, 0, 0, 0.05);
+            padding: 0 10px;
             border-radius: 20px;
-            border: 1px solid rgba(204, 0, 0, 0.06);
+            border: 1px solid rgba(204, 0, 0, 0.05);
         }
         .desc-row .content .description {
-            font-size: 14px;
-            line-height: 1.7;
-            color: #999;
-            margin-top: 4px;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #888;
+            margin-top: 1px;
         }
         .desc-row .content .description code {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 1px 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #ccc;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: #bbb;
+            border: 1px solid rgba(255, 255, 255, 0.03);
             font-family: 'Inter', monospace;
         }
         .desc-row .content .status-badge {
             display: inline-block;
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 600;
-            padding: 2px 14px;
+            padding: 1px 10px;
             border-radius: 30px;
-            background: rgba(0, 170, 68, 0.08);
+            background: rgba(0, 170, 68, 0.06);
             color: #00aa44;
-            border: 1px solid rgba(0, 170, 68, 0.1);
+            border: 1px solid rgba(0, 170, 68, 0.06);
         }
 
         /* ─── STATUS ROW ─── */
         .status-row {
             display: flex;
-            gap: 28px;
+            gap: 18px;
             flex-wrap: wrap;
-            margin: 12px 0 0 6px;
-            padding: 10px 0 0 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin: 4px 0 0 4px;
+            padding: 4px 0 0 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
         }
         .status-row .status-item {
-            font-size: 13px;
+            font-size: 11px;
             color: #555;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .status-row .status-item .dot-indicator {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: #00aa44;
-            box-shadow: 0 0 16px rgba(0, 170, 68, 0.2);
+            box-shadow: 0 0 12px rgba(0, 170, 68, 0.15);
             animation: statusPulse 2s ease-in-out infinite;
+            flex-shrink: 0;
         }
         @keyframes statusPulse {
             0%,
             100% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
             50% {
                 opacity: 1;
@@ -575,24 +588,25 @@
             font-weight: 500;
         }
 
-        /* ─── RADIO GROUP (Static) ─── */
+        /* ─── RADIO GROUP STATIC ─── */
         .radio-group-static {
             display: flex;
-            gap: 14px;
+            gap: 10px;
             flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.015);
-            padding: 10px 16px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.012);
+            padding: 4px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            margin-bottom: 6px;
+            flex-shrink: 0;
         }
         .radio-group-static span {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #aaa;
-            padding: 4px 8px;
+            gap: 5px;
+            font-size: 12px;
+            color: #999;
+            padding: 2px 4px;
         }
         .radio-group-static .active-option {
             color: #cc0000;
@@ -602,73 +616,76 @@
         .privacy-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 14px 0 18px;
+            gap: 6px;
+            margin: 6px 0 8px;
+            flex-shrink: 0;
         }
         .privacy-grid .pill {
-            background: rgba(255, 255, 255, 0.015);
-            padding: 14px 18px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.012);
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
             display: flex;
             align-items: center;
-            gap: 14px;
-            transition: border-color 0.4s, background 0.3s;
+            gap: 10px;
+            transition: border-color 0.3s;
         }
         .privacy-grid .pill:hover {
-            border-color: rgba(204, 0, 0, 0.08);
-            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(204, 0, 0, 0.06);
         }
         .privacy-grid .pill .icon {
-            font-size: 22px;
-            opacity: 0.8;
+            font-size: 18px;
+            opacity: 0.7;
+            flex-shrink: 0;
         }
         .privacy-grid .pill .info {
-            font-size: 14px;
-            line-height: 1.4;
+            font-size: 12px;
+            line-height: 1.3;
         }
         .privacy-grid .pill .info strong {
             color: #e0e0e8;
             display: block;
             font-weight: 600;
+            font-size: 12px;
         }
         .privacy-grid .pill .info small {
             color: #666;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         /* ─── ACCEPT BOX ─── */
         .accept-box {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 12px;
             background: rgba(255, 255, 255, 0.01);
-            padding: 18px 22px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin: 20px 0 14px;
-            transition: border-color 0.5s, background 0.5s;
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            margin: 8px 0 6px;
+            transition: border-color 0.4s, background 0.4s;
+            flex-shrink: 0;
         }
         .accept-box.checked {
-            border-color: rgba(204, 0, 0, 0.15);
+            border-color: rgba(204, 0, 0, 0.12);
             background: rgba(204, 0, 0, 0.02);
         }
         .accept-box input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             accent-color: #cc0000;
             cursor: pointer;
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         .accept-box label {
-            font-size: 14px;
-            color: #999;
+            font-size: 12px;
+            color: #888;
             cursor: pointer;
-            line-height: 1.7;
+            line-height: 1.5;
         }
         .accept-box label strong {
-            color: #e0e0e8;
+            color: #ddd;
         }
 
         /* ─── CONFIRM BUTTON ─── */
@@ -676,27 +693,28 @@
             background: linear-gradient(135deg, #cc0000, #990000);
             border: none;
             color: #fff;
-            padding: 16px 44px;
-            border-radius: 40px;
-            font-size: 16px;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             opacity: 0.2;
             pointer-events: none;
             display: inline-block;
-            margin-top: 4px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             box-shadow: 0 0 0 0 rgba(204, 0, 0, 0);
+            flex-shrink: 0;
+            align-self: flex-start;
         }
         .confirm-btn.enabled {
             opacity: 1;
             pointer-events: auto;
-            box-shadow: 0 8px 40px rgba(204, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(204, 0, 0, 0.15);
         }
         .confirm-btn.enabled:hover {
             transform: scale(1.02);
-            box-shadow: 0 12px 60px rgba(204, 0, 0, 0.3);
+            box-shadow: 0 6px 40px rgba(204, 0, 0, 0.2);
         }
 
         /* ─── NAV ROW ─── */
@@ -704,134 +722,283 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
             position: relative;
             z-index: 2;
         }
         .nav-row .btn {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: #888;
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: #777;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 0.3px;
+            transition: all 0.25s;
+            letter-spacing: 0.2px;
         }
         .nav-row .btn:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.08);
-            color: #ccc;
+            border-color: rgba(255, 255, 255, 0.07);
+            color: #bbb;
         }
         .nav-row .btn-primary {
             background: linear-gradient(135deg, #cc0000, #990000);
             border-color: transparent;
             color: #fff;
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.05);
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.03);
         }
         .nav-row .btn-primary:hover:not(:disabled) {
-            transform: scale(0.97);
-            box-shadow: 0 0 40px rgba(204, 0, 0, 0.1);
+            transform: scale(0.96);
+            box-shadow: 0 0 30px rgba(204, 0, 0, 0.06);
         }
         .nav-row .btn:disabled {
-            opacity: 0.15;
+            opacity: 0.12;
             cursor: not-allowed;
         }
         .nav-row .step-counter {
-            font-size: 13px;
+            font-size: 11px;
             color: #444;
             font-weight: 400;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        .glow-card::-webkit-scrollbar {
+            width: 2px;
+        }
+        .glow-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .glow-card::-webkit-scrollbar-thumb {
+            background: rgba(204, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .glow-card {
+            overflow: hidden;
         }
 
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 760px) {
+        @media (max-width: 700px) {
+            #tutorialContainer {
+                max-height: 100vh;
+                padding: 0;
+            }
             .glow-card {
-                padding: 24px 18px 20px;
-                border-radius: 20px;
+                padding: 12px 14px 10px;
+                border-radius: 16px;
             }
             .tech-grid {
                 grid-template-columns: 1fr;
-                padding: 14px 16px;
+                padding: 8px 12px;
+                gap: 2px;
             }
             .tech-grid .item {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             }
             .tech-grid .item:last-child {
                 border-bottom: 0;
             }
             .privacy-grid {
                 grid-template-columns: 1fr;
+                gap: 4px;
             }
             .desc-row {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 14px 16px;
+                padding: 4px 10px;
+                gap: 6px;
             }
-            .nav-row {
-                flex-wrap: wrap;
-                gap: 12px;
+            .desc-row .icon-box {
+                font-size: 14px;
+                min-width: 22px;
             }
-            .nav-row .btn {
-                flex: 1;
-                text-align: center;
-                padding: 10px 18px;
-                font-size: 13px;
+            .desc-row .content .title {
+                font-size: 10px;
+            }
+            .desc-row .content .description {
+                font-size: 10px;
             }
             .tab-content h2 {
-                font-size: 22px;
+                font-size: 17px;
             }
-            .loader-tech {
-                width: 110px;
-                height: 110px;
+            .nav-row .btn {
+                padding: 5px 14px;
+                font-size: 11px;
             }
-            .loader-tech .core {
-                font-size: 24px;
+            .glow-card .glow-line {
+                display: none;
             }
-            .loader-brand .brand-main {
-                font-size: 24px;
+            .glow-card::before {
+                display: none;
+            }
+            .step-dots {
+                gap: 8px;
+                margin-bottom: 6px;
+            }
+            .step-dots .dot {
+                width: 6px;
+                height: 6px;
+            }
+            .feature-pills span {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .radio-group-static {
+                padding: 3px 10px;
+            }
+            .radio-group-static span {
+                font-size: 11px;
+            }
+            .privacy-grid .pill {
+                padding: 6px 10px;
+            }
+            .privacy-grid .pill .icon {
+                font-size: 15px;
+            }
+            .privacy-grid .pill .info {
+                font-size: 11px;
+            }
+            .privacy-grid .pill .info strong {
+                font-size: 11px;
+            }
+            .privacy-grid .pill .info small {
+                font-size: 9px;
             }
             .accept-box {
-                padding: 14px 16px;
-                flex-direction: column;
-                align-items: flex-start;
+                padding: 6px 10px;
+                gap: 8px;
+            }
+            .accept-box label {
+                font-size: 11px;
+            }
+            .confirm-btn {
+                padding: 8px 20px;
+                font-size: 12px;
+            }
+            .status-row {
                 gap: 12px;
+            }
+            .status-row .status-item {
+                font-size: 10px;
+            }
+            .info-box p {
+                font-size: 11px;
+            }
+            .tech-grid .item .value {
+                font-size: 12px;
+            }
+            .loader-tech {
+                width: 80px;
+                height: 80px;
+            }
+            .loader-tech .core {
+                font-size: 20px;
+                inset: 16px;
+            }
+            .loader-brand .brand-main {
+                font-size: 18px;
+            }
+            .loader-brand .brand-sub {
+                font-size: 9px;
             }
         }
 
         @media (max-width: 430px) {
             .glow-card {
-                padding: 16px 12px 14px;
-                border-radius: 16px;
+                padding: 8px 10px 8px;
+                border-radius: 12px;
             }
             .tab-content h2 {
-                font-size: 19px;
+                font-size: 15px;
             }
-            .desc-row .content .title {
-                font-size: 12px;
+            .tab-content .sub {
+                font-size: 10px;
+                margin-bottom: 4px;
+                padding-left: 8px;
+            }
+            .desc-row {
+                padding: 3px 8px;
+                border-radius: 8px;
+                margin-bottom: 2px;
             }
             .desc-row .content .description {
-                font-size: 13px;
+                font-size: 9px;
+                line-height: 1.4;
+            }
+            .desc-row .content .title {
+                font-size: 9px;
+            }
+            .desc-row .content .title .tag-value {
+                font-size: 8px;
+                padding: 0 6px;
+            }
+            .desc-row .icon-box {
+                font-size: 12px;
+                min-width: 18px;
+            }
+            .nav-row .btn {
+                padding: 4px 12px;
+                font-size: 10px;
+            }
+            .nav-row .step-counter {
+                font-size: 10px;
+            }
+            .step-dots {
+                gap: 6px;
+                margin-bottom: 4px;
+            }
+            .step-dots .dot {
+                width: 5px;
+                height: 5px;
+            }
+            .tech-grid {
+                padding: 6px 10px;
+                gap: 1px;
+                margin-bottom: 4px;
+            }
+            .tech-grid .item .value {
+                font-size: 11px;
+            }
+            .tech-grid .item .label {
+                font-size: 7px;
+            }
+            .feature-pills span {
+                font-size: 9px;
+                padding: 1px 8px;
+            }
+            .privacy-grid .pill .info {
+                font-size: 10px;
+            }
+            .privacy-grid .pill .info strong {
+                font-size: 10px;
+            }
+            .accept-box label {
+                font-size: 10px;
+            }
+            .confirm-btn {
+                padding: 6px 16px;
+                font-size: 11px;
             }
         }
 
-        .glow-card {
-            max-height: 92vh;
-            overflow-y: auto;
+        /* ─── FLEX UTILITY ─── */
+        .flex-1 {
+            flex: 1;
         }
-        .glow-card::-webkit-scrollbar {
-            width: 3px;
+        .flex-shrink-0 {
+            flex-shrink: 0;
         }
-        .glow-card::-webkit-scrollbar-track {
-            background: transparent;
+        .gap-1 {
+            gap: 4px;
         }
-        .glow-card::-webkit-scrollbar-thumb {
-            background: rgba(204, 0, 0, 0.3);
-            border-radius: 8px;
+        .mt-auto {
+            margin-top: auto;
+        }
+        .mb-auto {
+            margin-bottom: auto;
         }
     </style>
 </head>
@@ -844,8 +1011,8 @@
             <div class="ring-outer"></div>
             <div class="ring-mid"></div>
             <div class="core">V</div>
-            <svg class="progress-ring" viewBox="0 0 140 140">
-                <circle cx="70" cy="70" r="66" id="progressCircle" />
+            <svg class="progress-ring" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="46" id="progressCircle" />
             </svg>
         </div>
         <div class="loader-brand">
@@ -899,10 +1066,11 @@
                         — lightweight, ultrafast, and production‑ready.
                     </p>
                 </div>
+                <div class="flex-1"></div>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 1 : SETTINGS (Descriptive, no inputs) -->
+            <!-- TAB 1 : SETTINGS (Descriptive) -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="1">
                 <div class="tab-header">
@@ -921,42 +1089,27 @@
                     <span><span class="icon">🔐</span> End‑to‑end encrypted</span>
                 </div>
 
-                <!-- Connected Number -->
                 <div class="desc-row">
                     <div class="icon-box">📞</div>
                     <div class="content">
                         <div class="title">Connected Number <span class="tag-value">+94 70 123 4567</span></div>
-                        <div class="description">
-                            The primary phone number linked to your WhatsApp account. 
-                            An <strong>OTP</strong> is sent to this number to verify ownership 
-                            and establish a secure session.
-                        </div>
+                        <div class="description">Primary phone number linked to your WhatsApp. An <strong>OTP</strong> is sent here to verify ownership and establish a secure session.</div>
                     </div>
                 </div>
 
-                <!-- OTP Code -->
                 <div class="desc-row">
                     <div class="icon-box">🔑</div>
                     <div class="content">
                         <div class="title">OTP Code <span class="tag-value">862090</span></div>
-                        <div class="description">
-                            A time‑sensitive, 6‑digit code received via WhatsApp. 
-                            This code is used to authenticate the bot session 
-                            and is never stored after verification.
-                        </div>
+                        <div class="description">Time‑sensitive 6‑digit code received via WhatsApp. Used to authenticate the bot session, never stored after verification.</div>
                     </div>
                 </div>
 
-                <!-- Status -->
-                <div class="desc-row" style="border-color:rgba(0,170,68,0.05);">
+                <div class="desc-row" style="border-color:rgba(0,170,68,0.04);">
                     <div class="icon-box">🔐</div>
                     <div class="content">
                         <div class="title">Session Status <span class="status-badge">● Active</span></div>
-                        <div class="description">
-                            The connection is encrypted and actively synced. 
-                            The bot automatically refreshes the session every 2 minutes 
-                            to maintain a stable link with the WhatsApp servers.
-                        </div>
+                        <div class="description">Encrypted connection actively synced. Automatically refreshes every 2 minutes to maintain a stable link with WhatsApp servers.</div>
                     </div>
                 </div>
 
@@ -968,7 +1121,7 @@
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 2 : AUTO SENDER (Descriptive, no inputs) -->
+            <!-- TAB 2 : AUTO SENDER (Descriptive, compact) -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="2">
                 <div class="tab-header">
@@ -985,65 +1138,45 @@
                     <span>🎬 TikTok</span>
                 </div>
 
-                <!-- JID -->
                 <div class="desc-row">
                     <div class="icon-box">📍</div>
                     <div class="content">
                         <div class="title">JID / Location <span class="tag-value">94701234567@s.whatsapp.net</span></div>
-                        <div class="description">
-                            The unique WhatsApp ID (JID) of the recipient. 
-                            Messages and media are delivered directly to this address. 
-                            Example: <code>94701234567@s.whatsapp.net</code>
-                        </div>
+                        <div class="description">Unique WhatsApp ID of the recipient. Messages and media are delivered directly to this address. Example: <code>94701234567@s.whatsapp.net</code></div>
                     </div>
                 </div>
 
-                <!-- Caption -->
                 <div class="desc-row">
                     <div class="icon-box">✏️</div>
                     <div class="content">
                         <div class="title">Caption <span class="tag-value">✨ Check this out!</span></div>
-                        <div class="description">
-                            A custom text message that accompanies the media. 
-                            Supports emojis and dynamic placeholders for personalization.
+                        <div class="description">Custom text message accompanying media. Supports emojis and dynamic placeholders for personalization.</div>
+                    </div>
+                </div>
+
+                <!-- Two columns: Audio Quality + Interval -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+                    <div class="desc-row" style="margin-bottom:0;">
+                        <div class="icon-box">🎚️</div>
+                        <div class="content">
+                            <div class="title">Audio Quality <span class="tag-value">Medium</span></div>
+                            <div class="description">Low for speed, Medium for balance, High for fidelity.</div>
+                        </div>
+                    </div>
+                    <div class="desc-row" style="margin-bottom:0;">
+                        <div class="icon-box">⏱️</div>
+                        <div class="content">
+                            <div class="title">Interval <span class="tag-value">1 min</span></div>
+                            <div class="description">Time gap between messages. Prevents rate‑limiting.</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Audio Quality -->
-                <div class="desc-row">
-                    <div class="icon-box">🎚️</div>
-                    <div class="content">
-                        <div class="title">Audio Quality <span class="tag-value">Medium</span></div>
-                        <div class="description">
-                            Optimizes the bitrate of outgoing audio. 
-                            <strong>Low</strong> for speed, <strong>Medium</strong> for balance, 
-                            <strong>High</strong> for maximum fidelity.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interval -->
-                <div class="desc-row">
-                    <div class="icon-box">⏱️</div>
-                    <div class="content">
-                        <div class="title">Interval <span class="tag-value">1 min</span></div>
-                        <div class="description">
-                            The time gap between each message in the queue. 
-                            Prevents rate‑limiting and mimics human sending behavior.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Keywords -->
                 <div class="desc-row">
                     <div class="icon-box">🏷️</div>
                     <div class="content">
                         <div class="title">Keywords <span class="tag-value">music, viral, trending</span></div>
-                        <div class="description">
-                            Smart filtering system. Only content matching these 
-                            comma‑separated tags will be processed and sent.
-                        </div>
+                        <div class="description">Smart filtering — only content matching these comma‑separated tags will be processed and sent.</div>
                     </div>
                 </div>
             </div>
@@ -1070,7 +1203,7 @@
                 </div>
 
                 <div class="info-box" style="border-left-color:#555;">
-                    <p style="font-size:13px; color:#888; line-height:1.9;">
+                    <p style="font-size:12px; color:#888; line-height:1.7;">
                         By using <strong style="color:#ccc;">Vajira MD</strong> you agree to our
                         <strong style="color:#ccc;">Privacy Policy</strong> and
                         <strong style="color:#ccc;">Terms of Service</strong>.
@@ -1079,7 +1212,6 @@
                     </p>
                 </div>
 
-                <!-- accept box -->
                 <div class="accept-box" id="acceptBox">
                     <input type="checkbox" id="acceptCheck" />
                     <label for="acceptCheck">
@@ -1125,7 +1257,7 @@
 
             let currentTab = 0;
             const totalTabs = tabs.length;
-            const circumference = 2 * Math.PI * 66;
+            const circumference = 2 * Math.PI * 46;
 
             // ── LOADING ──
             let progress = 0;
@@ -1140,7 +1272,7 @@
                     setTimeout(() => {
                         loadingScreen.classList.add('hide');
                         tutorial.classList.add('active');
-                    }, 500);
+                    }, 400);
                 }
             }, 140);
 
@@ -1173,12 +1305,12 @@
                     if (acceptCheck.checked) {
                         window.location.href = '/dashboard.html';
                     } else {
-                        acceptBox.style.borderColor = 'rgba(204,0,0,0.3)';
-                        acceptBox.style.background = 'rgba(204,0,0,0.04)';
+                        acceptBox.style.borderColor = 'rgba(204,0,0,0.25)';
+                        acceptBox.style.background = 'rgba(204,0,0,0.03)';
                         setTimeout(() => {
-                            acceptBox.style.borderColor = 'rgba(255,255,255,0.03)';
+                            acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
                             acceptBox.style.background = 'rgba(255,255,255,0.01)';
-                        }, 700);
+                        }, 600);
                     }
                     return;
                 }
@@ -1198,12 +1330,12 @@
                 if (acceptCheck.checked) {
                     window.location.href = '/dashboard.html';
                 } else {
-                    acceptBox.style.borderColor = 'rgba(204,0,0,0.3)';
-                    acceptBox.style.background = 'rgba(204,0,0,0.04)';
+                    acceptBox.style.borderColor = 'rgba(204,0,0,0.25)';
+                    acceptBox.style.background = 'rgba(204,0,0,0.03)';
                     setTimeout(() => {
-                        acceptBox.style.borderColor = 'rgba(255,255,255,0.03)';
+                        acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
                         acceptBox.style.background = 'rgba(255,255,255,0.01)';
-                    }, 700);
+                    }, 600);
                 }
             });
 
@@ -1222,7 +1354,7 @@
             progressCircle.style.strokeDashoffset = circumference;
             goToTab(0);
 
-            console.log('🔴 VAJIRA MD · descriptive tech onboarding loaded');
+            console.log('🔴 VAJIRA MD · compact tech onboarding loaded');
         })();
     </script>
 
