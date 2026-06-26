@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VAJIRA MD LITE</title>
+    <title>VAJIRA MD LITE · Tutorial</title>
     <style>
         /* ───────── RESET & BASE ───────── */
         * {
@@ -58,6 +58,7 @@
             box-shadow: 0 0 50px rgba(204, 0, 0, 0.5);
             margin-bottom: 20px;
             transition: transform 0.3s;
+            animation: pulseGlow 2s infinite alternate;
         }
         .v-logo span {
             font-size: 54px;
@@ -65,6 +66,14 @@
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
             letter-spacing: -4px;
+        }
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 40px rgba(204, 0, 0, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 80px rgba(204, 0, 0, 0.7);
+            }
         }
 
         .loader-title {
@@ -129,7 +138,7 @@
         #tutorialWrapper {
             display: none;
             width: 100%;
-            max-width: 560px;
+            max-width: 620px;
             padding: 20px;
             animation: fadeUp 0.6s ease;
         }
@@ -262,6 +271,17 @@
             background: #1e1e1e;
             color: #fff;
         }
+        .form-group .demo-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .form-group .demo-hint .icon {
+            color: #cc0000;
+        }
 
         .btn-otp {
             margin-top: 6px;
@@ -273,7 +293,7 @@
             font-weight: 700;
             font-size: 14px;
             cursor: pointer;
-            transition: background 0.25s, transform 0.15s;
+            transition: background 0.25s, transform 0.15s, opacity 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -285,7 +305,7 @@
             transform: scale(0.96);
         }
         .btn-otp:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
@@ -295,15 +315,57 @@
             font-size: 13px;
             color: #ffaa00;
             min-height: 20px;
+            transition: all 0.3s;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: rgba(255, 170, 0, 0.06);
+            border-left: 3px solid #ffaa00;
         }
         .otp-status.success {
             color: #4caf50;
+            border-left-color: #4caf50;
+            background: rgba(76, 175, 80, 0.06);
         }
         .otp-status.error {
             color: #ff4444;
+            border-left-color: #ff4444;
+            background: rgba(255, 68, 68, 0.06);
+        }
+        .otp-status.idle {
+            color: #888;
+            border-left-color: #444;
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        /* ─── CHECKBOX (last tab) ─── */
+        /* ─── FEATURE BADGES ─── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0 6px;
+        }
+        .feature-badge {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .feature-badge:hover {
+            border-color: #cc0000;
+            background: #1e1e1e;
+        }
+        .feature-badge .icon {
+            color: #cc0000;
+            font-weight: 700;
+        }
+
+        /* ─── ACCEPT BOX ─── */
         .accept-box {
             display: flex;
             align-items: center;
@@ -404,27 +466,81 @@
             transform: none;
         }
 
-        /* ─── FEATURE BADGES ─── */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0 6px;
+        /* ─── ANIMATED DEMO BADGE ─── */
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #cc0000;
+            background: rgba(204, 0, 0, 0.12);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(204, 0, 0, 0.2);
+            margin-bottom: 12px;
         }
-        .feature-badge {
-            background: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 13px;
-            color: #ccc;
+        .demo-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cc0000;
+            animation: dotPulse 1.2s infinite;
+        }
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.7);
+            }
+        }
+
+        /* ─── TYPING EFFECT ─── */
+        .typing-demo {
             display: flex;
             align-items: center;
             gap: 8px;
+            color: #4caf50;
+            font-size: 14px;
+            padding: 8px 14px;
+            background: rgba(76, 175, 80, 0.06);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+            margin-top: 8px;
         }
-        .feature-badge .icon {
-            color: #cc0000;
-            font-weight: 700;
+        .typing-demo .dots {
+            display: flex;
+            gap: 4px;
+        }
+        .typing-demo .dots span {
+            width: 6px;
+            height: 6px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite both;
+        }
+        .typing-demo .dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-demo .dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typingBounce {
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: 0.4;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* ─── RESPONSIVE ─── */
@@ -462,7 +578,6 @@
             }
         }
 
-        /* scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -485,12 +600,12 @@
         <div class="loader-content">
             <div class="v-logo"><span>V</span></div>
             <div class="loader-title">VAJIRA MD LITE</div>
-            <div class="loader-sub">WhatsApp Bot</div>
+            <div class="loader-sub">WhatsApp Bot · Tutorial</div>
             <div class="progress-track">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
             <div class="progress-label">
-                <span>INITIALIZING</span>
+                <span>LOADING TUTORIAL</span>
                 <span class="pct" id="progressPct">0%</span>
             </div>
         </div>
@@ -527,7 +642,7 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        //  DATA
+        //  DATA — each tab is a tutorial step with demo content
         // ═══════════════════════════════════════════════════════════
 
         const tabs = [{
@@ -539,15 +654,14 @@
                         <span style="font-size:34px;font-weight:900;color:#fff;">V</span>
                     </div>
                     <div>
-                        <div style="font-size:20px;font-weight:700;">VAJIRA MD</div>
-                        <div style="color:#888;font-size:13px;">WhatsApp Bot</div>
+                        <div style="font-size:20px;font-weight:700;">VAJIRA MD LITE</div>
+                        <div style="color:#888;font-size:13px;">WhatsApp Automation Bot</div>
                     </div>
                 </div>
+                <div class="demo-badge"><span class="pulse-dot"></span> TUTORIAL · DEMO</div>
                 <div class="tut-text">
-                    <strong>Developer:</strong> Vajira Rathnayaka<br>
-                    <strong>Age:</strong> 23<br>
-                    <strong>Village:</strong> Balangoda<br>
-                    <strong>Country:</strong> Sri Lanka<br><br>
+                    <strong>Developer:</strong> Vajira Rathnayaka &nbsp;·&nbsp; <strong>Age:</strong> 23 &nbsp;·&nbsp; <strong>Village:</strong> Balangoda<br>
+                    <strong>Country:</strong> Sri Lanka &nbsp;·&nbsp; <strong>Version:</strong> 2.4.0<br><br>
                     VAJIRA MD LITE is a powerful WhatsApp automation bot built with <strong>Node.js</strong> and the
                     <strong>Baileys</strong> library. It handles auto-reply, media sending, voice notes, TikTok
                     downloads, and much more — all from your WhatsApp number.
@@ -557,27 +671,38 @@
                     <div class="feature-badge"><span class="icon">🔒</span> Secure</div>
                     <div class="feature-badge"><span class="icon">🎵</span> Auto Voice</div>
                     <div class="feature-badge"><span class="icon">📱</span> Multi-device</div>
+                    <div class="feature-badge"><span class="icon">📊</span> Analytics</div>
+                    <div class="feature-badge"><span class="icon">🔄</span> Auto-Retry</div>
+                </div>
+                <div class="tut-text" style="font-size:13px;color:#666;margin-top:10px;">
+                    💡 This tutorial shows you how each feature works — all interactions are simulated for demonstration.
                 </div>
             `
         }, {
             id: 'settings',
-            title: 'Bot Settings',
+            title: 'Bot Settings · OTP Login',
             render: () => `
+                <div class="demo-badge"><span class="pulse-dot"></span> DEMO · method shown</div>
                 <div class="tut-text" style="margin-bottom:14px;">
                     Connect your WhatsApp number to start using <strong>VAJIRA MD</strong>.
-                    Enter your number below and request an OTP.
+                    Enter your number below and see how the OTP flow works.
                 </div>
                 <div class="form-group">
                     <label>📞 Connected Number</label>
                     <input type="text" id="phoneInput" placeholder="+94 71 234 5678" value="+94 71 234 5678">
+                    <div class="demo-hint"><span class="icon">ⓘ</span> Example number — used for demo only</div>
                 </div>
-                <button class="btn-otp" id="otpBtn">🔑 Request OTP</button>
-                <div class="otp-status" id="otpStatus">Enter your number and tap Request OTP</div>
+                <button class="btn-otp" id="otpBtn">🔑 Request OTP (demo)</button>
+                <div class="otp-status idle" id="otpStatus">▶️ Tap "Request OTP" to see the simulation</div>
                 <div class="form-group" style="margin-top:14px;">
                     <label>🔐 OTP Code</label>
-                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" value="123456">
+                    <div class="demo-hint"><span class="icon">ⓘ</span> In a real scenario, OTP is sent to your WhatsApp</div>
                 </div>
-                <div style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;">
+                <div id="otpSuccessBox" style="display:none;margin-top:10px;" class="typing-demo">
+                    <span>✅</span> OTP verified! Logged in successfully.
+                </div>
+                <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
                     <span class="feature-badge" style="flex:1;"><span class="icon">🎤</span> Auto Voice</span>
                     <span class="feature-badge" style="flex:1;"><span class="icon">📨</span> Auto Reply</span>
                     <span class="feature-badge" style="flex:1;"><span class="icon">📊</span> Analytics</span>
@@ -585,18 +710,20 @@
             `
         }, {
             id: 'autosender',
-            title: 'Auto Sender',
+            title: 'Auto Sender · Song & TikTok',
             render: () => `
+                <div class="demo-badge"><span class="pulse-dot"></span> DEMO · configuration preview</div>
                 <div class="tut-text" style="margin-bottom:14px;">
                     Configure automated sending of <strong>songs</strong> or <strong>TikTok</strong> content.
-                    First log in with your number, then choose your sender type.
+                    The bot will send media to any JID with your custom caption and interval.
                 </div>
                 <div class="form-group">
                     <label>📱 Sender Number</label>
                     <input type="text" id="senderPhone" placeholder="+94 71 234 5678" value="+94 71 234 5678">
+                    <div class="demo-hint"><span class="icon">ⓘ</span> This number will be used as the sender</div>
                 </div>
-                <button class="btn-otp" id="senderOtpBtn" style="margin-bottom:12px;">🔑 Send OTP to this number</button>
-                <div class="otp-status" id="senderOtpStatus" style="margin-bottom:14px;">Enter number and request OTP</div>
+                <button class="btn-otp" id="senderOtpBtn" style="margin-bottom:12px;">🔑 Send OTP (demo)</button>
+                <div class="otp-status idle" id="senderOtpStatus" style="margin-bottom:14px;">▶️ Tap to see OTP simulation</div>
 
                 <div class="form-group">
                     <label>📂 Auto Sender Type</label>
@@ -608,10 +735,11 @@
                 <div class="form-group">
                     <label>📍 Location (JID ID)</label>
                     <input type="text" id="jidInput" placeholder="e.g. 94712345678@s.whatsapp.net" value="94712345678@s.whatsapp.net">
+                    <div class="demo-hint"><span class="icon">ⓘ</span> Target WhatsApp ID</div>
                 </div>
                 <div class="form-group">
                     <label>✏️ Caption</label>
-                    <input type="text" id="captionInput" placeholder="Your caption here..." value="Check out this! 🔥">
+                    <input type="text" id="captionInput" placeholder="Your caption here..." value="Check this out! 🔥">
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                     <div class="form-group">
@@ -631,11 +759,15 @@
                     <label>🔑 Keywords (comma separated)</label>
                     <input type="text" id="keywordsInput" placeholder="music, viral, trending" value="music, viral">
                 </div>
+                <div class="typing-demo" style="margin-top:8px;border-color:rgba(204,0,0,0.2);background:rgba(204,0,0,0.04);">
+                    <span>📤</span> Ready to send — all settings are saved in this demo
+                </div>
             `
         }, {
             id: 'privacy',
             title: 'Privacy & Safety',
             render: () => `
+                <div class="demo-badge"><span class="pulse-dot"></span> FINAL STEP</div>
                 <div class="tut-text" style="margin-bottom:10px;">
                     <strong>🛡️ VAJIRA MD</strong> is designed with <strong>privacy</strong> and
                     <strong>ultra-fast</strong> performance. Your data stays secure.
@@ -659,6 +791,9 @@
                 </div>
 
                 <button class="btn-confirm" id="confirmBtn">✅ Confirm & Open Dashboard</button>
+                <div style="margin-top:10px;font-size:12px;color:#555;text-align:center;">
+                    ⚡ Dashboard will open at <span style="color:#888;">/dashboard.html</span> (demo redirect)
+                </div>
             `
         }];
 
@@ -686,7 +821,7 @@
         // ═══════════════════════════════════════════════════════════
 
         function simulateLoading() {
-            const duration = 2800; // ms
+            const duration = 2800;
             const interval = 40;
             const steps = duration / interval;
             let step = 0;
@@ -735,57 +870,76 @@
             wireEvents(index);
         }
 
-        // ── event wiring per tab ──
+        // ── event wiring per tab (purely demo / tutorial) ──
         function wireEvents(index) {
-            const tab = tabs[index];
-
-            // Tab 2: OTP logic
+            // ─── Tab 2: OTP demo ───
             if (index === 1) {
                 const otpBtn = document.getElementById('otpBtn');
                 const phoneInput = document.getElementById('phoneInput');
                 const otpInput = document.getElementById('otpInput');
                 const otpStatus = document.getElementById('otpStatus');
+                const successBox = document.getElementById('otpSuccessBox');
 
                 if (otpBtn) {
                     otpBtn.onclick = function() {
                         const phone = phoneInput.value.trim();
                         if (!phone || phone.length < 8) {
-                            otpStatus.textContent = '⚠️ Please enter a valid phone number.';
+                            otpStatus.textContent = '⚠️ Please enter a valid phone number (demo).';
                             otpStatus.className = 'otp-status error';
                             return;
                         }
-                        otpStatus.textContent = `📤 OTP sent to ${phone} (simulated)`;
-                        otpStatus.className = 'otp-status success';
+                        // demo animation
+                        otpStatus.textContent = `📤 Simulating OTP send to ${phone} ...`;
+                        otpStatus.className = 'otp-status';
                         otpBtn.disabled = true;
-                        otpBtn.textContent = '⏳ Sent!';
+                        otpBtn.textContent = '⏳ Sending...';
+
                         setTimeout(() => {
+                            otpStatus.textContent =
+                                `✅ OTP sent! (demo) Check your WhatsApp — code: 123456`;
+                            otpStatus.className = 'otp-status success';
                             otpBtn.disabled = false;
-                            otpBtn.textContent = '🔑 Request OTP';
-                        }, 3000);
+                            otpBtn.textContent = '🔑 Resend OTP (demo)';
+
+                            // auto-fill OTP for demo
+                            if (otpInput) {
+                                otpInput.value = '123456';
+                                // trigger success
+                                if (successBox) {
+                                    successBox.style.display = 'flex';
+                                    successBox.innerHTML =
+                                        '<span>✅</span> OTP auto-verified! You\'re logged in (demo).';
+                                }
+                                otpStatus.textContent = '✅ OTP verified! Logged in successfully.';
+                                otpStatus.className = 'otp-status success';
+                            }
+                        }, 2200);
                     };
                 }
 
-                // auto-login when OTP is entered (simulated)
+                // Manual OTP entry
                 if (otpInput) {
                     otpInput.oninput = function() {
                         const val = this.value.replace(/\D/g, '');
                         if (val.length === 6) {
+                            if (successBox) {
+                                successBox.style.display = 'flex';
+                                successBox.innerHTML = '<span>✅</span> OTP verified! Logged in successfully.';
+                            }
                             otpStatus.textContent = '✅ OTP verified! Logged in successfully.';
                             otpStatus.className = 'otp-status success';
-                            // store in session
-                            sessionStorage.setItem('vajira_logged', 'true');
-                            sessionStorage.setItem('vajira_phone', phoneInput ? phoneInput.value : '');
                         } else {
+                            if (successBox) successBox.style.display = 'none';
                             if (otpStatus.textContent.includes('verified')) {
-                                otpStatus.textContent = '⏳ Enter 6-digit OTP';
-                                otpStatus.className = 'otp-status';
+                                otpStatus.textContent = '⏳ Enter 6-digit OTP (demo: 123456)';
+                                otpStatus.className = 'otp-status idle';
                             }
                         }
                     };
                 }
             }
 
-            // Tab 3: Auto Sender OTP
+            // ─── Tab 3: Auto Sender OTP demo ───
             if (index === 2) {
                 const senderOtpBtn = document.getElementById('senderOtpBtn');
                 const senderPhone = document.getElementById('senderPhone');
@@ -795,23 +949,27 @@
                     senderOtpBtn.onclick = function() {
                         const phone = senderPhone.value.trim();
                         if (!phone || phone.length < 8) {
-                            senderOtpStatus.textContent = '⚠️ Please enter a valid number.';
+                            senderOtpStatus.textContent = '⚠️ Please enter a valid number (demo).';
                             senderOtpStatus.className = 'otp-status error';
                             return;
                         }
-                        senderOtpStatus.textContent = `📤 OTP sent to ${phone} (simulated)`;
-                        senderOtpStatus.className = 'otp-status success';
+                        senderOtpStatus.textContent = `📤 Simulating OTP send to ${phone} ...`;
+                        senderOtpStatus.className = 'otp-status';
                         senderOtpBtn.disabled = true;
-                        senderOtpBtn.textContent = '⏳ Sent!';
+                        senderOtpBtn.textContent = '⏳ Sending...';
+
                         setTimeout(() => {
+                            senderOtpStatus.textContent =
+                                `✅ OTP sent! (demo) Use code 654321 to authenticate.`;
+                            senderOtpStatus.className = 'otp-status success';
                             senderOtpBtn.disabled = false;
-                            senderOtpBtn.textContent = '🔑 Send OTP to this number';
-                        }, 3000);
+                            senderOtpBtn.textContent = '🔑 Resend OTP (demo)';
+                        }, 2000);
                     };
                 }
             }
 
-            // Tab 4: Checkbox + Confirm
+            // ─── Tab 4: Checkbox + Confirm ───
             if (index === 3) {
                 const acceptCheck = document.getElementById('acceptCheck');
                 const confirmBtn = document.getElementById('confirmBtn');
@@ -827,7 +985,6 @@
 
                 if (acceptCheck) {
                     acceptCheck.onchange = updateConfirm;
-                    // click on box toggles checkbox
                     if (acceptBox) {
                         acceptBox.onclick = function(e) {
                             if (e.target.tagName !== 'INPUT') {
@@ -841,20 +998,27 @@
                 if (confirmBtn) {
                     confirmBtn.onclick = function() {
                         if (acceptCheck && acceptCheck.checked) {
-                            // store acceptance
-                            sessionStorage.setItem('vajira_accepted', 'true');
-                            // redirect to dashboard
-                            window.location.href = '/dashboard.html';
+                            // demo redirect — show a message then redirect
+                            confirmBtn.textContent = '⏳ Opening Dashboard...';
+                            confirmBtn.classList.remove('enabled');
+                            confirmBtn.style.opacity = '0.7';
+                            setTimeout(() => {
+                                // In a real app, this would redirect to /dashboard.html
+                                // For this demo, we show an alert and simulate redirect.
+                                alert(
+                                    '✅ Dashboard would open at /dashboard.html\n\nThis is a demo — in production, you would be redirected to the actual dashboard.');
+                                // window.location.href = '/dashboard.html';
+                                // For demo, just reload the tutorial
+                                confirmBtn.textContent = '✅ Confirm & Open Dashboard';
+                                confirmBtn.classList.add('enabled');
+                                confirmBtn.style.opacity = '1';
+                            }, 1200);
                         }
                     };
                 }
 
-                // initial state
                 updateConfirm();
             }
-
-            // ── Next button logic per tab ──
-            // We'll handle this globally in the nav click
         }
 
         // ── Navigation ──
@@ -869,48 +1033,51 @@
         };
 
         nextBtn.onclick = function() {
-            // Tab-specific validation
+            // Tab-specific demo validations
             if (currentTab === 1) {
-                // settings tab: ensure OTP is verified
                 const otpInput = document.getElementById('otpInput');
                 const otpStatus = document.getElementById('otpStatus');
-                if (!otpInput || otpInput.value.replace(/\D/g, '').length !== 6) {
+                const val = otpInput ? otpInput.value.replace(/\D/g, '') : '';
+                if (val.length !== 6) {
                     if (otpStatus) {
-                        otpStatus.textContent = '⚠️ Please enter the 6-digit OTP first.';
+                        otpStatus.textContent = '⚠️ Please enter the 6-digit OTP (demo: 123456)';
                         otpStatus.className = 'otp-status error';
                     }
-                    return;
+                    // but we allow it anyway for tutorial flow — just show hint
+                    // actually we let them pass with a warning
                 }
-                // store settings
+                // store demo values
                 const phone = document.getElementById('phoneInput');
-                if (phone) sessionStorage.setItem('vajira_phone', phone.value);
+                if (phone) sessionStorage.setItem('vajira_phone_demo', phone.value);
             }
 
             if (currentTab === 2) {
-                // autosender: ensure sender OTP was requested (simple check)
                 const status = document.getElementById('senderOtpStatus');
-                if (status && !status.textContent.includes('sent')) {
-                    status.textContent = '⚠️ Please request OTP for the sender number.';
-                    status.className = 'otp-status error';
-                    return;
-                }
-                // store autosender settings
+                // just store settings
                 const jid = document.getElementById('jidInput');
                 const caption = document.getElementById('captionInput');
                 const interval = document.getElementById('intervalInput');
                 const keywords = document.getElementById('keywordsInput');
                 const senderType = document.getElementById('senderType');
                 const audioQ = document.getElementById('audioQuality');
-                if (jid) sessionStorage.setItem('vajira_jid', jid.value);
-                if (caption) sessionStorage.setItem('vajira_caption', caption.value);
-                if (interval) sessionStorage.setItem('vajira_interval', interval.value);
-                if (keywords) sessionStorage.setItem('vajira_keywords', keywords.value);
-                if (senderType) sessionStorage.setItem('vajira_senderType', senderType.value);
-                if (audioQ) sessionStorage.setItem('vajira_audioQuality', audioQ.value);
+                if (jid) sessionStorage.setItem('vajira_jid_demo', jid.value);
+                if (caption) sessionStorage.setItem('vajira_caption_demo', caption.value);
+                if (interval) sessionStorage.setItem('vajira_interval_demo', interval.value);
+                if (keywords) sessionStorage.setItem('vajira_keywords_demo', keywords.value);
+                if (senderType) sessionStorage.setItem('vajira_senderType_demo', senderType.value);
+                if (audioQ) sessionStorage.setItem('vajira_audioQuality_demo', audioQ.value);
+                // show a quick demo message
+                if (status) {
+                    status.textContent = '✅ Settings saved! (demo)';
+                    status.className = 'otp-status success';
+                    setTimeout(() => {
+                        status.textContent = '📤 Ready to send — all settings configured.';
+                        status.className = 'otp-status idle';
+                    }, 2000);
+                }
             }
 
             if (currentTab === tabs.length - 1) {
-                // last tab: confirm button handles redirect
                 const confirmBtn = document.getElementById('confirmBtn');
                 if (confirmBtn && confirmBtn.classList.contains('enabled')) {
                     confirmBtn.click();
@@ -918,8 +1085,14 @@
                     const acceptCheck = document.getElementById('acceptCheck');
                     if (acceptCheck && !acceptCheck.checked) {
                         const box = document.getElementById('acceptBox');
-                        if (box) box.style.borderColor = '#cc0000';
-                        setTimeout(() => { if (box) box.style.borderColor = ''; }, 800);
+                        if (box) {
+                            box.style.borderColor = '#cc0000';
+                            box.style.background = 'rgba(204,0,0,0.08)';
+                            setTimeout(() => {
+                                box.style.borderColor = '';
+                                box.style.background = '';
+                            }, 800);
+                        }
                     }
                 }
                 return;
@@ -930,10 +1103,7 @@
             }
         };
 
-        // ═══════════════════════════════════════════════════════════
-        //  KEYBOARD SUPPORT
-        // ═══════════════════════════════════════════════════════════
-
+        // ── Keyboard support ──
         document.addEventListener('keydown', (e) => {
             if (!tutorialWrapper.classList.contains('active')) return;
             if (e.key === 'ArrowRight' || e.key === 'Enter') {
