@@ -3,1465 +3,857 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Premium Dashboard · Loading + Tutorial</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+    <title>VAJIRA MD LITE</title>
+
     <style>
-        /* ── Reset & Variables ── */
+        /* ── reset & base ── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        :root {
-            --bg-primary: #f0f4fe;
-            --bg-card: #ffffff;
-            --bg-tab: #eef2f9;
-            --text-primary: #0b1a33;
-            --text-secondary: #3d4f6a;
-            --text-muted: #6f7e99;
-            --border-light: #e2e8f0;
-            --accent: #4f6af5;
-            --accent-light: #e8edfe;
-            --accent-gradient: linear-gradient(135deg, #4f6af5, #7c5cfc);
-            --shadow-sm: 0 2px 8px rgba(79, 106, 245, 0.08);
-            --shadow-md: 0 8px 30px rgba(79, 106, 245, 0.12);
-            --radius: 20px;
-            --radius-sm: 12px;
-            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .dark-mode {
-            --bg-primary: #0b1424;
-            --bg-card: #141e33;
-            --bg-tab: #1a2740;
-            --text-primary: #f0f4fe;
-            --text-secondary: #b0c4e8;
-            --text-muted: #7a8daa;
-            --border-light: #263653;
-            --accent-light: #1f2d52;
-        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0b0b0b;
+            color: #fff;
             min-height: 100vh;
-            padding: 28px 24px 40px;
-            transition: background var(--transition), color var(--transition);
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
-        }
-        .app {
-            max-width: 1360px;
-            width: 100%;
+            overflow: hidden;
         }
 
-        /* ── Loading Overlay ── */
-        #pageLoader {
+        /* ── loading screen ── */
+        #loadingScreen {
             position: fixed;
             inset: 0;
-            background: var(--bg-primary);
+            z-index: 1000;
+            background: #0b0b0b;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
         }
-        #pageLoader.hidden {
+        #loadingScreen.hide {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        .spinner {
-            width: 56px;
-            height: 56px;
-            border: 5px solid var(--border-light);
-            border-top: 5px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
+
+        .loader-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 30px;
         }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .loader-logo .v-badge {
+            width: 72px;
+            height: 72px;
+            background: #cc0000;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(204, 0, 0, 0.35);
+            transform: rotate(-4deg);
         }
-        #pageLoader p {
-            margin-top: 20px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            letter-spacing: 0.5px;
+        .loader-logo .brand-text {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 60%, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .loader-logo .brand-text span {
+            color: #cc0000;
+            -webkit-text-fill-color: #cc0000;
         }
 
-        /* ── Skeleton Shimmer ── */
-        .skeleton {
-            background: var(--bg-tab);
-            border-radius: 8px;
+        .loader-bar-wrap {
+            width: 340px;
+            max-width: 80vw;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .loader-bar-wrap .bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #cc0000, #ff3333);
+            border-radius: 12px;
+            transition: width 0.25s ease;
+        }
+        .loader-percent {
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #aaa;
+        }
+
+        /* ── tutorial container ── */
+        #tutorialContainer {
+            display: none;
+            width: 100%;
+            max-width: 820px;
+            padding: 20px;
+            animation: fadeUp 0.6s ease;
+        }
+        #tutorialContainer.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tut-card {
+            background: #151515;
+            border-radius: 28px;
+            padding: 36px 32px 32px;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
             overflow: hidden;
         }
-        .skeleton::after {
+        .tut-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            animation: shimmer 1.5s infinite;
-        }
-        .dark-mode .skeleton::after {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #cc0000, #ff4444, #cc0000);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
         }
         @keyframes shimmer {
             0% {
-                transform: translateX(-100%);
+                background-position: -200% 0;
             }
             100% {
-                transform: translateX(100%);
+                background-position: 200% 0;
             }
         }
-        .skeleton-text {
-            height: 16px;
-            width: 80%;
-            margin: 8px 0;
-        }
-        .skeleton-text.short {
-            width: 40%;
-        }
-        .skeleton-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-        }
-        .skeleton-box {
-            height: 100px;
-            width: 100%;
-            border-radius: var(--radius-sm);
-        }
 
-        /* ── Header ── */
-        .app-header {
+        /* step indicator */
+        .step-dots {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 18px;
-            margin-bottom: 32px;
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .brand-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent-gradient);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: #fff;
-            box-shadow: 0 6px 18px rgba(79, 106, 245, 0.35);
-        }
-        .brand h1 {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .brand span {
-            font-weight: 400;
-            font-size: 14px;
-            color: var(--text-muted);
-            -webkit-text-fill-color: var(--text-muted);
-            background: none;
-            margin-left: 4px;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .header-actions .date-badge {
-            background: var(--bg-card);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header-actions .date-badge i {
-            color: var(--accent);
-        }
-        .theme-toggle,
-        .tutorial-toggle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid var(--border-light);
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            font-size: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-sm);
-        }
-        .theme-toggle:hover,
-        .tutorial-toggle:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        /* ── Stats Strip ── */
-        .stats-strip {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .stat-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
-            padding: 18px 22px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: var(--accent-light);
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        .stat-info .stat-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-muted);
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-        }
-        .stat-info .stat-value {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-top: 2px;
-        }
-        .stat-info .stat-change {
-            font-size: 12px;
-            font-weight: 600;
-            color: #22c55e;
-            margin-top: 2px;
-        }
-        .stat-change.negative {
-            color: #ef4444;
-        }
-
-        /* ── Tabs ── */
-        .tabs-nav {
-            display: flex;
-            gap: 6px;
-            background: var(--bg-tab);
-            padding: 6px;
-            border-radius: 60px;
+            gap: 12px;
             margin-bottom: 28px;
-            border: 1px solid var(--border-light);
-            flex-wrap: wrap;
-            box-shadow: var(--shadow-sm);
         }
-        .tab-btn {
-            flex: 1 1 auto;
-            min-width: 100px;
-            padding: 14px 24px;
-            border: none;
-            border-radius: 50px;
-            background: transparent;
-            color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            white-space: nowrap;
+        .step-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            transition: background 0.3s, transform 0.3s;
+            cursor: default;
         }
-        .tab-btn i {
-            font-size: 16px;
+        .step-dots .dot.active {
+            background: #cc0000;
+            transform: scale(1.25);
+            box-shadow: 0 0 12px rgba(204, 0, 0, 0.5);
         }
-        .tab-btn:hover {
-            color: var(--text-primary);
-            background: rgba(79, 106, 245, 0.06);
-        }
-        .tab-btn.active {
-            background: var(--accent-gradient);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(79, 106, 245, 0.35);
-        }
-        .tab-btn .badge {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 2px 12px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            color: inherit;
-        }
-        .tab-btn.active .badge {
-            background: rgba(255, 255, 255, 0.25);
+        .step-dots .dot.done {
+            background: #555;
         }
 
-        /* ── Tab Panels ── */
-        .tab-panels {
-            position: relative;
-        }
-        .tab-panel {
+        /* tab content */
+        .tab-content {
             display: none;
-            animation: fadeSlide 0.45s ease forwards;
+            animation: fadeTab 0.4s ease;
         }
-        .tab-panel.active {
+        .tab-content.active {
             display: block;
         }
-        @keyframes fadeSlide {
+        @keyframes fadeTab {
             0% {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateX(12px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
-        /* ── Panel Header ── */
-        .panel-header {
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .panel-header .title-group h2 {
-            font-size: 38px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            line-height: 1.1;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .panel-header .title-group .sub {
-            font-size: 16px;
-            color: var(--text-muted);
-            font-weight: 400;
-            -webkit-text-fill-color: var(--text-muted);
-            background: none;
-            margin-top: 4px;
-        }
-        .panel-header .action-btn {
-            padding: 12px 28px;
-            border-radius: 50px;
-            border: none;
-            background: var(--accent-gradient);
+        .tab-content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: #fff;
-            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        .tab-content h2 .accent {
+            color: #cc0000;
+        }
+        .tab-content .subhead {
             font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
+            color: #888;
+            margin-bottom: 22px;
+            border-left: 3px solid #cc0000;
+            padding-left: 14px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+        }
+        .info-grid .item {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+        }
+        .info-grid .item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #777;
+        }
+        .info-grid .item .value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #eee;
+            margin-top: 2px;
+        }
+        .info-grid .item .value.highlight {
+            color: #cc0000;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            margin: 12px 0 6px;
+        }
+        .feature-list li {
+            list-style: none;
+            font-size: 14px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .feature-list li::before {
+            content: '◆';
+            color: #cc0000;
+            font-size: 10px;
+        }
+
+        .setting-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 20px;
+            background: #1a1a1a;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #252525;
+        }
+        .setting-row .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #aaa;
+            min-width: 110px;
+        }
+        .setting-row .input-group {
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 6px 18px rgba(79, 106, 245, 0.3);
+            flex: 1;
+            flex-wrap: wrap;
         }
-        .panel-header .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(79, 106, 245, 0.4);
+        .setting-row input,
+        .setting-row select {
+            background: #0b0b0b;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+            flex: 1;
+            min-width: 140px;
+        }
+        .setting-row input:focus,
+        .setting-row select:focus {
+            border-color: #cc0000;
+        }
+        .setting-row .otp-btn {
+            background: #cc0000;
+            border: none;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .setting-row .otp-btn:hover {
+            background: #aa0000;
+        }
+        .setting-row .badge {
+            background: #1f1f1f;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #aaa;
+            border: 1px solid #2a2a2a;
         }
 
-        /* ── Content Grid ── */
-        .content-grid {
+        .privacy-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 12px 20px;
+            margin: 16px 0 10px;
         }
-        .content-grid.three {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-        .content-grid.full {
-            grid-template-columns: 1fr;
-        }
-        .detail-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 26px 28px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            position: relative;
-        }
-        .detail-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-        .detail-card .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 14px;
+        .privacy-grid .pill {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #252525;
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--text-primary);
+            gap: 10px;
         }
-        .detail-card .card-title i {
-            color: var(--accent);
+        .privacy-grid .pill .icon {
             font-size: 20px;
         }
-        .detail-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 15px;
-            margin-bottom: 12px;
+        .privacy-grid .pill .info {
+            font-size: 14px;
         }
-        .detail-card ul {
-            list-style: none;
-            padding: 0;
+        .privacy-grid .pill .info strong {
+            color: #fff;
         }
-        .detail-card ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-light);
-            color: var(--text-secondary);
+        .privacy-grid .pill .info small {
+            color: #888;
+            font-size: 12px;
+            display: block;
+        }
+
+        /* accept box */
+        .accept-box {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 15px;
+            gap: 14px;
+            background: #1a1a1a;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid #2a2a2a;
+            margin: 24px 0 12px;
+            transition: border 0.3s, background 0.3s;
         }
-        .detail-card ul li:last-child {
-            border-bottom: none;
+        .accept-box.checked {
+            border-color: #cc0000;
+            background: #1f0f0f;
         }
-        .detail-card ul li i {
-            color: var(--accent);
+        .accept-box input[type="checkbox"] {
             width: 20px;
-            text-align: center;
+            height: 20px;
+            accent-color: #cc0000;
+            cursor: pointer;
+            flex-shrink: 0;
         }
-        .detail-card .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-tab);
-            border-radius: 50px;
-            margin-top: 8px;
-            overflow: hidden;
+        .accept-box label {
+            font-size: 15px;
+            color: #ccc;
+            cursor: pointer;
         }
-        .detail-card .progress-bar .fill {
-            height: 100%;
-            border-radius: 50px;
-            background: var(--accent-gradient);
-            width: 0%;
-            transition: width 1s ease;
+        .accept-box label strong {
+            color: #fff;
         }
-        .metric-row {
+
+        .confirm-btn {
+            background: #cc0000;
+            border: none;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, opacity 0.3s;
+            opacity: 0.4;
+            pointer-events: none;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .confirm-btn.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .confirm-btn.enabled:hover {
+            background: #aa0000;
+            transform: scale(1.02);
+        }
+
+        /* navigation */
+        .nav-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .metric-row:last-child {
-            border-bottom: none;
-        }
-        .metric-row .label {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .metric-row .value {
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--text-primary);
-        }
-        .status-badge {
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .status-badge.success {
-            background: #dcfce7;
-            color: #16a34a;
-        }
-        .status-badge.warning {
-            background: #fef9c3;
-            color: #ca8a04;
-        }
-        .status-badge.danger {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-badge.info {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-        .dark-mode .status-badge.success {
-            background: #1a3a2a;
-            color: #4ade80;
-        }
-        .dark-mode .status-badge.warning {
-            background: #3d3800;
-            color: #facc15;
-        }
-        .dark-mode .status-badge.danger {
-            background: #3d1a1a;
-            color: #f87171;
-        }
-        .dark-mode .status-badge.info {
-            background: #1a2a4a;
-            color: #60a5fa;
-        }
-        .premium-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0b1a33;
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* ── Loading spinner inside tab panel ── */
-        .panel-loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 0;
-            grid-column: 1 / -1;
-        }
-        .panel-loader .spinner-small {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-light);
-            border-top: 4px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        /* ── Tutorial Modal ── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(6px);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        .modal-overlay.open {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .modal {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            max-width: 640px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 32px 36px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-light);
-            animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        .modal h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .modal .sub {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 16px;
-        }
-        .modal .step {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .modal .step:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .modal .step-number {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--accent-light);
-            color: var(--accent);
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 16px;
-        }
-        .modal .step-content h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .modal .step-content p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        .modal .close-modal {
             margin-top: 28px;
-            padding: 12px 32px;
-            border: none;
-            border-radius: 50px;
-            background: var(--accent-gradient);
-            color: #fff;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            float: right;
+            padding-top: 18px;
+            border-top: 1px solid #222;
         }
-        .modal .close-modal:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(79, 106, 245, 0.3);
-        }
-
-        /* ── Tooltip ── */
-        .detail-card .more-info {
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            background: var(--accent-light);
-            color: var(--accent);
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .nav-row .btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #ccc;
+            padding: 10px 28px;
+            border-radius: 40px;
             font-size: 14px;
-            transition: var(--transition);
-            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s, color 0.2s;
         }
-        .detail-card .more-info:hover {
-            background: var(--accent);
+        .nav-row .btn:hover {
+            background: #1a1a1a;
+            border-color: #555;
+        }
+        .nav-row .btn-primary {
+            background: #cc0000;
+            border-color: #cc0000;
             color: #fff;
-            transform: scale(1.1);
+        }
+        .nav-row .btn-primary:hover {
+            background: #aa0000;
+            border-color: #aa0000;
+        }
+        .nav-row .btn:disabled {
+            opacity: 0.3;
+            pointer-events: none;
         }
 
-        /* ── Responsive ── */
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .content-grid.three {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        @media (max-width: 768px) {
-            body {
-                padding: 16px 12px 30px;
-            }
-            .app-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 14px;
-            }
-            .brand h1 {
+        /* responsive */
+        @media (max-width: 600px) {
+            .loader-logo .brand-text {
                 font-size: 22px;
             }
-            .header-actions {
-                justify-content: space-between;
+            .loader-logo .v-badge {
+                width: 56px;
+                height: 56px;
+                font-size: 32px;
             }
-            .header-actions .date-badge {
-                font-size: 12px;
-                padding: 8px 16px;
+            .tut-card {
+                padding: 24px 16px 20px;
             }
-            .tabs-nav {
-                border-radius: 20px;
-                padding: 4px;
-                gap: 4px;
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-            }
-            .tab-btn {
-                min-width: 70px;
-                padding: 10px 16px;
-                font-size: 13px;
-                flex: 0 0 auto;
-            }
-            .tab-btn span {
-                display: none;
-            }
-            .tab-btn i {
-                font-size: 18px;
-            }
-            .panel-header .title-group h2 {
-                font-size: 28px;
-            }
-            .content-grid,
-            .content-grid.three {
+            .info-grid {
                 grid-template-columns: 1fr;
             }
-            .stats-strip {
-                grid-template-columns: 1fr 1fr;
+            .privacy-grid {
+                grid-template-columns: 1fr;
             }
-            .panel-header {
+            .setting-row {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .panel-header .action-btn {
-                justify-content: center;
+            .setting-row .label {
+                min-width: auto;
             }
-            .stat-card {
-                padding: 14px 16px;
+            .nav-row {
+                flex-wrap: wrap;
+                gap: 10px;
             }
-            .stat-info .stat-value {
-                font-size: 18px;
-            }
-            .detail-card {
-                padding: 20px;
-            }
-        }
-        @media (max-width: 480px) {
-            .stats-strip {
-                grid-template-columns: 1fr;
-            }
-            .brand-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+            .nav-row .btn {
+                flex: 1;
+                text-align: center;
+                padding: 10px 16px;
+                font-size: 13px;
             }
         }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+
+        /* scroll inside card */
+        .tut-card {
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-tab);
-            border-radius: 50px;
+        .tut-card::-webkit-scrollbar {
+            width: 4px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 50px;
+        .tut-card::-webkit-scrollbar-track {
+            background: #0b0b0b;
+        }
+        .tut-card::-webkit-scrollbar-thumb {
+            background: #cc0000;
+            border-radius: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #1f0f0f;
+            color: #cc0000;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 30px;
+            border: 1px solid #331111;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- ═══ PAGE LOADER ═══ -->
-    <div id="pageLoader">
-        <div class="spinner"></div>
-        <p>Loading Premium Dashboard...</p>
+    <!-- ─── LOADING SCREEN ─── -->
+    <div id="loadingScreen">
+        <div class="loader-logo">
+            <div class="v-badge">V</div>
+            <div class="brand-text">VAJIRA <span>MD</span> LITE</div>
+        </div>
+        <div class="loader-bar-wrap">
+            <div class="bar" id="progressBar" style="width:0%;"></div>
+        </div>
+        <div class="loader-percent" id="percentText">0%</div>
     </div>
 
-    <!-- ═══ TUTORIAL MODAL ═══ -->
-    <div class="modal-overlay" id="tutorialModal">
-        <div class="modal">
-            <h2>🎓 Quick Tour</h2>
-            <div class="sub">Learn how to get the most out of your dashboard</div>
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h4>📊 Real‑time Stats</h4>
-                    <p>The top strip shows key metrics with live updates. Hover over any card for a subtle lift effect.</p>
+    <!-- ─── TUTORIAL CONTAINER ─── -->
+    <div id="tutorialContainer">
+        <div class="tut-card">
+
+            <!-- step dots -->
+            <div class="step-dots" id="stepDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+            </div>
+
+            <!-- ===== TAB 1 : ABOUT ===== -->
+            <div class="tab-content active" data-tab="0">
+                <h2>📖 About <span class="accent">Vajira MD</span></h2>
+                <div class="subhead">WhatsApp Bot · Next‑gen automation</div>
+                <div class="info-grid">
+                    <div class="item"><span class="label">Bot Name</span><span class="value highlight">Vajira MD</span></div>
+                    <div class="item"><span class="label">Developer</span><span class="value">Vajira Rathnayaka</span></div>
+                    <div class="item"><span class="label">Age</span><span class="value">23</span></div>
+                    <div class="item"><span class="label">Village</span><span class="value">Balangoda</span></div>
+                    <div class="item"><span class="label">Built with</span><span class="value">Node.js · Baileys</span></div>
+                    <div class="item"><span class="label">Version</span><span class="value">2.4.0 <span class="tag">stable</span></span></div>
+                </div>
+                <div style="margin-top:20px; background:#111; padding:14px 18px; border-radius:12px; border-left:4px solid #cc0000;">
+                    <p style="font-size:14px; color:#bbb; line-height:1.6;">
+                        <strong style="color:#fff;">⚡ Vajira MD</strong> is a lightweight, high‑performance WhatsApp bot
+                        built for automation, media sharing, and smart messaging. Engineered with precision by
+                        <strong style="color:#cc0000;">Vajira Rathnayaka</strong>.
+                    </p>
                 </div>
             </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h4>🔄 Tab Navigation</h4>
-                    <p>Switch between Dashboard, Analytics, Settings, Profile, and Notifications. Each tab loads its content with a smooth animation.</p>
+
+            <!-- ===== TAB 2 : SETTINGS ===== -->
+            <div class="tab-content" data-tab="1">
+                <h2>⚙️ Bot <span class="accent">Settings</span></h2>
+                <div class="subhead">Connect your WhatsApp account</div>
+
+                <div style="margin-bottom:16px;">
+                    <div style="display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:10px;">
+                        <span style="background:#1a1a1a; padding:4px 14px; border-radius:30px; font-size:13px; border:1px solid #2a2a2a;">🎤 Auto‑Voice</span>
+                        <span style="background:#1a1a1a; padding:4px 14px; border-radius:30px; font-size:13px; border:1px solid #2a2a2a;">📲 OTP Login</span>
+                        <span style="background:#1a1a1a; padding:4px 14px; border-radius:30px; font-size:13px; border:1px solid #2a2a2a;">🔁 Multi‑Session</span>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <span class="label">📞 Connected Number</span>
+                    <div class="input-group">
+                        <input type="text" id="phoneInput" placeholder="+94 70 000 0000" value="+94 70 123 4567" />
+                        <button class="otp-btn" id="requestOtpBtn">Request OTP</button>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="border-color:#2a1a1a;">
+                    <span class="label">🔑 OTP Code</span>
+                    <div class="input-group">
+                        <input type="text" id="otpInput" placeholder="6‑digit code" maxlength="6" />
+                        <button class="otp-btn" id="loginBtn" style="background:#222; color:#ccc; border:1px solid #444;">Log In</button>
+                    </div>
+                </div>
+
+                <div style="margin-top:10px; font-size:13px; color:#666; display:flex; gap:20px; flex-wrap:wrap;">
+                    <span>✅ Session: <strong style="color:#0a0;">Active</strong></span>
+                    <span>🔄 Last sync: <strong style="color:#ccc;">2 min ago</strong></span>
                 </div>
             </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h4>⚡ Loading States</h4>
-                    <p>Every card shows a shimmering skeleton while data is being fetched. The tab panels also display a spinner during content refresh.</p>
+
+            <!-- ===== TAB 3 : AUTO SENDER ===== -->
+            <div class="tab-content" data-tab="2">
+                <h2>📤 Auto <span class="accent">Sender</span></h2>
+                <div class="subhead">Song · TikTok · any location</div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px;">
+                    <label style="display:flex; align-items:center; gap:6px; background:#1a1a1a; padding:6px 16px; border-radius:30px; border:1px solid #2a2a2a; cursor:pointer;">
+                        <input type="radio" name="senderType" value="audio" checked /> 🎵 Audio
+                    </label>
+                    <label style="display:flex; align-items:center; gap:6px; background:#1a1a1a; padding:6px 16px; border-radius:30px; border:1px solid #2a2a2a; cursor:pointer;">
+                        <input type="radio" name="senderType" value="tiktok" /> 🎬 TikTok
+                    </label>
+                </div>
+
+                <div class="setting-row">
+                    <span class="label">📍 JID / Location</span>
+                    <input type="text" id="jidInput" placeholder="e.g. 94701234567@s.whatsapp.net" value="94701234567@s.whatsapp.net" style="flex:2;" />
+                </div>
+
+                <div class="setting-row">
+                    <span class="label">✏️ Caption</span>
+                    <input type="text" id="captionInput" placeholder="Custom caption..." value="✨ Check this out!" style="flex:2;" />
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="setting-row" style="flex-direction:column; align-items:stretch;">
+                        <span class="label">🎚️ Audio Quality</span>
+                        <select id="audioQuality">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="setting-row" style="flex-direction:column; align-items:stretch;">
+                        <span class="label">⏱️ Interval</span>
+                        <select id="intervalSelect">
+                            <option value="30">30 sec</option>
+                            <option value="60" selected>1 min</option>
+                            <option value="120">2 min</option>
+                            <option value="300">5 min</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="flex-direction:column; align-items:stretch;">
+                    <span class="label">🏷️ Keywords (comma)</span>
+                    <input type="text" id="keywordsInput" placeholder="music, viral, trending" value="music, viral, trending" />
                 </div>
             </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <h4>🌙 Dark Mode</h4>
-                    <p>Click the moon/sun icon in the header to toggle between light and dark themes – your preference is preserved during the session.</p>
+
+            <!-- ===== TAB 4 : PRIVACY & TERMS ===== -->
+            <div class="tab-content" data-tab="3">
+                <h2>🛡️ Privacy & <span class="accent">Terms</span></h2>
+                <div class="subhead">Ultrafast · Anti‑ban · Secure</div>
+
+                <div class="privacy-grid">
+                    <div class="pill"><span class="icon">🚀</span><div class="info"><strong>Ultrafast</strong><small>sub‑200ms response</small></div></div>
+                    <div class="pill"><span class="icon">🛡️</span><div class="info"><strong>Anti‑Ban</strong><small>smart rotation</small></div></div>
+                    <div class="pill"><span class="icon">🔒</span><div class="info"><strong>End‑to‑End</strong><small>encrypted</small></div></div>
+                    <div class="pill"><span class="icon">⚡</span><div class="info"><strong>Always On</strong><small>99.9% uptime</small></div></div>
+                    <div class="pill" style="grid-column:1/-1;"><span class="icon">🧠</span><div class="info"><strong>Smart Queue</strong><small>intelligent message routing</small></div></div>
                 </div>
-            </div>
-            <div class="step">
-                <div class="step-number">5</div>
-                <div class="step-content">
-                    <h4>🔍 More Details</h4>
-                    <p>Each card has a small “i” button (top‑right) that reveals extra insights – hover or click for detailed tooltips.</p>
+
+                <div style="background:#111; padding:14px 18px; border-radius:12px; margin:12px 0 8px; border:1px solid #1f1f1f;">
+                    <p style="font-size:13px; color:#888; line-height:1.7;">
+                        By using Vajira MD you agree to our <strong style="color:#ccc;">Privacy Policy</strong> and
+                        <strong style="color:#ccc;">Terms of Service</strong>. Your data is never shared with third parties.
+                    </p>
                 </div>
+
+                <!-- accept checkbox -->
+                <div class="accept-box" id="acceptBox">
+                    <input type="checkbox" id="acceptCheck" />
+                    <label for="acceptCheck">
+                        I have read and agree to all <strong>Terms &amp; Conditions</strong> and
+                        confirm that I am the rightful owner of the connected number.
+                    </label>
+                </div>
+
+                <button class="confirm-btn" id="confirmBtn">✔ Confirm &amp; Open Dashboard</button>
             </div>
-            <button class="close-modal" id="closeTutorial">Got it!</button>
+
+            <!-- navigation -->
+            <div class="nav-row">
+                <button class="btn" id="prevBtn" disabled>← Back</button>
+                <span style="font-size:13px; color:#555;" id="stepCounter">1 / 4</span>
+                <button class="btn btn-primary" id="nextBtn">Next →</button>
+            </div>
+
         </div>
     </div>
 
-    <!-- ═══ MAIN APP ═══ -->
-    <div class="app">
-
-        <!-- HEADER -->
-        <header class="app-header">
-            <div class="brand">
-                <div class="brand-icon"><i class="fas fa-crown"></i></div>
-                <div>
-                    <h1>Premium<span>Hub</span></h1>
-                </div>
-            </div>
-            <div class="header-actions">
-                <div class="date-badge">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span id="currentDate"></span>
-                </div>
-                <button class="tutorial-toggle" id="tutorialToggle" aria-label="Open tutorial">
-                    <i class="fas fa-graduation-cap"></i>
-                </button>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </header>
-
-        <!-- STATS STRIP -->
-        <section class="stats-strip" id="statsStrip">
-            <!-- Skeleton placeholders will be replaced by JS -->
-            <div class="stat-card skeleton-card">
-                <div class="skeleton skeleton-circle"></div>
-                <div class="stat-info">
-                    <div class="skeleton skeleton-text" style="width:60px;"></div>
-                    <div class="skeleton skeleton-text" style="width:80px;"></div>
-                    <div class="skeleton skeleton-text short" style="width:50px;"></div>
-                </div>
-            </div>
-            <div class="stat-card skeleton-card">
-                <div class="skeleton skeleton-circle"></div>
-                <div class="stat-info">
-                    <div class="skeleton skeleton-text" style="width:60px;"></div>
-                    <div class="skeleton skeleton-text" style="width:80px;"></div>
-                    <div class="skeleton skeleton-text short" style="width:50px;"></div>
-                </div>
-            </div>
-            <div class="stat-card skeleton-card">
-                <div class="skeleton skeleton-circle"></div>
-                <div class="stat-info">
-                    <div class="skeleton skeleton-text" style="width:60px;"></div>
-                    <div class="skeleton skeleton-text" style="width:80px;"></div>
-                    <div class="skeleton skeleton-text short" style="width:50px;"></div>
-                </div>
-            </div>
-            <div class="stat-card skeleton-card">
-                <div class="skeleton skeleton-circle"></div>
-                <div class="stat-info">
-                    <div class="skeleton skeleton-text" style="width:60px;"></div>
-                    <div class="skeleton skeleton-text" style="width:80px;"></div>
-                    <div class="skeleton skeleton-text short" style="width:50px;"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TABS NAV -->
-        <nav class="tabs-nav" role="tablist">
-            <button class="tab-btn active" data-tab="tab1" role="tab">
-                <i class="fas fa-gauge-high"></i> <span>Dashboard</span>
-                <span class="badge">Live</span>
-            </button>
-            <button class="tab-btn" data-tab="tab2" role="tab">
-                <i class="fas fa-chart-pie"></i> <span>Analytics</span>
-                <span class="badge">12</span>
-            </button>
-            <button class="tab-btn" data-tab="tab3" role="tab">
-                <i class="fas fa-gear"></i> <span>Settings</span>
-                <span class="badge">Pro</span>
-            </button>
-            <button class="tab-btn" data-tab="tab4" role="tab">
-                <i class="fas fa-user-astronaut"></i> <span>Profile</span>
-                <span class="badge">VIP</span>
-            </button>
-            <button class="tab-btn" data-tab="tab5" role="tab">
-                <i class="fas fa-bell"></i> <span>Notifications</span>
-                <span class="badge">3</span>
-            </button>
-        </nav>
-
-        <!-- TAB PANELS -->
-        <div class="tab-panels">
-
-            <!-- TAB 1: DASHBOARD -->
-            <div class="tab-panel active" id="tab1" role="tabpanel">
-                <div class="panel-header">
-                    <div class="title-group">
-                        <h2>📊 Dashboard Overview</h2>
-                        <div class="sub">Real-time insights &amp; key performance indicators</div>
-                    </div>
-                    <button class="action-btn"><i class="fas fa-file-export"></i> Export Report</button>
-                </div>
-
-                <!-- Skeleton grid, will be replaced -->
-                <div class="content-grid" id="dashboardGrid">
-                    <div class="detail-card skeleton-card">
-                        <div class="skeleton skeleton-text" style="width:60%;"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width:80%;"></div>
-                        <div class="skeleton skeleton-text short"></div>
-                    </div>
-                    <div class="detail-card skeleton-card">
-                        <div class="skeleton skeleton-text" style="width:60%;"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width:80%;"></div>
-                        <div class="skeleton skeleton-text short"></div>
-                    </div>
-                    <div class="detail-card skeleton-card">
-                        <div class="skeleton skeleton-text" style="width:60%;"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width:80%;"></div>
-                        <div class="skeleton skeleton-text short"></div>
-                    </div>
-                    <div class="detail-card skeleton-card">
-                        <div class="skeleton skeleton-text" style="width:60%;"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width:80%;"></div>
-                        <div class="skeleton skeleton-text short"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: ANALYTICS -->
-            <div class="tab-panel" id="tab2" role="tabpanel">
-                <div class="panel-header">
-                    <div class="title-group">
-                        <h2>📈 Analytics &amp; Intelligence</h2>
-                        <div class="sub">Deep-dive data with predictive insights</div>
-                    </div>
-                    <button class="action-btn"><i class="fas fa-download"></i> Download CSV</button>
-                </div>
-                <div class="content-grid three" id="analyticsGrid">
-                    <!-- Skeleton will be populated by JS -->
-                </div>
-            </div>
-
-            <!-- TAB 3: SETTINGS -->
-            <div class="tab-panel" id="tab3" role="tabpanel">
-                <div class="panel-header">
-                    <div class="title-group">
-                        <h2>⚙️ System Settings</h2>
-                        <div class="sub">Configure your premium workspace</div>
-                    </div>
-                    <button class="action-btn"><i class="fas fa-save"></i> Save Changes</button>
-                </div>
-                <div class="content-grid full" id="settingsGrid">
-                    <!-- Skeleton -->
-                </div>
-            </div>
-
-            <!-- TAB 4: PROFILE -->
-            <div class="tab-panel" id="tab4" role="tabpanel">
-                <div class="panel-header">
-                    <div class="title-group">
-                        <h2>👤 Profile &amp; Account</h2>
-                        <div class="sub">Manage your personal information</div>
-                    </div>
-                    <button class="action-btn"><i class="fas fa-pen"></i> Edit Profile</button>
-                </div>
-                <div class="content-grid" id="profileGrid">
-                    <!-- Skeleton -->
-                </div>
-            </div>
-
-            <!-- TAB 5: NOTIFICATIONS -->
-            <div class="tab-panel" id="tab5" role="tabpanel">
-                <div class="panel-header">
-                    <div class="title-group">
-                        <h2>🔔 Notifications Center</h2>
-                        <div class="sub">Stay updated with real-time alerts</div>
-                    </div>
-                    <button class="action-btn"><i class="fas fa-check-double"></i> Mark All Read</button>
-                </div>
-                <div class="content-grid full" id="notificationsGrid">
-                    <!-- Skeleton -->
-                </div>
-            </div>
-
-        </div><!-- /tab-panels -->
-
-        <!-- FOOTER -->
-        <footer style="margin-top:44px;padding-top:20px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--text-muted);">
-            <span>© 2026 PremiumHub — All rights reserved.</span>
-            <span style="display:flex;gap:20px;">
-                <a href="#" style="color:var(--text-muted);text-decoration:none;transition:var(--transition);">Privacy</a>
-                <a href="#" style="color:var(--text-muted);text-decoration:none;transition:var(--transition);">Terms</a>
-                <a href="#" style="color:var(--text-muted);text-decoration:none;transition:var(--transition);">Support</a>
-                <span style="display:flex;align-items:center;gap:6px;">
-                    <i class="fas fa-circle" style="color:#22c55e;font-size:10px;"></i> All systems operational
-                </span>
-            </span>
-        </footer>
-
-    </div><!-- /app -->
-
+    <!-- ════════════════════════════════════════════════════ -->
+    <!-- ─── JAVASCRIPT ─── -->
+    <!-- ════════════════════════════════════════════════════ -->
     <script>
-        // ──────────────────────────────────────────────
-        // 1. PAGE LOADER
-        // ──────────────────────────────────────────────
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('pageLoader').classList.add('hidden');
-                // after loader, populate content with real data
-                populateStats();
-                populateDashboard();
-                populateAnalytics();
-                populateSettings();
-                populateProfile();
-                populateNotifications();
-            }, 1500); // simulate loading
-        });
+        (function() {
+            'use strict';
 
-        // ──────────────────────────────────────────────
-        // 2. DATE
-        // ──────────────────────────────────────────────
-        document.getElementById('currentDate').textContent =
-            new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            // ── DOM refs ──
+            const loadingScreen = document.getElementById('loadingScreen');
+            const progressBar = document.getElementById('progressBar');
+            const percentText = document.getElementById('percentText');
+            const tutorial = document.getElementById('tutorialContainer');
 
-        // ──────────────────────────────────────────────
-        // 3. THEME TOGGLE
-        // ──────────────────────────────────────────────
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-        let dark = false;
-        themeToggle.addEventListener('click', () => {
-            dark = !dark;
-            document.body.classList.toggle('dark-mode', dark);
-            themeIcon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
-        });
+            const tabs = document.querySelectorAll('.tab-content');
+            const dots = document.querySelectorAll('.step-dots .dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const stepCounter = document.getElementById('stepCounter');
 
-        // ──────────────────────────────────────────────
-        // 4. TUTORIAL MODAL
-        // ──────────────────────────────────────────────
-        const tutorialModal = document.getElementById('tutorialModal');
-        document.getElementById('tutorialToggle').addEventListener('click', () => {
-            tutorialModal.classList.add('open');
-        });
-        document.getElementById('closeTutorial').addEventListener('click', () => {
-            tutorialModal.classList.remove('open');
-        });
-        tutorialModal.addEventListener('click', (e) => {
-            if (e.target === tutorialModal) tutorialModal.classList.remove('open');
-        });
+            const acceptCheck = document.getElementById('acceptCheck');
+            const acceptBox = document.getElementById('acceptBox');
+            const confirmBtn = document.getElementById('confirmBtn');
 
-        // ──────────────────────────────────────────────
-        // 5. TABS with LOADING SPINNER
-        // ──────────────────────────────────────────────
-        const tabs = document.querySelectorAll('.tab-btn');
-        const panelMap = {
-            tab1: document.getElementById('tab1'),
-            tab2: document.getElementById('tab2'),
-            tab3: document.getElementById('tab3'),
-            tab4: document.getElementById('tab4'),
-            tab5: document.getElementById('tab5'),
-        };
+            // OTP / login
+            const requestOtpBtn = document.getElementById('requestOtpBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const phoneInput = document.getElementById('phoneInput');
+            const otpInput = document.getElementById('otpInput');
 
-        tabs.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // deactivate all
-                tabs.forEach(b => b.classList.remove('active'));
-                Object.values(panelMap).forEach(p => p.classList.remove('active'));
+            let currentTab = 0;
+            const totalTabs = tabs.length;
 
-                // activate current
-                btn.classList.add('active');
-                const target = btn.dataset.tab;
-                const panel = panelMap[target];
-                if (panel) {
-                    // show loader inside panel
-                    const loader = document.createElement('div');
-                    loader.className = 'panel-loader';
-                    loader.innerHTML = '<div class="spinner-small"></div>';
-                    // remove any existing loader
-                    const oldLoader = panel.querySelector('.panel-loader');
-                    if (oldLoader) oldLoader.remove();
-                    panel.appendChild(loader);
-
-                    // simulate loading, then show content (already exists)
+            // ── LOADING ──
+            let progress = 0;
+            const loadInterval = setInterval(() => {
+                progress += Math.floor(Math.random() * 8) + 3;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+                percentText.textContent = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(loadInterval);
                     setTimeout(() => {
-                        panel.classList.add('active');
-                        // remove loader after a moment
+                        loadingScreen.classList.add('hide');
+                        tutorial.classList.add('active');
+                        // small extra animation
+                    }, 400);
+                }
+            }, 160);
+
+            // ── TAB NAVIGATION ──
+            function goToTab(index) {
+                if (index < 0 || index >= totalTabs) return;
+                currentTab = index;
+
+                tabs.forEach((el, i) => {
+                    el.classList.toggle('active', i === index);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.remove('active', 'done');
+                    if (i === index) dot.classList.add('active');
+                    else if (i < index) dot.classList.add('done');
+                });
+
+                prevBtn.disabled = index === 0;
+                nextBtn.textContent = index === totalTabs - 1 ? 'Finish' : 'Next →';
+                stepCounter.textContent = (index + 1) + ' / ' + totalTabs;
+
+                // if last tab, show accept state
+                if (index === totalTabs - 1) {
+                    updateConfirmBtn();
+                }
+            }
+
+            prevBtn.addEventListener('click', () => goToTab(currentTab - 1));
+            nextBtn.addEventListener('click', () => {
+                if (currentTab === totalTabs - 1) {
+                    // last tab → confirm check
+                    if (acceptCheck.checked) {
+                        window.location.href = '/dashboard.html';
+                    } else {
+                        acceptBox.style.borderColor = '#cc0000';
+                        acceptBox.style.background = '#1f0a0a';
                         setTimeout(() => {
-                            const l = panel.querySelector('.panel-loader');
-                            if (l) l.remove();
-                        }, 400);
-                    }, 600);
+                            acceptBox.style.borderColor = '#2a2a2a';
+                            acceptBox.style.background = '#1a1a1a';
+                        }, 800);
+                    }
+                    return;
+                }
+                goToTab(currentTab + 1);
+            });
+
+            // ── ACCEPT / CONFIRM ──
+            function updateConfirmBtn() {
+                const checked = acceptCheck.checked;
+                confirmBtn.classList.toggle('enabled', checked);
+                acceptBox.classList.toggle('checked', checked);
+            }
+
+            acceptCheck.addEventListener('change', updateConfirmBtn);
+
+            confirmBtn.addEventListener('click', () => {
+                if (acceptCheck.checked) {
+                    window.location.href = '/dashboard.html';
+                } else {
+                    acceptBox.style.borderColor = '#cc0000';
+                    acceptBox.style.background = '#1f0a0a';
+                    setTimeout(() => {
+                        acceptBox.style.borderColor = '#2a2a2a';
+                        acceptBox.style.background = '#1a1a1a';
+                    }, 800);
                 }
             });
-        });
 
-        // ──────────────────────────────────────────────
-        // 6. POPULATE FUNCTIONS (real data)
-        // ──────────────────────────────────────────────
-        function populateStats() {
-            const statsData = [
-                { icon: 'fa-chart-line', label: 'Revenue', value: '$48.2K', change: '+12.4%', positive: true },
-                { icon: 'fa-users', label: 'Active Users', value: '2,847', change: '+8.1%', positive: true },
-                { icon: 'fa-tasks', label: 'Completion', value: '76%', change: '-2.3%', positive: false },
-                { icon: 'fa-star', label: 'Satisfaction', value: '4.9', change: '+0.6', positive: true },
-            ];
-            const strip = document.getElementById('statsStrip');
-            strip.innerHTML = '';
-            statsData.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'stat-card';
-                card.innerHTML = `
-                    <div class="stat-icon"><i class="fas ${item.icon}"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-label">${item.label}</div>
-                        <div class="stat-value">${item.value}</div>
-                        <div class="stat-change ${item.positive ? '' : 'negative'}"><i class="fas ${item.positive ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> ${item.change}</div>
-                    </div>
-                `;
-                strip.appendChild(card);
+            // ── OTP simulation ──
+            requestOtpBtn.addEventListener('click', () => {
+                const num = phoneInput.value.trim() || '+94 70 123 4567';
+                alert('📨 OTP sent to ' + num + '\nCheck your WhatsApp (simulated).');
+                // fill random OTP for demo
+                const fakeOtp = String(Math.floor(100000 + Math.random() * 900000));
+                otpInput.value = fakeOtp;
             });
-        }
 
-        function populateDashboard() {
-            const grid = document.getElementById('dashboardGrid');
-            grid.innerHTML = `
-                <div class="detail-card">
-                    <button class="more-info" title="More details"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-rocket"></i> Recent Activity</div>
-                    <ul>
-                        <li><i class="fas fa-circle-check"></i> Project Alpha deployed successfully</li>
-                        <li><i class="fas fa-circle-check"></i> New user onboarding +24</li>
-                        <li><i class="fas fa-circle-check"></i> Payment gateway updated</li>
-                        <li><i class="fas fa-circle-check"></i> Weekly backup completed</li>
-                        <li><i class="fas fa-circle-check"></i> Security audit passed</li>
-                    </ul>
-                    <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-                        <span class="status-badge success"><i class="fas fa-check-circle"></i> 5 completed</span>
-                        <span class="status-badge warning"><i class="fas fa-clock"></i> 2 pending</span>
-                    </div>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Performance breakdown"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-chart-simple"></i> Performance Metrics</div>
-                    <div class="metric-row"><span class="label">Page Load Time</span><span class="value">1.2s <span style="color:#22c55e;font-size:13px;">↓ 0.3s</span></span></div>
-                    <div class="metric-row"><span class="label">API Response</span><span class="value">84ms <span style="color:#22c55e;font-size:13px;">↑ 12ms</span></span></div>
-                    <div class="metric-row"><span class="label">Uptime</span><span class="value">99.97% <span class="status-badge success" style="font-size:12px;padding:2px 12px;">Excellent</span></span></div>
-                    <div class="metric-row"><span class="label">Error Rate</span><span class="value">0.04% <span style="color:#22c55e;font-size:13px;">↓ 0.02%</span></span></div>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Team availability"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-users-gear"></i> Team Status</div>
-                    <ul>
-                        <li><i class="fas fa-user"></i> 12 online now</li>
-                        <li><i class="fas fa-user"></i> 8 in meetings</li>
-                        <li><i class="fas fa-user"></i> 4 away</li>
-                    </ul>
-                    <div style="margin-top:12px;">
-                        <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-muted);">
-                            <span>Overall availability</span>
-                            <span style="font-weight:700;color:var(--text-primary);">82%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill" style="width:82%;"></div></div>
-                    </div>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Goal tracking"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-bullseye"></i> Goal Progress</div>
-                    <div style="margin-bottom:14px;">
-                        <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-muted);">
-                            <span>Q4 Revenue Target</span>
-                            <span style="font-weight:700;color:var(--text-primary);">$48.2K / $60K</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill" style="width:80%;"></div></div>
-                    </div>
-                    <div style="margin-bottom:14px;">
-                        <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-muted);">
-                            <span>User Growth</span>
-                            <span style="font-weight:700;color:var(--text-primary);">2,847 / 3,000</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill" style="width:95%;"></div></div>
-                    </div>
-                    <div>
-                        <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-muted);">
-                            <span>Task Completion</span>
-                            <span style="font-weight:700;color:var(--text-primary);">76 / 100</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill" style="width:76%;"></div></div>
-                    </div>
-                </div>
-            `;
-            // add tooltip functionality
-            document.querySelectorAll('.more-info').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const card = this.closest('.detail-card');
-                    const title = card.querySelector('.card-title')?.innerText || 'Details';
-                    alert(`ℹ️ More info about “${title}”\n\nThis card contains detailed metrics and status updates. Hover over items for additional context.`);
+            loginBtn.addEventListener('click', () => {
+                const otp = otpInput.value.trim();
+                if (otp.length >= 4) {
+                    alert('✅ Logged in successfully!\nWelcome to Vajira MD.');
+                } else {
+                    alert('❌ Please enter a valid OTP.');
+                }
+            });
+
+            // ── keyboard shortcut: Enter to next ──
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Enter') {
+                    if (!e.target.closest('input, select, button')) {
+                        nextBtn.click();
+                    }
+                }
+                if (e.key === 'ArrowLeft') {
+                    if (!e.target.closest('input, select, button')) {
+                        prevBtn.click();
+                    }
+                }
+            });
+
+            // ── init ──
+            goToTab(0);
+
+            // small style for radio
+            document.querySelectorAll('input[type="radio"][name="senderType"]').forEach(r => {
+                r.addEventListener('change', function() {
+                    // just visual feedback
                 });
             });
-        }
 
-        function populateAnalytics() {
-            const grid = document.getElementById('analyticsGrid');
-            grid.innerHTML = `
-                <div class="detail-card">
-                    <button class="more-info" title="Page views breakdown"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-eye"></i> Page Views</div>
-                    <div style="font-size:42px;font-weight:800;margin:6px 0 4px;">147.2K</div>
-                    <p style="font-size:14px;color:var(--text-muted);">+18.4% vs last month</p>
-                    <div class="progress-bar" style="height:6px;margin-top:8px;"><div class="fill" style="width:84%;"></div></div>
-                    <p style="margin-top:12px;font-size:14px;color:var(--text-secondary);"><i class="fas fa-arrow-right" style="color:var(--accent);"></i> Peak hours: 10AM – 2PM</p>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Acquisition channels"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-user-plus"></i> Acquisition</div>
-                    <ul>
-                        <li><i class="fab fa-google"></i> Organic <span style="margin-left:auto;font-weight:700;">43%</span></li>
-                        <li><i class="fab fa-facebook"></i> Social <span style="margin-left:auto;font-weight:700;">28%</span></li>
-                        <li><i class="fas fa-envelope"></i> Email <span style="margin-left:auto;font-weight:700;">18%</span></li>
-                        <li><i class="fas fa-arrow-trend-up"></i> Referral <span style="margin-left:auto;font-weight:700;">11%</span></li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Engagement metrics"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-clock"></i> Engagement</div>
-                    <div class="metric-row"><span class="label">Avg. Session</span><span class="value">6m 24s</span></div>
-                    <div class="metric-row"><span class="label">Bounce Rate</span><span class="value">34.2%</span></div>
-                    <div class="metric-row"><span class="label">Pages / Session</span><span class="value">4.7</span></div>
-                    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                        <span class="status-badge success"><i class="fas fa-thumbs-up"></i> High</span>
-                        <span class="status-badge info"><i class="fas fa-flag"></i> Stable</span>
-                    </div>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Geographic distribution"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-location-dot"></i> Geographic</div>
-                    <ul>
-                        <li><i class="fas fa-flag-usa"></i> United States <span style="margin-left:auto;font-weight:700;">54%</span></li>
-                        <li><i class="fas fa-flag"></i> United Kingdom <span style="margin-left:auto;font-weight:700;">18%</span></li>
-                        <li><i class="fas fa-flag"></i> Canada <span style="margin-left:auto;font-weight:700;">12%</span></li>
-                        <li><i class="fas fa-flag"></i> Australia <span style="margin-left:auto;font-weight:700;">8%</span></li>
-                        <li><i class="fas fa-flag"></i> Other <span style="margin-left:auto;font-weight:700;">8%</span></li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Device breakdown"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-device"></i> Devices</div>
-                    <ul>
-                        <li><i class="fas fa-laptop"></i> Desktop <span style="margin-left:auto;font-weight:700;">62%</span></li>
-                        <li><i class="fas fa-mobile-screen"></i> Mobile <span style="margin-left:auto;font-weight:700;">29%</span></li>
-                        <li><i class="fas fa-tablet-screen"></i> Tablet <span style="margin-left:auto;font-weight:700;">9%</span></li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="AI predictions"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-brain"></i> AI Forecast</div>
-                    <p style="font-weight:600;font-size:16px;">Next month projections:</p>
-                    <ul>
-                        <li><i class="fas fa-arrow-up" style="color:#22c55e;"></i> Traffic +12%</li>
-                        <li><i class="fas fa-arrow-up" style="color:#22c55e;"></i> Conversions +7%</li>
-                        <li><i class="fas fa-arrow-down" style="color:#ef4444;"></i> Bounce -3%</li>
-                    </ul>
-                    <div style="margin-top:12px;background:var(--accent-light);padding:12px 16px;border-radius:12px;font-size:14px;color:var(--text-secondary);">
-                        <i class="fas fa-robot" style="color:var(--accent);margin-right:8px;"></i> Confidence: 94%
-                    </div>
-                </div>
-            `;
-        }
+            console.log('🚀 VAJIRA MD LITE · ready');
+            console.log('📌 Tutorial loaded · red/black/white theme');
 
-        function populateSettings() {
-            const grid = document.getElementById('settingsGrid');
-            grid.innerHTML = `
-                <div class="detail-card">
-                    <button class="more-info" title="General preferences"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-sliders"></i> General Preferences</div>
-                    <div class="metric-row"><span class="label">Language</span><span class="value">English (US) <i class="fas fa-chevron-down" style="font-size:12px;color:var(--text-muted);margin-left:6px;"></i></span></div>
-                    <div class="metric-row"><span class="label">Timezone</span><span class="value">UTC-5 (EST) <i class="fas fa-chevron-down" style="font-size:12px;color:var(--text-muted);margin-left:6px;"></i></span></div>
-                    <div class="metric-row"><span class="label">Currency</span><span class="value">USD ($)</span></div>
-                    <div class="metric-row"><span class="label">Notifications</span><span class="value"><span class="status-badge success">Enabled</span></span></div>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Security settings"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-shield-alt"></i> Security &amp; Privacy</div>
-                    <ul>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> Two-factor authentication <span style="margin-left:auto;font-weight:700;">Active</span></li>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> Session timeout: 30 min</li>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> Data encryption (AES-256)</li>
-                        <li><i class="fas fa-clock" style="color:#facc15;"></i> Last password change: 12 days ago</li>
-                    </ul>
-                    <button style="margin-top:14px;padding:10px 22px;border-radius:50px;border:1px solid var(--border-light);background:transparent;color:var(--text-secondary);font-weight:600;cursor:pointer;transition:var(--transition);font-family:inherit;">
-                        <i class="fas fa-key"></i> Change Password
-                    </button>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Premium features"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-crown"></i> Premium Features</div>
-                    <ul>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> Advanced Analytics <span class="premium-badge" style="margin-left:auto;"><i class="fas fa-crown"></i> Pro</span></li>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> AI-Powered Insights <span class="premium-badge" style="margin-left:auto;"><i class="fas fa-crown"></i> Pro</span></li>
-                        <li><i class="fas fa-check-circle" style="color:#22c55e;"></i> Unlimited Projects <span class="premium-badge" style="margin-left:auto;"><i class="fas fa-crown"></i> Pro</span></li>
-                        <li><i class="fas fa-clock" style="color:#facc15;"></i> Priority Support <span style="margin-left:auto;font-weight:700;color:var(--text-muted);">Upgrade</span></li>
-                    </ul>
-                    <button style="margin-top:14px;padding:12px 28px;border-radius:50px;border:none;background:var(--accent-gradient);color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;box-shadow:0 4px 16px rgba(79,106,245,0.3);">
-                        <i class="fas fa-arrow-up"></i> Upgrade to Enterprise
-                    </button>
-                </div>
-            `;
-        }
-
-        function populateProfile() {
-            const grid = document.getElementById('profileGrid');
-            grid.innerHTML = `
-                <div class="detail-card">
-                    <button class="more-info" title="Personal details"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-id-card"></i> Personal Details</div>
-                    <div style="display:flex;align-items:center;gap:20px;margin-bottom:18px;">
-                        <div style="width:72px;height:72px;border-radius:50%;background:var(--accent-gradient);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;font-weight:700;box-shadow:0 4px 16px rgba(79,106,245,0.25);">JD</div>
-                        <div>
-                            <div style="font-size:20px;font-weight:700;">John Doe</div>
-                            <div style="color:var(--text-muted);">john.doe@premiumhub.io</div>
-                            <span class="status-badge success" style="margin-top:4px;display:inline-block;">Verified</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><i class="fas fa-briefcase"></i> Senior Product Manager</li>
-                        <li><i class="fas fa-location-dot"></i> San Francisco, CA</li>
-                        <li><i class="fas fa-calendar"></i> Member since Jan 2024</li>
-                        <li><i class="fas fa-award"></i> Premium Tier: <span style="font-weight:700;color:var(--accent);">Enterprise</span></li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Account activity"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-activity"></i> Account Activity</div>
-                    <ul>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Last login: Today, 09:32 AM</li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Login attempts: 3 (all successful)</li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Active sessions: 2</li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Backup: Auto-sync enabled</li>
-                    </ul>
-                    <button style="margin-top:14px;padding:10px 22px;border-radius:50px;border:1px solid #ef4444;background:transparent;color:#ef4444;font-weight:600;cursor:pointer;transition:var(--transition);font-family:inherit;">
-                        <i class="fas fa-sign-out-alt"></i> Sign Out All Devices
-                    </button>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Achievements"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-badge-check"></i> Achievements</div>
-                    <ul>
-                        <li><i class="fas fa-trophy" style="color:#facc15;"></i> Top Performer Q3</li>
-                        <li><i class="fas fa-trophy" style="color:#facc15;"></i> 1000+ Contributions</li>
-                        <li><i class="fas fa-trophy" style="color:#facc15;"></i> Early Adopter</li>
-                        <li><i class="fas fa-trophy" style="color:#facc15;"></i> Community Leader</li>
-                    </ul>
-                    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
-                        <span class="status-badge info"><i class="fas fa-star"></i> 4 badges</span>
-                        <span class="status-badge success"><i class="fas fa-flag"></i> Level 7</span>
-                    </div>
-                </div>
-            `;
-        }
-
-        function populateNotifications() {
-            const grid = document.getElementById('notificationsGrid');
-            grid.innerHTML = `
-                <div class="detail-card">
-                    <button class="more-info" title="Unread alerts"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-bell" style="color:#facc15;"></i> Unread (3)</div>
-                    <ul>
-                        <li style="border-left:3px solid var(--accent);padding-left:14px;background:var(--accent-light);border-radius:0 8px 8px 0;margin-bottom:4px;">
-                            <i class="fas fa-upload" style="color:var(--accent);"></i> System update v3.2.1 available
-                            <span style="display:block;font-size:12px;color:var(--text-muted);margin-top:2px;">2 min ago</span>
-                        </li>
-                        <li style="border-left:3px solid var(--accent);padding-left:14px;background:var(--accent-light);border-radius:0 8px 8px 0;margin-bottom:4px;">
-                            <i class="fas fa-user-plus" style="color:var(--accent);"></i> 5 new users joined your team
-                            <span style="display:block;font-size:12px;color:var(--text-muted);margin-top:2px;">14 min ago</span>
-                        </li>
-                        <li style="border-left:3px solid var(--accent);padding-left:14px;background:var(--accent-light);border-radius:0 8px 8px 0;margin-bottom:4px;">
-                            <i class="fas fa-file-invoice" style="color:var(--accent);"></i> Monthly report is ready
-                            <span style="display:block;font-size:12px;color:var(--text-muted);margin-top:2px;">1 hour ago</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <button class="more-info" title="Previous alerts"><i class="fas fa-info"></i></button>
-                    <div class="card-title"><i class="fas fa-clock"></i> Previous Alerts</div>
-                    <ul>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Backup completed successfully <span style="margin-left:auto;font-size:12px;color:var(--text-muted);">2h ago</span></li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> New feature: Dark mode enabled <span style="margin-left:auto;font-size:12px;color:var(--text-muted);">5h ago</span></li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Security scan: no threats <span style="margin-left:auto;font-size:12px;color:var(--text-muted);">1d ago</span></li>
-                        <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Weekly digest sent <span style="margin-left:auto;font-size:12px;color:var(--text-muted);">2d ago</span></li>
-                    </ul>
-                </div>
-            `;
-        }
+        })();
     </script>
+
 </body>
 </html>
