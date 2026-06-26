@@ -1,53 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>VAJIRA MD · Protocol</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VAJIRA MD · Onboarding</title>
     <style>
-        /* ─── RESET & BASE ─── */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary-red: #ff003c;
+            --deep-blood: #4e0000;
+            --bg-black: #080808;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 0, 60, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html,
         body {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #09090b;
-            color: #eaeef2;
+            background-color: var(--bg-black);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 16px;
+            align-items: center;
             overflow: hidden;
+            padding: 16px;
         }
 
-        /* ─── AMBIENT GLOW ─── */
-        body::before {
-            content: '';
+        /* --- STUNNING LIQUID BACKGROUND --- */
+        .liquid-bg {
             position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(204, 0, 0, 0.03) 0%, transparent 50%);
-            z-index: 0;
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a0000 0%, #080808 100%);
+            z-index: -1;
         }
 
-        /* ─── LOADING SCREEN ─── */
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-red);
+            filter: blur(120px);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: move 20s infinite alternate ease-in-out;
+        }
+
+        .blob2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #ff003c;
+            filter: blur(100px);
+            border-radius: 50%;
+            opacity: 0.08;
+            animation: move2 25s infinite alternate ease-in-out;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(-10%, -10%) scale(1);
+            }
+            100% {
+                transform: translate(20%, 30%) scale(1.2);
+            }
+        }
+        @keyframes move2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(-30%, -20%) scale(1.3);
+            }
+        }
+
+        /* --- LOADING SCREEN --- */
         #loadingScreen {
             position: fixed;
             inset: 0;
             z-index: 2000;
-            background: #09090b;
+            background: #080808;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,19 +112,19 @@
             position: absolute;
             inset: 6px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #cc0000, #440000);
-            box-shadow: 0 0 60px rgba(204, 0, 0, 0.3);
+            background: radial-gradient(circle at 30% 30%, #ff003c, #440000);
+            box-shadow: 0 0 60px rgba(255, 0, 60, 0.3);
             animation: orbPulse 2s ease-in-out infinite;
         }
         @keyframes orbPulse {
             0%,
             100% {
                 transform: scale(1);
-                box-shadow: 0 0 60px rgba(204, 0, 0, 0.3);
+                box-shadow: 0 0 60px rgba(255, 0, 60, 0.3);
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 100px rgba(204, 0, 0, 0.5);
+                box-shadow: 0 0 100px rgba(255, 0, 60, 0.5);
             }
         }
         .loader-ring .trace {
@@ -89,7 +132,7 @@
             inset: -4px;
             border-radius: 50%;
             border: 2px solid transparent;
-            border-top-color: rgba(204, 0, 0, 0.3);
+            border-top-color: rgba(255, 0, 60, 0.3);
             animation: spinTrace 1.8s linear infinite;
         }
         .loader-ring .trace2 {
@@ -97,7 +140,7 @@
             inset: -10px;
             border-radius: 50%;
             border: 1.5px solid transparent;
-            border-bottom-color: rgba(204, 0, 0, 0.15);
+            border-bottom-color: rgba(255, 0, 60, 0.15);
             animation: spinTrace 3s linear infinite reverse;
         }
         @keyframes spinTrace {
@@ -114,10 +157,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 800;
             color: #fff;
-            text-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
+            text-shadow: 0 0 30px rgba(255, 0, 60, 0.2);
         }
         .loader-brand {
             text-align: center;
@@ -125,8 +168,8 @@
         }
         .loader-brand h1 {
             font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 50%, #cc0000);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 50%, #ff003c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -147,277 +190,215 @@
             letter-spacing: 2px;
         }
 
-        /* ─── MAIN CONTAINER ─── */
+        /* --- THE GLASS CONTAINER --- */
         #tutorialContainer {
             display: none;
             width: 100%;
-            max-width: 820px;
-            height: 100%;
-            max-height: 620px;
-            position: relative;
-            z-index: 1;
-            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 520px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #tutorialContainer.active {
             display: block;
         }
 
-        @keyframes fadeUp {
-            0% {
+        @keyframes slideUp {
+            from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.97);
+                transform: translateY(40px) scale(0.95);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
 
-        /* ─── GLASS CARD (PRIVACY SHIELD STYLE) ─── */
         .glass-card {
-            background: rgba(14, 14, 18, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 22px 28px 16px;
-            border: 1px solid rgba(204, 0, 0, 0.08);
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.7),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-            height: 100%;
+            position: relative;
+            width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 32px 28px 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-height: 92vh;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Glow border */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 29px;
-            padding: 1px;
-            background: conic-gradient(from 0deg, transparent, rgba(204, 0, 0, 0.08), rgba(204, 0, 0, 0.25), rgba(204, 0, 0, 0.08), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: borderPulse 4s ease-in-out infinite;
-            pointer-events: none;
-        }
-        @keyframes borderPulse {
-            0%,
-            100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .glass-card .glow-stripe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #cc0000, #ff4444, #cc0000, transparent);
-            background-size: 300% 100%;
-            animation: stripeMove 3s linear infinite;
-            opacity: 0.4;
-            filter: blur(0.5px);
-            pointer-events: none;
-        }
-        @keyframes stripeMove {
-            0% {
-                background-position: -300% 0;
-            }
-            100% {
-                background-position: 300% 0;
-            }
-        }
-
-        /* ─── STEP INDICATOR (DOTS) ─── */
+        /* --- STEP DOTS --- */
         .step-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             flex-shrink: 0;
-            position: relative;
-            z-index: 2;
         }
         .step-dots .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #26262e;
+            background: rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: default;
-            border: 1px solid transparent;
             flex-shrink: 0;
         }
         .step-dots .dot.active {
-            background: #cc0000;
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
-            transform: scale(1.25);
-            border-color: rgba(204, 0, 0, 0.2);
+            background: var(--primary-red);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
+            transform: scale(1.3);
         }
         .step-dots .dot.done {
-            background: #cc0000;
-            opacity: 0.2;
+            background: var(--primary-red);
+            opacity: 0.25;
             transform: scale(0.7);
         }
 
-        /* ─── TAB CONTENT ─── */
+        /* --- ICON BOX --- */
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-red), var(--deep-blood));
+            border-radius: 18px;
+            margin: 0 auto 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(255, 0, 60, 0.3);
+            animation: float 3s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .icon-box svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            stroke-width: 2.2;
+            fill: none;
+        }
+
+        /* --- TITLE --- */
+        .glass-card h1 {
+            font-weight: 800;
+            font-size: 1.7rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+            background: linear-gradient(to right, #fff, var(--primary-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+        }
+
+        .glass-card .subtitle {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        /* --- TAB CONTENT --- */
         .tab-content {
             display: none;
             flex: 1;
             flex-direction: column;
-            position: relative;
-            z-index: 2;
-            animation: tabSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: tabFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .tab-content.active {
             display: flex;
         }
 
-        @keyframes tabSlide {
-            0% {
+        @keyframes tabFade {
+            from {
                 opacity: 0;
-                transform: translateX(12px) scale(0.98);
+                transform: translateX(12px) scale(0.97);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateX(0) scale(1);
             }
         }
 
-        /* ─── TAB HEADER ─── */
-        .tab-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 4px;
-            flex-shrink: 0;
+        /* --- SCROLL AREA (for content) --- */
+        .scroll-area {
+            text-align: left;
+            margin: 4px 0 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 6px;
+            flex: 1;
         }
-        .tab-header .badge {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            background: rgba(204, 0, 0, 0.08);
-            color: #cc0000;
-            padding: 2px 14px;
-            border-radius: 30px;
-            border: 1px solid rgba(204, 0, 0, 0.08);
-            font-weight: 600;
+
+        .scroll-area::-webkit-scrollbar {
+            width: 3px;
         }
-        .tab-header .badge.muted {
+        .scroll-area::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 10px;
+        }
+        .scroll-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* --- POLICY / INFO ITEMS --- */
+        .info-item {
+            margin-bottom: 14px;
+            padding: 12px 14px;
             background: rgba(255, 255, 255, 0.02);
-            color: #555;
-            border-color: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: border-color 0.3s;
         }
-
-        .tab-content h2 {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin: 0 0 2px;
-            flex-shrink: 0;
-            line-height: 1.2;
+        .info-item:hover {
+            border-color: rgba(255, 0, 60, 0.08);
+        }
+        .info-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .info-item .value {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: #fff;
-        }
-        .tab-content h2 .accent {
-            color: #cc0000;
-        }
-        .tab-content .sub {
-            font-size: 12px;
-            color: #777;
-            margin-bottom: 12px;
-            padding-left: 14px;
-            border-left: 2px solid rgba(204, 0, 0, 0.2);
-            font-weight: 300;
-            letter-spacing: 0.2px;
-            flex-shrink: 0;
-            line-height: 1.3;
-        }
-
-        /* ─── NUMBERED SECTION (Privacy Shield Style) ─── */
-        .section-block {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            flex: 1;
-            justify-content: center;
-            padding: 2px 0;
-        }
-        .section-item {
-            background: rgba(255, 255, 255, 0.01);
-            border-radius: 12px;
-            padding: 10px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            transition: border-color 0.3s, background 0.3s;
-        }
-        .section-item:hover {
-            border-color: rgba(204, 0, 0, 0.06);
-            background: rgba(255, 255, 255, 0.015);
-        }
-        .section-item .number {
-            font-size: 10px;
-            font-weight: 600;
-            color: #cc0000;
-            letter-spacing: 0.5px;
             margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .section-item .number .line {
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.03);
+        .info-item .desc {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.55);
         }
-        .section-item .title {
-            font-size: 14px;
+        .info-item .desc strong {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .info-item .tag {
+            display: inline-block;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #e0e0e8;
-            margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .section-item .title .tag {
-            font-size: 10px;
-            font-weight: 400;
-            color: #cc0000;
-            background: rgba(204, 0, 0, 0.05);
+            color: var(--primary-red);
+            background: rgba(255, 0, 60, 0.06);
             padding: 0 10px;
             border-radius: 20px;
-            border: 1px solid rgba(204, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 60, 0.06);
         }
-        .section-item .desc {
-            font-size: 12px;
-            line-height: 1.6;
-            color: #888;
-        }
-        .section-item .desc code {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            color: #bbb;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            font-family: 'Inter', monospace;
-        }
-        .section-item .desc strong {
-            color: #ccc;
-        }
-        .section-item .status-badge {
+        .info-item .status-badge {
             display: inline-block;
-            font-size: 9px;
+            font-size: 0.7rem;
             font-weight: 600;
             padding: 0 10px;
             border-radius: 30px;
@@ -425,199 +406,217 @@
             color: #00aa44;
             border: 1px solid rgba(0, 170, 68, 0.06);
         }
+        .info-item .status-badge.off {
+            background: rgba(255, 100, 0, 0.06);
+            color: #ff8800;
+            border-color: rgba(255, 100, 0, 0.06);
+        }
 
-        /* ─── STATUS ROW (Footer style) ─── */
+        /* --- FEATURE PILLS --- */
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+            margin-bottom: 10px;
+        }
+        .feature-pills span {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .feature-pills span .icon {
+            color: var(--primary-red);
+        }
+
+        /* --- RADIO GROUP (static) --- */
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 4px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            margin-bottom: 10px;
+        }
+        .radio-group span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 2px 4px;
+        }
+        .radio-group .active {
+            color: var(--primary-red);
+        }
+
+        /* --- TWO COLUMN LAYOUT --- */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .two-col .info-item {
+            margin-bottom: 0;
+        }
+
+        /* --- PRIVACY GRID --- */
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .privacy-grid .pill {
+            background: rgba(255, 255, 255, 0.01);
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.3s;
+        }
+        .privacy-grid .pill .icon {
+            font-size: 16px;
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        .privacy-grid .pill .info {
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+        .privacy-grid .pill .info strong {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            font-weight: 600;
+        }
+        .privacy-grid .pill .info small {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+        }
+
+        /* --- STATUS ROW --- */
         .status-row {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
-            margin: 4px 0 0 4px;
             padding: 6px 0 0 4px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             flex-shrink: 0;
         }
         .status-row .item {
-            font-size: 11px;
-            color: #555;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         .status-row .item .dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: #00aa44;
-            box-shadow: 0 0 12px rgba(0, 170, 68, 0.15);
+            box-shadow: 0 0 10px rgba(0, 170, 68, 0.15);
             animation: pulseDot 2s ease-in-out infinite;
             flex-shrink: 0;
         }
         @keyframes pulseDot {
             0%,
             100% {
-                opacity: 0.5;
+                opacity: 0.4;
             }
             50% {
                 opacity: 1;
             }
         }
         .status-row .item strong {
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.6);
             font-weight: 500;
         }
 
-        /* ─── FEATURE PILLS (for settings) ─── */
-        .feature-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
-            margin: 2px 0 8px;
-            flex-shrink: 0;
-        }
-        .feature-pills span {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 11px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            color: #aaa;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .feature-pills span .icon {
-            color: #cc0000;
-            font-size: 12px;
-        }
-
-        /* ─── RADIO GROUP (static) ─── */
-        .radio-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.01);
-            padding: 4px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            margin-bottom: 6px;
-            flex-shrink: 0;
-        }
-        .radio-group span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: #999;
-            padding: 2px 4px;
-        }
-        .radio-group .active {
-            color: #cc0000;
-        }
-
-        /* ─── PRIVACY GRID (for tab 3) ─── */
-        .privacy-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin: 6px 0 8px;
-            flex-shrink: 0;
-        }
-        .privacy-grid .pill {
-            background: rgba(255, 255, 255, 0.01);
-            padding: 8px 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: border-color 0.3s;
-        }
-        .privacy-grid .pill .icon {
-            font-size: 18px;
-            opacity: 0.7;
-            flex-shrink: 0;
-        }
-        .privacy-grid .pill .info {
-            font-size: 12px;
-            line-height: 1.3;
-        }
-        .privacy-grid .pill .info strong {
-            color: #e0e0e8;
-            display: block;
-            font-weight: 600;
-            font-size: 12px;
-        }
-        .privacy-grid .pill .info small {
-            color: #666;
-            font-size: 10px;
-        }
-
-        /* ─── ACCEPT BOX ─── */
+        /* --- ACCEPT BOX --- */
         .accept-box {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
             background: rgba(255, 255, 255, 0.01);
-            padding: 8px 14px;
+            padding: 8px 12px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.02);
-            margin: 6px 0 4px;
+            margin: 4px 0 6px;
             transition: border-color 0.4s, background 0.4s;
             flex-shrink: 0;
         }
         .accept-box.checked {
-            border-color: rgba(204, 0, 0, 0.12);
-            background: rgba(204, 0, 0, 0.02);
+            border-color: rgba(255, 0, 60, 0.12);
+            background: rgba(255, 0, 60, 0.02);
         }
         .accept-box input[type="checkbox"] {
             width: 18px;
             height: 18px;
-            accent-color: #cc0000;
+            accent-color: var(--primary-red);
             cursor: pointer;
             flex-shrink: 0;
             margin-top: 1px;
         }
         .accept-box label {
-            font-size: 12px;
-            color: #888;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
             line-height: 1.5;
         }
         .accept-box label strong {
-            color: #ddd;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        /* ─── CONFIRM BUTTON ─── */
+        /* --- CONFIRM BUTTON --- */
         .confirm-btn {
-            background: linear-gradient(135deg, #cc0000, #990000);
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
             border: none;
-            color: #fff;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.2);
             font-weight: 700;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            opacity: 0.2;
-            pointer-events: none;
-            display: inline-block;
-            letter-spacing: 0.4px;
-            box-shadow: 0 0 0 0 rgba(204, 0, 0, 0);
+            letter-spacing: 0.5px;
             flex-shrink: 0;
-            align-self: flex-start;
-            text-transform: uppercase;
         }
         .confirm-btn.enabled {
-            opacity: 1;
-            pointer-events: auto;
-            box-shadow: 0 4px 30px rgba(204, 0, 0, 0.15);
+            background: #fff;
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255, 0, 60, 0.2);
         }
         .confirm-btn.enabled:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 40px rgba(204, 0, 0, 0.2);
+            background: var(--primary-red);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.4);
+        }
+        .confirm-btn.enabled:active {
+            transform: translateY(0);
         }
 
-        /* ─── NAV ROW ─── */
+        /* --- FOOTER NOTE --- */
+        .footer-note {
+            margin-top: 12px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        /* --- NAV ROW --- */
         .nav-row {
             display: flex;
             justify-content: space-between;
@@ -626,243 +625,164 @@
             padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             flex-shrink: 0;
-            position: relative;
-            z-index: 2;
         }
         .nav-row .btn {
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            color: #777;
-            padding: 6px 22px;
+            color: rgba(255, 255, 255, 0.3);
+            padding: 6px 20px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
+            font-family: inherit;
         }
         .nav-row .btn:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.02);
             border-color: rgba(255, 255, 255, 0.07);
-            color: #bbb;
+            color: rgba(255, 255, 255, 0.6);
         }
         .nav-row .btn-primary {
-            background: linear-gradient(135deg, #cc0000, #990000);
-            border-color: transparent;
+            background: var(--primary-red);
+            border-color: var(--primary-red);
             color: #fff;
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.03);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.03);
         }
         .nav-row .btn-primary:hover:not(:disabled) {
             transform: scale(0.96);
-            box-shadow: 0 0 30px rgba(204, 0, 0, 0.06);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.1);
+            background: #e60036;
+            border-color: #e60036;
         }
         .nav-row .btn:disabled {
-            opacity: 0.12;
+            opacity: 0.1;
             cursor: not-allowed;
         }
         .nav-row .step-counter {
-            font-size: 11px;
-            color: #444;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.15);
             font-weight: 400;
             letter-spacing: 1px;
         }
 
-        /* ─── PROTOCOL FOOTER ─── */
-        .protocol-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 4px;
-            padding-top: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            flex-shrink: 0;
-        }
-        .protocol-footer .version {
-            font-size: 10px;
-            color: #444;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-        .protocol-footer .version span {
-            color: #cc0000;
-        }
-        .protocol-footer .secure-badge {
-            font-size: 9px;
-            color: #00aa44;
-            background: rgba(0, 170, 68, 0.04);
-            padding: 2px 12px;
-            border-radius: 30px;
-            border: 1px solid rgba(0, 170, 68, 0.04);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .protocol-footer .secure-badge .dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #00aa44;
-            animation: pulseDot 2s ease-in-out infinite;
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 760px) {
-            #tutorialContainer {
-                max-height: 100vh;
-            }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
             .glass-card {
-                padding: 14px 16px 12px;
-                border-radius: 20px;
+                padding: 22px 16px 18px;
+                border-radius: 24px;
+                max-height: 96vh;
+            }
+            .glass-card h1 {
+                font-size: 1.4rem;
+            }
+            .icon-box {
+                width: 54px;
+                height: 54px;
+                border-radius: 14px;
+                margin-bottom: 14px;
+            }
+            .icon-box svg {
+                width: 22px;
+                height: 22px;
+            }
+            .scroll-area {
+                max-height: 260px;
+            }
+            .info-item {
+                padding: 10px 12px;
+                margin-bottom: 10px;
+            }
+            .info-item .value {
+                font-size: 0.85rem;
+            }
+            .info-item .desc {
+                font-size: 0.78rem;
             }
             .privacy-grid {
                 grid-template-columns: 1fr;
                 gap: 4px;
             }
-            .section-item {
-                padding: 8px 12px;
-            }
-            .section-item .title {
-                font-size: 13px;
-            }
-            .section-item .desc {
-                font-size: 11px;
-            }
-            .tab-content h2 {
-                font-size: 18px;
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 4px;
             }
             .nav-row .btn {
                 padding: 5px 14px;
-                font-size: 11px;
+                font-size: 0.7rem;
+            }
+            .confirm-btn {
+                padding: 12px;
+                font-size: 0.8rem;
             }
             .step-dots {
                 gap: 8px;
-                margin-bottom: 6px;
-            }
-            .step-dots .dot {
-                width: 7px;
-                height: 7px;
-            }
-            .feature-pills span {
-                font-size: 10px;
-                padding: 1px 10px;
-            }
-            .radio-group {
-                padding: 3px 10px;
-            }
-            .radio-group span {
-                font-size: 11px;
-            }
-            .privacy-grid .pill {
-                padding: 6px 10px;
-            }
-            .privacy-grid .pill .icon {
-                font-size: 15px;
-            }
-            .privacy-grid .pill .info {
-                font-size: 11px;
-            }
-            .privacy-grid .pill .info strong {
-                font-size: 11px;
-            }
-            .privacy-grid .pill .info small {
-                font-size: 9px;
-            }
-            .accept-box {
-                padding: 6px 10px;
-                gap: 8px;
-            }
-            .accept-box label {
-                font-size: 11px;
-            }
-            .confirm-btn {
-                padding: 6px 16px;
-                font-size: 11px;
-            }
-            .status-row {
-                gap: 12px;
-            }
-            .status-row .item {
-                font-size: 10px;
-            }
-            .loader-ring {
-                width: 80px;
-                height: 80px;
-            }
-            .loader-ring .core-letter {
-                font-size: 24px;
-            }
-            .loader-brand h1 {
-                font-size: 20px;
-            }
-            .protocol-footer .version {
-                font-size: 9px;
-            }
-            .protocol-footer .secure-badge {
-                font-size: 8px;
-                padding: 1px 10px;
-            }
-        }
-
-        @media (max-width: 430px) {
-            .glass-card {
-                padding: 10px 10px 8px;
-                border-radius: 16px;
-            }
-            .tab-content h2 {
-                font-size: 16px;
-            }
-            .tab-content .sub {
-                font-size: 10px;
-                margin-bottom: 6px;
-                padding-left: 8px;
-            }
-            .section-item {
-                padding: 6px 8px;
-                border-radius: 8px;
-            }
-            .section-item .title {
-                font-size: 12px;
-            }
-            .section-item .desc {
-                font-size: 10px;
-                line-height: 1.4;
-            }
-            .section-item .number {
-                font-size: 9px;
-            }
-            .nav-row .btn {
-                padding: 4px 12px;
-                font-size: 10px;
-            }
-            .nav-row .step-counter {
-                font-size: 10px;
+                margin-bottom: 10px;
             }
             .step-dots .dot {
                 width: 6px;
                 height: 6px;
             }
             .feature-pills span {
-                font-size: 9px;
-                padding: 0 8px;
+                font-size: 0.65rem;
+                padding: 1px 8px;
             }
-            .privacy-grid .pill .info {
-                font-size: 10px;
+            .radio-group {
+                padding: 3px 10px;
             }
-            .privacy-grid .pill .info strong {
-                font-size: 10px;
+            .radio-group span {
+                font-size: 0.7rem;
+            }
+            .status-row .item {
+                font-size: 0.6rem;
             }
             .accept-box label {
-                font-size: 10px;
+                font-size: 0.7rem;
+            }
+            .footer-note {
+                font-size: 0.55rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .glass-card {
+                padding: 16px 12px 14px;
+                border-radius: 18px;
+            }
+            .glass-card h1 {
+                font-size: 1.2rem;
+            }
+            .scroll-area {
+                max-height: 200px;
+            }
+            .info-item {
+                padding: 8px 10px;
+            }
+            .info-item .value {
+                font-size: 0.78rem;
+            }
+            .info-item .desc {
+                font-size: 0.7rem;
+            }
+            .nav-row .btn {
+                padding: 4px 10px;
+                font-size: 0.6rem;
             }
             .confirm-btn {
-                padding: 5px 14px;
-                font-size: 10px;
+                padding: 10px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
-
 <body>
+
+    <!-- ─── LIQUID BACKGROUND ─── -->
+    <div class="liquid-bg">
+        <div class="blob"></div>
+        <div class="blob2"></div>
+    </div>
 
     <!-- ─── LOADING SCREEN ─── -->
     <div id="loadingScreen">
@@ -882,7 +802,6 @@
     <!-- ─── TUTORIAL CONTAINER ─── -->
     <div id="tutorialContainer">
         <div class="glass-card">
-            <div class="glow-stripe"></div>
 
             <!-- Step dots -->
             <div class="step-dots" id="stepDots">
@@ -892,60 +811,47 @@
                 <span class="dot" data-index="3"></span>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- TAB 0 : ABOUT (BOT PROFILE) -->
-            <!-- ============================================================ -->
-            <div class="tab-content active" data-tab="0">
-                <div class="tab-header">
-                    <div>
-                        <span class="badge">✦ bot profile</span>
-                        <span class="badge muted">v2.4.0</span>
-                        <span class="badge muted">stable</span>
-                    </div>
-                </div>
-                <h2>Core <span class="accent">Identity</span></h2>
-                <div class="sub">Engine specifications &amp; developer profile</div>
-
-                <div class="section-block">
-                    <div class="section-item">
-                        <div class="number">01. <span class="line"></span></div>
-                        <div class="title">Developer &amp; Origin <span class="tag">Vajira MD</span></div>
-                        <div class="desc">
-                            <strong>Vajira Rathnayaka</strong> · 23 years · Balangoda<br />
-                            Built with <strong>Node.js</strong> &amp; <strong>Baileys</strong> framework.
-                        </div>
-                    </div>
-                    <div class="section-item">
-                        <div class="number">02. <span class="line"></span></div>
-                        <div class="title">License &amp; Distribution</div>
-                        <div class="desc">
-                            Open source under <strong>MIT License</strong>.<br />
-                            Free to use, modify, and distribute with attribution.
-                        </div>
-                    </div>
-                    <div class="section-item" style="border-color:rgba(204,0,0,0.03);">
-                        <div class="number">03. <span class="line"></span></div>
-                        <div class="title">System Status <span class="status-badge">● Operational</span></div>
-                        <div class="desc">
-                            All systems nominal. <strong>99.9%</strong> uptime guaranteed.<br />
-                            Last deployment: <strong>June 26, 2026</strong>
-                        </div>
-                    </div>
-                </div>
+            <!-- Icon Box -->
+            <div class="icon-box" id="iconBox">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 1 : SETTINGS (SECURE CONNECTION) -->
+            <!-- TAB 0 : ABOUT -->
             <!-- ============================================================ -->
-            <div class="tab-content" data-tab="1">
-                <div class="tab-header">
-                    <div>
-                        <span class="badge">⚙️ secure connection</span>
-                        <span class="badge muted">OTP · encrypted</span>
+            <div class="tab-content active" data-tab="0">
+                <h1>Core <span style="color:#ff003c;">Identity</span></h1>
+                <p class="subtitle">Engine specifications &amp; developer profile</p>
+
+                <div class="scroll-area">
+                    <div class="info-item">
+                        <div class="label">01. Developer &amp; Origin</div>
+                        <div class="value">Vajira Rathnayaka <span class="tag">Vajira MD</span></div>
+                        <div class="desc">Age 23 · Balangoda · Built with <strong>Node.js</strong> &amp; <strong>Baileys</strong></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">02. License &amp; Distribution</div>
+                        <div class="value">MIT · Open Source</div>
+                        <div class="desc">Free to use, modify, and distribute with attribution.</div>
+                    </div>
+                    <div class="info-item" style="border-color:rgba(255,0,60,0.04);">
+                        <div class="label">03. System Status</div>
+                        <div class="value"><span class="status-badge">● Operational</span> · v2.4.0</div>
+                        <div class="desc">All systems nominal. <strong>99.9%</strong> uptime guaranteed. Last deployment: <strong>June 26, 2026</strong></div>
                     </div>
                 </div>
-                <h2>Authentication <span class="accent">Protocol</span></h2>
-                <div class="sub">Session management &amp; verification</div>
+
+                <div class="footer-note">✦ Identity verified · secure node</div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 1 : SETTINGS -->
+            <!-- ============================================================ -->
+            <div class="tab-content" data-tab="1">
+                <h1>Authentication <span style="color:#ff003c;">Protocol</span></h1>
+                <p class="subtitle">Session management &amp; verification</p>
 
                 <div class="feature-pills">
                     <span><span class="icon">🎤</span> Auto‑Voice</span>
@@ -954,30 +860,21 @@
                     <span><span class="icon">🔐</span> Encrypted</span>
                 </div>
 
-                <div class="section-block">
-                    <div class="section-item">
-                        <div class="number">01. <span class="line"></span></div>
-                        <div class="title">Primary Number <span class="tag">+94 70 123 4567</span></div>
-                        <div class="desc">
-                            The verified phone number linked to your WhatsApp account.<br />
-                            An <strong>OTP</strong> is required to establish a secure session.
-                        </div>
+                <div class="scroll-area">
+                    <div class="info-item">
+                        <div class="label">01. Primary Number</div>
+                        <div class="value">+94 70 123 4567 <span class="tag">verified</span></div>
+                        <div class="desc">OTP required to establish a secure session.</div>
                     </div>
-                    <div class="section-item">
-                        <div class="number">02. <span class="line"></span></div>
-                        <div class="title">Verification Code <span class="tag">862090</span></div>
-                        <div class="desc">
-                            Time‑sensitive 6‑digit code received via WhatsApp.<br />
-                            Used to authenticate the bot session — <strong>never stored</strong>.
-                        </div>
+                    <div class="info-item">
+                        <div class="label">02. Verification Code</div>
+                        <div class="value">862090 <span class="tag">time‑sensitive</span></div>
+                        <div class="desc">6‑digit code received via WhatsApp. <strong>Never stored</strong>.</div>
                     </div>
-                    <div class="section-item" style="border-color:rgba(0,170,68,0.04);">
-                        <div class="number">03. <span class="line"></span></div>
-                        <div class="title">Session Status <span class="status-badge">● Active</span></div>
-                        <div class="desc">
-                            Encrypted connection actively synced.<br />
-                            Auto‑refresh every <strong>2 minutes</strong> to maintain stability.
-                        </div>
+                    <div class="info-item" style="border-color:rgba(0,170,68,0.04);">
+                        <div class="label">03. Session Status</div>
+                        <div class="value"><span class="status-badge">● Active</span> · auto‑refresh 2 min</div>
+                        <div class="desc">Encrypted connection actively synced.</div>
                     </div>
                 </div>
 
@@ -989,87 +886,61 @@
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 2 : AUTO SENDER (CONTENT DELIVERY) -->
+            <!-- TAB 2 : AUTO SENDER -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="2">
-                <div class="tab-header">
-                    <div>
-                        <span class="badge">📤 content delivery</span>
-                        <span class="badge muted">song · tiktok</span>
-                    </div>
-                </div>
-                <h2>Auto <span class="accent">Sender</span></h2>
-                <div class="sub">Payload configuration &amp; routing</div>
+                <h1>Auto <span style="color:#ff003c;">Sender</span></h1>
+                <p class="subtitle">Payload configuration &amp; routing</p>
 
                 <div class="radio-group">
-                    <span class="active">🎵 Audio <span style="color:#555; font-weight:400;">(selected)</span></span>
+                    <span class="active">🎵 Audio <span style="color:rgba(255,255,255,0.2);font-weight:400;">(selected)</span></span>
                     <span>🎬 TikTok</span>
                 </div>
 
-                <div class="section-block" style="gap:4px;">
-                    <div class="section-item">
-                        <div class="number">01. <span class="line"></span></div>
-                        <div class="title">Target JID <span class="tag">94701234567@s.whatsapp.net</span></div>
-                        <div class="desc">
-                            Unique WhatsApp ID of the recipient.<br />
-                            Example: <code>94701234567@s.whatsapp.net</code>
-                        </div>
+                <div class="scroll-area">
+                    <div class="info-item">
+                        <div class="label">01. Target JID</div>
+                        <div class="value">94701234567@s.whatsapp.net <span class="tag">recipient</span></div>
+                        <div class="desc">Unique WhatsApp ID for message delivery.</div>
                     </div>
-                    <div class="section-item">
-                        <div class="number">02. <span class="line"></span></div>
-                        <div class="title">Payload &amp; Format</div>
-                        <div class="desc">
-                            <strong>Caption:</strong> ✨ Check this out!<br />
-                            <strong>Quality:</strong> Medium · <strong>Interval:</strong> 1 min
-                        </div>
+                    <div class="info-item">
+                        <div class="label">02. Payload &amp; Format</div>
+                        <div class="value">✨ Check this out! <span class="tag">caption</span></div>
+                        <div class="desc"><strong>Quality:</strong> Medium · <strong>Interval:</strong> 1 min</div>
                     </div>
-                    <div class="section-item">
-                        <div class="number">03. <span class="line"></span></div>
-                        <div class="title">Smart Filter <span class="tag">music, viral, trending</span></div>
-                        <div class="desc">
-                            Only content matching these <strong>keywords</strong> will be processed.<br />
-                            Prevents spam and ensures relevance.
-                        </div>
+                    <div class="info-item">
+                        <div class="label">03. Smart Filter</div>
+                        <div class="value">music, viral, trending <span class="tag">keywords</span></div>
+                        <div class="desc">Only content matching these tags will be processed.</div>
                     </div>
                 </div>
+
+                <div class="footer-note">📍 Location-based routing · active</div>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 3 : PRIVACY & TERMS (PRIVACY SHIELD) -->
+            <!-- TAB 3 : PRIVACY & TERMS -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="3">
-                <div class="tab-header">
-                    <div>
-                        <span class="badge">🛡️ privacy shield</span>
-                        <span class="badge muted">ultrafast · anti‑ban</span>
-                    </div>
-                </div>
-                <h2>System <span class="accent">Protection</span></h2>
-                <div class="sub">Data policy &amp; security guarantees</div>
+                <h1>Privacy <span style="color:#ff003c;">Shield</span></h1>
+                <p class="subtitle">System Protection &amp; Data Policy</p>
 
                 <div class="privacy-grid">
-                    <div class="pill"><span class="icon">🚀</span><div class="info"><strong>Ultrafast</strong><small>sub‑200ms response</small></div></div>
+                    <div class="pill"><span class="icon">🚀</span><div class="info"><strong>Ultrafast</strong><small>sub‑200ms</small></div></div>
                     <div class="pill"><span class="icon">🛡️</span><div class="info"><strong>Anti‑Ban</strong><small>smart rotation</small></div></div>
                     <div class="pill"><span class="icon">🔒</span><div class="info"><strong>End‑to‑End</strong><small>encrypted</small></div></div>
-                    <div class="pill"><span class="icon">⚡</span><div class="info"><strong>Always On</strong><small>99.9% uptime</small></div></div>
-                    <div class="pill" style="grid-column:1/-1;"><span class="icon">🧠</span><div class="info"><strong>Smart Queue</strong><small>intelligent routing &amp; throttling</small></div></div>
+                    <div class="pill"><span class="icon">⚡</span><div class="info"><strong>Always On</strong><small>99.9%</small></div></div>
+                    <div class="pill" style="grid-column:1/-1;"><span class="icon">🧠</span><div class="info"><strong>Smart Queue</strong><small>intelligent routing</small></div></div>
                 </div>
 
-                <div class="section-block" style="gap:4px;">
-                    <div class="section-item">
-                        <div class="number">01. <span class="line"></span></div>
-                        <div class="title">Intelligence Gathering</div>
-                        <div class="desc">
-                            We process your unique identifier to synchronize your commands.<br />
-                            <strong>No private chat data</strong> is stored beyond the active session.
-                        </div>
+                <div class="scroll-area" style="max-height:120px;">
+                    <div class="info-item" style="margin-bottom:8px;">
+                        <div class="label">01. Intelligence Gathering</div>
+                        <div class="desc">We process your unique identifier to synchronize your commands. <strong>No private chat data</strong> is stored beyond the active session.</div>
                     </div>
-                    <div class="section-item">
-                        <div class="number">02. <span class="line"></span></div>
-                        <div class="title">Zero Trace Policy</div>
-                        <div class="desc">
-                            Media files processed by the system are automatically <strong>vaporized</strong> from our cache every <strong>12 hours</strong>.
-                        </div>
+                    <div class="info-item" style="margin-bottom:0;">
+                        <div class="label">02. Zero Trace Policy</div>
+                        <div class="desc">Media files processed by the system are automatically <strong>vaporized</strong> from our cache every <strong>12 hours</strong>.</div>
                     </div>
                 </div>
 
@@ -1081,12 +952,9 @@
                     </label>
                 </div>
 
-                <button class="confirm-btn" id="confirmBtn">✔ Accept &amp; Proceed</button>
+                <button class="confirm-btn" id="confirmBtn">✔ ACCEPT &amp; PROCEED</button>
 
-                <div class="protocol-footer">
-                    <div class="version">Protocol <span>V4.0.1</span> — Secure Interface</div>
-                    <div class="secure-badge"><span class="dot"></span> Encrypted</div>
-                </div>
+                <div class="footer-note">Protocol V4.0.1 — Secure Interface</div>
             </div>
 
             <!-- ─── NAVIGATION ─── -->
@@ -1120,6 +988,17 @@
             const acceptBox = document.getElementById('acceptBox');
             const confirmBtn = document.getElementById('confirmBtn');
 
+            // Icon box
+            const iconBox = document.getElementById('iconBox');
+
+            // Icons for each tab
+            const icons = [
+                `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+                `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+                `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>`,
+                `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`
+            ];
+
             let currentTab = 0;
             const totalTabs = tabs.length;
 
@@ -1152,6 +1031,9 @@
                     else if (i < index) dot.classList.add('done');
                 });
 
+                // Update icon
+                iconBox.innerHTML = icons[index];
+
                 prevBtn.disabled = index === 0;
                 nextBtn.textContent = index === totalTabs - 1 ? 'Finish' : 'Next →';
                 stepCounter.textContent = (index + 1) + ' / ' + totalTabs;
@@ -1165,10 +1047,18 @@
             nextBtn.addEventListener('click', () => {
                 if (currentTab === totalTabs - 1) {
                     if (acceptCheck.checked) {
-                        window.location.href = '/dashboard.html';
+                        // Success animation
+                        confirmBtn.style.width = '60px';
+                        confirmBtn.innerHTML = '✓';
+                        confirmBtn.style.borderRadius = '50%';
+                        confirmBtn.style.background = '#00ff88';
+                        confirmBtn.style.color = '#000';
+                        setTimeout(() => {
+                            window.location.href = '/dashboard.html';
+                        }, 800);
                     } else {
-                        acceptBox.style.borderColor = 'rgba(204,0,0,0.2)';
-                        acceptBox.style.background = 'rgba(204,0,0,0.03)';
+                        acceptBox.style.borderColor = 'rgba(255,0,60,0.3)';
+                        acceptBox.style.background = 'rgba(255,0,60,0.04)';
                         setTimeout(() => {
                             acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
                             acceptBox.style.background = 'rgba(255,255,255,0.01)';
@@ -1190,10 +1080,17 @@
 
             confirmBtn.addEventListener('click', () => {
                 if (acceptCheck.checked) {
-                    window.location.href = '/dashboard.html';
+                    confirmBtn.style.width = '60px';
+                    confirmBtn.innerHTML = '✓';
+                    confirmBtn.style.borderRadius = '50%';
+                    confirmBtn.style.background = '#00ff88';
+                    confirmBtn.style.color = '#000';
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 800);
                 } else {
-                    acceptBox.style.borderColor = 'rgba(204,0,0,0.2)';
-                    acceptBox.style.background = 'rgba(204,0,0,0.03)';
+                    acceptBox.style.borderColor = 'rgba(255,0,60,0.3)';
+                    acceptBox.style.background = 'rgba(255,0,60,0.04)';
                     setTimeout(() => {
                         acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
                         acceptBox.style.background = 'rgba(255,255,255,0.01)';
@@ -1213,9 +1110,11 @@
                 }
             });
 
+            // ── init ──
+            iconBox.innerHTML = icons[0];
             goToTab(0);
 
-            console.log('🔴 VAJIRA MD · Privacy Shield style loaded');
+            console.log('🔴 VAJIRA MD · Premium glass onboarding loaded');
         })();
     </script>
 
