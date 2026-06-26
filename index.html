@@ -46,7 +46,6 @@
             width: 90%;
         }
 
-        /* V Logo */
         .v-logo {
             display: inline-flex;
             justify-content: center;
@@ -57,7 +56,6 @@
             background: radial-gradient(circle at 30% 30%, #cc0000, #880000);
             box-shadow: 0 0 50px rgba(204, 0, 0, 0.5);
             margin-bottom: 20px;
-            transition: transform 0.3s;
             animation: pulseGlow 2s infinite alternate;
         }
         .v-logo span {
@@ -93,7 +91,6 @@
             margin-bottom: 30px;
         }
 
-        /* Progress Bar */
         .progress-track {
             width: 100%;
             height: 6px;
@@ -138,7 +135,7 @@
         #tutorialWrapper {
             display: none;
             width: 100%;
-            max-width: 620px;
+            max-width: 640px;
             padding: 20px;
             animation: fadeUp 0.6s ease;
         }
@@ -235,109 +232,40 @@
             color: #fff;
         }
 
-        /* ─── FORM ELEMENTS ─── */
-        .form-group {
-            margin-bottom: 16px;
+        /* ─── STATIC INFO CARDS ─── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 16px 0 12px;
         }
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #aaa;
-            margin-bottom: 5px;
-            letter-spacing: 0.3px;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            background: #1e1e1e;
-            border: 1px solid #2e2e2e;
+        .info-item {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
             border-radius: 12px;
-            color: #fff;
-            font-size: 14px;
-            transition: border 0.3s, box-shadow 0.3s;
-            outline: none;
+            padding: 14px 16px;
         }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #cc0000;
-            box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.2);
-        }
-        .form-group input::placeholder {
-            color: #555;
-        }
-        .form-group select option {
-            background: #1e1e1e;
-            color: #fff;
-        }
-        .form-group .demo-hint {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .form-group .demo-hint .icon {
-            color: #cc0000;
-        }
-
-        .btn-otp {
-            margin-top: 6px;
-            padding: 10px 20px;
-            background: #cc0000;
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.25s, transform 0.15s, opacity 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-otp:hover {
-            background: #e60000;
-        }
-        .btn-otp:active {
-            transform: scale(0.96);
-        }
-        .btn-otp:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .otp-status {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #ffaa00;
-            min-height: 20px;
-            transition: all 0.3s;
-            padding: 6px 12px;
-            border-radius: 8px;
-            background: rgba(255, 170, 0, 0.06);
-            border-left: 3px solid #ffaa00;
-        }
-        .otp-status.success {
-            color: #4caf50;
-            border-left-color: #4caf50;
-            background: rgba(76, 175, 80, 0.06);
-        }
-        .otp-status.error {
-            color: #ff4444;
-            border-left-color: #ff4444;
-            background: rgba(255, 68, 68, 0.06);
-        }
-        .otp-status.idle {
+        .info-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: #888;
-            border-left-color: #444;
-            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 4px;
+        }
+        .info-item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .info-item .value .muted {
+            color: #888;
+            font-weight: 400;
         }
 
-        /* ─── FEATURE BADGES ─── */
+        .info-full {
+            grid-column: 1 / -1;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -356,16 +284,12 @@
             gap: 8px;
             transition: border-color 0.3s, background 0.3s;
         }
-        .feature-badge:hover {
-            border-color: #cc0000;
-            background: #1e1e1e;
-        }
         .feature-badge .icon {
             color: #cc0000;
             font-weight: 700;
         }
 
-        /* ─── ACCEPT BOX ─── */
+        /* ─── CHECKBOX & CONFIRM (LAST TAB) ─── */
         .accept-box {
             display: flex;
             align-items: center;
@@ -460,90 +384,15 @@
         .btn-next:hover {
             background: #e60000;
         }
-        .btn-next:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
 
-        /* ─── ANIMATED DEMO BADGE ─── */
-        .demo-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .text-muted {
+            color: #666;
+            font-size: 13px;
+        }
+        .highlight-red {
             color: #cc0000;
-            background: rgba(204, 0, 0, 0.12);
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid rgba(204, 0, 0, 0.2);
-            margin-bottom: 12px;
-        }
-        .demo-badge .pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #cc0000;
-            animation: dotPulse 1.2s infinite;
-        }
-        @keyframes dotPulse {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.3;
-                transform: scale(0.7);
-            }
         }
 
-        /* ─── TYPING EFFECT ─── */
-        .typing-demo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #4caf50;
-            font-size: 14px;
-            padding: 8px 14px;
-            background: rgba(76, 175, 80, 0.06);
-            border-radius: 10px;
-            border: 1px solid rgba(76, 175, 80, 0.15);
-            margin-top: 8px;
-        }
-        .typing-demo .dots {
-            display: flex;
-            gap: 4px;
-        }
-        .typing-demo .dots span {
-            width: 6px;
-            height: 6px;
-            background: #4caf50;
-            border-radius: 50%;
-            animation: typingBounce 1.4s infinite both;
-        }
-        .typing-demo .dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .typing-demo .dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        @keyframes typingBounce {
-            0%,
-            80%,
-            100% {
-                transform: scale(0.6);
-                opacity: 0.4;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* ─── RESPONSIVE ─── */
         @media (max-width: 500px) {
             .tut-card {
                 padding: 22px 16px 20px;
@@ -558,7 +407,8 @@
             .v-logo span {
                 font-size: 42px;
             }
-            .feature-grid {
+            .feature-grid,
+            .info-grid {
                 grid-template-columns: 1fr;
             }
             .tut-title {
@@ -572,9 +422,6 @@
                 flex: 1;
                 text-align: center;
                 padding: 10px 14px;
-            }
-            .accept-box {
-                padding: 14px 16px;
             }
         }
 
@@ -605,7 +452,7 @@
                 <div class="progress-fill" id="progressFill"></div>
             </div>
             <div class="progress-label">
-                <span>LOADING TUTORIAL</span>
+                <span>INITIALIZING</span>
                 <span class="pct" id="progressPct">0%</span>
             </div>
         </div>
@@ -642,7 +489,7 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        //  DATA — each tab is a tutorial step with demo content
+        //  DATA — all info is static; only the final checkbox + confirm is interactive
         // ═══════════════════════════════════════════════════════════
 
         const tabs = [{
@@ -658,49 +505,44 @@
                         <div style="color:#888;font-size:13px;">WhatsApp Automation Bot</div>
                     </div>
                 </div>
-                <div class="demo-badge"><span class="pulse-dot"></span> TUTORIAL · DEMO</div>
                 <div class="tut-text">
                     <strong>Developer:</strong> Vajira Rathnayaka &nbsp;·&nbsp; <strong>Age:</strong> 23 &nbsp;·&nbsp; <strong>Village:</strong> Balangoda<br>
                     <strong>Country:</strong> Sri Lanka &nbsp;·&nbsp; <strong>Version:</strong> 2.4.0<br><br>
                     VAJIRA MD LITE is a powerful WhatsApp automation bot built with <strong>Node.js</strong> and the
-                    <strong>Baileys</strong> library. It handles auto-reply, media sending, voice notes, TikTok
+                    <strong>Baileys</strong> library. It handles auto‑reply, media sending, voice notes, TikTok
                     downloads, and much more — all from your WhatsApp number.
                 </div>
                 <div class="feature-grid">
-                    <div class="feature-badge"><span class="icon">⚡</span> Ultra-fast</div>
+                    <div class="feature-badge"><span class="icon">⚡</span> Ultra‑fast</div>
                     <div class="feature-badge"><span class="icon">🔒</span> Secure</div>
                     <div class="feature-badge"><span class="icon">🎵</span> Auto Voice</div>
-                    <div class="feature-badge"><span class="icon">📱</span> Multi-device</div>
+                    <div class="feature-badge"><span class="icon">📱</span> Multi‑device</div>
                     <div class="feature-badge"><span class="icon">📊</span> Analytics</div>
-                    <div class="feature-badge"><span class="icon">🔄</span> Auto-Retry</div>
+                    <div class="feature-badge"><span class="icon">🔄</span> Auto‑Retry</div>
                 </div>
                 <div class="tut-text" style="font-size:13px;color:#666;margin-top:10px;">
-                    💡 This tutorial shows you how each feature works — all interactions are simulated for demonstration.
+                    💡 This tutorial shows you how each feature works — all information is for demonstration.
                 </div>
             `
         }, {
             id: 'settings',
-            title: 'Bot Settings · OTP Login',
+            title: 'Bot Settings & OTP Login',
             render: () => `
-                <div class="demo-badge"><span class="pulse-dot"></span> DEMO · method shown</div>
                 <div class="tut-text" style="margin-bottom:14px;">
-                    Connect your WhatsApp number to start using <strong>VAJIRA MD</strong>.
-                    Enter your number below and see how the OTP flow works.
+                    To start using the bot, connect your WhatsApp number. The login process uses OTP:
                 </div>
-                <div class="form-group">
-                    <label>📞 Connected Number</label>
-                    <input type="text" id="phoneInput" placeholder="+94 71 234 5678" value="+94 71 234 5678">
-                    <div class="demo-hint"><span class="icon">ⓘ</span> Example number — used for demo only</div>
+                <div style="background:#1a1a1a;border-radius:12px;padding:16px;border-left:3px solid #cc0000;margin-bottom:16px;">
+                    <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;">
+                        <div><span style="color:#888;">📞 Connected Number</span><br><span style="font-weight:600;">+94 71 234 5678</span> <span class="text-muted">(example)</span></div>
+                        <div><span style="color:#888;">🔐 OTP Code</span><br><span style="font-weight:600;">123456</span> <span class="text-muted">(demo)</span></div>
+                    </div>
                 </div>
-                <button class="btn-otp" id="otpBtn">🔑 Request OTP (demo)</button>
-                <div class="otp-status idle" id="otpStatus">▶️ Tap "Request OTP" to see the simulation</div>
-                <div class="form-group" style="margin-top:14px;">
-                    <label>🔐 OTP Code</label>
-                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" value="123456">
-                    <div class="demo-hint"><span class="icon">ⓘ</span> In a real scenario, OTP is sent to your WhatsApp</div>
-                </div>
-                <div id="otpSuccessBox" style="display:none;margin-top:10px;" class="typing-demo">
-                    <span>✅</span> OTP verified! Logged in successfully.
+                <div class="tut-text">
+                    <strong>How the OTP flow works:</strong><br>
+                    1. Enter your WhatsApp number (with country code).<br>
+                    2. Tap <span class="highlight-red">Request OTP</span> — a 6‑digit code is sent to your WhatsApp.<br>
+                    3. Enter the received code to verify and log in.<br><br>
+                    Once logged in, the bot stores your session for uninterrupted use.
                 </div>
                 <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
                     <span class="feature-badge" style="flex:1;"><span class="icon">🎤</span> Auto Voice</span>
@@ -712,71 +554,39 @@
             id: 'autosender',
             title: 'Auto Sender · Song & TikTok',
             render: () => `
-                <div class="demo-badge"><span class="pulse-dot"></span> DEMO · configuration preview</div>
                 <div class="tut-text" style="margin-bottom:14px;">
                     Configure automated sending of <strong>songs</strong> or <strong>TikTok</strong> content.
-                    The bot will send media to any JID with your custom caption and interval.
+                    The bot sends media to any JID with your custom settings.
                 </div>
-                <div class="form-group">
-                    <label>📱 Sender Number</label>
-                    <input type="text" id="senderPhone" placeholder="+94 71 234 5678" value="+94 71 234 5678">
-                    <div class="demo-hint"><span class="icon">ⓘ</span> This number will be used as the sender</div>
+                <div class="info-grid">
+                    <div class="info-item"><div class="label">Sender Number</div><div class="value">+94 71 234 5678</div></div>
+                    <div class="info-item"><div class="label">Auto Sender Type</div><div class="value">🎵 Audio / Song</div></div>
+                    <div class="info-item info-full"><div class="label">Location (JID ID)</div><div class="value">94712345678@s.whatsapp.net <span class="muted">(target)</span></div></div>
+                    <div class="info-item info-full"><div class="label">Caption</div><div class="value">Check this out! 🔥</div></div>
+                    <div class="info-item"><div class="label">Audio Quality</div><div class="value">Medium</div></div>
+                    <div class="info-item"><div class="label">Interval (sec)</div><div class="value">30</div></div>
+                    <div class="info-item info-full"><div class="label">Keywords (comma separated)</div><div class="value">music, viral</div></div>
                 </div>
-                <button class="btn-otp" id="senderOtpBtn" style="margin-bottom:12px;">🔑 Send OTP (demo)</button>
-                <div class="otp-status idle" id="senderOtpStatus" style="margin-bottom:14px;">▶️ Tap to see OTP simulation</div>
-
-                <div class="form-group">
-                    <label>📂 Auto Sender Type</label>
-                    <select id="senderType">
-                        <option value="audio">🎵 Audio / Song</option>
-                        <option value="tiktok">📱 TikTok Video</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>📍 Location (JID ID)</label>
-                    <input type="text" id="jidInput" placeholder="e.g. 94712345678@s.whatsapp.net" value="94712345678@s.whatsapp.net">
-                    <div class="demo-hint"><span class="icon">ⓘ</span> Target WhatsApp ID</div>
-                </div>
-                <div class="form-group">
-                    <label>✏️ Caption</label>
-                    <input type="text" id="captionInput" placeholder="Your caption here..." value="Check this out! 🔥">
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                    <div class="form-group">
-                        <label>🎚️ Audio Quality</label>
-                        <select id="audioQuality">
-                            <option value="low">Low</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>⏱️ Interval (sec)</label>
-                        <input type="number" id="intervalInput" value="30" min="5" max="300">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>🔑 Keywords (comma separated)</label>
-                    <input type="text" id="keywordsInput" placeholder="music, viral, trending" value="music, viral">
-                </div>
-                <div class="typing-demo" style="margin-top:8px;border-color:rgba(204,0,0,0.2);background:rgba(204,0,0,0.04);">
+                <div style="background:#1a1a1a;border-radius:10px;padding:12px 16px;border:1px solid #2a2a2a;margin-top:6px;display:flex;align-items:center;gap:10px;color:#4caf50;font-size:14px;">
                     <span>📤</span> Ready to send — all settings are saved in this demo
+                </div>
+                <div class="tut-text" style="margin-top:12px;font-size:13px;color:#888;">
+                    <strong>Note:</strong> To use this feature, first log in with your number (OTP step). The bot will then use the configured sender number.
                 </div>
             `
         }, {
             id: 'privacy',
             title: 'Privacy & Safety',
             render: () => `
-                <div class="demo-badge"><span class="pulse-dot"></span> FINAL STEP</div>
                 <div class="tut-text" style="margin-bottom:10px;">
-                    <strong>🛡️ VAJIRA MD</strong> is designed with <strong>privacy</strong> and
-                    <strong>ultra-fast</strong> performance. Your data stays secure.
+                    <strong>🛡️ VAJIRA MD</strong> is built with <strong>privacy</strong> and
+                    <strong>ultra‑fast</strong> performance. Your data stays secure.
                 </div>
                 <div class="feature-grid" style="margin-bottom:18px;">
-                    <div class="feature-badge"><span class="icon">🚫</span> Anti-Ban</div>
-                    <div class="feature-badge"><span class="icon">⚡</span> Ultra-Fast</div>
-                    <div class="feature-badge"><span class="icon">🔐</span> End-to-End</div>
-                    <div class="feature-badge"><span class="icon">🔄</span> Auto-Retry</div>
+                    <div class="feature-badge"><span class="icon">🚫</span> Anti‑Ban</div>
+                    <div class="feature-badge"><span class="icon">⚡</span> Ultra‑Fast</div>
+                    <div class="feature-badge"><span class="icon">🔐</span> End‑to‑End</div>
+                    <div class="feature-badge"><span class="icon">🔄</span> Auto‑Retry</div>
                     <div class="feature-badge"><span class="icon">🛡️</span> No Logs</div>
                     <div class="feature-badge"><span class="icon">📡</span> 99.9% Uptime</div>
                 </div>
@@ -784,7 +594,7 @@
                     ✅ By accepting, you agree that you own the connected number and will use this bot responsibly.
                 </div>
 
-                <!-- accept checkbox -->
+                <!-- Checkbox + Confirm (exactly as requested) -->
                 <div class="accept-box" id="acceptBox">
                     <input type="checkbox" id="acceptCheck">
                     <label for="acceptCheck">I accept the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong></label>
@@ -792,7 +602,7 @@
 
                 <button class="btn-confirm" id="confirmBtn">✅ Confirm & Open Dashboard</button>
                 <div style="margin-top:10px;font-size:12px;color:#555;text-align:center;">
-                    ⚡ Dashboard will open at <span style="color:#888;">/dashboard.html</span> (demo redirect)
+                    ⚡ Dashboard will open at <span style="color:#888;">/dashboard.html</span>
                 </div>
             `
         }];
@@ -802,7 +612,6 @@
         // ═══════════════════════════════════════════════════════════
 
         let currentTab = 0;
-        let progress = 0;
         let loadingComplete = false;
 
         // ── DOM refs ──
@@ -864,112 +673,9 @@
 
             // nav buttons
             prevBtn.style.display = index === 0 ? 'none' : 'inline-block';
-            nextBtn.textContent = index === tabs.length - 1 ? '🚀 Finish' : 'Next →';
+            nextBtn.textContent = index === tabs.length - 1 ? '🏁 Finish' : 'Next →';
 
-            // wire up dynamic events after render
-            wireEvents(index);
-        }
-
-        // ── event wiring per tab (purely demo / tutorial) ──
-        function wireEvents(index) {
-            // ─── Tab 2: OTP demo ───
-            if (index === 1) {
-                const otpBtn = document.getElementById('otpBtn');
-                const phoneInput = document.getElementById('phoneInput');
-                const otpInput = document.getElementById('otpInput');
-                const otpStatus = document.getElementById('otpStatus');
-                const successBox = document.getElementById('otpSuccessBox');
-
-                if (otpBtn) {
-                    otpBtn.onclick = function() {
-                        const phone = phoneInput.value.trim();
-                        if (!phone || phone.length < 8) {
-                            otpStatus.textContent = '⚠️ Please enter a valid phone number (demo).';
-                            otpStatus.className = 'otp-status error';
-                            return;
-                        }
-                        // demo animation
-                        otpStatus.textContent = `📤 Simulating OTP send to ${phone} ...`;
-                        otpStatus.className = 'otp-status';
-                        otpBtn.disabled = true;
-                        otpBtn.textContent = '⏳ Sending...';
-
-                        setTimeout(() => {
-                            otpStatus.textContent =
-                                `✅ OTP sent! (demo) Check your WhatsApp — code: 123456`;
-                            otpStatus.className = 'otp-status success';
-                            otpBtn.disabled = false;
-                            otpBtn.textContent = '🔑 Resend OTP (demo)';
-
-                            // auto-fill OTP for demo
-                            if (otpInput) {
-                                otpInput.value = '123456';
-                                // trigger success
-                                if (successBox) {
-                                    successBox.style.display = 'flex';
-                                    successBox.innerHTML =
-                                        '<span>✅</span> OTP auto-verified! You\'re logged in (demo).';
-                                }
-                                otpStatus.textContent = '✅ OTP verified! Logged in successfully.';
-                                otpStatus.className = 'otp-status success';
-                            }
-                        }, 2200);
-                    };
-                }
-
-                // Manual OTP entry
-                if (otpInput) {
-                    otpInput.oninput = function() {
-                        const val = this.value.replace(/\D/g, '');
-                        if (val.length === 6) {
-                            if (successBox) {
-                                successBox.style.display = 'flex';
-                                successBox.innerHTML = '<span>✅</span> OTP verified! Logged in successfully.';
-                            }
-                            otpStatus.textContent = '✅ OTP verified! Logged in successfully.';
-                            otpStatus.className = 'otp-status success';
-                        } else {
-                            if (successBox) successBox.style.display = 'none';
-                            if (otpStatus.textContent.includes('verified')) {
-                                otpStatus.textContent = '⏳ Enter 6-digit OTP (demo: 123456)';
-                                otpStatus.className = 'otp-status idle';
-                            }
-                        }
-                    };
-                }
-            }
-
-            // ─── Tab 3: Auto Sender OTP demo ───
-            if (index === 2) {
-                const senderOtpBtn = document.getElementById('senderOtpBtn');
-                const senderPhone = document.getElementById('senderPhone');
-                const senderOtpStatus = document.getElementById('senderOtpStatus');
-
-                if (senderOtpBtn) {
-                    senderOtpBtn.onclick = function() {
-                        const phone = senderPhone.value.trim();
-                        if (!phone || phone.length < 8) {
-                            senderOtpStatus.textContent = '⚠️ Please enter a valid number (demo).';
-                            senderOtpStatus.className = 'otp-status error';
-                            return;
-                        }
-                        senderOtpStatus.textContent = `📤 Simulating OTP send to ${phone} ...`;
-                        senderOtpStatus.className = 'otp-status';
-                        senderOtpBtn.disabled = true;
-                        senderOtpBtn.textContent = '⏳ Sending...';
-
-                        setTimeout(() => {
-                            senderOtpStatus.textContent =
-                                `✅ OTP sent! (demo) Use code 654321 to authenticate.`;
-                            senderOtpStatus.className = 'otp-status success';
-                            senderOtpBtn.disabled = false;
-                            senderOtpBtn.textContent = '🔑 Resend OTP (demo)';
-                        }, 2000);
-                    };
-                }
-            }
-
-            // ─── Tab 4: Checkbox + Confirm ───
+            // ─── Wire up the checkbox + confirm on the last tab ───
             if (index === 3) {
                 const acceptCheck = document.getElementById('acceptCheck');
                 const confirmBtn = document.getElementById('confirmBtn');
@@ -998,25 +704,21 @@
                 if (confirmBtn) {
                     confirmBtn.onclick = function() {
                         if (acceptCheck && acceptCheck.checked) {
-                            // demo redirect — show a message then redirect
-                            confirmBtn.textContent = '⏳ Opening Dashboard...';
+                            confirmBtn.textContent = '⏳ Redirecting...';
                             confirmBtn.classList.remove('enabled');
                             confirmBtn.style.opacity = '0.7';
                             setTimeout(() => {
-                                // In a real app, this would redirect to /dashboard.html
-                                // For this demo, we show an alert and simulate redirect.
-                                alert(
-                                    '✅ Dashboard would open at /dashboard.html\n\nThis is a demo — in production, you would be redirected to the actual dashboard.');
+                                // As per request: open dashboard at /dashboard.html
+                                window.location.href = '/dashboard.html';
+                                // Fallback if redirect doesn't work (for demo environments)
+                                // alert('✅ Redirecting to /dashboard.html');
                                 // window.location.href = '/dashboard.html';
-                                // For demo, just reload the tutorial
-                                confirmBtn.textContent = '✅ Confirm & Open Dashboard';
-                                confirmBtn.classList.add('enabled');
-                                confirmBtn.style.opacity = '1';
-                            }, 1200);
+                            }, 800);
                         }
                     };
                 }
 
+                // initial state
                 updateConfirm();
             }
         }
@@ -1033,73 +735,12 @@
         };
 
         nextBtn.onclick = function() {
-            // Tab-specific demo validations
-            if (currentTab === 1) {
-                const otpInput = document.getElementById('otpInput');
-                const otpStatus = document.getElementById('otpStatus');
-                const val = otpInput ? otpInput.value.replace(/\D/g, '') : '';
-                if (val.length !== 6) {
-                    if (otpStatus) {
-                        otpStatus.textContent = '⚠️ Please enter the 6-digit OTP (demo: 123456)';
-                        otpStatus.className = 'otp-status error';
-                    }
-                    // but we allow it anyway for tutorial flow — just show hint
-                    // actually we let them pass with a warning
-                }
-                // store demo values
-                const phone = document.getElementById('phoneInput');
-                if (phone) sessionStorage.setItem('vajira_phone_demo', phone.value);
-            }
-
-            if (currentTab === 2) {
-                const status = document.getElementById('senderOtpStatus');
-                // just store settings
-                const jid = document.getElementById('jidInput');
-                const caption = document.getElementById('captionInput');
-                const interval = document.getElementById('intervalInput');
-                const keywords = document.getElementById('keywordsInput');
-                const senderType = document.getElementById('senderType');
-                const audioQ = document.getElementById('audioQuality');
-                if (jid) sessionStorage.setItem('vajira_jid_demo', jid.value);
-                if (caption) sessionStorage.setItem('vajira_caption_demo', caption.value);
-                if (interval) sessionStorage.setItem('vajira_interval_demo', interval.value);
-                if (keywords) sessionStorage.setItem('vajira_keywords_demo', keywords.value);
-                if (senderType) sessionStorage.setItem('vajira_senderType_demo', senderType.value);
-                if (audioQ) sessionStorage.setItem('vajira_audioQuality_demo', audioQ.value);
-                // show a quick demo message
-                if (status) {
-                    status.textContent = '✅ Settings saved! (demo)';
-                    status.className = 'otp-status success';
-                    setTimeout(() => {
-                        status.textContent = '📤 Ready to send — all settings configured.';
-                        status.className = 'otp-status idle';
-                    }, 2000);
-                }
-            }
-
-            if (currentTab === tabs.length - 1) {
-                const confirmBtn = document.getElementById('confirmBtn');
-                if (confirmBtn && confirmBtn.classList.contains('enabled')) {
-                    confirmBtn.click();
-                } else {
-                    const acceptCheck = document.getElementById('acceptCheck');
-                    if (acceptCheck && !acceptCheck.checked) {
-                        const box = document.getElementById('acceptBox');
-                        if (box) {
-                            box.style.borderColor = '#cc0000';
-                            box.style.background = 'rgba(204,0,0,0.08)';
-                            setTimeout(() => {
-                                box.style.borderColor = '';
-                                box.style.background = '';
-                            }, 800);
-                        }
-                    }
-                }
-                return;
-            }
-
             if (currentTab < tabs.length - 1) {
                 goToTab(currentTab + 1);
+            } else {
+                // on last tab, trigger dashboard button if checked
+                const btn = document.getElementById('confirmBtn');
+                if (btn) btn.click();
             }
         };
 
@@ -1122,6 +763,5 @@
 
         simulateLoading();
     </script>
-
 </body>
 </html>
