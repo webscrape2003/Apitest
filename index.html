@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>VAJIRA MD · Tech Onboarding</title>
+    <title>VAJIRA MD · Protocol</title>
 
     <style>
         /* ─── RESET & BASE ─── */
@@ -20,24 +20,24 @@
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: #08080a;
-            color: #e8e8ee;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #09090b;
+            color: #eaeef2;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 16px;
             overflow: hidden;
         }
 
-        /* ─── AMBIENT GLOW BACKGROUND ─── */
+        /* ─── AMBIENT GLOW ─── */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(204, 0, 0, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(204, 0, 0, 0.04) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(204, 0, 0, 0.03) 0%, transparent 50%);
             z-index: 0;
             pointer-events: none;
         }
@@ -47,12 +47,12 @@
             position: fixed;
             inset: 0;
             z-index: 2000;
-            background: #08080a;
+            background: #09090b;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.9s;
+            transition: opacity 0.9s ease, visibility 0.9s;
         }
         #loadingScreen.hide {
             opacity: 0;
@@ -60,29 +60,47 @@
             pointer-events: none;
         }
 
-        .loader-tech {
+        .loader-ring {
             position: relative;
             width: 100px;
             height: 100px;
-            margin-bottom: 20px;
         }
-        .loader-tech .ring-outer {
+        .loader-ring .orb {
             position: absolute;
-            inset: 0;
+            inset: 6px;
             border-radius: 50%;
-            border: 2px solid rgba(204, 0, 0, 0.08);
-            animation: spinOuter 8s linear infinite;
+            background: radial-gradient(circle at 30% 30%, #cc0000, #440000);
+            box-shadow: 0 0 60px rgba(204, 0, 0, 0.3);
+            animation: orbPulse 2s ease-in-out infinite;
         }
-        .loader-tech .ring-outer::after {
-            content: '';
+        @keyframes orbPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 60px rgba(204, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 100px rgba(204, 0, 0, 0.5);
+            }
+        }
+        .loader-ring .trace {
             position: absolute;
             inset: -4px;
             border-radius: 50%;
-            border: 1.5px solid transparent;
-            border-top-color: rgba(204, 0, 0, 0.15);
-            animation: spinOuter 4s linear infinite;
+            border: 2px solid transparent;
+            border-top-color: rgba(204, 0, 0, 0.3);
+            animation: spinTrace 1.8s linear infinite;
         }
-        @keyframes spinOuter {
+        .loader-ring .trace2 {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 1.5px solid transparent;
+            border-bottom-color: rgba(204, 0, 0, 0.15);
+            animation: spinTrace 3s linear infinite reverse;
+        }
+        @keyframes spinTrace {
             0% {
                 transform: rotate(0deg);
             }
@@ -90,82 +108,40 @@
                 transform: rotate(360deg);
             }
         }
-        .loader-tech .ring-mid {
+        .loader-ring .core-letter {
             position: absolute;
-            inset: 10px;
-            border-radius: 50%;
-            border: 2px solid rgba(204, 0, 0, 0.05);
-        }
-        .loader-tech .ring-mid::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            border: 1.5px solid transparent;
-            border-bottom-color: rgba(204, 0, 0, 0.12);
-            animation: spinOuter 6s linear infinite reverse;
-        }
-        .loader-tech .core {
-            position: absolute;
-            inset: 20px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #cc0000, #660000);
-            box-shadow: 0 0 40px rgba(204, 0, 0, 0.3);
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 30px;
             font-weight: 800;
             color: #fff;
-            animation: corePulse 2.4s ease-in-out infinite;
-        }
-        @keyframes corePulse {
-            0%,
-            100% {
-                box-shadow: 0 0 40px rgba(204, 0, 0, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(204, 0, 0, 0.5);
-            }
-        }
-        .loader-tech .progress-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            transform: rotate(-90deg);
-        }
-        .loader-tech .progress-ring circle {
-            fill: none;
-            stroke: #cc0000;
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-dasharray: 300;
-            stroke-dashoffset: 300;
-            transition: stroke-dashoffset 0.3s ease;
-            filter: drop-shadow(0 0 12px rgba(204, 0, 0, 0.3));
+            text-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
         }
         .loader-brand {
             text-align: center;
+            margin-top: 18px;
         }
-        .loader-brand .brand-main {
-            font-size: 22px;
+        .loader-brand h1 {
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #ffffff 50%, #cc0000);
+            background: linear-gradient(135deg, #fff 50%, #cc0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: 1px;
         }
-        .loader-brand .brand-sub {
+        .loader-brand p {
             font-size: 10px;
             color: #555;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             margin-top: 2px;
         }
         .loader-percent {
-            margin-top: 10px;
-            font-size: 12px;
+            margin-top: 12px;
+            font-size: 13px;
             font-weight: 300;
             color: #666;
             letter-spacing: 2px;
@@ -175,18 +151,18 @@
         #tutorialContainer {
             display: none;
             width: 100%;
-            max-width: 920px;
+            max-width: 820px;
             height: 100%;
-            max-height: 600px;
+            max-height: 620px;
             position: relative;
             z-index: 1;
-            animation: containerRise 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #tutorialContainer.active {
             display: block;
         }
 
-        @keyframes containerRise {
+        @keyframes fadeUp {
             0% {
                 opacity: 0;
                 transform: translateY(30px) scale(0.97);
@@ -197,57 +173,62 @@
             }
         }
 
-        /* ─── GLOW CARD ─── */
-        .glow-card {
-            background: linear-gradient(145deg, #0e0e12, #0a0a0e);
-            border-radius: 20px;
-            padding: 16px 22px 14px;
-            border: 1px solid rgba(204, 0, 0, 0.10);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(204, 0, 0, 0.03);
+        /* ─── GLASS CARD (PRIVACY SHIELD STYLE) ─── */
+        .glass-card {
+            background: rgba(14, 14, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 22px 28px 16px;
+            border: 1px solid rgba(204, 0, 0, 0.08);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.7),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.02);
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
 
-        .glow-card::before {
+        /* Glow border */
+        .glass-card::before {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 22px;
-            padding: 2px;
-            background: conic-gradient(from 0deg, transparent, rgba(204, 0, 0, 0.12), rgba(204, 0, 0, 0.3), rgba(204, 0, 0, 0.12), transparent);
+            inset: -1px;
+            border-radius: 29px;
+            padding: 1px;
+            background: conic-gradient(from 0deg, transparent, rgba(204, 0, 0, 0.08), rgba(204, 0, 0, 0.25), rgba(204, 0, 0, 0.08), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            animation: borderGlow 4s ease-in-out infinite;
+            animation: borderPulse 4s ease-in-out infinite;
             pointer-events: none;
         }
-        @keyframes borderGlow {
+        @keyframes borderPulse {
             0%,
             100% {
-                opacity: 0.4;
+                opacity: 0.3;
             }
             50% {
                 opacity: 1;
             }
         }
 
-        .glow-card .glow-line {
+        .glass-card .glow-stripe {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #cc0000, #ff3333, #cc0000, transparent);
+            background: linear-gradient(90deg, transparent, #cc0000, #ff4444, #cc0000, transparent);
             background-size: 300% 100%;
-            animation: scanLine 3s linear infinite;
+            animation: stripeMove 3s linear infinite;
             opacity: 0.4;
             filter: blur(0.5px);
             pointer-events: none;
         }
-        @keyframes scanLine {
+        @keyframes stripeMove {
             0% {
                 background-position: -300% 0;
             }
@@ -256,12 +237,12 @@
             }
         }
 
-        /* ─── STEP DOTS ─── */
+        /* ─── STEP INDICATOR (DOTS) ─── */
         .step-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             flex-shrink: 0;
             position: relative;
             z-index: 2;
@@ -270,62 +251,41 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #1a1a22;
+            background: #26262e;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: default;
-            position: relative;
             border: 1px solid transparent;
             flex-shrink: 0;
         }
         .step-dots .dot.active {
             background: #cc0000;
-            box-shadow: 0 0 18px rgba(204, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
             transform: scale(1.25);
             border-color: rgba(204, 0, 0, 0.2);
         }
         .step-dots .dot.done {
             background: #cc0000;
-            opacity: 0.3;
-            transform: scale(0.75);
-        }
-        .step-dots .dot.active::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            border: 1px solid rgba(204, 0, 0, 0.12);
-            animation: dotGlow 2.4s ease-in-out infinite;
-        }
-        @keyframes dotGlow {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.3;
-            }
-            50% {
-                transform: scale(1.6);
-                opacity: 0.7;
-            }
+            opacity: 0.2;
+            transform: scale(0.7);
         }
 
         /* ─── TAB CONTENT ─── */
         .tab-content {
             display: none;
+            flex: 1;
+            flex-direction: column;
             position: relative;
             z-index: 2;
-            animation: tabFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            flex: 1;
-            overflow: hidden;
+            animation: tabSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .tab-content.active {
             display: flex;
-            flex-direction: column;
         }
 
-        @keyframes tabFade {
+        @keyframes tabSlide {
             0% {
                 opacity: 0;
-                transform: translateX(10px) scale(0.98);
+                transform: translateX(12px) scale(0.98);
             }
             100% {
                 opacity: 1;
@@ -340,23 +300,18 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 6px;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             flex-shrink: 0;
         }
-        .tab-header .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
         .tab-header .badge {
-            font-size: 8px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             background: rgba(204, 0, 0, 0.08);
             color: #cc0000;
-            padding: 2px 12px;
+            padding: 2px 14px;
             border-radius: 30px;
-            border: 1px solid rgba(204, 0, 0, 0.10);
+            border: 1px solid rgba(204, 0, 0, 0.08);
             font-weight: 600;
         }
         .tab-header .badge.muted {
@@ -369,99 +324,159 @@
             font-size: 20px;
             font-weight: 700;
             letter-spacing: -0.3px;
-            margin: 2px 0 0;
+            margin: 0 0 2px;
             flex-shrink: 0;
             line-height: 1.2;
+            color: #fff;
         }
         .tab-content h2 .accent {
             color: #cc0000;
-            text-shadow: 0 0 30px rgba(204, 0, 0, 0.10);
         }
         .tab-content .sub {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 8px;
-            padding-left: 12px;
-            border-left: 2px solid rgba(204, 0, 0, 0.25);
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 12px;
+            padding-left: 14px;
+            border-left: 2px solid rgba(204, 0, 0, 0.2);
             font-weight: 300;
             letter-spacing: 0.2px;
             flex-shrink: 0;
             line-height: 1.3;
         }
 
-        /* ─── TECH GRID (About) ─── */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px 18px;
-            background: rgba(255, 255, 255, 0.012);
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(204, 0, 0, 0.03);
-            margin-bottom: 8px;
-            flex-shrink: 0;
-        }
-        .tech-grid .item {
+        /* ─── NUMBERED SECTION (Privacy Shield Style) ─── */
+        .section-block {
             display: flex;
             flex-direction: column;
-            padding: 3px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            gap: 6px;
+            flex: 1;
+            justify-content: center;
+            padding: 2px 0;
         }
-        .tech-grid .item:last-child,
-        .tech-grid .item:nth-last-child(2) {
-            border-bottom: 0;
+        .section-item {
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: border-color 0.3s, background 0.3s;
         }
-        .tech-grid .item .label {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #555;
-            font-weight: 500;
+        .section-item:hover {
+            border-color: rgba(204, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.015);
         }
-        .tech-grid .item .value {
-            font-size: 13px;
-            font-weight: 500;
-            color: #e0e0e8;
-            margin-top: 0px;
-            line-height: 1.2;
-        }
-        .tech-grid .item .value.highlight {
+        .section-item .number {
+            font-size: 10px;
+            font-weight: 600;
             color: #cc0000;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        /* ─── INFO BOX ─── */
-        .info-box {
-            background: rgba(204, 0, 0, 0.02);
-            border-radius: 10px;
-            padding: 8px 14px;
-            border-left: 3px solid #cc0000;
-            border: 1px solid rgba(204, 0, 0, 0.04);
-            border-left-width: 3px;
-            flex-shrink: 0;
+        .section-item .number .line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.03);
         }
-        .info-box p {
+        .section-item .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e0e0e8;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .section-item .title .tag {
+            font-size: 10px;
+            font-weight: 400;
+            color: #cc0000;
+            background: rgba(204, 0, 0, 0.05);
+            padding: 0 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(204, 0, 0, 0.05);
+        }
+        .section-item .desc {
             font-size: 12px;
             line-height: 1.6;
-            color: #999;
+            color: #888;
         }
-        .info-box p strong {
-            color: #eee;
+        .section-item .desc code {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #bbb;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-family: 'Inter', monospace;
         }
-        .info-box p .accent-text {
-            color: #cc0000;
+        .section-item .desc strong {
+            color: #ccc;
+        }
+        .section-item .status-badge {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 600;
+            padding: 0 10px;
+            border-radius: 30px;
+            background: rgba(0, 170, 68, 0.06);
+            color: #00aa44;
+            border: 1px solid rgba(0, 170, 68, 0.06);
         }
 
-        /* ─── FEATURE PILLS ─── */
+        /* ─── STATUS ROW (Footer style) ─── */
+        .status-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 4px 0 0 4px;
+            padding: 6px 0 0 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
+        }
+        .status-row .item {
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .status-row .item .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00aa44;
+            box-shadow: 0 0 12px rgba(0, 170, 68, 0.15);
+            animation: pulseDot 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulseDot {
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .status-row .item strong {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        /* ─── FEATURE PILLS (for settings) ─── */
         .feature-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px 8px;
-            margin: 2px 0 6px;
+            gap: 4px 10px;
+            margin: 2px 0 8px;
             flex-shrink: 0;
         }
         .feature-pills span {
             background: rgba(255, 255, 255, 0.02);
-            padding: 3px 12px;
+            padding: 2px 14px;
             border-radius: 30px;
             font-size: 11px;
             border: 1px solid rgba(255, 255, 255, 0.03);
@@ -475,144 +490,31 @@
             font-size: 12px;
         }
 
-        /* ─── DESCRIPTION ROW (ultra compact) ─── */
-        .desc-row {
+        /* ─── RADIO GROUP (static) ─── */
+        .radio-group {
             display: flex;
-            align-items: flex-start;
-            gap: 8px 12px;
-            background: rgba(255, 255, 255, 0.012);
-            padding: 5px 12px;
-            border-radius: 10px;
-            margin-bottom: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            flex-shrink: 0;
-            transition: border-color 0.3s;
-        }
-        .desc-row:hover {
-            border-color: rgba(204, 0, 0, 0.06);
-        }
-        .desc-row .icon-box {
-            font-size: 16px;
-            min-width: 28px;
-            color: #cc0000;
-            opacity: 0.7;
-            margin-top: 1px;
-            flex-shrink: 0;
-        }
-        .desc-row .content {
-            flex: 1;
-            min-width: 0;
-        }
-        .desc-row .content .title {
-            font-size: 11px;
-            font-weight: 600;
-            color: #ccc;
-            letter-spacing: 0.2px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            gap: 12px;
             flex-wrap: wrap;
-        }
-        .desc-row .content .title .tag-value {
-            font-size: 10px;
-            font-weight: 400;
-            color: #cc0000;
-            background: rgba(204, 0, 0, 0.05);
-            padding: 0 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(204, 0, 0, 0.05);
-        }
-        .desc-row .content .description {
-            font-size: 11px;
-            line-height: 1.5;
-            color: #888;
-            margin-top: 1px;
-        }
-        .desc-row .content .description code {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            color: #bbb;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            font-family: 'Inter', monospace;
-        }
-        .desc-row .content .status-badge {
-            display: inline-block;
-            font-size: 9px;
-            font-weight: 600;
-            padding: 1px 10px;
-            border-radius: 30px;
-            background: rgba(0, 170, 68, 0.06);
-            color: #00aa44;
-            border: 1px solid rgba(0, 170, 68, 0.06);
-        }
-
-        /* ─── STATUS ROW ─── */
-        .status-row {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin: 4px 0 0 4px;
-            padding: 4px 0 0 4px;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            flex-shrink: 0;
-        }
-        .status-row .status-item {
-            font-size: 11px;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .status-row .status-item .dot-indicator {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #00aa44;
-            box-shadow: 0 0 12px rgba(0, 170, 68, 0.15);
-            animation: statusPulse 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-        @keyframes statusPulse {
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-        .status-row .status-item strong {
-            color: #ccc;
-            font-weight: 500;
-        }
-
-        /* ─── RADIO GROUP STATIC ─── */
-        .radio-group-static {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.012);
-            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 4px 14px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.02);
             margin-bottom: 6px;
             flex-shrink: 0;
         }
-        .radio-group-static span {
+        .radio-group span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             font-size: 12px;
             color: #999;
             padding: 2px 4px;
         }
-        .radio-group-static .active-option {
+        .radio-group .active {
             color: #cc0000;
         }
 
-        /* ─── PRIVACY GRID ─── */
+        /* ─── PRIVACY GRID (for tab 3) ─── */
         .privacy-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -621,7 +523,7 @@
             flex-shrink: 0;
         }
         .privacy-grid .pill {
-            background: rgba(255, 255, 255, 0.012);
+            background: rgba(255, 255, 255, 0.01);
             padding: 8px 12px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.02);
@@ -629,9 +531,6 @@
             align-items: center;
             gap: 10px;
             transition: border-color 0.3s;
-        }
-        .privacy-grid .pill:hover {
-            border-color: rgba(204, 0, 0, 0.06);
         }
         .privacy-grid .pill .icon {
             font-size: 18px;
@@ -662,7 +561,7 @@
             padding: 8px 14px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.02);
-            margin: 8px 0 6px;
+            margin: 6px 0 4px;
             transition: border-color 0.4s, background 0.4s;
             flex-shrink: 0;
         }
@@ -693,9 +592,9 @@
             background: linear-gradient(135deg, #cc0000, #990000);
             border: none;
             color: #fff;
-            padding: 10px 28px;
+            padding: 8px 24px;
             border-radius: 30px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -706,6 +605,7 @@
             box-shadow: 0 0 0 0 rgba(204, 0, 0, 0);
             flex-shrink: 0;
             align-self: flex-start;
+            text-transform: uppercase;
         }
         .confirm-btn.enabled {
             opacity: 1;
@@ -722,8 +622,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             flex-shrink: 0;
             position: relative;
@@ -733,7 +633,7 @@
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.04);
             color: #777;
-            padding: 6px 20px;
+            padding: 6px 22px;
             border-radius: 30px;
             font-size: 12px;
             font-weight: 600;
@@ -764,92 +664,92 @@
             font-size: 11px;
             color: #444;
             font-weight: 400;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
         }
 
-        /* ─── SCROLLBAR ─── */
-        .glow-card::-webkit-scrollbar {
-            width: 2px;
+        /* ─── PROTOCOL FOOTER ─── */
+        .protocol-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
         }
-        .glow-card::-webkit-scrollbar-track {
-            background: transparent;
+        .protocol-footer .version {
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 1px;
+            font-weight: 500;
         }
-        .glow-card::-webkit-scrollbar-thumb {
-            background: rgba(204, 0, 0, 0.2);
-            border-radius: 8px;
+        .protocol-footer .version span {
+            color: #cc0000;
         }
-        .glow-card {
-            overflow: hidden;
+        .protocol-footer .secure-badge {
+            font-size: 9px;
+            color: #00aa44;
+            background: rgba(0, 170, 68, 0.04);
+            padding: 2px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 170, 68, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .protocol-footer .secure-badge .dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #00aa44;
+            animation: pulseDot 2s ease-in-out infinite;
         }
 
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 700px) {
+        @media (max-width: 760px) {
             #tutorialContainer {
                 max-height: 100vh;
-                padding: 0;
             }
-            .glow-card {
-                padding: 12px 14px 10px;
-                border-radius: 16px;
-            }
-            .tech-grid {
-                grid-template-columns: 1fr;
-                padding: 8px 12px;
-                gap: 2px;
-            }
-            .tech-grid .item {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            }
-            .tech-grid .item:last-child {
-                border-bottom: 0;
+            .glass-card {
+                padding: 14px 16px 12px;
+                border-radius: 20px;
             }
             .privacy-grid {
                 grid-template-columns: 1fr;
                 gap: 4px;
             }
-            .desc-row {
-                padding: 4px 10px;
-                gap: 6px;
+            .section-item {
+                padding: 8px 12px;
             }
-            .desc-row .icon-box {
-                font-size: 14px;
-                min-width: 22px;
+            .section-item .title {
+                font-size: 13px;
             }
-            .desc-row .content .title {
-                font-size: 10px;
-            }
-            .desc-row .content .description {
-                font-size: 10px;
+            .section-item .desc {
+                font-size: 11px;
             }
             .tab-content h2 {
-                font-size: 17px;
+                font-size: 18px;
             }
             .nav-row .btn {
                 padding: 5px 14px;
                 font-size: 11px;
-            }
-            .glow-card .glow-line {
-                display: none;
-            }
-            .glow-card::before {
-                display: none;
             }
             .step-dots {
                 gap: 8px;
                 margin-bottom: 6px;
             }
             .step-dots .dot {
-                width: 6px;
-                height: 6px;
+                width: 7px;
+                height: 7px;
             }
             .feature-pills span {
                 font-size: 10px;
-                padding: 2px 10px;
+                padding: 1px 10px;
             }
-            .radio-group-static {
+            .radio-group {
                 padding: 3px 10px;
             }
-            .radio-group-static span {
+            .radio-group span {
                 font-size: 11px;
             }
             .privacy-grid .pill {
@@ -875,69 +775,60 @@
                 font-size: 11px;
             }
             .confirm-btn {
-                padding: 8px 20px;
-                font-size: 12px;
+                padding: 6px 16px;
+                font-size: 11px;
             }
             .status-row {
                 gap: 12px;
             }
-            .status-row .status-item {
+            .status-row .item {
                 font-size: 10px;
             }
-            .info-box p {
-                font-size: 11px;
-            }
-            .tech-grid .item .value {
-                font-size: 12px;
-            }
-            .loader-tech {
+            .loader-ring {
                 width: 80px;
                 height: 80px;
             }
-            .loader-tech .core {
+            .loader-ring .core-letter {
+                font-size: 24px;
+            }
+            .loader-brand h1 {
                 font-size: 20px;
-                inset: 16px;
             }
-            .loader-brand .brand-main {
-                font-size: 18px;
-            }
-            .loader-brand .brand-sub {
+            .protocol-footer .version {
                 font-size: 9px;
+            }
+            .protocol-footer .secure-badge {
+                font-size: 8px;
+                padding: 1px 10px;
             }
         }
 
         @media (max-width: 430px) {
-            .glow-card {
-                padding: 8px 10px 8px;
-                border-radius: 12px;
+            .glass-card {
+                padding: 10px 10px 8px;
+                border-radius: 16px;
             }
             .tab-content h2 {
-                font-size: 15px;
+                font-size: 16px;
             }
             .tab-content .sub {
                 font-size: 10px;
-                margin-bottom: 4px;
+                margin-bottom: 6px;
                 padding-left: 8px;
             }
-            .desc-row {
-                padding: 3px 8px;
+            .section-item {
+                padding: 6px 8px;
                 border-radius: 8px;
-                margin-bottom: 2px;
             }
-            .desc-row .content .description {
-                font-size: 9px;
+            .section-item .title {
+                font-size: 12px;
+            }
+            .section-item .desc {
+                font-size: 10px;
                 line-height: 1.4;
             }
-            .desc-row .content .title {
+            .section-item .number {
                 font-size: 9px;
-            }
-            .desc-row .content .title .tag-value {
-                font-size: 8px;
-                padding: 0 6px;
-            }
-            .desc-row .icon-box {
-                font-size: 12px;
-                min-width: 18px;
             }
             .nav-row .btn {
                 padding: 4px 12px;
@@ -946,28 +837,13 @@
             .nav-row .step-counter {
                 font-size: 10px;
             }
-            .step-dots {
-                gap: 6px;
-                margin-bottom: 4px;
-            }
             .step-dots .dot {
-                width: 5px;
-                height: 5px;
-            }
-            .tech-grid {
-                padding: 6px 10px;
-                gap: 1px;
-                margin-bottom: 4px;
-            }
-            .tech-grid .item .value {
-                font-size: 11px;
-            }
-            .tech-grid .item .label {
-                font-size: 7px;
+                width: 6px;
+                height: 6px;
             }
             .feature-pills span {
                 font-size: 9px;
-                padding: 1px 8px;
+                padding: 0 8px;
             }
             .privacy-grid .pill .info {
                 font-size: 10px;
@@ -979,26 +855,9 @@
                 font-size: 10px;
             }
             .confirm-btn {
-                padding: 6px 16px;
-                font-size: 11px;
+                padding: 5px 14px;
+                font-size: 10px;
             }
-        }
-
-        /* ─── FLEX UTILITY ─── */
-        .flex-1 {
-            flex: 1;
-        }
-        .flex-shrink-0 {
-            flex-shrink: 0;
-        }
-        .gap-1 {
-            gap: 4px;
-        }
-        .mt-auto {
-            margin-top: auto;
-        }
-        .mb-auto {
-            margin-bottom: auto;
         }
     </style>
 </head>
@@ -1007,27 +866,25 @@
 
     <!-- ─── LOADING SCREEN ─── -->
     <div id="loadingScreen">
-        <div class="loader-tech">
-            <div class="ring-outer"></div>
-            <div class="ring-mid"></div>
-            <div class="core">V</div>
-            <svg class="progress-ring" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" id="progressCircle" />
-            </svg>
+        <div class="loader-ring">
+            <div class="trace"></div>
+            <div class="trace2"></div>
+            <div class="orb"></div>
+            <div class="core-letter">V</div>
         </div>
         <div class="loader-brand">
-            <div class="brand-main">VAJIRA MD</div>
-            <div class="brand-sub">LITE · secure messenger</div>
+            <h1>VAJIRA MD</h1>
+            <p>LITE · secure protocol</p>
         </div>
         <div class="loader-percent" id="percentText">0%</div>
     </div>
 
     <!-- ─── TUTORIAL CONTAINER ─── -->
     <div id="tutorialContainer">
-        <div class="glow-card">
-            <div class="glow-line"></div>
+        <div class="glass-card">
+            <div class="glow-stripe"></div>
 
-            <!-- step dots -->
+            <!-- Step dots -->
             <div class="step-dots" id="stepDots">
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
@@ -1036,180 +893,184 @@
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 0 : ABOUT -->
+            <!-- TAB 0 : ABOUT (BOT PROFILE) -->
             <!-- ============================================================ -->
             <div class="tab-content active" data-tab="0">
                 <div class="tab-header">
-                    <div class="badge-group">
-                        <span class="badge">✦ bot info</span>
+                    <div>
+                        <span class="badge">✦ bot profile</span>
                         <span class="badge muted">v2.4.0</span>
                         <span class="badge muted">stable</span>
                     </div>
                 </div>
-                <h2>About <span class="accent">Vajira MD</span></h2>
-                <div class="sub">Next‑generation WhatsApp automation engine</div>
+                <h2>Core <span class="accent">Identity</span></h2>
+                <div class="sub">Engine specifications &amp; developer profile</div>
 
-                <div class="tech-grid">
-                    <div class="item"><span class="label">Bot Name</span><span class="value highlight">Vajira MD</span></div>
-                    <div class="item"><span class="label">Developer</span><span class="value">Vajira Rathnayaka</span></div>
-                    <div class="item"><span class="label">Age</span><span class="value">23</span></div>
-                    <div class="item"><span class="label">Village</span><span class="value">Balangoda</span></div>
-                    <div class="item"><span class="label">Framework</span><span class="value">Node.js · Baileys</span></div>
-                    <div class="item"><span class="label">License</span><span class="value">MIT · open source</span></div>
+                <div class="section-block">
+                    <div class="section-item">
+                        <div class="number">01. <span class="line"></span></div>
+                        <div class="title">Developer &amp; Origin <span class="tag">Vajira MD</span></div>
+                        <div class="desc">
+                            <strong>Vajira Rathnayaka</strong> · 23 years · Balangoda<br />
+                            Built with <strong>Node.js</strong> &amp; <strong>Baileys</strong> framework.
+                        </div>
+                    </div>
+                    <div class="section-item">
+                        <div class="number">02. <span class="line"></span></div>
+                        <div class="title">License &amp; Distribution</div>
+                        <div class="desc">
+                            Open source under <strong>MIT License</strong>.<br />
+                            Free to use, modify, and distribute with attribution.
+                        </div>
+                    </div>
+                    <div class="section-item" style="border-color:rgba(204,0,0,0.03);">
+                        <div class="number">03. <span class="line"></span></div>
+                        <div class="title">System Status <span class="status-badge">● Operational</span></div>
+                        <div class="desc">
+                            All systems nominal. <strong>99.9%</strong> uptime guaranteed.<br />
+                            Last deployment: <strong>June 26, 2026</strong>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="info-box">
-                    <p>
-                        <strong>⚡ Vajira MD</strong> is a high‑performance WhatsApp bot built for
-                        <strong>smart automation</strong>, media sharing, and real‑time messaging.
-                        Engineered with precision by <span class="accent-text">Vajira Rathnayaka</span>
-                        — lightweight, ultrafast, and production‑ready.
-                    </p>
-                </div>
-                <div class="flex-1"></div>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 1 : SETTINGS (Descriptive) -->
+            <!-- TAB 1 : SETTINGS (SECURE CONNECTION) -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="1">
                 <div class="tab-header">
-                    <div class="badge-group">
-                        <span class="badge">⚙️ connection</span>
-                        <span class="badge muted">OTP · secure</span>
+                    <div>
+                        <span class="badge">⚙️ secure connection</span>
+                        <span class="badge muted">OTP · encrypted</span>
                     </div>
                 </div>
-                <h2>Bot <span class="accent">Settings</span></h2>
-                <div class="sub">How the secure connection is established</div>
+                <h2>Authentication <span class="accent">Protocol</span></h2>
+                <div class="sub">Session management &amp; verification</div>
 
                 <div class="feature-pills">
                     <span><span class="icon">🎤</span> Auto‑Voice</span>
                     <span><span class="icon">📲</span> OTP Login</span>
                     <span><span class="icon">🔄</span> Multi‑Session</span>
-                    <span><span class="icon">🔐</span> End‑to‑end encrypted</span>
+                    <span><span class="icon">🔐</span> Encrypted</span>
                 </div>
 
-                <div class="desc-row">
-                    <div class="icon-box">📞</div>
-                    <div class="content">
-                        <div class="title">Connected Number <span class="tag-value">+94 70 123 4567</span></div>
-                        <div class="description">Primary phone number linked to your WhatsApp. An <strong>OTP</strong> is sent here to verify ownership and establish a secure session.</div>
+                <div class="section-block">
+                    <div class="section-item">
+                        <div class="number">01. <span class="line"></span></div>
+                        <div class="title">Primary Number <span class="tag">+94 70 123 4567</span></div>
+                        <div class="desc">
+                            The verified phone number linked to your WhatsApp account.<br />
+                            An <strong>OTP</strong> is required to establish a secure session.
+                        </div>
                     </div>
-                </div>
-
-                <div class="desc-row">
-                    <div class="icon-box">🔑</div>
-                    <div class="content">
-                        <div class="title">OTP Code <span class="tag-value">862090</span></div>
-                        <div class="description">Time‑sensitive 6‑digit code received via WhatsApp. Used to authenticate the bot session, never stored after verification.</div>
+                    <div class="section-item">
+                        <div class="number">02. <span class="line"></span></div>
+                        <div class="title">Verification Code <span class="tag">862090</span></div>
+                        <div class="desc">
+                            Time‑sensitive 6‑digit code received via WhatsApp.<br />
+                            Used to authenticate the bot session — <strong>never stored</strong>.
+                        </div>
                     </div>
-                </div>
-
-                <div class="desc-row" style="border-color:rgba(0,170,68,0.04);">
-                    <div class="icon-box">🔐</div>
-                    <div class="content">
+                    <div class="section-item" style="border-color:rgba(0,170,68,0.04);">
+                        <div class="number">03. <span class="line"></span></div>
                         <div class="title">Session Status <span class="status-badge">● Active</span></div>
-                        <div class="description">Encrypted connection actively synced. Automatically refreshes every 2 minutes to maintain a stable link with WhatsApp servers.</div>
+                        <div class="desc">
+                            Encrypted connection actively synced.<br />
+                            Auto‑refresh every <strong>2 minutes</strong> to maintain stability.
+                        </div>
                     </div>
                 </div>
 
                 <div class="status-row">
-                    <span class="status-item"><span class="dot-indicator"></span> Session: <strong>Active</strong></span>
-                    <span class="status-item">🔄 Last sync: <strong>2 min ago</strong></span>
-                    <span class="status-item">📡 Status: <strong style="color:#00aa44;">connected</strong></span>
+                    <span class="item"><span class="dot"></span> Session: <strong>Active</strong></span>
+                    <span class="item">🔄 Last sync: <strong>2 min ago</strong></span>
+                    <span class="item">📡 Status: <strong style="color:#00aa44;">connected</strong></span>
                 </div>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 2 : AUTO SENDER (Descriptive, compact) -->
+            <!-- TAB 2 : AUTO SENDER (CONTENT DELIVERY) -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="2">
                 <div class="tab-header">
-                    <div class="badge-group">
-                        <span class="badge">📤 auto sender</span>
+                    <div>
+                        <span class="badge">📤 content delivery</span>
                         <span class="badge muted">song · tiktok</span>
                     </div>
                 </div>
                 <h2>Auto <span class="accent">Sender</span></h2>
-                <div class="sub">How content is selected and delivered</div>
+                <div class="sub">Payload configuration &amp; routing</div>
 
-                <div class="radio-group-static">
-                    <span class="active-option">🎵 Audio <span style="color:#555; font-weight:400;">(selected)</span></span>
+                <div class="radio-group">
+                    <span class="active">🎵 Audio <span style="color:#555; font-weight:400;">(selected)</span></span>
                     <span>🎬 TikTok</span>
                 </div>
 
-                <div class="desc-row">
-                    <div class="icon-box">📍</div>
-                    <div class="content">
-                        <div class="title">JID / Location <span class="tag-value">94701234567@s.whatsapp.net</span></div>
-                        <div class="description">Unique WhatsApp ID of the recipient. Messages and media are delivered directly to this address. Example: <code>94701234567@s.whatsapp.net</code></div>
-                    </div>
-                </div>
-
-                <div class="desc-row">
-                    <div class="icon-box">✏️</div>
-                    <div class="content">
-                        <div class="title">Caption <span class="tag-value">✨ Check this out!</span></div>
-                        <div class="description">Custom text message accompanying media. Supports emojis and dynamic placeholders for personalization.</div>
-                    </div>
-                </div>
-
-                <!-- Two columns: Audio Quality + Interval -->
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
-                    <div class="desc-row" style="margin-bottom:0;">
-                        <div class="icon-box">🎚️</div>
-                        <div class="content">
-                            <div class="title">Audio Quality <span class="tag-value">Medium</span></div>
-                            <div class="description">Low for speed, Medium for balance, High for fidelity.</div>
+                <div class="section-block" style="gap:4px;">
+                    <div class="section-item">
+                        <div class="number">01. <span class="line"></span></div>
+                        <div class="title">Target JID <span class="tag">94701234567@s.whatsapp.net</span></div>
+                        <div class="desc">
+                            Unique WhatsApp ID of the recipient.<br />
+                            Example: <code>94701234567@s.whatsapp.net</code>
                         </div>
                     </div>
-                    <div class="desc-row" style="margin-bottom:0;">
-                        <div class="icon-box">⏱️</div>
-                        <div class="content">
-                            <div class="title">Interval <span class="tag-value">1 min</span></div>
-                            <div class="description">Time gap between messages. Prevents rate‑limiting.</div>
+                    <div class="section-item">
+                        <div class="number">02. <span class="line"></span></div>
+                        <div class="title">Payload &amp; Format</div>
+                        <div class="desc">
+                            <strong>Caption:</strong> ✨ Check this out!<br />
+                            <strong>Quality:</strong> Medium · <strong>Interval:</strong> 1 min
                         </div>
                     </div>
-                </div>
-
-                <div class="desc-row">
-                    <div class="icon-box">🏷️</div>
-                    <div class="content">
-                        <div class="title">Keywords <span class="tag-value">music, viral, trending</span></div>
-                        <div class="description">Smart filtering — only content matching these comma‑separated tags will be processed and sent.</div>
+                    <div class="section-item">
+                        <div class="number">03. <span class="line"></span></div>
+                        <div class="title">Smart Filter <span class="tag">music, viral, trending</span></div>
+                        <div class="desc">
+                            Only content matching these <strong>keywords</strong> will be processed.<br />
+                            Prevents spam and ensures relevance.
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- ============================================================ -->
-            <!-- TAB 3 : PRIVACY & TERMS -->
+            <!-- TAB 3 : PRIVACY & TERMS (PRIVACY SHIELD) -->
             <!-- ============================================================ -->
             <div class="tab-content" data-tab="3">
                 <div class="tab-header">
-                    <div class="badge-group">
-                        <span class="badge">🛡️ privacy</span>
+                    <div>
+                        <span class="badge">🛡️ privacy shield</span>
                         <span class="badge muted">ultrafast · anti‑ban</span>
                     </div>
                 </div>
-                <h2>Security &amp; <span class="accent">Terms</span></h2>
-                <div class="sub">Your data is protected — always</div>
+                <h2>System <span class="accent">Protection</span></h2>
+                <div class="sub">Data policy &amp; security guarantees</div>
 
                 <div class="privacy-grid">
                     <div class="pill"><span class="icon">🚀</span><div class="info"><strong>Ultrafast</strong><small>sub‑200ms response</small></div></div>
-                    <div class="pill"><span class="icon">🛡️</span><div class="info"><strong>Anti‑Ban</strong><small>smart rotation &amp; delays</small></div></div>
-                    <div class="pill"><span class="icon">🔒</span><div class="info"><strong>End‑to‑End</strong><small>encrypted messages</small></div></div>
-                    <div class="pill"><span class="icon">⚡</span><div class="info"><strong>Always On</strong><small>99.9% uptime SLA</small></div></div>
+                    <div class="pill"><span class="icon">🛡️</span><div class="info"><strong>Anti‑Ban</strong><small>smart rotation</small></div></div>
+                    <div class="pill"><span class="icon">🔒</span><div class="info"><strong>End‑to‑End</strong><small>encrypted</small></div></div>
+                    <div class="pill"><span class="icon">⚡</span><div class="info"><strong>Always On</strong><small>99.9% uptime</small></div></div>
                     <div class="pill" style="grid-column:1/-1;"><span class="icon">🧠</span><div class="info"><strong>Smart Queue</strong><small>intelligent routing &amp; throttling</small></div></div>
                 </div>
 
-                <div class="info-box" style="border-left-color:#555;">
-                    <p style="font-size:12px; color:#888; line-height:1.7;">
-                        By using <strong style="color:#ccc;">Vajira MD</strong> you agree to our
-                        <strong style="color:#ccc;">Privacy Policy</strong> and
-                        <strong style="color:#ccc;">Terms of Service</strong>.
-                        Your data is never shared with third parties.
-                        <span style="color:#555;">— Last updated: June 2026</span>
-                    </p>
+                <div class="section-block" style="gap:4px;">
+                    <div class="section-item">
+                        <div class="number">01. <span class="line"></span></div>
+                        <div class="title">Intelligence Gathering</div>
+                        <div class="desc">
+                            We process your unique identifier to synchronize your commands.<br />
+                            <strong>No private chat data</strong> is stored beyond the active session.
+                        </div>
+                    </div>
+                    <div class="section-item">
+                        <div class="number">02. <span class="line"></span></div>
+                        <div class="title">Zero Trace Policy</div>
+                        <div class="desc">
+                            Media files processed by the system are automatically <strong>vaporized</strong> from our cache every <strong>12 hours</strong>.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="accept-box" id="acceptBox">
@@ -1220,7 +1081,12 @@
                     </label>
                 </div>
 
-                <button class="confirm-btn" id="confirmBtn">✔ Confirm &amp; Open Dashboard</button>
+                <button class="confirm-btn" id="confirmBtn">✔ Accept &amp; Proceed</button>
+
+                <div class="protocol-footer">
+                    <div class="version">Protocol <span>V4.0.1</span> — Secure Interface</div>
+                    <div class="secure-badge"><span class="dot"></span> Encrypted</div>
+                </div>
             </div>
 
             <!-- ─── NAVIGATION ─── -->
@@ -1241,7 +1107,6 @@
             'use strict';
 
             const loadingScreen = document.getElementById('loadingScreen');
-            const progressCircle = document.getElementById('progressCircle');
             const percentText = document.getElementById('percentText');
             const tutorial = document.getElementById('tutorialContainer');
 
@@ -1257,15 +1122,12 @@
 
             let currentTab = 0;
             const totalTabs = tabs.length;
-            const circumference = 2 * Math.PI * 46;
 
             // ── LOADING ──
             let progress = 0;
             const loadInterval = setInterval(() => {
                 progress += Math.floor(Math.random() * 5) + 2;
                 if (progress > 100) progress = 100;
-                const offset = circumference - (progress / 100) * circumference;
-                progressCircle.style.strokeDashoffset = offset;
                 percentText.textContent = progress + '%';
                 if (progress >= 100) {
                     clearInterval(loadInterval);
@@ -1305,7 +1167,7 @@
                     if (acceptCheck.checked) {
                         window.location.href = '/dashboard.html';
                     } else {
-                        acceptBox.style.borderColor = 'rgba(204,0,0,0.25)';
+                        acceptBox.style.borderColor = 'rgba(204,0,0,0.2)';
                         acceptBox.style.background = 'rgba(204,0,0,0.03)';
                         setTimeout(() => {
                             acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
@@ -1330,7 +1192,7 @@
                 if (acceptCheck.checked) {
                     window.location.href = '/dashboard.html';
                 } else {
-                    acceptBox.style.borderColor = 'rgba(204,0,0,0.25)';
+                    acceptBox.style.borderColor = 'rgba(204,0,0,0.2)';
                     acceptBox.style.background = 'rgba(204,0,0,0.03)';
                     setTimeout(() => {
                         acceptBox.style.borderColor = 'rgba(255,255,255,0.02)';
@@ -1351,10 +1213,9 @@
                 }
             });
 
-            progressCircle.style.strokeDashoffset = circumference;
             goToTab(0);
 
-            console.log('🔴 VAJIRA MD · compact tech onboarding loaded');
+            console.log('🔴 VAJIRA MD · Privacy Shield style loaded');
         })();
     </script>
 
